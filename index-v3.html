@@ -1,1 +1,1272 @@
-#
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHC Digital — Diseño Web con IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f2ede6;
+      --white: #faf8f4;
+      --ink: #0f0e0c;
+      --ink2: #1e1c18;
+      --mid: #7a7268;
+      --line: #d8d2c8;
+      --red: #e8321a;
+      --red-pale: #fdf0ed;
+      --blue: #1a3ae8;
+      --blue-pale: #edf0fd;
+      --mono: 'Space Mono', monospace;
+      --display: 'Bebas Neue', sans-serif;
+      --body: 'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--body);
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 0 0 3rem;
+      background: var(--ink);
+      height: 56px;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      text-decoration: none;
+    }
+
+    .nav-logo img { height: 28px; filter: brightness(0) invert(1); }
+
+    .logo-type {
+      font-family: var(--display);
+      font-size: 1.5rem;
+      color: var(--white);
+      letter-spacing: 0.08em;
+    }
+
+    .logo-type span { color: var(--red); }
+
+    .nav-links {
+      display: flex;
+      align-items: stretch;
+      height: 100%;
+      list-style: none;
+    }
+
+    .nav-links li { display: flex; }
+
+    .nav-links a {
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #666;
+      text-decoration: none;
+      border-left: 1px solid #222;
+      transition: color 0.2s, background 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--white); background: #1a1a1a; }
+
+    .nav-cta {
+      background: var(--red) !important;
+      color: var(--white) !important;
+      border-left: none !important;
+      font-weight: 700 !important;
+      padding: 0 2rem !important;
+    }
+
+    .nav-cta:hover { background: #c82a14 !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      padding-top: 56px;
+      display: grid;
+      grid-template-rows: 1fr auto;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-main {
+      display: grid;
+      grid-template-columns: 5fr 3fr;
+      min-height: calc(100vh - 56px - 100px);
+    }
+
+    .hero-text-block {
+      padding: 5rem 3rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      border-right: 1px solid var(--line);
+      position: relative;
+    }
+
+    .hero-tag {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 2rem;
+      animation: drop 0.6s ease both;
+    }
+
+    .hero-h1 {
+      font-family: var(--display);
+      font-size: clamp(5rem, 11vw, 10rem);
+      line-height: 0.88;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+      animation: drop 0.6s 0.05s ease both;
+    }
+
+    .hero-h1 .outline {
+      -webkit-text-stroke: 2px var(--ink);
+      color: transparent;
+    }
+
+    .hero-h1 .red { color: var(--red); }
+
+    .hero-sub-line {
+      font-family: var(--display);
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      letter-spacing: 0.05em;
+      color: var(--mid);
+      margin-bottom: 3rem;
+      animation: drop 0.6s 0.1s ease both;
+    }
+
+    .hero-desc {
+      font-size: 1rem;
+      color: var(--mid);
+      line-height: 1.7;
+      max-width: 460px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+      animation: drop 0.6s 0.15s ease both;
+    }
+
+    .hero-desc strong { color: var(--ink); font-weight: 600; }
+
+    .hero-btns {
+      display: flex;
+      gap: 0;
+      animation: drop 0.6s 0.2s ease both;
+    }
+
+    .btn-fill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--red);
+      color: var(--white);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.2s;
+    }
+
+    .btn-fill:hover { background: #c82a14; transform: translateY(-2px); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: transparent;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      border: 1px solid var(--ink);
+      border-left: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-outline:hover { background: var(--ink); color: var(--white); }
+
+    /* ── HERO SIDE ── */
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      background: var(--ink);
+      animation: drop 0.8s 0.25s ease both;
+    }
+
+    .side-stat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 2rem 2.5rem;
+      border-bottom: 1px solid #222;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .side-stat::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--red);
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.4s ease;
+    }
+
+    .side-stat:hover::before { transform: scaleY(1); }
+
+    .side-num {
+      font-family: var(--display);
+      font-size: 3.5rem;
+      color: var(--white);
+      line-height: 1;
+      letter-spacing: 0.04em;
+    }
+
+    .side-num .unit { font-size: 1.5rem; color: var(--red); }
+
+    .side-label {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #555;
+      margin-top: 0.4rem;
+    }
+
+    .side-desc {
+      font-size: 0.78rem;
+      color: #444;
+      margin-top: 0.3rem;
+      font-weight: 300;
+    }
+
+    /* ── HERO BOTTOM TICKER ── */
+    .hero-ticker {
+      background: var(--red);
+      overflow: hidden;
+      height: 44px;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-track {
+      display: flex;
+      gap: 0;
+      width: max-content;
+      animation: ticker 22s linear infinite;
+    }
+
+    .ticker-item {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 0 2rem;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.9);
+      white-space: nowrap;
+    }
+
+    .ticker-sep {
+      width: 4px;
+      height: 4px;
+      background: rgba(255,255,255,0.4);
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    @keyframes ticker {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    @keyframes drop {
+      from { opacity: 0; transform: translateY(-16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 6rem 3rem; }
+
+    .mono-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--red);
+      margin-bottom: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .mono-label::before {
+      content: '';
+      display: inline-block;
+      width: 20px;
+      height: 1px;
+      background: var(--red);
+    }
+
+    .big-title {
+      font-family: var(--display);
+      font-size: clamp(3rem, 6vw, 5.5rem);
+      line-height: 0.9;
+      letter-spacing: 0.03em;
+      color: var(--ink);
+    }
+
+    .big-title .ghost {
+      -webkit-text-stroke: 1.5px var(--ink);
+      color: transparent;
+    }
+
+    /* ── PROCESO ── */
+    #proceso {
+      background: var(--white);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .proc-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border: 1px solid var(--line);
+      margin-top: 4rem;
+    }
+
+    .proc-step {
+      padding: 3rem 2rem;
+      border-right: 1px solid var(--line);
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .proc-step:last-child { border-right: none; }
+    .proc-step.visible { opacity: 1; transform: translateY(0); }
+
+    .proc-step::after {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--line);
+      transition: background 0.3s;
+    }
+
+    .proc-step:hover::after { background: var(--red); }
+
+    .proc-n {
+      font-family: var(--display);
+      font-size: 4rem;
+      color: var(--line);
+      line-height: 1;
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+    }
+
+    .proc-chip {
+      display: inline-block;
+      background: var(--red);
+      color: white;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .proc-title {
+      font-family: var(--display);
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+
+    .proc-desc {
+      font-size: 0.875rem;
+      color: var(--mid);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── SERVICIOS ── */
+    #servicios {
+      position: relative;
+    }
+
+    .serv-layout {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 5rem;
+      align-items: start;
+      margin-top: 4rem;
+    }
+
+    .serv-sticky {
+      position: sticky;
+      top: 80px;
+    }
+
+    .serv-sticky .big-title { margin-bottom: 1.5rem; }
+
+    .serv-sticky p {
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .serv-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+
+    .serv-card {
+      background: var(--bg);
+      padding: 2.5rem 2rem;
+      transition: background 0.25s;
+      opacity: 0;
+      transform: scale(0.97);
+      transition: opacity 0.4s ease, transform 0.4s ease, background 0.25s;
+    }
+
+    .serv-card.visible { opacity: 1; transform: scale(1); }
+    .serv-card:hover { background: var(--white); }
+
+    .serv-icon {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+    }
+
+    .serv-title {
+      font-family: var(--display);
+      font-size: 1.4rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      margin-bottom: 0.75rem;
+    }
+
+    .serv-desc {
+      font-size: 0.875rem;
+      color: var(--mid);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── PRECIOS ── */
+    #precios {
+      background: var(--ink);
+      color: var(--white);
+    }
+
+    #precios .mono-label { color: var(--red); }
+    #precios .mono-label::before { background: var(--red); }
+    #precios .big-title { color: var(--white); }
+    #precios .big-title .ghost { -webkit-text-stroke-color: #444; }
+
+    .price-layout {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #222;
+      border: 1px solid #222;
+      margin-top: 4rem;
+    }
+
+    .p-card {
+      background: #141310;
+      padding: 3rem 2.5rem;
+      position: relative;
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .p-card.visible { opacity: 1; transform: translateY(0); }
+
+    .p-card.hot {
+      background: var(--red);
+    }
+
+    .p-tag {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #555;
+      margin-bottom: 2rem;
+    }
+
+    .p-card.hot .p-tag { color: rgba(255,255,255,0.55); }
+
+    .p-price {
+      font-family: var(--display);
+      font-size: 5rem;
+      line-height: 1;
+      letter-spacing: 0.02em;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+
+    .p-price .sym {
+      font-size: 1.8rem;
+      vertical-align: super;
+      color: #555;
+    }
+
+    .p-card.hot .p-price .sym { color: rgba(255,255,255,0.5); }
+
+    .p-once {
+      font-family: var(--mono);
+      font-size: 0.62rem;
+      letter-spacing: 0.1em;
+      color: #555;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+    }
+
+    .p-card.hot .p-once { color: rgba(255,255,255,0.4); }
+
+    .p-items {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .p-items li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: #777;
+      font-weight: 300;
+    }
+
+    .p-card.hot .p-items li { color: rgba(255,255,255,0.75); }
+    .p-items li.no { color: #333; text-decoration: line-through; }
+    .p-card.hot .p-items li.no { color: rgba(255,255,255,0.2); }
+
+    .p-items li::before {
+      content: '›';
+      color: var(--red);
+      font-weight: 700;
+      flex-shrink: 0;
+      font-size: 1rem;
+      line-height: 1.2;
+    }
+
+    .p-card.hot .p-items li::before { color: rgba(255,255,255,0.5); }
+    .p-items li.no::before { color: #333; }
+
+    .p-btn {
+      display: block;
+      text-align: center;
+      padding: 0.9rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid #333;
+      color: #666;
+      transition: all 0.2s;
+    }
+
+    .p-btn:hover { border-color: var(--red); color: var(--red); }
+
+    .p-btn-hot {
+      display: block;
+      text-align: center;
+      padding: 0.9rem;
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: var(--white);
+      color: var(--red);
+      transition: opacity 0.2s;
+    }
+
+    .p-btn-hot:hover { opacity: 0.9; }
+
+    /* ── TESTIMONIOS ── */
+    #testimonios {
+      background: var(--white);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .testi-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--line);
+      margin-top: 4rem;
+    }
+
+    .t-card {
+      padding: 3rem 2.5rem;
+      border-right: 1px solid var(--line);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .t-card:last-child { border-right: none; }
+    .t-card.visible { opacity: 1; transform: translateY(0); }
+
+    .t-mark {
+      font-family: var(--display);
+      font-size: 5rem;
+      color: var(--red);
+      line-height: 0.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .t-text {
+      font-size: 0.95rem;
+      color: var(--ink2);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .t-rule {
+      width: 30px;
+      height: 2px;
+      background: var(--red);
+      margin-bottom: 1rem;
+    }
+
+    .t-name {
+      font-family: var(--mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+
+    .t-role {
+      font-size: 0.78rem;
+      color: var(--mid);
+      margin-top: 0.2rem;
+    }
+
+    /* ── CTA ── */
+    #contacto {
+      background: var(--bg);
+    }
+
+    .cta-wrapper {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--line);
+    }
+
+    .cta-left-block {
+      padding: 4rem 3rem;
+      border-right: 1px solid var(--line);
+    }
+
+    .cta-left-block .big-title { margin: 1.5rem 0 1.5rem; }
+
+    .cta-left-block p {
+      font-size: 0.95rem;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 2.5rem;
+      font-weight: 300;
+    }
+
+    .cta-form {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .f-field {
+      border-bottom: 1px solid var(--line);
+      padding: 1rem 0;
+      display: grid;
+      grid-template-columns: 110px 1fr;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .f-label {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--mid);
+    }
+
+    .f-input {
+      background: transparent;
+      border: none;
+      color: var(--ink);
+      font-family: var(--body);
+      font-size: 0.95rem;
+      font-weight: 300;
+      outline: none;
+      width: 100%;
+    }
+
+    .f-input::placeholder { color: var(--line); }
+
+    .f-submit {
+      margin-top: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
+    .f-btn {
+      background: var(--red);
+      color: var(--white);
+      border: none;
+      font-family: var(--mono);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .f-btn:hover { background: #c82a14; }
+
+    .f-note {
+      font-size: 0.75rem;
+      color: var(--mid);
+      padding: 0 1.5rem;
+    }
+
+    .cta-right-block {
+      background: var(--ink);
+      padding: 4rem 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .why-title {
+      font-family: var(--display);
+      font-size: 2.5rem;
+      letter-spacing: 0.05em;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 3rem;
+    }
+
+    .why-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .why-item {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      padding: 1.5rem 0;
+      border-bottom: 1px solid #222;
+    }
+
+    .why-item:last-child { border-bottom: none; }
+
+    .why-icon {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: var(--red);
+      letter-spacing: 0.05em;
+      padding-top: 0.2rem;
+    }
+
+    .why-text {
+      font-size: 0.875rem;
+      color: #888;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    .why-text strong { color: var(--white); font-weight: 500; display: block; margin-bottom: 0.2rem; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink);
+      border-top: 1px solid #222;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: 1.5rem 3rem;
+      gap: 2rem;
+    }
+
+    .footer-brand {
+      font-family: var(--display);
+      font-size: 1.4rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+    }
+
+    .footer-brand span { color: var(--red); }
+
+    .footer-copy {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: #444;
+      text-align: center;
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: flex-end;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-links a {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #444;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-links a:hover { color: var(--white); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 0 0 0 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .hero-main { grid-template-columns: 1fr; }
+      .hero-side { display: none; }
+      .hero-text-block { border-right: none; }
+      .proc-grid { grid-template-columns: 1fr 1fr; }
+      .proc-step:nth-child(2) { border-right: none; }
+      .proc-step:nth-child(3) { border-right: none; border-top: 1px solid var(--line); }
+      .proc-step:nth-child(4) { border-top: 1px solid var(--line); }
+      .serv-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .serv-sticky { position: static; }
+      .serv-grid { grid-template-columns: 1fr; }
+      .price-layout { grid-template-columns: 1fr; }
+      .testi-layout { grid-template-columns: 1fr; }
+      .t-card { border-right: none; border-bottom: 1px solid var(--line); }
+      .t-card:last-child { border-bottom: none; }
+      .cta-wrapper { grid-template-columns: 1fr; }
+      .cta-left-block { border-right: none; border-bottom: 1px solid var(--line); }
+      footer { grid-template-columns: 1fr; padding: 1.5rem; gap: 1rem; }
+      .footer-copy { text-align: left; }
+      .footer-links { justify-content: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <!-- Replace with: <img src="shcdigital.png" alt="SHC Digital"> -->
+      <span class="logo-type">SHC<span>.</span>DIGITAL</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a href="#contacto" class="nav-cta">→ Empezar</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-main">
+      <div class="hero-text-block">
+        <div class="hero-tag">// diseño web con inteligencia artificial</div>
+        <h1 class="hero-h1">
+          TU<br/>
+          <span class="outline">SITIO</span><br/>
+          <span class="red">WEB</span>
+        </h1>
+        <div class="hero-sub-line">Sin costos mensuales. Para siempre.</div>
+        <p class="hero-desc">
+          Diseñamos tu presencia profesional online con IA y la publicamos en
+          <strong>GitHub Pages</strong>, hosting gratuito de nivel mundial.
+          Pagás una sola vez. Tu sitio online para siempre.
+        </p>
+        <div class="hero-btns">
+          <a href="#contacto" class="btn-fill">→ Quiero mi sitio</a>
+          <a href="#proceso" class="btn-outline">Ver proceso</a>
+        </div>
+      </div>
+      <div class="hero-side">
+        <div class="side-stat">
+          <div class="side-num">$<span class="unit">0</span></div>
+          <div class="side-label">Hosting mensual</div>
+          <div class="side-desc">GitHub Pages · Infraestructura Microsoft</div>
+        </div>
+        <div class="side-stat">
+          <div class="side-num">72<span class="unit">hs</span></div>
+          <div class="side-label">Entrega promedio</div>
+          <div class="side-desc">Desde briefing hasta sitio online</div>
+        </div>
+        <div class="side-stat">
+          <div class="side-num">1<span class="unit">×</span></div>
+          <div class="side-label">Pago único</div>
+          <div class="side-desc">Sin suscripciones ni renovaciones</div>
+        </div>
+        <div class="side-stat" style="flex:0.5">
+          <div class="side-num" style="font-size:2rem; color:#555">SSL · HTTPS · DOMINIO PROPIO</div>
+          <div class="side-label" style="margin-top:0.5rem">Incluido en todos los planes</div>
+        </div>
+      </div>
+    </div>
+    <div class="hero-ticker">
+      <div class="ticker-track">
+        <div class="ticker-item">GitHub Pages<span class="ticker-sep"></span></div>
+        <div class="ticker-item">Diseño con IA<span class="ticker-sep"></span></div>
+        <div class="ticker-item">Pago único<span class="ticker-sep"></span></div>
+        <div class="ticker-item">Sin suscripciones<span class="ticker-sep"></span></div>
+        <div class="ticker-item">Dominio propio<span class="ticker-sep"></span></div>
+        <div class="ticker-item">SSL incluido<span class="ticker-sep"></span></div>
+        <div class="ticker-item">100% responsive<span class="ticker-sep"></span></div>
+        <div class="ticker-item">Código tuyo<span class="ticker-sep"></span></div>
+        <div class="ticker-item">72hs entrega<span class="ticker-sep"></span></div>
+        <div class="ticker-item">GitHub Pages<span class="ticker-sep"></span></div>
+        <div class="ticker-item">Diseño con IA<span class="ticker-sep"></span></div>
+        <div class="ticker-item">Pago único<span class="ticker-sep"></span></div>
+        <div class="ticker-item">Sin suscripciones<span class="ticker-sep"></span></div>
+        <div class="ticker-item">Dominio propio<span class="ticker-sep"></span></div>
+        <div class="ticker-item">SSL incluido<span class="ticker-sep"></span></div>
+        <div class="ticker-item">100% responsive<span class="ticker-sep"></span></div>
+        <div class="ticker-item">Código tuyo<span class="ticker-sep"></span></div>
+        <div class="ticker-item">72hs entrega<span class="ticker-sep"></span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="mono-label">Proceso</div>
+    <h2 class="big-title">CÓMO<br/><span class="ghost">FUNCIONA</span></h2>
+    <div class="proc-grid">
+      <div class="proc-step">
+        <div class="proc-n">01</div>
+        <div class="proc-chip">Briefing</div>
+        <div class="proc-title">NOS CONTÁS TU PROYECTO</div>
+        <div class="proc-desc">Completás un formulario con datos de tu profesión, servicios y estilo. Sin reuniones. Sin vueltas.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-n">02</div>
+        <div class="proc-chip">Diseño</div>
+        <div class="proc-title">CREAMOS CON IA</div>
+        <div class="proc-desc">Usamos herramientas de última generación para diseñar tu sitio moderno, veloz y personalizado.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-n">03</div>
+        <div class="proc-chip">Revisión</div>
+        <div class="proc-title">AJUSTAMOS CONTIGO</div>
+        <div class="proc-desc">Te mostramos el resultado y realizamos todas las correcciones necesarias según el plan elegido.</div>
+      </div>
+      <div class="proc-step">
+        <div class="proc-n">04</div>
+        <div class="proc-chip">Deploy</div>
+        <div class="proc-title">ONLINE EN GITHUB PAGES</div>
+        <div class="proc-desc">Publicamos tu sitio con dominio propio y SSL. Hosting gratuito profesional sin costos futuros.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="serv-layout">
+      <div class="serv-sticky">
+        <div class="mono-label">Servicios</div>
+        <h2 class="big-title">TODO<br/>LO QUE<br/><span class="ghost">INCLUYE</span></h2>
+        <p>Cada proyecto entregado con atención al detalle. Sin plantillas genéricas. Sin atajos.</p>
+        <a href="#contacto" class="btn-fill" style="display:inline-flex">→ Empezar</a>
+      </div>
+      <div class="serv-grid">
+        <div class="serv-card">
+          <div class="serv-icon">[ 01 ] Diseño</div>
+          <div class="serv-title">DISEÑO A MEDIDA CON IA</div>
+          <div class="serv-desc">Cada sitio es único. IA generativa aplicada a crear un diseño adaptado exactamente a tu identidad. Sin plantillas.</div>
+        </div>
+        <div class="serv-card">
+          <div class="serv-icon">[ 02 ] Hosting</div>
+          <div class="serv-title">GITHUB PAGES GRATUITO</div>
+          <div class="serv-desc">Infraestructura de Microsoft. Cero costos mensuales, cero interrupciones, disponibilidad garantizada.</div>
+        </div>
+        <div class="serv-card">
+          <div class="serv-icon">[ 03 ] Dominio</div>
+          <div class="serv-title">DOMINIO PROPIO + SSL</div>
+          <div class="serv-desc">Configuramos tu dominio personalizado y el certificado HTTPS. Si no tenés, te asesoramos para conseguir uno.</div>
+        </div>
+        <div class="serv-card">
+          <div class="serv-icon">[ 04 ] Mobile</div>
+          <div class="serv-title">100% RESPONSIVE</div>
+          <div class="serv-desc">Diseñado desde mobile. Perfecto en celular, tablet y escritorio. Código limpio que puntúa alto en PageSpeed.</div>
+        </div>
+        <div class="serv-card">
+          <div class="serv-icon">[ 05 ] Código</div>
+          <div class="serv-title">CÓDIGO FUENTE ENTREGADO</div>
+          <div class="serv-desc">El sitio es completamente tuyo. Archivos + repositorio GitHub. Nunca dependés de nosotros para nada.</div>
+        </div>
+        <div class="serv-card">
+          <div class="serv-icon">[ 06 ] SEO</div>
+          <div class="serv-title">SEO Y ANALÍTICA</div>
+          <div class="serv-desc">Estructura optimizada para motores de búsqueda e integración con Google Analytics desde el día uno.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section id="precios">
+    <div class="mono-label">Planes</div>
+    <h2 class="big-title">INVERSIÓN<br/><span class="ghost">ÚNICA</span></h2>
+    <div class="price-layout">
+      <div class="p-card">
+        <div class="p-tag">// Starter</div>
+        <div class="p-price"><span class="sym">USD </span>199</div>
+        <div class="p-once">pago único — sin cuotas</div>
+        <ul class="p-items">
+          <li>1 página (landing page)</li>
+          <li>Diseño con IA personalizado</li>
+          <li>GitHub Pages + SSL</li>
+          <li>Dominio propio configurado</li>
+          <li>2 rondas de revisión</li>
+          <li class="no">Blog o páginas múltiples</li>
+          <li class="no">Formulario de contacto</li>
+        </ul>
+        <a href="#contacto" class="p-btn">→ Empezar</a>
+      </div>
+      <div class="p-card hot">
+        <div class="p-tag">// Pro — más elegido</div>
+        <div class="p-price"><span class="sym" style="color:rgba(255,255,255,0.4)">USD </span>349</div>
+        <div class="p-once">pago único — sin cuotas</div>
+        <ul class="p-items">
+          <li>Hasta 5 secciones</li>
+          <li>Diseño con IA premium</li>
+          <li>GitHub Pages + SSL</li>
+          <li>Dominio propio configurado</li>
+          <li>Formulario de contacto</li>
+          <li>SEO básico optimizado</li>
+          <li>4 rondas de revisión</li>
+        </ul>
+        <a href="#contacto" class="p-btn-hot">→ Empezar</a>
+      </div>
+      <div class="p-card">
+        <div class="p-tag">// Business</div>
+        <div class="p-price"><span class="sym">USD </span>599</div>
+        <div class="p-once">pago único — sin cuotas</div>
+        <ul class="p-items">
+          <li>Múltiples páginas</li>
+          <li>Diseño con IA exclusivo</li>
+          <li>Blog integrado</li>
+          <li>SEO avanzado</li>
+          <li>Google Analytics</li>
+          <li>Revisiones ilimitadas</li>
+          <li>Soporte 30 días post-entrega</li>
+        </ul>
+        <a href="#contacto" class="p-btn">→ Empezar</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios">
+    <div class="mono-label">Testimonios</div>
+    <h2 class="big-title">LO QUE<br/><span class="ghost">DICEN</span></h2>
+    <div class="testi-layout">
+      <div class="t-card">
+        <div class="t-mark">"</div>
+        <p class="t-text">Increíble la calidad del resultado. Mi sitio quedó exactamente como lo imaginaba y no tengo que pagar nada mes a mes. Lo recomiendo a todos mis colegas.</p>
+        <div class="t-rule"></div>
+        <div class="t-name">Martina González</div>
+        <div class="t-role">Psicóloga clínica · Buenos Aires</div>
+      </div>
+      <div class="t-card">
+        <div class="t-mark">"</div>
+        <p class="t-text">Siempre adiferí tener página web por los costos. Con SHC Digital lo hice por primera vez y el resultado superó todas mis expectativas.</p>
+        <div class="t-rule"></div>
+        <div class="t-name">Roberto Lagos</div>
+        <div class="t-role">Contador público</div>
+      </div>
+      <div class="t-card">
+        <div class="t-mark">"</div>
+        <p class="t-text">En 48 horas tenía mi sitio online, moderno y profesional. La tecnología de IA realmente hace la diferencia en el diseño final.</p>
+        <div class="t-rule"></div>
+        <div class="t-name">Valeria Soto</div>
+        <div class="t-role">Nutricionista deportiva</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA / CONTACTO -->
+  <section id="contacto">
+    <div class="mono-label">Contacto</div>
+    <div class="cta-wrapper" style="margin-top:2rem">
+      <div class="cta-left-block">
+        <h2 class="big-title">EMPECEMOS<br/>TU<br/><span class="ghost">PROYECTO</span></h2>
+        <p>Completá el formulario y te respondemos en menos de 24 horas con un presupuesto sin compromiso.</p>
+        <div class="cta-form">
+          <div class="f-field">
+            <label class="f-label">Nombre</label>
+            <input type="text" class="f-input" placeholder="Tu nombre completo" />
+          </div>
+          <div class="f-field">
+            <label class="f-label">Email</label>
+            <input type="email" class="f-input" placeholder="tu@email.com" />
+          </div>
+          <div class="f-field">
+            <label class="f-label">Profesión</label>
+            <input type="text" class="f-input" placeholder="Ej: Psicóloga, Contador..." />
+          </div>
+          <div class="f-field">
+            <label class="f-label">Proyecto</label>
+            <input type="text" class="f-input" placeholder="Contanos brevemente qué necesitás..." />
+          </div>
+          <div class="f-submit">
+            <button class="f-btn">→ Enviar consulta</button>
+            <span class="f-note">Respondemos en &lt;24hs</span>
+          </div>
+        </div>
+      </div>
+      <div class="cta-right-block">
+        <div class="why-title">POR QUÉ<br/>ELEGIRNOS</div>
+        <div class="why-list">
+          <div class="why-item">
+            <div class="why-icon">$0/MES</div>
+            <div class="why-text"><strong>Hosting gratuito permanente</strong>GitHub Pages no tiene costos. Nunca. Tu sitio online sin pagar nada mensual.</div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">72HS</div>
+            <div class="why-text"><strong>Entrega ultrarrápida</strong>Desde que nos escribís hasta tener el sitio online, en promedio 72 horas.</div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">100%</div>
+            <div class="why-text"><strong>El código es tuyo</strong>Te entregamos todo. Sin locks. Sin dependencias. Tu sitio vive donde quieras.</div>
+          </div>
+          <div class="why-item">
+            <div class="why-icon">IA</div>
+            <div class="why-text"><strong>Diseño de nivel profesional</strong>Inteligencia artificial aplicada a crear diseños únicos, modernos y de alta calidad.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-brand">SHC<span>.</span>DIGITAL</div>
+    <div class="footer-copy">© 2025 SHC Digital — Todos los derechos reservados</div>
+    <ul class="footer-links">
+      <li><a href="#">Privacidad</a></li>
+      <li><a href="#">Términos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.proc-step, .serv-card, .p-card, .t-card').forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 4) * 0.1}s`;
+      io.observe(el);
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    document.querySelector('.f-btn').addEventListener('click', () => {
+      const inputs = document.querySelectorAll('.f-input');
+      const email = inputs[1].value;
+      if (email && email.includes('@')) {
+        inputs.forEach(i => { i.value = ''; });
+        inputs[0].placeholder = '¡Gracias! Te contactamos en menos de 24hs.';
+      }
+    });
+  </script>
+</body>
+</html>
