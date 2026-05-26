@@ -1,3 +1,4 @@
+
 /**
  * ═══════════════════════════════════════════════════════════
  *  SHC Digital — app.js
@@ -151,6 +152,8 @@ function resetForm(form) {
   form.querySelectorAll('.f-input').forEach((input) => {
     input.value = '';
   });
+  const prefixSelect = form.querySelector('[name="prefix"]');
+  if (prefixSelect) prefixSelect.value = '+54';
 }
 
 /**
@@ -181,7 +184,9 @@ function initContactForm() {
     /* ── 4b. Recoger valores por name ── */
     const nombre   = form.querySelector('[name="nombre"]').value.trim();
     const email    = form.querySelector('[name="email"]').value.trim();
-    const whatsapp = form.querySelector('[name="whatsapp"]').value.trim();
+    const prefix   = form.querySelector('[name="prefix"]').value;
+    const waNumber = form.querySelector('[name="whatsapp"]').value.trim();
+    const whatsapp = waNumber ? `${prefix} ${waNumber}` : '';
     const rubro    = form.querySelector('[name="rubro"]').value.trim();
     const proyecto = form.querySelector('[name="proyecto"]').value.trim();
 

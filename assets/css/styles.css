@@ -799,6 +799,37 @@ section { padding: 6rem 3rem; }
 .f-input::placeholder { color: var(--line); }
 .f-input:focus        { color: var(--ink); }
 
+/* Campo teléfono: prefijo + número en línea */
+.f-phone {
+  display:     flex;
+  align-items: center;
+  gap:         0;
+  width:       100%;
+}
+
+.f-select {
+  background:      transparent;
+  border:          none;
+  border-right:    1px solid var(--line);
+  color:           var(--ink);
+  font-family:     var(--mono);
+  font-size:       0.68rem;
+  font-weight:     700;
+  letter-spacing:  0.04em;
+  padding:         0 0.6rem 0 0;
+  margin-right:    0.75rem;
+  outline:         none;
+  cursor:          pointer;
+  appearance:      none;
+  -webkit-appearance: none;
+  white-space:     nowrap;
+  transition:      color 0.2s;
+}
+
+.f-select:focus  { color: var(--red); }
+
+.f-input--phone  { flex: 1; }
+
 .f-submit {
   margin-top:  2rem;
   display:     flex;
