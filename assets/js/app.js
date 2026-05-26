@@ -31,7 +31,7 @@
  * Ejemplo:
  *   'https://script.google.com/macros/s/AKfycb.../exec'
  */
-const GOOGLE_SCRIPT_URL = 'REEMPLAZAR_CON_TU_URL_DE_APPS_SCRIPT';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJ3aN_UHT3DadWEGXnu9GsY6sSwGuRKRA2KSMLNW_QDr8-998MNvcjf8HeNMw-TbzbyA/exec';
 
 
 /* ─────────────────────────────────────────────
