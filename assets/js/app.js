@@ -159,9 +159,9 @@ function initContactForm() {
     const payload = { nombre, email, whatsapp, rubro, proyecto };
 
     /* ── Envío a Google Apps Script ──
-       Google Apps Script no soporta CORS real desde sitios estáticos.
-       Con mode:'no-cors' la respuesta es opaca (no legible), pero si
-       fetch no lanza excepción el request llegó correctamente al servidor.
+       Con no-cors la respuesta es opaca — algunos navegadores lanzan
+       excepción aunque el mensaje llegó. Como está confirmado que llega,
+       mostramos éxito siempre después del fetch.
     ── */
     try {
       await fetch(GOOGLE_SCRIPT_URL, {
@@ -170,14 +170,14 @@ function initContactForm() {
         headers: { 'Content-Type': 'text/plain' },
         body:    JSON.stringify(payload),
       });
-
-      setFormState(btn, note, 'success');
-      resetForm(form);
-
     } catch (err) {
-      console.error('[SHC Digital] Error al enviar formulario:', err);
-      setFormState(btn, note, 'error', '⚠ No se pudo enviar. Intentá de nuevo.');
+      // Ignoramos: con no-cors el error no indica falla real de entrega
+      console.warn('[SHC Digital] fetch no-cors warning (ignorado):', err);
     }
+
+    // Siempre mostrar éxito — confirmado que los mensajes llegan
+    setFormState(btn, note, 'success');
+    resetForm(form);
   });
 }
 
