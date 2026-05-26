@@ -1,0 +1,1451 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SHC Digital — Diseño Web con IA</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream: #f5f0e8;
+      --paper: #faf7f2;
+      --white: #ffffff;
+      --ink: #141210;
+      --ink2: #2c2820;
+      --stone: #8c8275;
+      --line: #ddd8ce;
+      --accent: #1a4a3a;
+      --accent-light: #e8f0ec;
+      --gold: #b8924a;
+      --gold-light: #f5ecd8;
+      --font-serif: 'Playfair Display', Georgia, serif;
+      --font-sans: 'Archivo', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.5rem 5rem;
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo img { height: 34px; width: auto; }
+
+    .logo-wordmark {
+      font-family: var(--font-serif);
+      font-weight: 700;
+      font-size: 1.2rem;
+      color: var(--ink);
+      letter-spacing: 0.02em;
+    }
+
+    .logo-wordmark em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--stone);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover { color: var(--ink); }
+
+    .nav-cta {
+      background: var(--ink) !important;
+      color: var(--paper) !important;
+      padding: 0.6rem 1.5rem !important;
+      border-radius: 0 !important;
+      letter-spacing: 0.06em !important;
+      transition: background 0.2s !important;
+    }
+
+    .nav-cta:hover { background: var(--accent) !important; color: white !important; }
+
+    /* ── HERO ── */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      padding-top: 5rem;
+      overflow: hidden;
+    }
+
+    .hero-left {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 6rem 4rem 6rem 5rem;
+      position: relative;
+    }
+
+    .hero-left::after {
+      content: '';
+      position: absolute;
+      top: 0; right: 0; bottom: 0;
+      width: 1px;
+      background: var(--line);
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      animation: slideIn 0.8s ease both;
+    }
+
+    .eyebrow-line {
+      width: 40px;
+      height: 1px;
+      background: var(--gold);
+    }
+
+    .eyebrow-text {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .hero h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 5vw, 4.8rem);
+      font-weight: 900;
+      line-height: 1.05;
+      letter-spacing: -0.01em;
+      margin-bottom: 2rem;
+      animation: slideIn 0.8s 0.1s ease both;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+      display: block;
+    }
+
+    .hero h1 .small-line {
+      font-size: 0.65em;
+      font-weight: 400;
+      color: var(--stone);
+      display: block;
+      font-style: normal;
+      margin-top: 0.3rem;
+    }
+
+    .hero-body {
+      font-size: 1rem;
+      color: var(--stone);
+      line-height: 1.75;
+      max-width: 400px;
+      margin-bottom: 3rem;
+      font-weight: 300;
+      animation: slideIn 0.8s 0.2s ease both;
+    }
+
+    .hero-body strong {
+      color: var(--ink);
+      font-weight: 500;
+    }
+
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      animation: slideIn 0.8s 0.3s ease both;
+    }
+
+    .btn-dark {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--font-sans);
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      transition: background 0.25s, transform 0.2s;
+    }
+
+    .btn-dark:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    .btn-ghost {
+      font-size: 0.85rem;
+      color: var(--stone);
+      text-decoration: none;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--line);
+      padding-bottom: 2px;
+      transition: color 0.2s, border-color 0.2s;
+    }
+
+    .btn-ghost:hover { color: var(--ink); border-color: var(--ink); }
+
+    .hero-pills {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 3rem;
+      flex-wrap: wrap;
+      animation: slideIn 0.8s 0.4s ease both;
+    }
+
+    .pill {
+      background: var(--accent-light);
+      color: var(--accent);
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 0.35rem 0.85rem;
+    }
+
+    .pill.gold {
+      background: var(--gold-light);
+      color: var(--gold);
+    }
+
+    /* ── HERO RIGHT ── */
+    .hero-right {
+      display: grid;
+      grid-template-rows: 1fr auto;
+      background: var(--cream);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-visual {
+      padding: 5rem 3rem 2rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 1.5rem;
+      animation: fadeIn 1s 0.3s ease both;
+    }
+
+    .floating-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 1.5rem;
+      position: relative;
+    }
+
+    .floating-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 3px;
+      height: 100%;
+      background: var(--accent);
+    }
+
+    .card-label {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--stone);
+      margin-bottom: 0.5rem;
+    }
+
+    .card-value {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .card-value.green { color: var(--accent); }
+    .card-value.gold { color: var(--gold); }
+
+    .card-sub {
+      font-size: 0.78rem;
+      color: var(--stone);
+      margin-top: 0.3rem;
+    }
+
+    .card-row {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .card-row .floating-card { flex: 1; }
+
+    .hero-bottom-strip {
+      border-top: 1px solid var(--line);
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    .strip-item {
+      padding: 1.5rem;
+      border-right: 1px solid var(--line);
+      text-align: center;
+    }
+
+    .strip-item:last-child { border-right: none; }
+
+    .strip-num {
+      font-family: var(--font-serif);
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+    }
+
+    .strip-label {
+      font-size: 0.7rem;
+      color: var(--stone);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.2rem;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateX(-20px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      padding: 2rem 5rem;
+      border-bottom: 1px solid var(--line);
+      overflow: hidden;
+    }
+
+    .divider-label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--stone);
+      white-space: nowrap;
+    }
+
+    .divider-scroll {
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .divider-track {
+      display: flex;
+      gap: 3rem;
+      width: max-content;
+      animation: scroll 18s linear infinite;
+    }
+
+    .divider-item {
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--stone);
+      white-space: nowrap;
+      letter-spacing: 0.05em;
+    }
+
+    @keyframes scroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 7rem 5rem; }
+
+    .label-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      color: var(--gold);
+    }
+
+    .label-rule {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+      max-width: 60px;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 3.5vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 1.1;
+    }
+
+    .section-title em {
+      font-style: italic;
+      color: var(--accent);
+    }
+
+    /* ── PROCESO ── */
+    #proceso {
+      background: var(--cream);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .process-layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 6rem;
+      margin-top: 0;
+    }
+
+    .process-intro {
+      padding-top: 4rem;
+    }
+
+    .process-intro .section-title { margin-bottom: 1.5rem; }
+
+    .process-intro p {
+      font-size: 0.95rem;
+      color: var(--stone);
+      line-height: 1.8;
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    .steps-list {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .step-row {
+      display: grid;
+      grid-template-columns: 60px 1fr;
+      gap: 2rem;
+      padding: 2.5rem 0;
+      border-bottom: 1px solid var(--line);
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .step-row:first-child { border-top: 1px solid var(--line); }
+    .step-row.visible { opacity: 1; transform: translateX(0); }
+
+    .step-num-box {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--line);
+      line-height: 1;
+      padding-top: 0.3rem;
+    }
+
+    .step-content-title {
+      font-family: var(--font-serif);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-content-desc {
+      font-size: 0.9rem;
+      color: var(--stone);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .step-chip {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 0.2rem 0.6rem;
+      margin-bottom: 0.5rem;
+    }
+
+    /* ── FEATURES ── */
+    .features-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border: 1px solid var(--line);
+      margin-top: 4rem;
+    }
+
+    .feat {
+      padding: 3rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      transition: background 0.3s;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease, background 0.3s;
+    }
+
+    .feat:nth-child(2n) { border-right: none; }
+    .feat:nth-last-child(-n+2) { border-bottom: none; }
+    .feat.visible { opacity: 1; transform: translateY(0); }
+    .feat:hover { background: var(--accent-light); }
+
+    .feat-num {
+      font-family: var(--font-serif);
+      font-size: 0.85rem;
+      font-style: italic;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+
+    .feat-title {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--ink);
+    }
+
+    .feat-desc {
+      font-size: 0.875rem;
+      color: var(--stone);
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    /* ── PRECIOS ── */
+    #precios {
+      background: var(--ink);
+      color: var(--paper);
+      border-top: none;
+    }
+
+    #precios .section-label { color: var(--gold); }
+    #precios .label-rule { background: #333; }
+    #precios .section-title { color: var(--paper); }
+
+    .pricing-intro {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: end;
+      margin-bottom: 4rem;
+    }
+
+    .pricing-note {
+      font-size: 0.9rem;
+      color: #888;
+      line-height: 1.7;
+      font-weight: 300;
+    }
+
+    .pricing-note strong { color: var(--paper); font-weight: 500; }
+
+    .price-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: #2a2820;
+      border: 1px solid #2a2820;
+    }
+
+    .price-card {
+      background: #1a1814;
+      padding: 3rem 2.5rem;
+      position: relative;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+
+    .price-card.visible { opacity: 1; transform: translateY(0); }
+    .price-card.featured { background: var(--accent); }
+
+    .price-plan {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .price-card.featured .price-plan { color: rgba(255,255,255,0.6); }
+
+    .price-main {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.25rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .price-dollar {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--gold);
+      margin-top: 0.5rem;
+    }
+
+    .price-card.featured .price-dollar { color: rgba(255,255,255,0.7); }
+
+    .price-big {
+      font-family: var(--font-serif);
+      font-size: 4rem;
+      font-weight: 900;
+      color: var(--paper);
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .price-card.featured .price-big { color: white; }
+
+    .price-once {
+      font-size: 0.75rem;
+      color: #666;
+      margin-bottom: 2.5rem;
+    }
+
+    .price-card.featured .price-once { color: rgba(255,255,255,0.5); }
+
+    .price-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .price-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-size: 0.85rem;
+      color: #aaa;
+      line-height: 1.5;
+    }
+
+    .price-card.featured .price-list li { color: rgba(255,255,255,0.8); }
+
+    .price-list li.off { color: #444; text-decoration: line-through; }
+    .price-card.featured .price-list li.off { color: rgba(255,255,255,0.25); }
+
+    .price-list li::before {
+      content: '—';
+      color: var(--gold);
+      flex-shrink: 0;
+      font-size: 0.7rem;
+      margin-top: 0.2rem;
+    }
+
+    .price-card.featured .price-list li::before { color: rgba(255,255,255,0.5); }
+    .price-list li.off::before { color: #333; }
+
+    .btn-price-light {
+      display: block;
+      text-align: center;
+      padding: 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid #333;
+      color: #aaa;
+      transition: all 0.2s;
+    }
+
+    .btn-price-light:hover { border-color: var(--gold); color: var(--gold); }
+
+    .btn-price-featured {
+      display: block;
+      text-align: center;
+      padding: 0.9rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      background: var(--paper);
+      color: var(--accent);
+      transition: opacity 0.2s;
+    }
+
+    .btn-price-featured:hover { opacity: 0.9; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonios {
+      background: var(--cream);
+      border-top: 1px solid var(--line);
+    }
+
+    .testi-header {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      margin-bottom: 4rem;
+      align-items: end;
+    }
+
+    .testi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .testi-card {
+      background: var(--white);
+      border: 1px solid var(--line);
+      padding: 2.5rem;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .testi-card:first-child {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 2rem;
+      align-items: center;
+    }
+
+    .testi-card.visible { opacity: 1; transform: translateY(0); }
+
+    .testi-marks {
+      font-family: var(--font-serif);
+      font-size: 3rem;
+      color: var(--gold);
+      line-height: 0.8;
+      margin-bottom: 1rem;
+    }
+
+    .testi-text {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--ink2);
+      font-style: italic;
+      margin-bottom: 1.5rem;
+    }
+
+    .testi-name {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+
+    .testi-role {
+      font-size: 0.78rem;
+      color: var(--stone);
+      margin-top: 0.15rem;
+    }
+
+    .testi-big-num {
+      font-family: var(--font-serif);
+      font-size: 6rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      opacity: 0.15;
+    }
+
+    /* ── CTA ── */
+    #contacto {
+      background: var(--paper);
+      border-top: 1px solid var(--line);
+    }
+
+    .cta-layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6rem;
+      align-items: center;
+    }
+
+    .cta-left .section-title { margin-top: 1.5rem; margin-bottom: 1.5rem; }
+
+    .cta-body {
+      font-size: 0.95rem;
+      color: var(--stone);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .form-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--stone);
+    }
+
+    .form-input {
+      background: var(--white);
+      border: 1px solid var(--line);
+      color: var(--ink);
+      font-family: var(--font-sans);
+      font-size: 0.9rem;
+      padding: 0.85rem 1rem;
+      outline: none;
+      transition: border-color 0.2s;
+      width: 100%;
+    }
+
+    .form-input:focus { border-color: var(--accent); }
+    .form-input::placeholder { color: #ccc; }
+
+    .form-submit {
+      background: var(--ink);
+      color: var(--paper);
+      border: none;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 1rem;
+      cursor: pointer;
+      transition: background 0.2s;
+      align-self: flex-start;
+      padding: 1rem 2.5rem;
+    }
+
+    .form-submit:hover { background: var(--accent); }
+
+    .cta-right {
+      padding: 3rem;
+      background: var(--accent);
+      color: white;
+    }
+
+    .cta-right-title {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      line-height: 1.3;
+    }
+
+    .cta-right-body {
+      font-size: 0.9rem;
+      opacity: 0.75;
+      line-height: 1.7;
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    .cta-features {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .cta-feat-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.85rem;
+      opacity: 0.9;
+    }
+
+    .cta-feat-icon {
+      width: 28px;
+      height: 28px;
+      background: rgba(255,255,255,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--ink2);
+      color: var(--paper);
+      padding: 2rem 5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+    }
+
+    .footer-brand {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--paper);
+    }
+
+    .footer-brand em { font-style: italic; color: var(--gold); }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: #666;
+    }
+
+    .footer-nav {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .footer-nav a {
+      font-size: 0.78rem;
+      color: #666;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .footer-nav a:hover { color: var(--paper); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 960px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { display: none; }
+      section { padding: 4rem 1.5rem; }
+      .hero { grid-template-columns: 1fr; min-height: auto; }
+      .hero-left { padding: 7rem 1.5rem 3rem; }
+      .hero-left::after { display: none; }
+      .hero-right { display: none; }
+      .process-layout { grid-template-columns: 1fr; gap: 2rem; }
+      .features-layout { grid-template-columns: 1fr; }
+      .feat:nth-child(2n) { border-right: 1px solid var(--line); }
+      .feat:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .feat:last-child { border-bottom: none; }
+      .pricing-intro { grid-template-columns: 1fr; gap: 1.5rem; }
+      .price-grid { grid-template-columns: 1fr; }
+      .testi-header { grid-template-columns: 1fr; }
+      .testi-grid { grid-template-columns: 1fr; }
+      .testi-card:first-child { grid-column: 1; grid-template-columns: 1fr; }
+      .testi-big-num { display: none; }
+      .cta-layout { grid-template-columns: 1fr; }
+      .form-row { grid-template-columns: 1fr; }
+      .divider { padding: 1.5rem; }
+      footer { flex-direction: column; align-items: flex-start; padding: 2rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="#" class="nav-logo">
+      <!-- Replace with: <img src="shcdigital.png" alt="SHC Digital" /> -->
+      <span class="logo-wordmark">SHC <em>Digital</em></span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#proceso">Proceso</a></li>
+      <li><a href="#servicios">Servicios</a></li>
+      <li><a href="#precios">Precios</a></li>
+      <li><a href="#contacto" class="nav-cta">Comenzar</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-line"></span>
+        <span class="eyebrow-text">Diseño web profesional con inteligencia artificial</span>
+      </div>
+      <h1>
+        Presencia digital
+        <em>sin costos</em>
+        <span class="small-line">mensuales. Para siempre.</span>
+      </h1>
+      <p class="hero-body">
+        Diseñamos tu sitio web con IA y lo publicamos en <strong>GitHub Pages</strong>,
+        la plataforma gratuita de nivel empresarial. Invertís una sola vez
+        y tu sitio permanece online sin pagar nada mes a mes.
+      </p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-dark">Quiero mi sitio →</a>
+        <a href="#proceso" class="btn-ghost">¿Cómo funciona?</a>
+      </div>
+      <div class="hero-pills">
+        <span class="pill">GitHub Pages</span>
+        <span class="pill">SSL gratis</span>
+        <span class="pill gold">Pago único</span>
+        <span class="pill gold">Sin suscripciones</span>
+      </div>
+    </div>
+    <div class="hero-right">
+      <div class="hero-visual">
+        <div class="floating-card">
+          <div class="card-label">Costo mensual de hosting</div>
+          <div class="card-value green">$0.00</div>
+          <div class="card-sub">GitHub Pages · Siempre gratuito</div>
+        </div>
+        <div class="card-row">
+          <div class="floating-card">
+            <div class="card-label">Entrega promedio</div>
+            <div class="card-value">72hs</div>
+            <div class="card-sub">Desde el briefing</div>
+          </div>
+          <div class="floating-card">
+            <div class="card-label">Diseño generado</div>
+            <div class="card-value gold">IA</div>
+            <div class="card-sub">100% a medida</div>
+          </div>
+        </div>
+        <div class="floating-card">
+          <div class="card-label">Tu sitio incluye</div>
+          <div class="card-value" style="font-size:1rem; color: var(--stone); font-family: var(--font-sans); font-weight:300; line-height:1.7; margin-top:0.3rem">
+            Diseño responsive · Dominio propio · SSL · Código fuente · Sin dependencias
+          </div>
+        </div>
+      </div>
+      <div class="hero-bottom-strip">
+        <div class="strip-item">
+          <div class="strip-num">100%</div>
+          <div class="strip-label">Tuyo</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-num">$0</div>
+          <div class="strip-label">Mensual</div>
+        </div>
+        <div class="strip-item">
+          <div class="strip-num">∞</div>
+          <div class="strip-label">Duración</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIVIDER MARQUEE -->
+  <div class="divider">
+    <span class="divider-label">Incluye</span>
+    <div class="divider-scroll">
+      <div class="divider-track">
+        <span class="divider-item">GitHub Pages hosting</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">Diseño con IA</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">Dominio personalizado</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">SSL incluido</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">100% responsive</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">Código fuente</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">Sin suscripciones</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">Pago único</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">GitHub Pages hosting</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">Diseño con IA</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">Dominio personalizado</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">SSL incluido</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">100% responsive</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">Código fuente</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">Sin suscripciones</span>
+        <span class="divider-item">·</span>
+        <span class="divider-item">Pago único</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROCESO -->
+  <section id="proceso">
+    <div class="process-layout">
+      <div class="process-intro">
+        <div class="label-row">
+          <span class="section-label">Proceso</span>
+          <span class="label-rule"></span>
+        </div>
+        <h2 class="section-title">Cuatro pasos.<br/><em>Un sitio.</em></h2>
+        <p>Sin reuniones innecesarias, sin demoras. Un proceso claro y eficiente para tener tu presencia online activa cuanto antes.</p>
+        <a href="#contacto" class="btn-dark" style="display:inline-flex; align-items:center; gap:0.5rem; margin-top:0.5rem">Empezar ahora →</a>
+      </div>
+      <div class="steps-list">
+        <div class="step-row">
+          <div class="step-num-box">01</div>
+          <div>
+            <div class="step-chip">Briefing</div>
+            <div class="step-content-title">Nos contás tu proyecto</div>
+            <div class="step-content-desc">Completás un formulario con datos de tu profesión, servicios y estilo. Sin reuniones largas. Simple y directo.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num-box">02</div>
+          <div>
+            <div class="step-chip">Diseño IA</div>
+            <div class="step-content-title">Creamos tu sitio con inteligencia artificial</div>
+            <div class="step-content-desc">Usamos herramientas de última generación para diseñar un sitio moderno, veloz y 100% personalizado a tu identidad.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num-box">03</div>
+          <div>
+            <div class="step-chip">Revisión</div>
+            <div class="step-content-title">Ajustamos hasta que quedes conforme</div>
+            <div class="step-content-desc">Te presentamos el sitio completo. Realizamos todas las correcciones necesarias según el plan elegido.</div>
+          </div>
+        </div>
+        <div class="step-row">
+          <div class="step-num-box">04</div>
+          <div>
+            <div class="step-chip">Publicación</div>
+            <div class="step-content-title">Online en GitHub Pages con tu dominio</div>
+            <div class="step-content-desc">Publicamos tu sitio en la plataforma gratuita de GitHub. Hosting profesional, SSL incluido y sin costos futuros.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios">
+    <div class="label-row">
+      <span class="section-label">Servicios</span>
+      <span class="label-rule"></span>
+    </div>
+    <h2 class="section-title">Lo que incluye<br/><em>cada proyecto.</em></h2>
+    <div class="features-layout">
+      <div class="feat">
+        <div class="feat-num">i.</div>
+        <div class="feat-title">Diseño a medida con IA</div>
+        <div class="feat-desc">Cada sitio es único. Usamos inteligencia artificial para crear un diseño adaptado exactamente a tu identidad profesional. Sin plantillas genéricas.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">ii.</div>
+        <div class="feat-title">Hosting gratuito en GitHub Pages</div>
+        <div class="feat-desc">Tu sitio vive en la infraestructura de Microsoft. Cero costos mensuales, cero interrupciones, disponibilidad garantizada para siempre.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">iii.</div>
+        <div class="feat-title">Dominio personalizado + SSL</div>
+        <div class="feat-desc">Configuramos tu dominio propio y el certificado HTTPS. Si no tenés dominio, te asesoramos para conseguir uno por menos de $15 USD al año.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">iv.</div>
+        <div class="feat-title">100% responsive y veloz</div>
+        <div class="feat-desc">Diseño optimizado para celular, tablet y escritorio. Código limpio y performante que puntúa alto en Google PageSpeed.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">v.</div>
+        <div class="feat-title">Código fuente entregado</div>
+        <div class="feat-desc">El sitio es completamente tuyo. Te entregamos todos los archivos y el repositorio en GitHub. Nunca dependés de nosotros.</div>
+      </div>
+      <div class="feat">
+        <div class="feat-num">vi.</div>
+        <div class="feat-title">SEO y analítica básica</div>
+        <div class="feat-desc">Estructura optimizada para motores de búsqueda e integración con Google Analytics para que puedas medir tus visitas desde el día uno.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section id="precios">
+    <div class="pricing-intro">
+      <div>
+        <div class="label-row">
+          <span class="section-label">Planes</span>
+          <span class="label-rule"></span>
+        </div>
+        <h2 class="section-title">Inversión única.<br/><em>Sin letra chica.</em></h2>
+      </div>
+      <p class="pricing-note">
+        Pagás una sola vez y el sitio es <strong>tuyo para siempre</strong>.
+        Sin renovaciones anuales. Sin sorpresas. El hosting en GitHub Pages
+        es completamente gratuito y lo seguirá siendo.
+      </p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card">
+        <div class="price-plan">Starter</div>
+        <div class="price-main">
+          <span class="price-dollar">USD</span>
+          <span class="price-big">199</span>
+        </div>
+        <div class="price-once">pago único · sin cuotas</div>
+        <ul class="price-list">
+          <li>1 página (landing page)</li>
+          <li>Diseño con IA personalizado</li>
+          <li>GitHub Pages + SSL</li>
+          <li>Dominio propio configurado</li>
+          <li>2 rondas de revisión</li>
+          <li class="off">Blog o páginas múltiples</li>
+          <li class="off">Formulario de contacto</li>
+        </ul>
+        <a href="#contacto" class="btn-price-light">Empezar →</a>
+      </div>
+      <div class="price-card featured">
+        <div class="price-plan">Pro · Recomendado</div>
+        <div class="price-main">
+          <span class="price-dollar" style="color:rgba(255,255,255,0.5)">USD</span>
+          <span class="price-big">349</span>
+        </div>
+        <div class="price-once">pago único · sin cuotas</div>
+        <ul class="price-list">
+          <li>Hasta 5 secciones</li>
+          <li>Diseño con IA premium</li>
+          <li>GitHub Pages + SSL</li>
+          <li>Dominio propio configurado</li>
+          <li>Formulario de contacto</li>
+          <li>SEO básico optimizado</li>
+          <li>4 rondas de revisión</li>
+        </ul>
+        <a href="#contacto" class="btn-price-featured">Empezar →</a>
+      </div>
+      <div class="price-card">
+        <div class="price-plan">Business</div>
+        <div class="price-main">
+          <span class="price-dollar">USD</span>
+          <span class="price-big">599</span>
+        </div>
+        <div class="price-once">pago único · sin cuotas</div>
+        <ul class="price-list">
+          <li>Múltiples páginas</li>
+          <li>Diseño con IA exclusivo</li>
+          <li>Blog integrado</li>
+          <li>SEO avanzado</li>
+          <li>Google Analytics</li>
+          <li>Revisiones ilimitadas</li>
+          <li>Soporte 30 días post-entrega</li>
+        </ul>
+        <a href="#contacto" class="btn-price-light">Empezar →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios">
+    <div class="testi-header">
+      <div>
+        <div class="label-row">
+          <span class="section-label">Testimonios</span>
+          <span class="label-rule"></span>
+        </div>
+        <h2 class="section-title">Lo que dicen los<br/><em>profesionales.</em></h2>
+      </div>
+      <p style="font-size:0.9rem; color:var(--stone); line-height:1.7; font-weight:300">
+        Profesionales de distintos rubros que ya tienen su presencia online activa sin pagar nada mensual.
+      </p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div>
+          <div class="testi-marks">"</div>
+          <p class="testi-text">Increíble la calidad del resultado. Mi sitio quedó exactamente como lo imaginaba y no tengo que pagar nada mes a mes. Lo recomiendo a todos mis colegas que todavía no tienen presencia online.</p>
+          <div class="testi-name">Martina González</div>
+          <div class="testi-role">Psicóloga clínica · Buenos Aires</div>
+        </div>
+        <div class="testi-big-num">★</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-marks">"</div>
+        <p class="testi-text">Siempre adiferí tener página web por los costos. Con SHC Digital lo hice por primera vez y el resultado superó mis expectativas.</p>
+        <div class="testi-name">Roberto Lagos</div>
+        <div class="testi-role">Contador público</div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-marks">"</div>
+        <p class="testi-text">En 48 horas tenía mi sitio online, moderno y profesional. La tecnología de IA realmente hace la diferencia en el diseño final.</p>
+        <div class="testi-name">Valeria Soto</div>
+        <div class="testi-role">Nutricionista deportiva</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO / CTA -->
+  <section id="contacto">
+    <div class="cta-layout">
+      <div class="cta-left">
+        <div class="label-row">
+          <span class="section-label">Contacto</span>
+          <span class="label-rule"></span>
+        </div>
+        <h2 class="section-title">Empecemos<br/><em>tu proyecto.</em></h2>
+        <p class="cta-body">Completá el formulario y te respondemos en menos de 24 horas con un presupuesto personalizado y sin compromiso.</p>
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label">Nombre</label>
+              <input type="text" class="form-input" placeholder="Tu nombre" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Email</label>
+              <input type="email" class="form-input" placeholder="tu@email.com" />
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Profesión / Rubro</label>
+            <input type="text" class="form-input" placeholder="Ej: Psicóloga, Contador, Fotógrafo..." />
+          </div>
+          <div class="form-field">
+            <label class="form-label">Contanos brevemente tu proyecto</label>
+            <input type="text" class="form-input" placeholder="Qué necesitás y cuánto urgente..." />
+          </div>
+          <button class="form-submit">Enviar consulta →</button>
+        </div>
+      </div>
+      <div class="cta-right">
+        <div style="font-size:0.7rem; font-weight:700; text-transform:uppercase; letter-spacing:0.15em; opacity:0.5; margin-bottom:1rem">Por qué elegirnos</div>
+        <div class="cta-right-title">Tu sitio, tuyo para siempre.</div>
+        <p class="cta-right-body">No dependés de plataformas que pueden cerrar, subir precios o limitar tu contenido. Tu sitio vive en GitHub, la infraestructura más confiable del mundo.</p>
+        <div class="cta-features">
+          <div class="cta-feat-item">
+            <span class="cta-feat-icon">$0</span>
+            Hosting gratuito permanente en GitHub Pages
+          </div>
+          <div class="cta-feat-item">
+            <span class="cta-feat-icon">🔒</span>
+            SSL y dominio propio incluidos en todos los planes
+          </div>
+          <div class="cta-feat-item">
+            <span class="cta-feat-icon">AI</span>
+            Diseño generado con IA, 100% personalizado
+          </div>
+          <div class="cta-feat-item">
+            <span class="cta-feat-icon">⚡</span>
+            Entrega en 48–72 horas promedio
+          </div>
+          <div class="cta-feat-item">
+            <span class="cta-feat-icon">✓</span>
+            Código fuente completo entregado al finalizar
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <!-- Replace with: <img src="shcdigital.png" style="height:28px; filter:brightness(0) invert(1)"> -->
+      <div class="footer-brand">SHC <em>Digital</em></div>
+      <div class="footer-copy" style="margin-top:0.3rem">© 2025 SHC Digital. Todos los derechos reservados.</div>
+    </div>
+    <ul class="footer-nav">
+      <li><a href="#">Privacidad</a></li>
+      <li><a href="#">Términos</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+  </footer>
+
+  <script>
+    // Intersection Observer
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.step-row, .feat, .price-card, .testi-card').forEach((el, i) => {
+      el.style.transitionDelay = `${(i % 3) * 0.12}s`;
+      io.observe(el);
+    });
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const t = document.querySelector(a.getAttribute('href'));
+        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+
+    // Form submit
+    document.querySelector('.form-submit').addEventListener('click', () => {
+      const inputs = document.querySelectorAll('.form-input');
+      const email = inputs[1].value;
+      if (email && email.includes('@')) {
+        inputs.forEach(i => { i.value = ''; i.style.borderColor = 'var(--accent)'; });
+        inputs[0].placeholder = '¡Gracias! Te contactamos en menos de 24hs.';
+      }
+    });
+  </script>
+</body>
+</html>
