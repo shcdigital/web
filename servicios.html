@@ -9,102 +9,122 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="assets/css/styles.css" />
-</head>
-<body style="background-color: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased;">
+  <style>
+    /* Forzamos que los estilos de la grilla se apliquen sin depender de JS externo */
+    .services-grid-container {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0;
+      border: 1px solid var(--line);
+      margin-top: 4rem;
+      background: var(--white);
+    }
 
-  <nav>
-    <a href="index.html" class="nav-logo">
-      <span class="logo-wordmark">SHC <em>Digital</em></span>
+    .service-box {
+      padding: 3rem;
+      border-right: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: var(--white);
+      transition: background 0.3s;
+    }
+
+    /* Emulamos el comportamiento nativo de tu CSS de index */
+    .service-box:nth-child(2n) { border-right: none; }
+    .service-box:nth-last-child(-n+2) { border-bottom: none; }
+    .service-box:hover { background: var(--accent-light); }
+
+    @media (max-width: 960px) {
+      .services-grid-container { grid-template-columns: 1fr; }
+      .service-box:nth-child(2n) { border-right: 1px solid var(--line); }
+      .service-box:nth-last-child(-n+2) { border-bottom: 1px solid var(--line); }
+      .service-box:last-child { border-bottom: none; }
+    }
+  </style>
+</head>
+<body style="background-color: var(--paper); color: var(--ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased;">
+
+  <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 5rem; background: rgba(250, 247, 242, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);">
+    <a href="index.html" class="nav-logo" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
+      <span class="logo-wordmark" style="font-family: var(--font-serif); font-weight: 700; font-size: 1.2rem; color: var(--ink); letter-spacing: 0.02em;">SHC <em style="font-style: italic; color: var(--accent);">Digital</em></span>
     </a>
-    <ul class="nav-links">
-      <li><a href="index.html">Inicio</a></li>
-      <li><a href="servicios.html" style="color: var(--ink); font-weight: 600;">Servicios</a></li>
-      <li><a href="index.html#contacto">Contacto</a></li>
+    <ul class="nav-links" style="display: flex; align-items: center; gap: 2.5rem; list-style: none;">
+      <li><a href="index.html" style="color: var(--stone); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;">Inicio</a></li>
+      <li><a href="servicios.html" style="color: var(--ink); text-decoration: none; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;">Servicios</a></li>
+      <li><a href="index.html#contacto" style="color: var(--stone); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;">Contacto</a></li>
     </ul>
   </nav>
 
-  <header style="padding: 160px 20px 60px 20px; text-align: center; max-width: 800px; margin: 0 auto;">
-    <div class="label-row" style="justify-content: center; margin-bottom: 1rem;">
-      <span class="section-label">Soluciones Digitales Estables</span>
-      <span class="label-rule"></span>
+  <header style="padding: 12rem 5rem 2rem 5rem; max-width: 1200px; margin: 0 auto;">
+    <div class="label-row" style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem;">
+      <span class="section-label" style="font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.15em; color: var(--gold);">Soluciones Digitales Estables</span>
+      <span class="label-rule" style="width: 40px; height: 1px; background: var(--line);"></span>
     </div>
-    <h1 style="font-family: var(--font-serif); font-size: clamp(2.5rem, 4vw, 3.8rem); font-weight: 900; line-height: 1.15; margin-bottom: 24px; color: var(--ink);">
-      Servicios <em>Especializados</em>
+    <h1 style="font-family: var(--font-serif); font-size: clamp(2.5rem, 4vw, 3.8rem); font-weight: 900; line-height: 1.1; margin-bottom: 1.5rem; color: var(--ink);">
+      Servicios <em style="font-style: italic; color: var(--accent);">Especializados</em>
     </h1>
-    <p style="color: var(--stone); font-size: 1rem; line-height: 1.75; font-weight: 300; max-width: 500px; margin: 0 auto;">
+    <p style="color: var(--stone); font-size: 1rem; line-height: 1.75; font-weight: 300; max-width: 500px;">
       Despliegue de infraestructura web de alta velocidad y diseño minimalista. Eliminamos la complejidad técnica para que tu identidad digital funcione sin interrupciones.
     </p>
   </header>
 
   <main style="max-width: 1200px; margin: 0 auto; padding: 0 5rem 7rem 5rem;">
     
-    <div class="features-layout" style="opacity: 1; transform: none; margin-top: 2rem;">
+    <div class="services-grid-container">
       
-      <div class="feat visible" style="background: var(--white);">
-        <div class="feat-num">01 / Infraestructura Legal</div>
-        <div class="feat-title">Gestión y Registro de Dominio Propio (NIC)</div>
-        <div class="feat-desc">Asesoramiento técnico y legal completo para el registro y delegación de dominios oficiales (como .ar o comerciales). Aseguramos la titularidad correcta de tu marca en internet desde el primer día.</div>
+      <div class="service-box">
+        <div style="font-family: var(--font-serif); font-size: 0.85rem; font-style: italic; color: var(--gold); margin-bottom: 1rem;">i.</div>
+        <div style="font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--ink);">Gestión y Registro de Dominio Propio (NIC)</div>
+        <div style="font-size: 0.875rem; color: var(--stone); line-height: 1.7; font-weight: 300;">Asesoramiento técnico y legal completo para el registro y delegación de dominios oficiales (como .ar o comerciales). Aseguramos la titularidad correcta de tu marca en internet desde el primer día.</div>
       </div>
 
-      <div class="feat visible" style="background: var(--white);">
-        <div class="feat-num">02 / Identidad Visual</div>
-        <div class="feat-title">Diseño de Sitios Web de Autor</div>
-        <div class="feat-desc">Desarrollo de interfaces bajo una estética limpia, tipográfica y de corte editorial. Diseños minimalistas orientados a profesionales y empresas que buscan transmitir sofisticación y claridad absoluta.</div>
+      <div class="service-box">
+        <div style="font-family: var(--font-serif); font-size: 0.85rem; font-style: italic; color: var(--gold); margin-bottom: 1rem;">ii.</div>
+        <div style="font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--ink);">Diseño de Sitios Web de Autor</div>
+        <div style="font-size: 0.875rem; color: var(--stone); line-height: 1.7; font-weight: 300;">Desarrollo de interfaces bajo una estética limpia, tipográfica y de corte editorial. Diseños minimalistas orientados a profesionales y empresas que buscan transmitir sofisticación y claridad absoluta.</div>
       </div>
 
-      <div class="feat visible" style="background: var(--white);">
-        <div class="feat-num">03 / Seguridad y DNS</div>
-        <div class="feat-title">Configuración y Hardening en Cloudflare</div>
-        <div class="feat-desc">Implementación de capas perimetrales de seguridad global. Configuración óptima de registros DNS, firewalls de mitigación de ataques (WAF), optimización de caché perimetral y certificados SSL/TLS cifrados de extremo a extremo.</div>
+      <div class="service-box">
+        <div style="font-family: var(--font-serif); font-size: 0.85rem; font-style: italic; color: var(--gold); margin-bottom: 1rem;">iii.</div>
+        <div style="font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--ink);">Configuración y Hardening en Cloudflare</div>
+        <div style="font-size: 0.875rem; color: var(--stone); line-height: 1.7; font-weight: 300;">Implementación de capas perimetrales de seguridad global. Configuración óptima de registros DNS, firewalls de mitigación de ataques (WAF), optimización de caché perimetral y certificados SSL/TLS cifrados de extremo a extremo.</div>
       </div>
 
-      <div class="feat visible" style="background: var(--white);">
-        <div class="feat-num">04 / Arquitectura Serverless</div>
-        <div class="feat-title">Alojamiento y Despliegue en GitHub Pages</div>
-        <div class="feat-desc">Montaje del sitio sobre repositorios de código seguro con pipelines automatizados. Despliegues estáticos que garantizan costo de mantenimiento cero ($0 de hosting mensual) y una disponibilidad de servidores del 99.99%.</div>
+      <div class="service-box">
+        <div style="font-family: var(--font-serif); font-size: 0.85rem; font-style: italic; color: var(--gold); margin-bottom: 1rem;">iv.</div>
+        <div style="font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--ink);">Alojamiento y Despliegue en GitHub Pages</div>
+        <div style="font-size: 0.875rem; color: var(--stone); line-height: 1.7; font-weight: 300;">Montaje del sitio sobre repositorios de código seguro con pipelines automatizados. Despliegues estáticos que garantizan costo de mantenimiento cero ($0 de hosting mensual) y una disponibilidad de servidores del 99.99%.</div>
       </div>
 
-      <div class="feat visible" style="background: var(--white);">
-        <div class="feat-num">05 / Automatizaciones</div>
-        <div class="feat-title">Formularios con Alerta Inmediata y Auto-Respuesta</div>
-        <div class="feat-desc">Integración asincrónica de formularios mediante APIs. Cada consulta guarda los datos automáticamente en Google Sheets, te notifica en milisegundos por correo/WhatsApp (vía CallMeBot), y le envía un correo estético al cliente como acuse de recibo.</div>
+      <div class="service-box">
+        <div style="font-family: var(--font-serif); font-size: 0.85rem; font-style: italic; color: var(--gold); margin-bottom: 1rem;">v.</div>
+        <div style="font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--ink);">Formularios con Alerta Inmediata y Auto-Respuesta</div>
+        <div style="font-size: 0.875rem; color: var(--stone); line-height: 1.7; font-weight: 300;">Integración asincrónica de formularios mediante APIs. Cada consulta guarda los datos automáticamente en Google Sheets, te notifica en milisegundos por correo/WhatsApp (vía CallMeBot), y le envía un correo estético al cliente como acuse de recibo.</div>
       </div>
 
-      <div class="feat visible" style="background: var(--white);">
-        <div class="feat-num">06 / WPO & SEO Técnico</div>
-        <div class="feat-title">Optimización Extrema de Carga (Core Web Vitals)</div>
-        <div class="feat-desc">Estructuración de código limpio para lograr puntajes cercanos al 100% en auditorías de Google Lighthouse. Minificación de scripts, compresión moderna de imágenes (WebP/AVIF) y optimización de renderizado crítico.</div>
+      <div class="service-box">
+        <div style="font-family: var(--font-serif); font-size: 0.85rem; font-style: italic; color: var(--gold); margin-bottom: 1rem;">vi.</div>
+        <div style="font-family: var(--font-serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.75rem; color: var(--ink);">Optimización Extrema de Carga (Core Web Vitals)</div>
+        <div style="font-size: 0.875rem; color: var(--stone); line-height: 1.7; font-weight: 300;">Estructuración de código limpio para lograr puntajes cercanos al 100% en auditorías de Google Lighthouse. Minificación de scripts, compresión moderna de imágenes (WebP/AVIF) y optimización de renderizado crítico.</div>
       </div>
 
     </div>
 
     <div style="text-align: center; margin-top: 4rem;">
-      <a href="index.html#contacto" class="btn-dark">Iniciar un Proyecto →</a>
+      <a href="index.html#contacto" class="btn-dark" style="display: inline-flex; align-items: center; gap: 0.6rem; background: var(--ink); color: var(--paper); font-family: var(--font-sans); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 1rem 2rem; text-decoration: none; transition: background 0.25s, transform 0.2s;">Iniciar un Proyecto →</a>
     </div>
 
   </main>
 
-  <footer>
+  <footer style="background: var(--ink2); color: var(--paper); padding: 2rem 5rem; display: flex; align-items: center; justify-content: space-between; gap: 2rem;">
     <div>
-      <div class="footer-brand">SHC <em>Digital</em></div>
-      <div class="footer-copy" style="margin-top:0.3rem;">© 2025 SHC Digital. Todos los derechos reservados.</div>
+      <div class="footer-brand" style="font-family: var(--font-serif); font-size: 1rem; font-weight: 700; color: var(--paper);">SHC <em style="font-style: italic; color: var(--gold);">Digital</em></div>
+      <div class="footer-copy" style="margin-top:0.3rem; font-size: 0.78rem; color: #666;">© 2025 SHC Digital. Todos los derechos reservados.</div>
     </div>
-    <ul class="footer-nav">
-      <li><a href="#">Privacidad</a></li>
-      <li><a href="#">Términos</a></li>
-      <li><a href="index.html#contacto">Contacto</a></li>
+    <ul class="footer-nav" style="display: flex; gap: 2rem; list-style: none;">
+      <li><a href="#" style="font-size: 0.78rem; color: #666; text-decoration: none;">Privacidad</a></li>
+      <li><a href="#" style="font-size: 0.78rem; color: #666; text-decoration: none;">Términos</a></li>
+      <li><a href="index.html#contacto" style="font-size: 0.78rem; color: #666; text-decoration: none;">Contacto</a></li>
     </ul>
   </footer>
-
-  <script>
-    // Smooth scroll para links internos
-    document.querySelectorAll('a[href^="#"]').forEach(a => {
-      a.addEventListener('click', e => {
-        const t = document.querySelector(a.getAttribute('href'));
-        if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth' }); }
-      });
-    });
-  </script>
 </body>
 </html>
