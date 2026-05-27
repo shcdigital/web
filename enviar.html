@@ -28,7 +28,7 @@
     <span style="font-family: 'Archivo', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); font-weight: 600; display: block; margin-bottom: 12px;">Recepción de Contenido</span>
     <h1 style="font-family: var(--font-serif); font-size: 42px; font-weight: 700; line-height: 1.15; margin-bottom: 20px; color: var(--ink);">Envío de Material</h1>
     <p style="font-family: 'Archivo', sans-serif; color: var(--stone); font-size: 15px; line-height: 1.6; font-weight: 400;">
-      Completá los campos requeridos para subir tu archivo a Google Drive y procesar la revisión para la revista.
+      Completá los campos requeridos para adjuntar tu archivo y procesar la revisión para la revista.
     </p>
   </header>
 
@@ -45,7 +45,7 @@
 
         <div>
           <label for="email" style="font-family: 'Archivo', sans-serif; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: var(--stone); display: block; margin-bottom: 8px; font-weight: 600;">Correo Electrónico *</label>
-          <input type="email" id="email" name="email" required style="width: 100%; padding: 14px; border: 1px solid var(--line); background: var(--cream); color: var(--ink); font-family: 'Archivo', sans-serif; font-size: 14px; box-sizing: border-box;" />
+          <input type="email" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Por favor, ingresá una dirección de correo electrónico válida (ej: usuario@dominio.com)." style="width: 100%; padding: 14px; border: 1px solid var(--line); background: var(--cream); color: var(--ink); font-family: 'Archivo', sans-serif; font-size: 14px; box-sizing: border-box;" />
         </div>
 
         <div>
@@ -133,7 +133,6 @@
       const file = fileInput.files[0];
       const nombreArchivo = file.name;
 
-      // Lectura asincrónica del archivo para transformarlo a Base64
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onloadend = async function() {
@@ -152,18 +151,18 @@
         };
 
         try {
-          // REEMPLAZAR con la URL de ejecución de tu aplicación web de Google Apps Script
+          // Reemplazar con la URL de ejecución de tu aplicación web de Google Apps Script
           const response = await fetch('URL_DE_TU_GOOGLE_APPS_SCRIPT_WEB_APP', {
             method: 'POST',
-            mode: 'no-cors', // Evita problemas de CORS al interactuar con dominios externos
+            mode: 'no-cors',
             headers: {
               'Content-Type': 'application/json'
             },
             body: JSON.stringify(payload)
           });
 
-          // Debido al modo 'no-cors' la respuesta es opaca, asumimos éxito si la promesa se resuelve sin ir al catch
-          alert('¡Colaboración enviada con éxito! El archivo ha sido subido y los correos de confirmación están en proceso de entrega.');
+          // Mensaje de éxito limpio sin mención a plataformas específicas
+          alert('¡Colaboración enviada con éxito! El archivo ha sido procesado y los correos de confirmación están en camino.');
           document.getElementById('enviar-formulario').reset();
 
         } catch (error) {
