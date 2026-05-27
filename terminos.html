@@ -3,106 +3,317 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Términos y Condiciones de SHC Digital — Marco legal y contractual." />
+
+  <meta http-equiv="Content-Security-Policy" content="
+    default-src 'self';
+    script-src  'self';
+    style-src   'self' https://fonts.googleapis.com;
+    font-src    'self' https://fonts.gstatic.com;
+    img-src     'self' data:;
+    connect-src 'self' https://script.google.com;
+    frame-src   'none';
+    object-src  'none';
+  " />
+
   <title>Términos y Condiciones — SHC Digital</title>
-  
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet" />
-
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
-</head>
-<body style="background-color: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased;">
 
-  <nav style="position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.5rem 5rem; background: rgba(250, 247, 242, 0.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line);">
-    <a href="index.html" class="nav-logo" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none;">
-      <span class="logo-wordmark" style="font-family: var(--font-serif); font-weight: 700; font-size: 1.2rem; color: var(--ink); letter-spacing: 0.02em;">SHC <em style="font-style: italic; color: var(--accent);">Digital</em></span>
+  <style>
+    /* ── Estilos específicos de terminos.html ── */
+
+    .page-header {
+      padding: 10rem 3rem 5rem;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+    }
+
+    .page-header .mono-label { margin-bottom: 1.25rem; }
+    .page-header .big-title  { margin-bottom: 1.5rem; }
+
+    .page-header-desc {
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.7;
+      max-width: 540px;
+      font-weight: 300;
+    }
+
+    /* Contenido legal */
+    .legal-wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 5rem 3rem 6rem;
+    }
+
+    .legal-body {
+      border: 1px solid var(--line);
+      background: var(--white);
+    }
+
+    /* Cada artículo */
+    .legal-article {
+      padding: 2.5rem 3rem;
+      border-bottom: 1px solid var(--line);
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .legal-article:last-child { border-bottom: none; }
+    .legal-article.visible    { opacity: 1; transform: translateY(0); }
+
+    .legal-article-head {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1.5rem;
+      align-items: start;
+      margin-bottom: 1.25rem;
+    }
+
+    .legal-num {
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--red);
+      padding-top: 0.4rem;
+    }
+
+    .legal-title {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      letter-spacing: 0.04em;
+      color: var(--ink);
+      line-height: 1;
+    }
+
+    .legal-text {
+      padding-left: calc(48px + 1.5rem);
+      font-size: 0.9rem;
+      color: var(--mid);
+      line-height: 1.85;
+      font-weight: 300;
+    }
+
+    .legal-text p + p { margin-top: 0.85rem; }
+
+    .legal-text strong {
+      color: var(--ink2);
+      font-weight: 600;
+    }
+
+    .legal-text ul {
+      padding-left: 1.25rem;
+      margin-top: 0.85rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .legal-text ul li {
+      list-style: none;
+      display: flex;
+      gap: 0.75rem;
+    }
+
+    .legal-text ul li::before {
+      content: '›';
+      color: var(--red);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    /* Chip de fecha */
+    .legal-date-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--ink);
+      color: #666;
+      font-family: var(--mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.5rem 1rem;
+      margin-bottom: 3rem;
+    }
+
+    .legal-date-chip span { color: var(--red); }
+
+    /* CTA volver */
+    .back-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 960px) {
+      .page-header  { padding: 7rem 1.5rem 3rem; }
+      .legal-wrap   { padding: 3rem 1.5rem 4rem; }
+      .legal-article { padding: 2rem 1.5rem; }
+      .legal-text   { padding-left: calc(40px + 1rem); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════ NAV ════════ -->
+  <nav aria-label="Navegación principal">
+    <a href="index.html" class="nav-logo" aria-label="SHC Digital — Inicio">
+      <span class="logo-type" aria-hidden="true">SHC<span>.</span>DIGITAL</span>
     </a>
-    <ul class="nav-links" style="display: flex; align-items: center; gap: 2.5rem; list-style: none;">
-      <li><a href="index.html" style="color: var(--stone); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;">Inicio</a></li>
-      <li><a href="servicios.html" style="color: var(--stone); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;">Servicios</a></li>
-      <li><a href="index.html#contacto" style="color: var(--stone); text-decoration: none; font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase;">Contacto</a></li>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="index.html#precios">Planes</a></li>
+      <li><a href="index.html#contacto" class="nav-cta">→ Empezar</a></li>
     </ul>
   </nav>
 
-  <header style="padding: 160px 20px 40px 20px; text-align: center; max-width: 800px; margin: 0 auto;">
-    <span style="font-family: 'Archivo', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); font-weight: 600; display: block; margin-bottom: 12px;">Marco Legal y Contractual</span>
-    <h1 style="font-family: var(--font-serif); font-size: 42px; font-weight: 700; line-height: 1.15; margin-bottom: 20px; color: var(--ink);">Términos y Condiciones</h1>
-    <p style="font-family: 'Archivo', sans-serif; color: var(--stone); font-size: 15px; line-height: 1.6; font-weight: 400;">
-      Última actualización: Mayo de 2026. Por favor, lea atentamente las condiciones que regulan la prestación de servicios de desarrollo web y despliegue de infraestructura digital.
+  <!-- ════════ HEADER ════════ -->
+  <header class="page-header">
+    <p class="mono-label">Marco legal y contractual</p>
+    <h1 class="big-title">
+      TÉRMINOS Y<br />
+      <span class="ghost">CONDICIONES</span>
+    </h1>
+    <p class="page-header-desc">
+      Por favor, leé atentamente las condiciones que regulan la prestación
+      de servicios de desarrollo web y despliegue de infraestructura digital.
     </p>
   </header>
 
-  <main style="max-width: 850px; margin: 0 auto; padding: 0 40px 100px 40px; font-family: 'Archivo', sans-serif; font-size: 15px; line-height: 1.8; color: var(--ink2);">
-    
-    <div style="background-color: var(--paper); border: 1px solid var(--line); padding: 50px; text-align: justify;">
-      
-      <section style="margin-bottom: 40px;">
-        <h2 style="font-family: var(--font-serif); font-size: 20px; color: var(--ink); margin-bottom: 15px; border-bottom: 1px solid var(--line); padding-bottom: 8px;">1. Objeto y Alcance del Servicio</h2>
-        <p>
-          El presente documento constituye el contrato de prestación de servicios entre el Desarrollador (en adelante, <strong>SHC Digital</strong>) y el Solicitante (en adelante, el <strong>Cliente</strong>). El servicio se limita exclusivamente al diseño visual, maquetación estática, programación frontend y configuración de infraestructura perimetral base especificada en la propuesta comercial aceptada.
-        </p>
-      </section>
+  <!-- ════════ CONTENIDO ════════ -->
+  <main>
+    <div class="legal-wrap">
 
-      <section style="margin-bottom: 40px;">
-        <h2 style="font-family: var(--font-serif); font-size: 20px; color: var(--ink); margin-bottom: 15px; border-bottom: 1px solid var(--line); padding-bottom: 8px;">2. Responsabilidad por la Información y Materiales Suministrados</h2>
-        <p>
-          De conformidad con los principios de buena fe contractual regulados en el <strong>Artículo 961 del Código Civil y Comercial de la Nación (CCyCN)</strong>, el Cliente es el único y exclusivo responsable por la veracidad, exactitud, licitud y derechos de propiedad intelectual de toda la información, textos, marcas, logotipos, imágenes y datos transferidos a SHC Digital para su inclusión en el sitio web. 
-        </p>
-        <p style="margin-top: 10px;">
-          SHC Digital no actúa como órgano de control ni audita los contenidos provistos por el Cliente, quedando eximido de cualquier responsabilidad civil, penal o comercial ante reclamos de terceros por infracciones a la Ley de Propiedad Intelectual N° 11.723, leyes de marcas, o por la difusión de información falsa o inexacta.
-        </p>
-      </section>
+      <div class="legal-date-chip">
+        // Última actualización <span>—</span> Mayo 2026
+      </div>
 
-      <section style="margin-bottom: 40px;">
-        <h2 style="font-family: var(--font-serif); font-size: 20px; color: var(--ink); margin-bottom: 15px; border-bottom: 1px solid var(--line); padding-bottom: 8px;">3. Cláusula de Indemnidad y Deslinde de Responsabilidad Post-Despliegue</h2>
-        <p>
-          Se establece explícitamente, bajo el amparo de la autonomía de la voluntad contractual (<strong>Art. 958 del CCyCN</strong>), que la obligación de SHC Digital es de <strong>medios y no de resultado</strong> respecto a los factores exógenos al entorno de desarrollo local. Una vez que el sitio web es compilado, aprobado por el Cliente y desplegado en producción (GitHub Pages u otra infraestructura elegida), <strong>cesará toda responsabilidad técnica y jurídica de SHC Digital</strong> sobre el mismo.
-        </p>
-        <p style="margin-top: 10px;">
-          SHC Digital queda plenamente deslindado de toda responsabilidad por daños directos, indirectos, lucro cesante o pérdida de datos (según lo estipulado en el marco general de la responsabilidad civil, <strong>Art. 1716 y ss. del CCyCN</strong>) derivados de:
-        </p>
-        <ul style="margin-top: 10px; padding-left: 20px; list-style-type: square;">
-          <li>Caídas globales, degradación del servicio o fallas de conectividad en la infraestructura de terceros (GitHub Pages, Cloudflare, etc.).</li>
-          <li>Vencimiento, pérdida de control, bloqueos judiciales o mala gestión del dominio propio ante el registro oficial (NIC Argentina o registradores internacionales).</li>
-          <li>Manipulación indebida, modificaciones en el código fuente, o alteración de los registros DNS en Cloudflare realizadas por el Cliente o terceros no autorizados explícitamente por SHC Digital.</li>
-          <li>Interrupciones en las APIs de terceros empleadas para la automatización y recepción de formularios (como pasarelas de correo o sistemas de mensajería instantánea).</li>
-        </ul>
-      </section>
+      <div class="legal-body">
 
-      <section style="margin-bottom: 40px;">
-        <h2 style="font-family: var(--font-serif); font-size: 20px; color: var(--ink); margin-bottom: 15px; border-bottom: 1px solid var(--line); padding-bottom: 8px;">4. Entorno de Seguridad e Infraestructura Digital</h2>
-        <p>
-          Las configuraciones perimetrales en Cloudflare y el entorno estático en GitHub Pages se realizan siguiendo las buenas prácticas de la industria en materia de hardening (SSL/TLS, WAF base). No obstante, el Cliente reconoce y acepta que en el entorno de internet no existe la seguridad absoluta. SHC Digital no será responsable de intrusiones, ciberataques, denegaciones de servicio (DDoS) o filtraciones que superen los umbrales de las herramientas configuradas, entendiéndose estos eventos como supuestos de caso fortuito o fuerza mayor tecnológica (<strong>Art. 1730 del CCyCN</strong>).
-        </p>
-      </section>
+        <!-- Art. 1 -->
+        <article class="legal-article">
+          <div class="legal-article-head">
+            <div class="legal-num">ART.<br/>01</div>
+            <h2 class="legal-title">OBJETO Y ALCANCE DEL SERVICIO</h2>
+          </div>
+          <div class="legal-text">
+            <p>
+              El presente documento constituye el contrato de prestación de servicios entre
+              el Desarrollador (en adelante, <strong>SHC Digital</strong>) y el Solicitante
+              (en adelante, el <strong>Cliente</strong>). El servicio se limita al diseño visual,
+              maquetación estática, programación frontend y configuración de infraestructura
+              perimetral base especificada en la propuesta comercial aceptada.
+            </p>
+          </div>
+        </article>
 
-      <section style="margin-bottom: 10px;">
-        <h2 style="font-family: var(--font-serif); font-size: 20px; color: var(--ink); margin-bottom: 15px; border-bottom: 1px solid var(--line); padding-bottom: 8px;">5. Jurisdicción y Ley Aplicable</h2>
-        <p>
-          El presente contrato se rige exclusivamente por las leyes vigentes de la República Argentina. Cualquier controversia derivada de la interpretación o ejecución de estos términos será sometida a la jurisdicción de los Tribunales Ordinarios competentes, renunciando las partes a cualquier otro fuero o jurisdicción que pudiera corresponderles.
-        </p>
-      </section>
+        <!-- Art. 2 -->
+        <article class="legal-article">
+          <div class="legal-article-head">
+            <div class="legal-num">ART.<br/>02</div>
+            <h2 class="legal-title">RESPONSABILIDAD POR LA INFORMACIÓN SUMINISTRADA</h2>
+          </div>
+          <div class="legal-text">
+            <p>
+              De conformidad con los principios de buena fe contractual regulados en el
+              <strong>Artículo 961 del CCyCN</strong>, el Cliente es el único y exclusivo
+              responsable por la veracidad, exactitud, licitud y derechos de propiedad
+              intelectual de toda la información, textos, marcas, logotipos e imágenes
+              transferidas a SHC Digital.
+            </p>
+            <p>
+              SHC Digital no audita los contenidos provistos, quedando eximido de
+              responsabilidad civil, penal o comercial ante reclamos de terceros
+              por infracciones a la Ley N° 11.723, leyes de marcas o difusión de
+              información falsa.
+            </p>
+          </div>
+        </article>
+
+        <!-- Art. 3 -->
+        <article class="legal-article">
+          <div class="legal-article-head">
+            <div class="legal-num">ART.<br/>03</div>
+            <h2 class="legal-title">DESLINDE DE RESPONSABILIDAD POST-DESPLIEGUE</h2>
+          </div>
+          <div class="legal-text">
+            <p>
+              La obligación de SHC Digital es de <strong>medios y no de resultado</strong>
+              respecto a factores exógenos. Una vez que el sitio es aprobado por el Cliente
+              y desplegado en producción, <strong>cesará toda responsabilidad técnica y jurídica
+              de SHC Digital</strong> sobre el mismo (<strong>Art. 958 del CCyCN</strong>).
+            </p>
+            <p>SHC Digital queda deslindado de responsabilidad por daños derivados de:</p>
+            <ul>
+              <li>Caídas o fallas en la infraestructura de terceros (GitHub Pages, Cloudflare, etc.).</li>
+              <li>Vencimiento, pérdida de control o mala gestión del dominio por parte del Cliente.</li>
+              <li>Modificaciones en el código fuente o registros DNS realizadas por el Cliente o terceros no autorizados.</li>
+              <li>Interrupciones en APIs de terceros empleadas para automatizaciones y formularios.</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- Art. 4 -->
+        <article class="legal-article">
+          <div class="legal-article-head">
+            <div class="legal-num">ART.<br/>04</div>
+            <h2 class="legal-title">ENTORNO DE SEGURIDAD E INFRAESTRUCTURA</h2>
+          </div>
+          <div class="legal-text">
+            <p>
+              Las configuraciones en Cloudflare y GitHub Pages se realizan siguiendo
+              buenas prácticas de hardening (SSL/TLS, WAF base). El Cliente reconoce
+              que en internet no existe la seguridad absoluta. SHC Digital no será
+              responsable de ciberataques o filtraciones que superen los umbrales
+              configurados, entendiéndose como caso fortuito o fuerza mayor tecnológica
+              (<strong>Art. 1730 del CCyCN</strong>).
+            </p>
+          </div>
+        </article>
+
+        <!-- Art. 5 -->
+        <article class="legal-article">
+          <div class="legal-article-head">
+            <div class="legal-num">ART.<br/>05</div>
+            <h2 class="legal-title">JURISDICCIÓN Y LEY APLICABLE</h2>
+          </div>
+          <div class="legal-text">
+            <p>
+              El presente contrato se rige exclusivamente por las leyes vigentes de la
+              <strong>República Argentina</strong>. Cualquier controversia será sometida
+              a la jurisdicción de los Tribunales Ordinarios competentes, renunciando
+              las partes a cualquier otro fuero que pudiera corresponderles.
+            </p>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="back-cta">
+        <a href="index.html" class="btn-fill">← Volver al inicio</a>
+      </div>
 
     </div>
-
-    <div style="text-align: center; margin-top: 50px;">
-      <a href="index.html" style="display: inline-block; background-color: var(--accent); color: var(--white); font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; padding: 16px 32px; text-decoration: none; border-radius: 0; transition: background-color 0.3s ease;">← Volver al Inicio</a>
-    </div>
-
   </main>
 
-  <footer class="footer" style="background-color: var(--paper); border-top: 1px solid var(--line); padding: 60px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
-    <div class="footer-left">
-      <div class="footer-logo" style="font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 8px;">SHC Digital</div>
-      <div class="footer-copy" style="font-family: 'Archivo', sans-serif; font-size: 12px; color: var(--stone);">© 2026 SHC Digital. Todos los derechos reservados.</div>
-    </div>
-    <ul class="footer-nav" style="display: flex; list-style: none; gap: 24px; font-family: 'Archivo', sans-serif; font-size: 12px;">
-      <li><a href="terminos.html" style="color: var(--ink); text-decoration: none; font-weight: 600;">Privacidad</a></li>
-      <li><a href="terminos.html" style="color: var(--ink); text-decoration: none; font-weight: 600;">Términos</a></li>
-      <li><a href="index.html#contacto" style="color: var(--stone); text-decoration: none;">Contacto</a></li>
+  <!-- ════════ FOOTER ════════ -->
+  <footer>
+    <div class="footer-brand" aria-label="SHC Digital">SHC<span>.</span>DIGITAL</div>
+    <p class="footer-copy">© 2025 SHC Digital — Todos los derechos reservados</p>
+    <ul class="footer-links" role="list">
+      <li><a href="terminos.html">Términos</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
     </ul>
   </footer>
 
-  <script src="assets/js/app.js"></script>
+  <script src="assets/js/app.js" defer></script>
+
 </body>
 </html>
