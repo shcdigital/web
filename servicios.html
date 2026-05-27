@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Servicios — SHC Digital</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Archivo:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body style="background-color: var(--cream); color: var(--ink); -webkit-font-smoothing: antialiased;">
+
+  <nav class="nav-container" style="position: fixed; top: 0; width: 100%; z-index: 100; background-color: rgba(245, 240, 232, 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid var(--line); padding: 24px 40px; display: flex; justify-content: space-between; align-items: center;">
+    <div class="logo" style="font-family: var(--font-serif); font-size: 20px; font-weight: 700; letter-spacing: 0.5px;">SHC Digital</div>
+    <ul class="nav-links" style="display: flex; list-style: none; gap: 32px; font-family: 'Archivo', sans-serif; font-size: 13px; text-transform: uppercase; letter-spacing: 1px;">
+      <li><a href="index.html" style="color: var(--ink); text-decoration: none; font-weight: 500;">Inicio</a></li>
+      <li><a href="servicios.html" class="active" style="color: var(--gold); text-decoration: none; font-weight: 600;">Servicios</a></li>
+      <li><a href="index.html#contacto" style="color: var(--ink); text-decoration: none; font-weight: 500;">Contacto</a></li>
+    </ul>
+  </nav>
+
+  <header style="padding: 160px 20px 60px 20px; text-align: center; max-width: 800px; margin: 0 auto;">
+    <span style="font-family: 'Archivo', sans-serif; font-size: 12px; text-transform: uppercase; letter-spacing: 2px; color: var(--gold); font-weight: 600; display: block; margin-bottom: 12px;">Soluciones Digitales Estables</span>
+    <h1 style="font-family: var(--font-serif); font-size: 48px; font-weight: 700; line-height: 1.15; margin-bottom: 24px; color: var(--ink);">Servicios Especializados</h1>
+    <p style="font-family: 'Archivo', sans-serif; color: var(--stone); font-size: 16px; line-height: 1.7; font-weight: 400;">
+      Despliegue de infraestructura web de alta velocidad y diseño minimalista. Eliminamos la complejidad técnica para que tu identidad digital funcione sin interrupciones.
+    </p>
+  </header>
+
+  <main style="max-width: 1200px; margin: 0 auto; padding: 0 40px 120px 40px;">
+    
+    <div class="services-detailed-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 40px; margin-top: 40px;">
+      
+      <article class="feat" style="background-color: var(--paper); border: 1px solid var(--line); padding: 40px; display: flex; flex-direction: column; transition: transform 0.3s ease, box-shadow 0.3s ease;">
+        <span style="font-family: var(--font-serif); font-size: 14px; color: var(--gold); font-style: italic; margin-bottom: 16px; display: block;">01 / Infraestructura Legal</span>
+        <h3 style="font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--ink);">Gestión y Registro de Dominio Propio (NIC)</h3>
+        <p style="font-family: 'Archivo', sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink2); flex-grow: 1;">
+          Asesoramiento técnico y legal completo para el registro y delegación de dominios oficiales (como .ar o comerciales). Aseguramos la titularidad correcta de tu marca en internet desde el primer día.
+        </p>
+      </article>
+
+      <article class="feat" style="background-color: var(--paper); border: 1px solid var(--line); padding: 40px; display: flex; flex-direction: column;">
+        <span style="font-family: var(--font-serif); font-size: 14px; color: var(--gold); font-style: italic; margin-bottom: 16px; display: block;">02 / Identidad Visual</span>
+        <h3 style="font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--ink);">Diseño de Sitios Web de Autor</h3>
+        <p style="font-family: 'Archivo', sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink2); flex-grow: 1;">
+          Desarrollo de interfaces bajo una estética limpia, tipográfica y de corte editorial. Diseños minimalistas orientados a profesionales y empresas que buscan transmitir sofisticación y claridad absoluta.
+        </p>
+      </article>
+
+      <article class="feat" style="background-color: var(--paper); border: 1px solid var(--line); padding: 40px; display: flex; flex-direction: column;">
+        <span style="font-family: var(--font-serif); font-size: 14px; color: var(--gold); font-style: italic; margin-bottom: 16px; display: block;">03 / Seguridad y DNS</span>
+        <h3 style="font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--ink);">Configuración y Hardening en Cloudflare</h3>
+        <p style="font-family: 'Archivo', sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink2); flex-grow: 1;">
+          Implementación de capas perimetrales de seguridad global. Configuración óptima de registros DNS, firewalls de mitigación de ataques (WAF), optimización de caché perimetral y certificados SSL/TLS cifrados de extremo a extremo.
+        </p>
+      </article>
+
+      <article class="feat" style="background-color: var(--paper); border: 1px solid var(--line); padding: 40px; display: flex; flex-direction: column;">
+        <span style="font-family: var(--font-serif); font-size: 14px; color: var(--gold); font-style: italic; margin-bottom: 16px; display: block;">04 / Arquitectura Serverless</span>
+        <h3 style="font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--ink);">Alojamiento y Despliegue en GitHub Pages</h3>
+        <p style="font-family: 'Archivo', sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink2); flex-grow: 1;">
+          Montaje del sitio sobre repositorios de código seguro con pipelines automatizados. Despliegues estáticos que garantizan costo de mantenimiento cero ($0 de hosting mensual) y una disponibilidad de servidores del 99.99%.
+        </p>
+      </article>
+
+      <article class="feat" style="background-color: var(--paper); border: 1px solid var(--line); padding: 40px; display: flex; flex-direction: column;">
+        <span style="font-family: var(--font-serif); font-size: 14px; color: var(--gold); font-style: italic; margin-bottom: 16px; display: block;">05 / Automatizaciones</span>
+        <h3 style="font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--ink);">Formularios con Alerta Inmediata y Auto-Respuesta</h3>
+        <p style="font-family: 'Archivo', sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink2); flex-grow: 1;">
+          Integración asincrónica de formularios mediante APIs. Cada consulta guarda los datos automáticamente en Google Sheets, te notifica en milisegundos por correo/WhatsApp (vía CallMeBot), y le envía un correo estético al cliente como acuse de recibo.
+        </p>
+      </article>
+
+      <article class="feat" style="background-color: var(--paper); border: 1px solid var(--line); padding: 40px; display: flex; flex-direction: column;">
+        <span style="font-family: var(--font-serif); font-size: 14px; color: var(--gold); font-style: italic; margin-bottom: 16px; display: block;">06 / WPO & SEO Técnico</span>
+        <h3 style="font-family: var(--font-serif); font-size: 22px; font-weight: 700; margin-bottom: 16px; color: var(--ink);">Optimización Extrema de Carga (Core Web Vitals)</h3>
+        <p style="font-family: 'Archivo', sans-serif; font-size: 14px; line-height: 1.6; color: var(--ink2); flex-grow: 1;">
+          Estructuración de código limpio para lograr puntajes cercanos al 100% en auditorías de Google Lighthouse. Minificación de scripts, compresión moderna de imágenes (WebP/AVIF) y optimización de renderizado crítico.
+        </p>
+      </article>
+
+    </div>
+
+    <div style="text-align: center; margin-top: 60px;">
+      <a href="index.html#contacto" style="display: inline-block; background-color: var(--accent); color: var(--white); font-family: 'Archivo', sans-serif; font-size: 13px; font-weight: 500; text-transform: uppercase; letter-spacing: 1.5px; padding: 18px 36px; text-decoration: none; border-radius: 0; transition: background-color 0.3s ease;">Iniciar un Proyecto →</a>
+    </div>
+
+  </main>
+
+  <footer class="footer" style="background-color: var(--paper); border-top: 1px solid var(--line); padding: 60px 40px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;">
+    <div class="footer-left">
+      <div class="footer-logo" style="font-family: var(--font-serif); font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 8px;">SHC Digital</div>
+      <div class="footer-copy" style="font-family: 'Archivo', sans-serif; font-size: 12px; color: var(--stone);">© 2026 SHC Digital. Todos los derechos reservados.</div>
+    </div>
+    <ul class="footer-nav" style="display: flex; list-style: none; gap: 24px; font-family: 'Archivo', sans-serif; font-size: 12px;">
+      <li><a href="#" style="color: var(--stone); text-decoration: none;">Privacidad</a></li>
+      <li><a href="#" style="color: var(--stone); text-decoration: none;">Términos</a></li>
+      <li><a href="index.html#contacto" style="color: var(--stone); text-decoration: none;">Contacto</a></li>
+    </ul>
+  </footer>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
