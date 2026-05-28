@@ -11,133 +11,69 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
+    /* ── Solo lo que styles.css no tiene ── */
 
-    /* ── Header de página ── */
     .page-header {
-      padding: 9rem 3rem 4rem;
+      padding: 9rem 3rem 4.5rem;
       background: var(--ink);
       border-bottom: 3px solid var(--red);
     }
-    .page-header .mono-label { margin-bottom: 1.25rem; }
-    .page-header .big-title  { color: var(--white); margin-bottom: 1.5rem; }
-    .page-header .big-title .ghost { -webkit-text-stroke-color: #333; }
+    .page-header .mono-label           { margin-bottom: 1.25rem; }
+    .page-header .big-title            { color: var(--white); margin-bottom: 1.5rem; }
+    .page-header .big-title .ghost     { -webkit-text-stroke-color: #333; }
     .page-header-desc {
-      font-size:   1rem;
-      color:       #666;
-      line-height: 1.75;
-      max-width:   520px;
-      font-weight: 300;
+      font-size: 1rem; color: #666;
+      line-height: 1.75; max-width: 520px; font-weight: 300;
     }
 
-    /* ── Grid de cards — IDÉNTICO al .serv-grid + .proc-step del index ── */
-    .svc-outer {
-      padding: 4rem 3rem 6rem;
-      background: var(--bg);
+    /* Sección wrapper — fondo blanco igual que #proceso */
+    .svc-section {
+      background:    var(--white);
+      border-top:    1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding:       5rem 3rem 6rem;
     }
 
+    /* Grid de 3 columnas — mismo gap:0 y borde exterior que .proc-grid */
     .svc-grid {
-      display:    grid;
+      display:               grid;
       grid-template-columns: repeat(3, 1fr);
-      gap:        0;
-      border:     1px solid var(--line);
-      background: var(--line);
+      gap:                   0;
+      border:                1px solid var(--line);
+      margin-top:            3rem;
     }
 
-    .svc-card {
-      background:     var(--bg);
-      padding:        3rem 2.5rem;
-      border-right:   1px solid var(--line);
-      border-bottom:  1px solid var(--line);
-      position:       relative;
-      display:        flex;
-      flex-direction: column;
-      /* entrada animada */
-      opacity:   0;
-      transform: translateY(20px);
-      transition: opacity 0.5s ease, transform 0.5s ease, background 0.25s;
+    /* Cada card hereda TODO de .proc-step */
+    .svc-grid .proc-step {
+      border-bottom: 1px solid var(--line);
     }
-    .svc-card:nth-child(3n)        { border-right: none; }
-    .svc-card:nth-last-child(-n+3) { border-bottom: none; }
-    .svc-card.visible { opacity: 1; transform: translateY(0); }
-    .svc-card:hover   { background: var(--white); }
+    /* Última fila sin borde inferior */
+    .svc-grid .proc-step:nth-child(4),
+    .svc-grid .proc-step:nth-child(5),
+    .svc-grid .proc-step:nth-child(6) { border-bottom: none; }
+    /* Borde derecho: el 3ro y 6to de cada fila no lo tienen */
+    .svc-grid .proc-step:nth-child(3n) { border-right: none; }
 
-    /* Barra roja top — igual a .proc-step::after */
-    .svc-card::before {
-      content:          '';
-      position:         absolute;
-      top: 0; left: 0; right: 0;
-      height:           3px;
-      background:       var(--line);
-      transition:       background 0.3s;
-    }
-    .svc-card:hover::before { background: var(--red); }
-
-    /* Número grande — igual a .proc-n */
-    .svc-n {
-      font-family:    var(--display);
-      font-size:      4.5rem;
-      color:          var(--line);
-      line-height:    1;
-      letter-spacing: 0.04em;
-      margin-bottom:  1.25rem;
-    }
-
-    /* Chip rojo — igual a .proc-chip */
-    .svc-chip {
-      display:        inline-block;
-      background:     var(--red);
-      color:          #fff;
-      font-family:    var(--mono);
-      font-size:      0.58rem;
-      font-weight:    700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      padding:        0.2rem 0.65rem;
-      margin-bottom:  0.8rem;
-      width:          fit-content;
-    }
-
-    /* Título — igual a .proc-title */
-    .svc-title {
-      font-family:    var(--display);
-      font-size:      1.6rem;
-      letter-spacing: 0.04em;
-      color:          var(--ink);
-      line-height:    1.05;
-      margin-bottom:  1rem;
-    }
-
-    /* Descripción — igual a .proc-desc */
-    .svc-desc {
-      font-size:   0.9rem;
-      color:       var(--mid);
-      line-height: 1.8;
-      font-weight: 300;
-      flex-grow:   1;
-    }
-
-    /* ── CTA final ── */
+    /* CTA oscuro al final */
     .page-cta {
-      padding:    5rem 3rem;
+      padding: 5rem 3rem;
       background: var(--ink);
       text-align: center;
-      border-top: 1px solid #1e1e1e;
     }
-    .page-cta .mono-label          { justify-content: center; margin-bottom: 1.25rem; }
-    .page-cta .big-title           { color: var(--white); margin-bottom: 1.5rem; }
-    .page-cta .big-title .ghost    { -webkit-text-stroke-color: #333; }
+    .page-cta .mono-label       { justify-content: center; margin-bottom: 1.25rem; }
+    .page-cta .big-title        { color: var(--white); margin-bottom: 1.5rem; }
+    .page-cta .big-title .ghost { -webkit-text-stroke-color: #333; }
     .page-cta p {
       font-size: 0.95rem; color: #666; font-weight: 300;
       max-width: 400px; margin: 0 auto 2.5rem; line-height: 1.7;
     }
 
-    /* ── Responsive ── */
     @media (max-width: 960px) {
       .page-header { padding: 7rem 1.5rem 3rem; }
-      .svc-outer   { padding: 3rem 1.5rem 4rem; }
+      .svc-section { padding: 3rem 1.5rem 4rem; }
       .svc-grid    { grid-template-columns: 1fr; }
-      .svc-card    { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
-      .svc-card:last-child { border-bottom: none !important; }
+      .svc-grid .proc-step              { border-right: none; border-bottom: 1px solid var(--line); }
+      .svc-grid .proc-step:last-child   { border-bottom: none; }
       .page-cta    { padding: 4rem 1.5rem; }
     }
   </style>
@@ -160,10 +96,7 @@
   <!-- HEADER -->
   <header class="page-header">
     <p class="mono-label">// soluciones digitales</p>
-    <h1 class="big-title">
-      SERVICIOS<br />
-      <span class="ghost">ESPECIALIZADOS</span>
-    </h1>
+    <h1 class="big-title">SERVICIOS<br /><span class="ghost">ESPECIALIZADOS</span></h1>
     <p class="page-header-desc">
       Infraestructura web de alta velocidad y diseño minimalista.
       Eliminamos la complejidad técnica para que tu identidad digital
@@ -171,57 +104,56 @@
     </p>
   </header>
 
-  <!-- CARDS -->
   <main>
-    <section class="svc-outer" aria-labelledby="svc-title">
+
+    <!-- CARDS — usan exactamente las clases del index -->
+    <section class="svc-section" aria-labelledby="svc-h">
       <p class="mono-label">Qué hacemos</p>
-      <h2 id="svc-title" class="big-title" style="margin-bottom:3rem">
-        TODO LO<br /><span class="ghost">QUE INCLUYE</span>
-      </h2>
+      <h2 id="svc-h" class="big-title">TODO LO<br /><span class="ghost">QUE INCLUYE</span></h2>
 
       <div class="svc-grid">
 
-        <article class="svc-card">
-          <div class="svc-n" aria-hidden="true">01</div>
-          <span class="svc-chip">Infraestructura Legal</span>
-          <h3 class="svc-title">GESTIÓN Y REGISTRO DE DOMINIO</h3>
-          <p class="svc-desc">Asesoramiento técnico y legal completo para el registro y delegación de dominios oficiales (.ar o comerciales). Aseguramos la titularidad correcta de tu marca en internet desde el primer día.</p>
-        </article>
+        <div class="proc-step">
+          <div class="proc-n" aria-hidden="true">01</div>
+          <span class="proc-chip">Infraestructura Legal</span>
+          <h3 class="proc-title">REGISTRO DE DOMINIO</h3>
+          <p class="proc-desc">Asesoramiento técnico y legal completo para el registro y delegación de dominios oficiales (.ar o comerciales). Aseguramos la titularidad correcta de tu marca en internet desde el primer día.</p>
+        </div>
 
-        <article class="svc-card">
-          <div class="svc-n" aria-hidden="true">02</div>
-          <span class="svc-chip">Identidad Visual</span>
-          <h3 class="svc-title">DISEÑO DE SITIOS WEB CON IA</h3>
-          <p class="svc-desc">Interfaces bajo una estética limpia, tipográfica y editorial. Diseños minimalistas orientados a profesionales que buscan transmitir sofisticación y claridad absoluta. Sin plantillas genéricas.</p>
-        </article>
+        <div class="proc-step">
+          <div class="proc-n" aria-hidden="true">02</div>
+          <span class="proc-chip">Identidad Visual</span>
+          <h3 class="proc-title">DISEÑO WEB CON IA</h3>
+          <p class="proc-desc">Interfaces bajo una estética limpia, tipográfica y editorial. Diseños minimalistas orientados a profesionales que buscan transmitir sofisticación y claridad absoluta. Sin plantillas genéricas.</p>
+        </div>
 
-        <article class="svc-card">
-          <div class="svc-n" aria-hidden="true">03</div>
-          <span class="svc-chip">Seguridad y DNS</span>
-          <h3 class="svc-title">CONFIGURACIÓN EN CLOUDFLARE</h3>
-          <p class="svc-desc">Capas perimetrales de seguridad global. Registros DNS, firewalls WAF, optimización de caché perimetral y certificados SSL/TLS cifrados de extremo a extremo.</p>
-        </article>
+        <div class="proc-step">
+          <div class="proc-n" aria-hidden="true">03</div>
+          <span class="proc-chip">Seguridad y DNS</span>
+          <h3 class="proc-title">CLOUDFLARE HARDENING</h3>
+          <p class="proc-desc">Capas perimetrales de seguridad global. Registros DNS, firewalls WAF, optimización de caché perimetral y certificados SSL/TLS cifrados de extremo a extremo.</p>
+        </div>
 
-        <article class="svc-card">
-          <div class="svc-n" aria-hidden="true">04</div>
-          <span class="svc-chip">Arquitectura Serverless</span>
-          <h3 class="svc-title">ALOJAMIENTO EN GITHUB PAGES</h3>
-          <p class="svc-desc">Repositorios con pipelines automatizados. Despliegues estáticos con costo de mantenimiento cero — $0 de hosting mensual — y disponibilidad de servidores del 99.99%.</p>
-        </article>
+        <div class="proc-step">
+          <div class="proc-n" aria-hidden="true">04</div>
+          <span class="proc-chip">Serverless</span>
+          <h3 class="proc-title">GITHUB PAGES</h3>
+          <p class="proc-desc">Repositorios con pipelines automatizados. Despliegues estáticos con costo de mantenimiento cero — $0 de hosting mensual — y disponibilidad de servidores del 99.99%.</p>
+        </div>
 
-        <article class="svc-card">
-          <div class="svc-n" aria-hidden="true">05</div>
-          <span class="svc-chip">Automatizaciones</span>
-          <h3 class="svc-title">FORMULARIOS CON ALERTA INMEDIATA</h3>
-          <p class="svc-desc">Integración asincrónica mediante APIs. Cada consulta guarda datos en Google Sheets, notifica por WhatsApp y envía un mail de confirmación al cliente en milisegundos.</p>
-        </article>
+        <div class="proc-step">
+          <div class="proc-n" aria-hidden="true">05</div>
+          <span class="proc-chip">Automatizaciones</span>
+          <h3 class="proc-title">FORMULARIOS + ALERTAS</h3>
+          <p class="proc-desc">Integración asincrónica mediante APIs. Cada consulta guarda datos en Google Sheets, notifica por WhatsApp y envía un mail de confirmación al cliente en milisegundos.</p>
+        </div>
 
-        <article class="svc-card">
-          <div class="svc-n" aria-hidden="true">06</div>
-          <span class="svc-chip">WPO & SEO Técnico</span>
-          <h3 class="svc-title">OPTIMIZACIÓN CORE WEB VITALS</h3>
-          <p class="svc-desc">Puntajes cercanos al 100% en Google Lighthouse. Minificación de scripts, compresión WebP/AVIF y optimización de renderizado crítico para máxima performance y posicionamiento.</p>
-        </article>
+        <div class="proc-step">
+          <div class="proc-n" aria-hidden="true">06</div>
+          <span class="proc-chip">WPO & SEO</span>
+          <h3 class="proc-title">CORE WEB VITALS</h3>
+          <p class="proc-desc">Puntajes cercanos al 100% en Google Lighthouse. Minificación de scripts, compresión WebP/AVIF y optimización de renderizado crítico para máxima performance y posicionamiento.</p>
+        </div>
 
       </div>
     </section>
@@ -233,6 +165,7 @@
       <p>Contanos tu proyecto y te preparamos una propuesta en menos de 24 horas.</p>
       <a href="index.html#contacto" class="btn-fill">→ Consultar ahora</a>
     </div>
+
   </main>
 
   <!-- FOOTER -->
