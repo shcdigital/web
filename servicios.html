@@ -4,153 +4,147 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Servicios de SHC Digital — Diseño web con IA, GitHub Pages, Cloudflare, SEO y automatizaciones." />
-
-  <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src  'self';
-    style-src   'self' https://fonts.googleapis.com;
-    font-src    'self' https://fonts.gstatic.com;
-    img-src     'self' data:;
-    connect-src 'self' https://script.google.com;
-    frame-src   'none';
-    object-src  'none';
-  " />
-
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none';" />
   <title>Servicios — SHC Digital</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
-
   <style>
-    /* ── Estilos específicos de servicios.html ── */
 
+    /* ── Header de página ── */
     .page-header {
-      padding: 10rem 3rem 5rem;
-      border-bottom: 1px solid var(--line);
-      background: var(--bg);
+      padding: 9rem 3rem 4rem;
+      background: var(--ink);
+      border-bottom: 3px solid var(--red);
     }
-
     .page-header .mono-label { margin-bottom: 1.25rem; }
-
-    .page-header .big-title {
-      margin-bottom: 1.5rem;
-    }
-
+    .page-header .big-title  { color: var(--white); margin-bottom: 1.5rem; }
+    .page-header .big-title .ghost { -webkit-text-stroke-color: #333; }
     .page-header-desc {
-      font-size: 1rem;
-      color: var(--mid);
+      font-size:   1rem;
+      color:       #666;
       line-height: 1.75;
-      max-width: 520px;
+      max-width:   520px;
       font-weight: 300;
     }
 
-    /* Grid de servicios */
-    .services-grid {
-      display: grid;
+    /* ── Grid de cards — IDÉNTICO al .serv-grid + .proc-step del index ── */
+    .svc-outer {
+      padding: 4rem 3rem 6rem;
+      background: var(--bg);
+    }
+
+    .svc-grid {
+      display:    grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 1px;
+      gap:        0;
+      border:     1px solid var(--line);
       background: var(--line);
-      border: 1px solid var(--line);
-      margin-top: 4rem;
     }
 
     .svc-card {
-      background: var(--bg);
-      padding: 3rem 2.5rem;
-      display: flex;
+      background:     var(--bg);
+      padding:        3rem 2.5rem;
+      border-right:   1px solid var(--line);
+      border-bottom:  1px solid var(--line);
+      position:       relative;
+      display:        flex;
       flex-direction: column;
-      position: relative;
-      transition: background 0.25s;
-      opacity: 0;
+      /* entrada animada */
+      opacity:   0;
       transform: translateY(20px);
       transition: opacity 0.5s ease, transform 0.5s ease, background 0.25s;
     }
-
+    .svc-card:nth-child(3n)        { border-right: none; }
+    .svc-card:nth-last-child(-n+3) { border-bottom: none; }
     .svc-card.visible { opacity: 1; transform: translateY(0); }
     .svc-card:hover   { background: var(--white); }
 
-    .svc-card::after {
-      content: '';
-      position: absolute;
+    /* Barra roja top — igual a .proc-step::after */
+    .svc-card::before {
+      content:          '';
+      position:         absolute;
       top: 0; left: 0; right: 0;
-      height: 3px;
-      background: var(--line);
-      transition: background 0.3s;
+      height:           3px;
+      background:       var(--line);
+      transition:       background 0.3s;
     }
+    .svc-card:hover::before { background: var(--red); }
 
-    .svc-card:hover::after { background: var(--red); }
-
-    .svc-num {
-      font-family: var(--mono);
-      font-size: 0.62rem;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--red);
-      margin-bottom: 1.5rem;
-    }
-
-    .svc-title {
-      font-family: var(--display);
-      font-size: 1.5rem;
+    /* Número grande — igual a .proc-n */
+    .svc-n {
+      font-family:    var(--display);
+      font-size:      4.5rem;
+      color:          var(--line);
+      line-height:    1;
       letter-spacing: 0.04em;
-      color: var(--ink);
-      line-height: 1.1;
-      margin-bottom: 1rem;
+      margin-bottom:  1.25rem;
     }
 
+    /* Chip rojo — igual a .proc-chip */
+    .svc-chip {
+      display:        inline-block;
+      background:     var(--red);
+      color:          #fff;
+      font-family:    var(--mono);
+      font-size:      0.58rem;
+      font-weight:    700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding:        0.2rem 0.65rem;
+      margin-bottom:  0.8rem;
+      width:          fit-content;
+    }
+
+    /* Título — igual a .proc-title */
+    .svc-title {
+      font-family:    var(--display);
+      font-size:      1.6rem;
+      letter-spacing: 0.04em;
+      color:          var(--ink);
+      line-height:    1.05;
+      margin-bottom:  1rem;
+    }
+
+    /* Descripción — igual a .proc-desc */
     .svc-desc {
-      font-size: 0.875rem;
-      color: var(--mid);
-      line-height: 1.75;
+      font-size:   0.9rem;
+      color:       var(--mid);
+      line-height: 1.8;
       font-weight: 300;
-      flex-grow: 1;
+      flex-grow:   1;
     }
 
-    /* CTA central */
+    /* ── CTA final ── */
     .page-cta {
-      text-align: center;
-      padding: 5rem 3rem;
-      border-top: 1px solid var(--line);
+      padding:    5rem 3rem;
       background: var(--ink);
+      text-align: center;
+      border-top: 1px solid #1e1e1e;
     }
-
-    .page-cta .big-title {
-      color: var(--white);
-      margin-bottom: 1.5rem;
-    }
-
-    .page-cta .big-title .ghost {
-      -webkit-text-stroke-color: #444;
-    }
-
+    .page-cta .mono-label          { justify-content: center; margin-bottom: 1.25rem; }
+    .page-cta .big-title           { color: var(--white); margin-bottom: 1.5rem; }
+    .page-cta .big-title .ghost    { -webkit-text-stroke-color: #333; }
     .page-cta p {
-      font-size: 0.95rem;
-      color: #777;
-      font-weight: 300;
-      margin-bottom: 2.5rem;
-      max-width: 420px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.7;
+      font-size: 0.95rem; color: #666; font-weight: 300;
+      max-width: 400px; margin: 0 auto 2.5rem; line-height: 1.7;
     }
 
-    /* Responsive servicios */
+    /* ── Responsive ── */
     @media (max-width: 960px) {
-      .page-header     { padding: 7rem 1.5rem 3rem; }
-      .services-grid   { grid-template-columns: 1fr; }
-      .page-cta        { padding: 4rem 1.5rem; }
-    }
-
-    @media (max-width: 640px) {
-      .services-grid   { grid-template-columns: 1fr; }
+      .page-header { padding: 7rem 1.5rem 3rem; }
+      .svc-outer   { padding: 3rem 1.5rem 4rem; }
+      .svc-grid    { grid-template-columns: 1fr; }
+      .svc-card    { border-right: none !important; border-bottom: 1px solid var(--line) !important; }
+      .svc-card:last-child { border-bottom: none !important; }
+      .page-cta    { padding: 4rem 1.5rem; }
     }
   </style>
 </head>
 <body>
 
-  <!-- ════════ NAV ════════ -->
+  <!-- NAV -->
   <nav aria-label="Navegación principal">
     <a href="index.html" class="nav-logo" aria-label="SHC Digital — Inicio">
       <span class="logo-type" aria-hidden="true">SHC<span>.</span>DIGITAL</span>
@@ -163,9 +157,9 @@
     </ul>
   </nav>
 
-  <!-- ════════ HEADER ════════ -->
+  <!-- HEADER -->
   <header class="page-header">
-    <p class="mono-label">Soluciones digitales</p>
+    <p class="mono-label">// soluciones digitales</p>
     <h1 class="big-title">
       SERVICIOS<br />
       <span class="ghost">ESPECIALIZADOS</span>
@@ -177,69 +171,56 @@
     </p>
   </header>
 
-  <!-- ════════ SERVICIOS ════════ -->
+  <!-- CARDS -->
   <main>
-    <section style="padding: 0 3rem 0; background: var(--bg);">
-      <div class="services-grid">
+    <section class="svc-outer" aria-labelledby="svc-title">
+      <p class="mono-label">Qué hacemos</p>
+      <h2 id="svc-title" class="big-title" style="margin-bottom:3rem">
+        TODO LO<br /><span class="ghost">QUE INCLUYE</span>
+      </h2>
+
+      <div class="svc-grid">
 
         <article class="svc-card">
-          <div class="svc-num">[ 01 ] Infraestructura Legal</div>
-          <h2 class="svc-title">GESTIÓN Y REGISTRO DE DOMINIO</h2>
-          <p class="svc-desc">
-            Asesoramiento técnico y legal completo para el registro y delegación
-            de dominios oficiales (.ar o comerciales). Aseguramos la titularidad
-            correcta de tu marca en internet desde el primer día.
-          </p>
+          <div class="svc-n" aria-hidden="true">01</div>
+          <span class="svc-chip">Infraestructura Legal</span>
+          <h3 class="svc-title">GESTIÓN Y REGISTRO DE DOMINIO</h3>
+          <p class="svc-desc">Asesoramiento técnico y legal completo para el registro y delegación de dominios oficiales (.ar o comerciales). Aseguramos la titularidad correcta de tu marca en internet desde el primer día.</p>
         </article>
 
         <article class="svc-card">
-          <div class="svc-num">[ 02 ] Identidad Visual</div>
-          <h2 class="svc-title">DISEÑO DE SITIOS WEB CON IA</h2>
-          <p class="svc-desc">
-            Interfaces bajo una estética limpia, tipográfica y editorial.
-            Diseños minimalistas orientados a profesionales que buscan transmitir
-            sofisticación y claridad absoluta. Sin plantillas genéricas.
-          </p>
+          <div class="svc-n" aria-hidden="true">02</div>
+          <span class="svc-chip">Identidad Visual</span>
+          <h3 class="svc-title">DISEÑO DE SITIOS WEB CON IA</h3>
+          <p class="svc-desc">Interfaces bajo una estética limpia, tipográfica y editorial. Diseños minimalistas orientados a profesionales que buscan transmitir sofisticación y claridad absoluta. Sin plantillas genéricas.</p>
         </article>
 
         <article class="svc-card">
-          <div class="svc-num">[ 03 ] Seguridad y DNS</div>
-          <h2 class="svc-title">CONFIGURACIÓN EN CLOUDFLARE</h2>
-          <p class="svc-desc">
-            Capas perimetrales de seguridad global. Registros DNS, firewalls WAF,
-            optimización de caché perimetral y certificados SSL/TLS
-            cifrados de extremo a extremo.
-          </p>
+          <div class="svc-n" aria-hidden="true">03</div>
+          <span class="svc-chip">Seguridad y DNS</span>
+          <h3 class="svc-title">CONFIGURACIÓN EN CLOUDFLARE</h3>
+          <p class="svc-desc">Capas perimetrales de seguridad global. Registros DNS, firewalls WAF, optimización de caché perimetral y certificados SSL/TLS cifrados de extremo a extremo.</p>
         </article>
 
         <article class="svc-card">
-          <div class="svc-num">[ 04 ] Arquitectura Serverless</div>
-          <h2 class="svc-title">ALOJAMIENTO EN GITHUB PAGES</h2>
-          <p class="svc-desc">
-            Repositorios de código seguro con pipelines automatizados.
-            Despliegues estáticos con costo de mantenimiento cero
-            ($0 de hosting mensual) y disponibilidad del 99.99%.
-          </p>
+          <div class="svc-n" aria-hidden="true">04</div>
+          <span class="svc-chip">Arquitectura Serverless</span>
+          <h3 class="svc-title">ALOJAMIENTO EN GITHUB PAGES</h3>
+          <p class="svc-desc">Repositorios con pipelines automatizados. Despliegues estáticos con costo de mantenimiento cero — $0 de hosting mensual — y disponibilidad de servidores del 99.99%.</p>
         </article>
 
         <article class="svc-card">
-          <div class="svc-num">[ 05 ] Automatizaciones</div>
-          <h2 class="svc-title">FORMULARIOS CON ALERTA INMEDIATA</h2>
-          <p class="svc-desc">
-            Integración asincrónica de formularios. Cada consulta guarda datos
-            en Google Sheets, notifica por WhatsApp y envía un mail de
-            confirmación al cliente en milisegundos.
-          </p>
+          <div class="svc-n" aria-hidden="true">05</div>
+          <span class="svc-chip">Automatizaciones</span>
+          <h3 class="svc-title">FORMULARIOS CON ALERTA INMEDIATA</h3>
+          <p class="svc-desc">Integración asincrónica mediante APIs. Cada consulta guarda datos en Google Sheets, notifica por WhatsApp y envía un mail de confirmación al cliente en milisegundos.</p>
         </article>
 
         <article class="svc-card">
-          <div class="svc-num">[ 06 ] WPO & SEO Técnico</div>
-          <h2 class="svc-title">OPTIMIZACIÓN CORE WEB VITALS</h2>
-          <p class="svc-desc">
-            Puntajes cercanos al 100% en Google Lighthouse. Minificación
-            de scripts, compresión WebP/AVIF y optimización de renderizado
-            crítico para máxima performance y posicionamiento.
-          </p>
+          <div class="svc-n" aria-hidden="true">06</div>
+          <span class="svc-chip">WPO & SEO Técnico</span>
+          <h3 class="svc-title">OPTIMIZACIÓN CORE WEB VITALS</h3>
+          <p class="svc-desc">Puntajes cercanos al 100% en Google Lighthouse. Minificación de scripts, compresión WebP/AVIF y optimización de renderizado crítico para máxima performance y posicionamiento.</p>
         </article>
 
       </div>
@@ -247,14 +228,14 @@
 
     <!-- CTA -->
     <div class="page-cta">
-      <p class="mono-label" style="justify-content:center">Empezá hoy</p>
+      <p class="mono-label">Empezá hoy</p>
       <h2 class="big-title">¿LISTO PARA<br /><span class="ghost">EMPEZAR?</span></h2>
-      <p>Contanos tu proyecto y te preparamos una propuesta personalizada en menos de 24 horas.</p>
+      <p>Contanos tu proyecto y te preparamos una propuesta en menos de 24 horas.</p>
       <a href="index.html#contacto" class="btn-fill">→ Consultar ahora</a>
     </div>
   </main>
 
-  <!-- ════════ FOOTER ════════ -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-brand" aria-label="SHC Digital">SHC<span>.</span>DIGITAL</div>
     <p class="footer-copy">© 2025 SHC Digital — Todos los derechos reservados</p>
@@ -265,6 +246,5 @@
   </footer>
 
   <script src="assets/js/app.js" defer></script>
-
 </body>
 </html>

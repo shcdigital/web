@@ -18,7 +18,6 @@
  */
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJ3aN_UHT3DadWEGXnu9GsY6sSwGuRKRA2KSMLNW_QDr8-998MNvcjf8HeNMw-TbzbyA/exec';
 
-
 /* ─────────────────────────────────────────────
    2. SCROLL SUAVE
 ───────────────────────────────────────────── */
@@ -39,7 +38,7 @@ function initSmoothScroll() {
    3. ANIMACIONES DE ENTRADA
 ───────────────────────────────────────────── */
 function initScrollAnimations() {
-  const ANIMATED_SELECTORS = '.proc-step, .serv-card, .p-card, .t-card';
+  const ANIMATED_SELECTORS = '.proc-step, .serv-card, .p-card, .t-card, .svc-card, .legal-card';
   const STAGGER_COLUMNS    = 4;
   const STAGGER_DELAY_MS   = 100;
 
