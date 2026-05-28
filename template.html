@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!--
+  ═══════════════════════════════════════════════════════
+   SHC Digital — TEMPLATE DE PÁGINA INTERIOR
+   -------------------------------------------------------
+   INSTRUCCIONES:
+   1. Renombrá este archivo (ej: blog.html, nosotros.html)
+   2. Buscá todos los comentarios <!-- EDITAR → y reemplazá
+   3. Nunca toques styles.css ni app.js
+   4. Para agregar cards: copiá el bloque .proc-step completo
+  ═══════════════════════════════════════════════════════
+  -->
+
+  <!-- EDITAR → descripción de la página para Google -->
+  <meta name="description" content="Descripción de esta página — SHC Digital" />
+
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none';" />
+
+  <!-- EDITAR → título de la pestaña del navegador -->
+  <title>Nombre de Página — SHC Digital</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+
+  <style>
+    /*
+    ─────────────────────────────────────────────────────
+     Estilos LOCALES de esta página.
+     Solo agregá aquí lo que no exista en styles.css.
+     Clases disponibles en styles.css para reutilizar:
+       Layout:    .container
+       Texto:     .mono-label  .big-title  .big-title .ghost
+       Botones:   .btn-fill  .btn-outline
+       Cards:     .proc-step  .proc-n  .proc-chip  .proc-title  .proc-desc
+       Precios:   .p-card  .p-tag  .p-items  .p-btn  .p-btn-hot
+       Form:      .cta-form  .f-field  .f-label  .f-input  .f-btn
+    ─────────────────────────────────────────────────────
+    */
+
+    /* Header oscuro con borde rojo — igual a servicios/términos */
+    .page-header {
+      padding: 9rem 3rem 4.5rem;
+      background: var(--ink);
+      border-bottom: 3px solid var(--red);
+    }
+    .page-header .big-title        { color: var(--white); margin-bottom: 1.5rem; }
+    .page-header .big-title .ghost { -webkit-text-stroke-color: #333; }
+    .page-header-desc {
+      font-size: 1rem; color: #666;
+      line-height: 1.75; max-width: 520px; font-weight: 300;
+    }
+
+    /* Sección principal — fondo blanco, bordes top/bottom */
+    .main-section {
+      background:    var(--white);
+      border-top:    1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding:       5rem 3rem 6rem;
+    }
+
+    /*
+    ── GRIDS DISPONIBLES ──────────────────────────────────
+    Para 4 cards: grid-template-columns: repeat(4, 1fr)  → igual a #proceso
+    Para 3 cards: grid-template-columns: repeat(3, 1fr)  → igual a servicios
+    Para 2 cards: grid-template-columns: repeat(2, 1fr)
+    Para 1 col ancha (legal): grid-template-columns: 1fr  + max-width: 860px
+    ── */
+    .cards-grid {
+      display:               grid;
+      grid-template-columns: repeat(3, 1fr); /* EDITAR → cambiá el número */
+      gap:                   0;
+      border:                1px solid var(--line);
+      margin-top:            3rem;
+    }
+
+    /* Bordes internos para grid de 3 columnas */
+    .cards-grid .proc-step              { border-bottom: 1px solid var(--line); }
+    .cards-grid .proc-step:nth-child(3n){ border-right: none; }
+    .cards-grid .proc-step:last-child,
+    .cards-grid .proc-step:nth-last-child(2),
+    .cards-grid .proc-step:nth-last-child(3) { border-bottom: none; }
+    /* NOTA: ajustá los nth-child si cambiás el número de columnas:
+       2 cols → nth-child(2n) sin borde derecho
+       4 cols → nth-child(4n) sin borde derecho              */
+
+    /* CTA final oscuro — opcional, borralo si no lo necesitás */
+    .page-cta {
+      padding: 5rem 3rem;
+      background: var(--ink);
+      text-align: center;
+    }
+    .page-cta .mono-label       { justify-content: center; margin-bottom: 1.25rem; }
+    .page-cta .big-title        { color: var(--white); margin-bottom: 1.5rem; }
+    .page-cta .big-title .ghost { -webkit-text-stroke-color: #333; }
+    .page-cta p {
+      font-size: 0.95rem; color: #666; font-weight: 300;
+      max-width: 400px; margin: 0 auto 2.5rem; line-height: 1.7;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 960px) {
+      .page-header  { padding: 7rem 1.5rem 3rem; }
+      .main-section { padding: 3rem 1.5rem 4rem; }
+      .cards-grid   { grid-template-columns: 1fr; }
+      .cards-grid .proc-step              { border-right: none; border-bottom: 1px solid var(--line) !important; }
+      .cards-grid .proc-step:last-child   { border-bottom: none !important; }
+      .page-cta     { padding: 4rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════
+       NAV — no modificar
+  ════════════════════════════════ -->
+  <nav aria-label="Navegación principal">
+    <a href="index.html" class="nav-logo" aria-label="SHC Digital — Inicio">
+      <span class="logo-type" aria-hidden="true">SHC<span>.</span>DIGITAL</span>
+    </a>
+    <ul class="nav-links" role="list">
+      <li><a href="index.html">Inicio</a></li>
+      <li><a href="servicios.html">Servicios</a></li>
+      <li><a href="index.html#precios">Planes</a></li>
+      <!-- EDITAR → marcá la página activa con style="color:var(--red)" -->
+      <li><a href="index.html#contacto" class="nav-cta">→ Empezar</a></li>
+    </ul>
+  </nav>
+
+  <!-- ════════════════════════════════
+       HEADER — editá el título y descripción
+  ════════════════════════════════ -->
+  <header class="page-header">
+    <div class="container">
+      <!-- EDITAR → etiqueta pequeña superior -->
+      <p class="mono-label">// subtítulo de sección</p>
+
+      <!-- EDITAR → título grande. Podés usar .ghost en la segunda línea -->
+      <h1 class="big-title">
+        TÍTULO<br />
+        <span class="ghost">DE PÁGINA</span>
+      </h1>
+
+      <!-- EDITAR → descripción breve -->
+      <p class="page-header-desc">
+        Descripción introductoria de esta página. Explicá en 1-2 líneas
+        de qué trata el contenido que viene a continuación.
+      </p>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ════════════════════════════════
+         SECCIÓN PRINCIPAL DE CARDS
+         Copiá y pegá bloques .proc-step para agregar cards
+    ════════════════════════════════ -->
+    <section class="main-section" aria-labelledby="main-h">
+      <div class="container">
+
+        <!-- EDITAR → label y título de sección -->
+        <p class="mono-label">Etiqueta de sección</p>
+        <h2 id="main-h" class="big-title">
+          TÍTULO DE<br /><span class="ghost">SECCIÓN</span>
+        </h2>
+
+        <div class="cards-grid">
+
+          <!-- ── CARD 1 — copiá este bloque para agregar más ── -->
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">01</div>          <!-- Número grande gris -->
+            <span class="proc-chip">Etiqueta</span>                  <!-- Chip rojo -->
+            <h3 class="proc-title">TÍTULO DE LA CARD</h3>            <!-- Título Bebas Neue -->
+            <p class="proc-desc">Descripción del ítem. Usá Barlow 300, máximo 2-3 líneas para que las cards queden parejas en altura.</p>
+          </div>
+
+          <!-- ── CARD 2 ── -->
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">02</div>
+            <span class="proc-chip">Etiqueta</span>
+            <h3 class="proc-title">TÍTULO DE LA CARD</h3>
+            <p class="proc-desc">Descripción del ítem. Mantené longitudes similares entre cards para que el grid se vea equilibrado.</p>
+          </div>
+
+          <!-- ── CARD 3 ── -->
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">03</div>
+            <span class="proc-chip">Etiqueta</span>
+            <h3 class="proc-title">TÍTULO DE LA CARD</h3>
+            <p class="proc-desc">Descripción del ítem. Podés agregar más cards duplicando este bloque.</p>
+          </div>
+
+          <!-- ── CARD 4 — duplicá desde acá hacia abajo ── -->
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">04</div>
+            <span class="proc-chip">Etiqueta</span>
+            <h3 class="proc-title">TÍTULO DE LA CARD</h3>
+            <p class="proc-desc">Descripción del ítem.</p>
+          </div>
+
+          <!-- ── CARD 5 ── -->
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">05</div>
+            <span class="proc-chip">Etiqueta</span>
+            <h3 class="proc-title">TÍTULO DE LA CARD</h3>
+            <p class="proc-desc">Descripción del ítem.</p>
+          </div>
+
+          <!-- ── CARD 6 ── -->
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">06</div>
+            <span class="proc-chip">Etiqueta</span>
+            <h3 class="proc-title">TÍTULO DE LA CARD</h3>
+            <p class="proc-desc">Descripción del ítem.</p>
+          </div>
+
+        </div><!-- /cards-grid -->
+
+      </div><!-- /container -->
+    </section>
+
+    <!-- ════════════════════════════════
+         CTA FINAL — opcional
+         Borrá esta sección si no la necesitás
+    ════════════════════════════════ -->
+    <div class="page-cta">
+      <div class="container">
+        <!-- EDITAR → -->
+        <p class="mono-label">Call to action</p>
+        <h2 class="big-title">TÍTULO DEL<br /><span class="ghost">CTA</span></h2>
+        <p>Texto breve que invite al usuario a dar el siguiente paso.</p>
+        <a href="index.html#contacto" class="btn-fill">→ Texto del botón</a>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ════════════════════════════════
+       FOOTER — no modificar
+       Solo actualizá el año si es necesario
+  ════════════════════════════════ -->
+  <footer>
+    <div class="footer-brand" aria-label="SHC Digital">SHC<span>.</span>DIGITAL</div>
+    <p class="footer-copy">© 2025 SHC Digital — Todos los derechos reservados</p>
+    <ul class="footer-links" role="list">
+      <li><a href="terminos.html">Términos</a></li>
+      <li><a href="index.html#contacto">Contacto</a></li>
+    </ul>
+  </footer>
+
+  <!-- JS — no modificar -->
+  <script src="assets/js/app.js" defer></script>
+
+</body>
+</html>

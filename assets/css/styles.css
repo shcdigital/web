@@ -349,6 +349,14 @@ nav {
 ───────────────────────────────────────────── */
 section { padding: 6rem 3rem; }
 
+/* Contenedor centrado — limita el ancho en pantallas grandes */
+.container {
+  max-width:    1140px;
+  margin-left:  auto;
+  margin-right: auto;
+  width:        100%;
+}
+
 .mono-label {
   font-family:    var(--mono);
   font-size:      0.65rem;

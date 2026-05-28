@@ -11,22 +11,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    /* ── Solo lo que styles.css no tiene ── */
-
+    /* ── Header ── */
     .page-header {
       padding: 9rem 3rem 4.5rem;
       background: var(--ink);
       border-bottom: 3px solid var(--red);
     }
-    .page-header .mono-label           { margin-bottom: 1.25rem; }
-    .page-header .big-title            { color: var(--white); margin-bottom: 1.5rem; }
-    .page-header .big-title .ghost     { -webkit-text-stroke-color: #333; }
+    .page-header .big-title        { color: var(--white); margin-bottom: 1.5rem; }
+    .page-header .big-title .ghost { -webkit-text-stroke-color: #333; }
     .page-header-desc {
       font-size: 1rem; color: #666;
       line-height: 1.75; max-width: 520px; font-weight: 300;
     }
 
-    /* Sección wrapper — fondo blanco igual que #proceso */
+    /* ── Sección wrapper ── */
     .legal-section {
       background:    var(--white);
       border-top:    1px solid var(--line);
@@ -50,19 +48,21 @@
     }
     .date-chip span { color: var(--red); }
 
-    /* Grid de 1 columna ancha — mismo sistema que .proc-grid */
+    /* ── Grid de artículos — 1 columna, mismo sistema .proc-step ── */
     .legal-grid {
-      display:               grid;
+      display:    grid;
       grid-template-columns: 1fr;
-      gap:                   0;
-      border:                1px solid var(--line);
-      max-width:             900px;
+      gap:        0;
+      border:     1px solid var(--line);
+      margin-top: 3rem;
+      /* Ancho máximo para legibilidad */
+      max-width:  860px;
     }
 
-    /* Cada artículo usa .proc-step pero con layout interno de 2 cols */
+    /* Cada artículo: layout interno 2 columnas (nro | contenido) */
     .legal-grid .proc-step {
       display:               grid;
-      grid-template-columns: 100px 1fr;
+      grid-template-columns: 96px 1fr;
       gap:                   0 2.5rem;
       align-items:           start;
       border-right:          none;
@@ -70,17 +70,14 @@
     }
     .legal-grid .proc-step:last-child { border-bottom: none; }
 
-    /* Columna izquierda: número + chip apilados */
+    /* Columna izquierda */
     .legal-left {
       display:        flex;
       flex-direction: column;
       align-items:    flex-start;
       gap:            0.6rem;
-      padding-top:    0.25rem;
+      padding-top:    0.2rem;
     }
-
-    /* Columna derecha: título + texto */
-    .legal-right {}
 
     /* Texto cuerpo del artículo */
     .legal-body-text {
@@ -88,45 +85,36 @@
       color:       var(--mid);
       line-height: 1.85;
       font-weight: 300;
-      margin-top:  0.5rem;
+      margin-top:  0.4rem;
     }
-    .legal-body-text p + p { margin-top: 0.75rem; }
+    .legal-body-text p + p  { margin-top: 0.75rem; }
     .legal-body-text strong { color: var(--ink2); font-weight: 600; }
 
-    /* Lista con el mismo › rojo del index */
+    /* Lista con › rojo del index */
     .legal-body-text ul {
       margin-top:     0.85rem;
       padding-left:   0;
       list-style:     none;
       display:        flex;
       flex-direction: column;
-      gap:            0.6rem;
+      gap:            0.55rem;
     }
     .legal-body-text ul li {
-      display:   flex;
-      gap:       0.75rem;
-      font-size: 0.875rem;
-      color:     var(--mid);
+      display: flex; gap: 0.75rem;
+      font-size: 0.875rem; color: var(--mid);
     }
     .legal-body-text ul li::before {
-      content:     '›';
-      color:       var(--red);
-      font-weight: 700;
-      font-size:   1rem;
-      line-height: 1.55;
-      flex-shrink: 0;
+      content: '›'; color: var(--red);
+      font-weight: 700; font-size: 1rem;
+      line-height: 1.55; flex-shrink: 0;
     }
 
-    /* Botón volver */
     .back-cta { margin-top: 3rem; }
 
     @media (max-width: 960px) {
-      .page-header  { padding: 7rem 1.5rem 3rem; }
+      .page-header   { padding: 7rem 1.5rem 3rem; }
       .legal-section { padding: 3rem 1.5rem 4rem; }
-      .legal-grid .proc-step {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-      }
+      .legal-grid .proc-step { grid-template-columns: 1fr; gap: 1rem; }
     }
   </style>
 </head>
@@ -147,109 +135,111 @@
 
   <!-- HEADER -->
   <header class="page-header">
-    <p class="mono-label">// marco legal y contractual</p>
-    <h1 class="big-title">TÉRMINOS Y<br /><span class="ghost">CONDICIONES</span></h1>
-    <p class="page-header-desc">
-      Por favor, leé atentamente las condiciones que regulan la prestación
-      de servicios de desarrollo web y despliegue de infraestructura digital.
-    </p>
+    <div class="container">
+      <p class="mono-label">// marco legal y contractual</p>
+      <h1 class="big-title">TÉRMINOS Y<br /><span class="ghost">CONDICIONES</span></h1>
+      <p class="page-header-desc">
+        Por favor, leé atentamente las condiciones que regulan la prestación
+        de servicios de desarrollo web y despliegue de infraestructura digital.
+      </p>
+    </div>
   </header>
 
   <main>
     <section class="legal-section" aria-labelledby="legal-h">
+      <div class="container">
 
-      <div class="date-chip">// Última actualización <span>—</span> Mayo 2026</div>
+        <div class="date-chip">// Última actualización <span>—</span> Mayo 2026</div>
 
-      <h2 id="legal-h" class="big-title" style="margin-bottom:3rem">
-        ARTÍCULOS<br /><span class="ghost">LEGALES</span>
-      </h2>
+        <h2 id="legal-h" class="big-title">ARTÍCULOS<br /><span class="ghost">LEGALES</span></h2>
 
-      <div class="legal-grid">
+        <div class="legal-grid">
 
-        <!-- Art. 1 -->
-        <div class="proc-step">
-          <div class="legal-left">
-            <div class="proc-n" aria-hidden="true">01</div>
-            <span class="proc-chip">Objeto</span>
-          </div>
-          <div class="legal-right">
-            <h3 class="proc-title">OBJETO Y ALCANCE DEL SERVICIO</h3>
-            <div class="legal-body-text">
-              <p>El presente documento constituye el contrato de prestación de servicios entre el Desarrollador (en adelante, <strong>SHC Digital</strong>) y el Solicitante (en adelante, el <strong>Cliente</strong>). El servicio se limita al diseño visual, maquetación estática, programación frontend y configuración de infraestructura perimetral base especificada en la propuesta comercial aceptada.</p>
+          <!-- Art. 1 -->
+          <div class="proc-step">
+            <div class="legal-left">
+              <div class="proc-n" aria-hidden="true">01</div>
+              <span class="proc-chip">Objeto</span>
+            </div>
+            <div>
+              <h3 class="proc-title">OBJETO Y ALCANCE DEL SERVICIO</h3>
+              <div class="legal-body-text">
+                <p>El presente documento constituye el contrato de prestación de servicios entre el Desarrollador (en adelante, <strong>SHC Digital</strong>) y el Solicitante (en adelante, el <strong>Cliente</strong>). El servicio se limita al diseño visual, maquetación estática, programación frontend y configuración de infraestructura perimetral base especificada en la propuesta comercial aceptada.</p>
+              </div>
             </div>
           </div>
+
+          <!-- Art. 2 -->
+          <div class="proc-step">
+            <div class="legal-left">
+              <div class="proc-n" aria-hidden="true">02</div>
+              <span class="proc-chip">Contenidos</span>
+            </div>
+            <div>
+              <h3 class="proc-title">RESPONSABILIDAD POR LA INFORMACIÓN</h3>
+              <div class="legal-body-text">
+                <p>De conformidad con los principios de buena fe contractual regulados en el <strong>Artículo 961 del CCyCN</strong>, el Cliente es el único y exclusivo responsable por la veracidad, exactitud, licitud y derechos de propiedad intelectual de toda la información, textos, marcas, logotipos e imágenes transferidas a SHC Digital.</p>
+                <p>SHC Digital no audita los contenidos provistos, quedando eximido de responsabilidad civil, penal o comercial ante reclamos por infracciones a la Ley N° 11.723, leyes de marcas o difusión de información falsa.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Art. 3 -->
+          <div class="proc-step">
+            <div class="legal-left">
+              <div class="proc-n" aria-hidden="true">03</div>
+              <span class="proc-chip">Despliegue</span>
+            </div>
+            <div>
+              <h3 class="proc-title">DESLINDE POST-DESPLIEGUE</h3>
+              <div class="legal-body-text">
+                <p>La obligación de SHC Digital es de <strong>medios y no de resultado</strong>. Una vez aprobado y desplegado el sitio, <strong>cesará toda responsabilidad técnica y jurídica de SHC Digital</strong> sobre el mismo (<strong>Art. 958 del CCyCN</strong>).</p>
+                <p>SHC Digital queda deslindado de responsabilidad por daños derivados de:</p>
+                <ul>
+                  <li>Caídas o fallas en la infraestructura de terceros (GitHub Pages, Cloudflare, etc.).</li>
+                  <li>Vencimiento, pérdida de control o mala gestión del dominio por parte del Cliente.</li>
+                  <li>Modificaciones en el código fuente o registros DNS realizadas por el Cliente o terceros no autorizados.</li>
+                  <li>Interrupciones en APIs de terceros empleadas para automatizaciones y formularios.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Art. 4 -->
+          <div class="proc-step">
+            <div class="legal-left">
+              <div class="proc-n" aria-hidden="true">04</div>
+              <span class="proc-chip">Seguridad</span>
+            </div>
+            <div>
+              <h3 class="proc-title">ENTORNO DE SEGURIDAD</h3>
+              <div class="legal-body-text">
+                <p>Las configuraciones en Cloudflare y GitHub Pages se realizan siguiendo buenas prácticas de hardening (SSL/TLS, WAF base). El Cliente reconoce que en internet no existe la seguridad absoluta. SHC Digital no será responsable de ciberataques o filtraciones que superen los umbrales configurados, entendiéndose como caso fortuito o fuerza mayor tecnológica (<strong>Art. 1730 del CCyCN</strong>).</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Art. 5 -->
+          <div class="proc-step">
+            <div class="legal-left">
+              <div class="proc-n" aria-hidden="true">05</div>
+              <span class="proc-chip">Jurisdicción</span>
+            </div>
+            <div>
+              <h3 class="proc-title">JURISDICCIÓN Y LEY APLICABLE</h3>
+              <div class="legal-body-text">
+                <p>El presente contrato se rige exclusivamente por las leyes vigentes de la <strong>República Argentina</strong>. Cualquier controversia será sometida a la jurisdicción de los Tribunales Ordinarios competentes, renunciando las partes a cualquier otro fuero o jurisdicción que pudiera corresponderles.</p>
+              </div>
+            </div>
+          </div>
+
         </div>
 
-        <!-- Art. 2 -->
-        <div class="proc-step">
-          <div class="legal-left">
-            <div class="proc-n" aria-hidden="true">02</div>
-            <span class="proc-chip">Contenidos</span>
-          </div>
-          <div class="legal-right">
-            <h3 class="proc-title">RESPONSABILIDAD POR LA INFORMACIÓN</h3>
-            <div class="legal-body-text">
-              <p>De conformidad con los principios de buena fe contractual regulados en el <strong>Artículo 961 del CCyCN</strong>, el Cliente es el único y exclusivo responsable por la veracidad, exactitud, licitud y derechos de propiedad intelectual de toda la información, textos, marcas, logotipos e imágenes transferidas a SHC Digital.</p>
-              <p>SHC Digital no audita los contenidos provistos, quedando eximido de responsabilidad civil, penal o comercial ante reclamos de terceros por infracciones a la Ley N° 11.723, leyes de marcas o difusión de información falsa.</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Art. 3 -->
-        <div class="proc-step">
-          <div class="legal-left">
-            <div class="proc-n" aria-hidden="true">03</div>
-            <span class="proc-chip">Despliegue</span>
-          </div>
-          <div class="legal-right">
-            <h3 class="proc-title">DESLINDE POST-DESPLIEGUE</h3>
-            <div class="legal-body-text">
-              <p>La obligación de SHC Digital es de <strong>medios y no de resultado</strong> respecto a factores exógenos. Una vez aprobado y desplegado el sitio, <strong>cesará toda responsabilidad técnica y jurídica de SHC Digital</strong> sobre el mismo (<strong>Art. 958 del CCyCN</strong>).</p>
-              <p>SHC Digital queda deslindado de responsabilidad por daños derivados de:</p>
-              <ul>
-                <li>Caídas o fallas en la infraestructura de terceros (GitHub Pages, Cloudflare, etc.).</li>
-                <li>Vencimiento, pérdida de control o mala gestión del dominio por parte del Cliente.</li>
-                <li>Modificaciones en el código fuente o registros DNS realizadas por el Cliente o terceros no autorizados.</li>
-                <li>Interrupciones en APIs de terceros empleadas para automatizaciones y formularios.</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <!-- Art. 4 -->
-        <div class="proc-step">
-          <div class="legal-left">
-            <div class="proc-n" aria-hidden="true">04</div>
-            <span class="proc-chip">Seguridad</span>
-          </div>
-          <div class="legal-right">
-            <h3 class="proc-title">ENTORNO DE SEGURIDAD</h3>
-            <div class="legal-body-text">
-              <p>Las configuraciones en Cloudflare y GitHub Pages se realizan siguiendo buenas prácticas de hardening (SSL/TLS, WAF base). El Cliente reconoce que en internet no existe la seguridad absoluta. SHC Digital no será responsable de ciberataques o filtraciones que superen los umbrales configurados, entendiéndose como caso fortuito o fuerza mayor tecnológica (<strong>Art. 1730 del CCyCN</strong>).</p>
-            </div>
-          </div>
-        </div>
-
-        <!-- Art. 5 -->
-        <div class="proc-step">
-          <div class="legal-left">
-            <div class="proc-n" aria-hidden="true">05</div>
-            <span class="proc-chip">Jurisdicción</span>
-          </div>
-          <div class="legal-right">
-            <h3 class="proc-title">JURISDICCIÓN Y LEY APLICABLE</h3>
-            <div class="legal-body-text">
-              <p>El presente contrato se rige exclusivamente por las leyes vigentes de la <strong>República Argentina</strong>. Cualquier controversia será sometida a la jurisdicción de los Tribunales Ordinarios competentes, renunciando las partes a cualquier otro fuero o jurisdicción que pudiera corresponderles.</p>
-            </div>
-          </div>
+        <div class="back-cta">
+          <a href="index.html" class="btn-fill">← Volver al inicio</a>
         </div>
 
       </div>
-
-      <div class="back-cta">
-        <a href="index.html" class="btn-fill">← Volver al inicio</a>
-      </div>
-
     </section>
   </main>
 

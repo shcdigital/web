@@ -11,22 +11,20 @@
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
   <style>
-    /* ── Solo lo que styles.css no tiene ── */
-
+    /* ── Header de página ── */
     .page-header {
       padding: 9rem 3rem 4.5rem;
       background: var(--ink);
       border-bottom: 3px solid var(--red);
     }
-    .page-header .mono-label           { margin-bottom: 1.25rem; }
-    .page-header .big-title            { color: var(--white); margin-bottom: 1.5rem; }
-    .page-header .big-title .ghost     { -webkit-text-stroke-color: #333; }
+    .page-header .big-title        { color: var(--white); margin-bottom: 1.5rem; }
+    .page-header .big-title .ghost { -webkit-text-stroke-color: #333; }
     .page-header-desc {
       font-size: 1rem; color: #666;
       line-height: 1.75; max-width: 520px; font-weight: 300;
     }
 
-    /* Sección wrapper — fondo blanco igual que #proceso */
+    /* ── Sección wrapper — fondo blanco igual a #proceso ── */
     .svc-section {
       background:    var(--white);
       border-top:    1px solid var(--line);
@@ -34,7 +32,7 @@
       padding:       5rem 3rem 6rem;
     }
 
-    /* Grid de 3 columnas — mismo gap:0 y borde exterior que .proc-grid */
+    /* ── Grid de cards — 3 columnas, mismo sistema que .proc-grid ── */
     .svc-grid {
       display:               grid;
       grid-template-columns: repeat(3, 1fr);
@@ -42,21 +40,17 @@
       border:                1px solid var(--line);
       margin-top:            3rem;
     }
-
-    /* Cada card hereda TODO de .proc-step */
-    .svc-grid .proc-step {
-      border-bottom: 1px solid var(--line);
-    }
-    /* Última fila sin borde inferior */
+    /* Borde derecho: el 3ro y 6to no lo tienen */
+    .svc-grid .proc-step:nth-child(3n) { border-right: none; }
+    /* Borde inferior: los de la última fila no lo tienen */
+    .svc-grid .proc-step               { border-bottom: 1px solid var(--line); }
     .svc-grid .proc-step:nth-child(4),
     .svc-grid .proc-step:nth-child(5),
-    .svc-grid .proc-step:nth-child(6) { border-bottom: none; }
-    /* Borde derecho: el 3ro y 6to de cada fila no lo tienen */
-    .svc-grid .proc-step:nth-child(3n) { border-right: none; }
+    .svc-grid .proc-step:nth-child(6)  { border-bottom: none; }
 
-    /* CTA oscuro al final */
+    /* ── CTA oscuro final ── */
     .page-cta {
-      padding: 5rem 3rem;
+      padding:    5rem 3rem;
       background: var(--ink);
       text-align: center;
     }
@@ -72,8 +66,8 @@
       .page-header { padding: 7rem 1.5rem 3rem; }
       .svc-section { padding: 3rem 1.5rem 4rem; }
       .svc-grid    { grid-template-columns: 1fr; }
-      .svc-grid .proc-step              { border-right: none; border-bottom: 1px solid var(--line); }
-      .svc-grid .proc-step:last-child   { border-bottom: none; }
+      .svc-grid .proc-step              { border-right: none; border-bottom: 1px solid var(--line) !important; }
+      .svc-grid .proc-step:last-child   { border-bottom: none !important; }
       .page-cta    { padding: 4rem 1.5rem; }
     }
   </style>
@@ -95,75 +89,80 @@
 
   <!-- HEADER -->
   <header class="page-header">
-    <p class="mono-label">// soluciones digitales</p>
-    <h1 class="big-title">SERVICIOS<br /><span class="ghost">ESPECIALIZADOS</span></h1>
-    <p class="page-header-desc">
-      Infraestructura web de alta velocidad y diseño minimalista.
-      Eliminamos la complejidad técnica para que tu identidad digital
-      funcione sin interrupciones y sin costos mensuales.
-    </p>
+    <div class="container">
+      <p class="mono-label">// soluciones digitales</p>
+      <h1 class="big-title">SERVICIOS<br /><span class="ghost">ESPECIALIZADOS</span></h1>
+      <p class="page-header-desc">
+        Infraestructura web de alta velocidad y diseño minimalista.
+        Eliminamos la complejidad técnica para que tu identidad digital
+        funcione sin interrupciones y sin costos mensuales.
+      </p>
+    </div>
   </header>
 
   <main>
 
-    <!-- CARDS — usan exactamente las clases del index -->
+    <!-- CARDS -->
     <section class="svc-section" aria-labelledby="svc-h">
-      <p class="mono-label">Qué hacemos</p>
-      <h2 id="svc-h" class="big-title">TODO LO<br /><span class="ghost">QUE INCLUYE</span></h2>
+      <div class="container">
+        <p class="mono-label">Qué hacemos</p>
+        <h2 id="svc-h" class="big-title">TODO LO<br /><span class="ghost">QUE INCLUYE</span></h2>
+        <div class="svc-grid">
 
-      <div class="svc-grid">
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">01</div>
+            <span class="proc-chip">Infraestructura Legal</span>
+            <h3 class="proc-title">REGISTRO DE DOMINIO</h3>
+            <p class="proc-desc">Asesoramiento técnico y legal completo para el registro y delegación de dominios oficiales (.ar o comerciales). Aseguramos la titularidad correcta de tu marca en internet desde el primer día.</p>
+          </div>
 
-        <div class="proc-step">
-          <div class="proc-n" aria-hidden="true">01</div>
-          <span class="proc-chip">Infraestructura Legal</span>
-          <h3 class="proc-title">REGISTRO DE DOMINIO</h3>
-          <p class="proc-desc">Asesoramiento técnico y legal completo para el registro y delegación de dominios oficiales (.ar o comerciales). Aseguramos la titularidad correcta de tu marca en internet desde el primer día.</p>
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">02</div>
+            <span class="proc-chip">Identidad Visual</span>
+            <h3 class="proc-title">DISEÑO WEB CON IA</h3>
+            <p class="proc-desc">Interfaces bajo una estética limpia, tipográfica y editorial. Diseños minimalistas orientados a profesionales que buscan transmitir sofisticación y claridad absoluta. Sin plantillas genéricas.</p>
+          </div>
+
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">03</div>
+            <span class="proc-chip">Seguridad y DNS</span>
+            <h3 class="proc-title">CLOUDFLARE HARDENING</h3>
+            <p class="proc-desc">Capas perimetrales de seguridad global. Registros DNS, firewalls WAF, optimización de caché perimetral y certificados SSL/TLS cifrados de extremo a extremo.</p>
+          </div>
+
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">04</div>
+            <span class="proc-chip">Serverless</span>
+            <h3 class="proc-title">GITHUB PAGES</h3>
+            <p class="proc-desc">Repositorios con pipelines automatizados. Despliegues estáticos con costo de mantenimiento cero — $0 de hosting mensual — y disponibilidad de servidores del 99.99%.</p>
+          </div>
+
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">05</div>
+            <span class="proc-chip">Automatizaciones</span>
+            <h3 class="proc-title">FORMULARIOS + ALERTAS</h3>
+            <p class="proc-desc">Integración asincrónica mediante APIs. Cada consulta guarda datos en Google Sheets, notifica por WhatsApp y envía un mail de confirmación al cliente en milisegundos.</p>
+          </div>
+
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">06</div>
+            <span class="proc-chip">WPO & SEO</span>
+            <h3 class="proc-title">CORE WEB VITALS</h3>
+            <p class="proc-desc">Puntajes cercanos al 100% en Google Lighthouse. Minificación de scripts, compresión WebP/AVIF y optimización de renderizado crítico para máxima performance y posicionamiento.</p>
+          </div>
+
         </div>
-
-        <div class="proc-step">
-          <div class="proc-n" aria-hidden="true">02</div>
-          <span class="proc-chip">Identidad Visual</span>
-          <h3 class="proc-title">DISEÑO WEB CON IA</h3>
-          <p class="proc-desc">Interfaces bajo una estética limpia, tipográfica y editorial. Diseños minimalistas orientados a profesionales que buscan transmitir sofisticación y claridad absoluta. Sin plantillas genéricas.</p>
-        </div>
-
-        <div class="proc-step">
-          <div class="proc-n" aria-hidden="true">03</div>
-          <span class="proc-chip">Seguridad y DNS</span>
-          <h3 class="proc-title">CLOUDFLARE HARDENING</h3>
-          <p class="proc-desc">Capas perimetrales de seguridad global. Registros DNS, firewalls WAF, optimización de caché perimetral y certificados SSL/TLS cifrados de extremo a extremo.</p>
-        </div>
-
-        <div class="proc-step">
-          <div class="proc-n" aria-hidden="true">04</div>
-          <span class="proc-chip">Serverless</span>
-          <h3 class="proc-title">GITHUB PAGES</h3>
-          <p class="proc-desc">Repositorios con pipelines automatizados. Despliegues estáticos con costo de mantenimiento cero — $0 de hosting mensual — y disponibilidad de servidores del 99.99%.</p>
-        </div>
-
-        <div class="proc-step">
-          <div class="proc-n" aria-hidden="true">05</div>
-          <span class="proc-chip">Automatizaciones</span>
-          <h3 class="proc-title">FORMULARIOS + ALERTAS</h3>
-          <p class="proc-desc">Integración asincrónica mediante APIs. Cada consulta guarda datos en Google Sheets, notifica por WhatsApp y envía un mail de confirmación al cliente en milisegundos.</p>
-        </div>
-
-        <div class="proc-step">
-          <div class="proc-n" aria-hidden="true">06</div>
-          <span class="proc-chip">WPO & SEO</span>
-          <h3 class="proc-title">CORE WEB VITALS</h3>
-          <p class="proc-desc">Puntajes cercanos al 100% en Google Lighthouse. Minificación de scripts, compresión WebP/AVIF y optimización de renderizado crítico para máxima performance y posicionamiento.</p>
-        </div>
-
       </div>
     </section>
 
     <!-- CTA -->
     <div class="page-cta">
-      <p class="mono-label">Empezá hoy</p>
-      <h2 class="big-title">¿LISTO PARA<br /><span class="ghost">EMPEZAR?</span></h2>
-      <p>Contanos tu proyecto y te preparamos una propuesta en menos de 24 horas.</p>
-      <a href="index.html#contacto" class="btn-fill">→ Consultar ahora</a>
+      <div class="container">
+        <p class="mono-label">Empezá hoy</p>
+        <h2 class="big-title">¿LISTO PARA<br /><span class="ghost">EMPEZAR?</span></h2>
+        <p>Contanos tu proyecto y te preparamos una propuesta en menos de 24 horas.</p>
+        <a href="index.html#contacto" class="btn-fill">→ Consultar ahora</a>
+      </div>
     </div>
 
   </main>
