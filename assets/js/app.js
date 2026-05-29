@@ -16,7 +16,7 @@
  * Reemplazá este placeholder con la URL que obtenés
  * al publicar el script (Implementar → Aplicación web).
  */
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzJ3aN_UHT3DadWEGXnu9GsY6sSwGuRKRA2KSMLNW_QDr8-998MNvcjf8HeNMw-TbzbyA/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbx6ztEHyXH-q6XAYLrruDCD3lAcS2Jf0OHADsIcykl29xJro4azqtCiUh9L0FApDCENag/exec';
 
 
 /* ─────────────────────────────────────────────
@@ -176,8 +176,11 @@ function initContactForm() {
     const prefix   = form.querySelector('[name="prefix"]').value;
     const waNumber = form.querySelector('[name="whatsapp"]').value.trim();
     const whatsapp = waNumber ? `${prefix} ${waNumber}` : '';
-    const rubro    = form.querySelector('[name="rubro"]').value.trim();
-    const proyecto = form.querySelector('[name="proyecto"]').value.trim();
+    // Fallback defensivo: acepta tanto name="profesion" como name="rubro"
+    // ADAPTÁ → usá el name que tenga tu input en el HTML
+    const profesionInput = form.querySelector('[name="profesion"]') || form.querySelector('[name="rubro"]');
+    const profesion = profesionInput ? profesionInput.value.trim() : '';
+    const proyecto  = form.querySelector('[name="proyecto"]').value.trim();
 
     /* ── Validación ── */
     if (!nombre) {
@@ -215,9 +218,9 @@ function initContactForm() {
       nombre,
       email,
       whatsapp,
-      rubro,
+      profesion,                             // ← unificado como "profesion"
       proyecto,
-      token_validacion: TOKEN_VALIDACION,   // ← token de seguridad
+      token_validacion: TOKEN_VALIDACION,
     };
 
     /* ── Validación de tamaño de archivo (placeholder) ────────────────────
