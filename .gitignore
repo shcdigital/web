@@ -1,0 +1,12 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Editores
+.vscode/
+.idea/
+
+# Entorno / build (por si algún día hay tooling)
+node_modules/
+dist/
+.env

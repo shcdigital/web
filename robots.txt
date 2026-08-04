@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shcdigital.github.io/web/sitemap.xml

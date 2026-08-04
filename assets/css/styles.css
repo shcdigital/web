@@ -34,10 +34,14 @@
   --white:    #faf8f4;
   --ink:      #0f0e0c;
   --ink2:     #1e1c18;
-  --mid:      #7a7268;
+  --mid:      #6b6358;
   --line:     #d8d2c8;
   --red:      #e8321a;
+  --red-deep: #d3281a;
   --red-dark: #c82a14;
+  --gray-dark:   #999490;
+  --gray-card:   #8f8a83;
+  --gray-card-2: #8a857f;
   --mono:     'Space Mono', monospace;
   --display:  'Bebas Neue', sans-serif;
   --body:     'Barlow', sans-serif;
@@ -56,6 +60,12 @@ body {
   color:        var(--ink);
   font-family:  var(--body);
   overflow-x:   hidden;
+}
+
+/* Foco visible — accesibilidad teclado */
+:focus-visible {
+  outline: 2px solid var(--red-deep);
+  outline-offset: 2px;
 }
 
 
@@ -112,14 +122,14 @@ nav {
   font-size:      0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color:          #666;
+  color:          var(--gray-dark);
   text-decoration: none;
   border-left:    1px solid #222;
   transition:     color 0.2s, background 0.2s;
 }
 
 .nav-links a:hover         { color: var(--white); background: #1a1a1a; }
-.nav-links a.nav-cta       { background: var(--red); color: var(--white); border-left: none; font-weight: 700; padding: 0 2rem; }
+.nav-links a.nav-cta       { background: var(--red-deep); color: var(--white); border-left: none; font-weight: 700; padding: 0 2rem; }
 .nav-links a.nav-cta:hover { background: var(--red-dark); }
 
 
@@ -156,7 +166,7 @@ nav {
   font-size:      0.65rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color:          var(--red);
+  color:          var(--red-dark);
   margin-bottom:  2rem;
   animation:      drop 0.6s ease both;
 }
@@ -210,7 +220,7 @@ nav {
   display:         inline-flex;
   align-items:     center;
   gap:             0.5rem;
-  background:      var(--red);
+  background:      var(--red-deep);
   color:           var(--white);
   font-family:     var(--mono);
   font-size:       0.72rem;
@@ -287,27 +297,27 @@ nav {
 }
 
 .side-num .unit     { font-size: 1.5rem; color: var(--red); }
-.side-num--muted    { font-size: 2rem; color: #555; }
+.side-num--muted    { font-size: 2rem; color: var(--gray-dark); }
 
 .side-label {
   font-family:    var(--mono);
   font-size:      0.62rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color:          #555;
+  color:          var(--gray-dark);
   margin-top:     0.4rem;
 }
 
 .side-desc {
   font-size:   0.78rem;
-  color:       #444;
+  color:       var(--gray-dark);
   margin-top:  0.3rem;
   font-weight: 300;
 }
 
 /* Ticker */
 .hero-ticker {
-  background: var(--red);
+  background: var(--red-deep);
   overflow:   hidden;
   height:     44px;
   display:    flex;
@@ -331,7 +341,7 @@ nav {
   font-weight:    700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color:          rgba(255, 255, 255, 0.9);
+  color:          #fff;
   white-space:    nowrap;
 }
 
@@ -362,7 +372,7 @@ section { padding: 6rem 3rem; }
   font-size:      0.65rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color:          var(--red);
+  color:          var(--red-dark);
   margin-bottom:  1.5rem;
   display:        flex;
   align-items:    center;
@@ -374,7 +384,7 @@ section { padding: 6rem 3rem; }
   display:  inline-block;
   width:    20px;
   height:   1px;
-  background: var(--red);
+  background: var(--red-dark);
 }
 
 .big-title {
@@ -521,7 +531,7 @@ section { padding: 6rem 3rem; }
   font-family:    var(--mono);
   font-size:      0.65rem;
   letter-spacing: 0.1em;
-  color:          var(--red);
+  color:          var(--red-dark);
   margin-bottom:  1.25rem;
   text-transform: uppercase;
 }
@@ -576,18 +586,18 @@ section { padding: 6rem 3rem; }
 }
 
 .p-card.visible { opacity: 1; transform: translateY(0); }
-.p-card.hot     { background: var(--red); }
+.p-card.hot     { background: var(--red-deep); }
 
 .p-tag {
   font-family:    var(--mono);
   font-size:      0.6rem;
   letter-spacing: 0.15em;
   text-transform: uppercase;
-  color:          #555;
+  color:          var(--gray-dark);
   margin-bottom:  2rem;
 }
 
-.p-card.hot .p-tag { color: rgba(255, 255, 255, 0.55); }
+.p-card.hot .p-tag { color: rgba(255, 255, 255, 0.95); }
 
 .p-items {
   list-style:     none;
@@ -602,17 +612,17 @@ section { padding: 6rem 3rem; }
   align-items: flex-start;
   gap:         0.75rem;
   font-size:   0.85rem;
-  color:       #777;
+  color:       var(--gray-card);
   font-weight: 300;
 }
 
-.p-card.hot .p-items li          { color: rgba(255, 255, 255, 0.75); }
-.p-items li.no                    { color: #333; text-decoration: line-through; }
-.p-card.hot .p-items li.no        { color: rgba(255, 255, 255, 0.2); }
+.p-card.hot .p-items li          { color: rgba(255, 255, 255, 0.95); }
+.p-items li.no                    { color: var(--gray-card-2); text-decoration: line-through; }
+.p-card.hot .p-items li.no        { color: rgba(255, 255, 255, 0.95); }
 
 .p-items li::before {
   content:     '›';
-  color:       var(--red);
+  color:       var(--red-deep);
   font-weight: 700;
   flex-shrink: 0;
   font-size:   1rem;
@@ -620,8 +630,8 @@ section { padding: 6rem 3rem; }
 }
 
 .p-card.hot .p-items li::before { color: rgba(255, 255, 255, 0.5); }
-.p-items li.no::before           { color: #333; }
-.p-card.hot .p-items li.no::before { color: rgba(255, 255, 255, 0.2); }
+.p-items li.no::before           { color: var(--gray-card-2); }
+.p-card.hot .p-items li.no::before { color: rgba(255, 255, 255, 0.5); }
 
 .p-cta { margin-top: 2.5rem; }
 
@@ -635,12 +645,12 @@ section { padding: 6rem 3rem; }
   letter-spacing:  0.12em;
   text-transform:  uppercase;
   text-decoration: none;
-  border:          1px solid #333;
-  color:           #666;
+  border:          1px solid var(--gray-card-2);
+  color:           var(--gray-card);
   transition:      all 0.2s;
 }
 
-.p-btn:hover { border-color: var(--red); color: var(--red); }
+.p-btn:hover { border-color: var(--red-deep); color: var(--red-deep); }
 
 .p-btn-hot {
   display:         block;
@@ -653,7 +663,7 @@ section { padding: 6rem 3rem; }
   text-transform:  uppercase;
   text-decoration: none;
   background:      var(--white);
-  color:           var(--red);
+  color:           var(--red-deep);
   transition:      opacity 0.2s;
 }
 
@@ -846,7 +856,7 @@ section { padding: 6rem 3rem; }
 }
 
 .f-btn {
-  background:     var(--red);
+  background:     var(--red-deep);
   color:          var(--white);
   border:         none;
   font-family:    var(--mono);
@@ -871,7 +881,7 @@ section { padding: 6rem 3rem; }
   transition: color 0.2s;
 }
 
-.f-note.is-error   { color: var(--red); }
+.f-note.is-error   { color: var(--red-dark); }
 .f-note.is-success { color: #1a7a3a; }
 
 /* Panel derecho */
@@ -959,7 +969,7 @@ footer {
   font-family:    var(--mono);
   font-size:      0.6rem;
   letter-spacing: 0.1em;
-  color:          #444;
+  color:          var(--gray-dark);
   text-align:     center;
 }
 
@@ -975,7 +985,7 @@ footer {
   font-size:       0.6rem;
   letter-spacing:  0.1em;
   text-transform:  uppercase;
-  color:           #444;
+  color:           var(--gray-dark);
   text-decoration: none;
   transition:      color 0.2s;
 }
@@ -1031,4 +1041,19 @@ footer {
   footer                       { grid-template-columns: 1fr; padding: 1.5rem; gap: 1rem; }
   .footer-copy                 { text-align: left; }
   .footer-links                { justify-content: flex-start; }
+}
+
+/* ─────────────────────────────────────────────
+   14. ACCESIBILIDAD — movimiento reducido
+───────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

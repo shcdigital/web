@@ -203,9 +203,12 @@ function initContactForm() {
     setFormState(btn, note, 'loading');
 
     /* ── Token de validación ──────────────────────────────────────────────
-       Apretón de manos estático entre el frontend y Google Apps Script.
-       El backend debe verificar que este valor coincida antes de procesar.
-       ADAPTÁ → cambiá el string si rotás la clave en el futuro.
+        OJO: este valor es PÚBLICO (viaja en el JS que descarga cualquier
+        visitante). NO es un secreto ni una defensa anti-bot real: un atacante
+        lo copia de DevTools. La protección real está en el honeypot, el
+        tiempo mínimo de interacción y el cooldown de este archivo.
+        Se mantiene solo como handshake de compatibilidad con el backend.
+        ADAPTÁ → cambiá el string si el backend rota su clave.
     ── */
     const TOKEN_VALIDACION = 'ClaveSecretaDeSHCDigital2026';
 
