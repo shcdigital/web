@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://shcdigital.github.io/web/sitemap.xml
+Sitemap: https://shcdigital.net.ar/sitemap.xml
