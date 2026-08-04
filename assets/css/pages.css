@@ -5,24 +5,24 @@
 
 /* ── Header de página ── */
 .page-header {
-  padding: 3rem 3rem 0.5rem;
+  padding: 6.5rem 3rem 3rem;
   background: var(--ink);
   border-bottom: 3px solid var(--red);
 }
 .page-header .big-title {
   color: var(--white);
-  margin: 0 0 0.5rem;
-  font-size: clamp(1.7rem, 3.25vw, 2.5rem);
+  margin: 0 0 0.75rem;
+  font-size: clamp(2rem, 4vw, 3.25rem);
   line-height: 1.1;
 }
 .page-header .big-title .ghost {
   -webkit-text-stroke-color: #999;
   color: transparent;
 }
-.page-header .mono-label { margin-bottom: 0.5rem; }
+.page-header .mono-label { margin-bottom: 0.75rem; }
 .page-header-desc {
-  font-size: 0.85rem; color: var(--gray-dark);
-  line-height: 1.45; max-width: 520px; font-weight: 300;
+  font-size: 0.95rem; color: var(--gray-dark);
+  line-height: 1.6; max-width: 520px; font-weight: 300;
 }
 
 /* ── CTA oscuro final ── */
@@ -35,7 +35,7 @@
 .page-cta .big-title {
   color: var(--white);
   margin-bottom: 1.5rem;
-  font-size: clamp(1.6rem, 3vw, 2.35rem);
+  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
   line-height: 1.1;
 }
 .page-cta .big-title .ghost {
@@ -185,8 +185,8 @@
 
 /* ── Responsive ── */
 @media (max-width: 960px) {
-  .page-header   { padding: 3rem 1.5rem 1rem; }
-  .legal-section { padding: 3rem 1.5rem 4rem; }
+.page-header   { padding: 5rem 1.5rem 2rem; }
+.legal-section { padding: 3rem 1.5rem 4rem; }
   .legal-grid .proc-step { grid-template-columns: 1fr; gap: 1rem; }
   .svc-section   { padding: 3rem 1.5rem 4rem; }
   .svc-grid      { grid-template-columns: 1fr; }
