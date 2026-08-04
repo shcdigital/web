@@ -17,8 +17,16 @@
       background: var(--ink);
       border-bottom: 3px solid var(--red);
     }
-    .page-header .big-title        { color: var(--white); margin-bottom: 1.5rem; }
-    .page-header .big-title .ghost { -webkit-text-stroke-color: #333; }
+    .page-header .big-title {
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+      line-height: 1;
+    }
+    .page-header .big-title .ghost {
+      -webkit-text-stroke-color: #777;
+      color: transparent;
+    }
     .page-header-desc {
       font-size: 1rem; color: var(--gray-dark);
       line-height: 1.75; max-width: 520px; font-weight: 300;
@@ -34,7 +42,8 @@
 
     /* Jerarquía: el h2 interno es sub-nivel del h1 del header */
     .legal-section .big-title {
-      font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+      font-size: clamp(1.9rem, 3.5vw, 2.75rem);
+      line-height: 1;
       margin-bottom: 0;
     }
     .legal-section .big-title .ghost { -webkit-text-stroke-width: 1px; }

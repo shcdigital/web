@@ -17,10 +17,18 @@
       background: var(--ink);
       border-bottom: 3px solid var(--red);
     }
-    .page-header .big-title        { color: var(--white); margin-bottom: 1.5rem; }
-    .page-header .big-title .ghost { -webkit-text-stroke-color: #333; }
+    .page-header .big-title {
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      font-size: clamp(2.5rem, 4.5vw, 3.75rem);
+      line-height: 1;
+    }
+    .page-header .big-title .ghost {
+      -webkit-text-stroke-color: #777;
+      color: transparent;
+    }
     .page-header-desc {
-      font-size: 1rem; color: #666;
+      font-size: 1rem; color: var(--gray-dark);
       line-height: 1.75; max-width: 520px; font-weight: 300;
     }
 
@@ -31,6 +39,14 @@
       border-bottom: 1px solid var(--line);
       padding:       5rem 3rem 6rem;
     }
+
+    /* Jerarquía: el h2 interno es sub-nivel del h1 del header */
+    .svc-section .big-title {
+      font-size: clamp(1.9rem, 3.5vw, 2.75rem);
+      line-height: 1;
+      margin-bottom: 0;
+    }
+    .svc-section .big-title .ghost { -webkit-text-stroke-width: 1px; }
 
     /* ── Grid de cards — 3 columnas, mismo sistema que .proc-grid ── */
     .svc-grid {
@@ -54,11 +70,19 @@
       background: var(--ink);
       text-align: center;
     }
-    .page-cta .mono-label       { justify-content: center; margin-bottom: 1.25rem; }
-    .page-cta .big-title        { color: var(--white); margin-bottom: 1.5rem; }
-    .page-cta .big-title .ghost { -webkit-text-stroke-color: #333; }
+    .page-cta .mono-label { justify-content: center; margin-bottom: 1.25rem; }
+    .page-cta .big-title {
+      color: var(--white);
+      margin-bottom: 1.5rem;
+      font-size: clamp(2.25rem, 4vw, 3.25rem);
+      line-height: 1;
+    }
+    .page-cta .big-title .ghost {
+      -webkit-text-stroke-color: #777;
+      color: transparent;
+    }
     .page-cta p {
-      font-size: 0.95rem; color: #666; font-weight: 300;
+      font-size: 0.95rem; color: var(--gray-dark); font-weight: 300;
       max-width: 400px; margin: 0 auto 2.5rem; line-height: 1.7;
     }
 
