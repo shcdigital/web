@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <meta name="robots" content="noindex, nofollow" />
+  <meta name="description" content="Nomenclador de cotización — SHC Digital. Documento interno de referencia de precios en USD." />
+  <title>Nomenclador de Cotización — SHC Digital</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --bg:       #f2ede6;
+      --white:    #faf8f4;
+      --ink:      #0f0e0c;
+      --ink2:     #1e1c18;
+      --mid:      #6b6358;
+      --line:     #d8d2c8;
+      --red:      #e8321a;
+      --red-deep: #d3281a;
+      --gray-dark: #999490;
+      --mono:     'Space Mono', monospace;
+      --display:  'Bebas Neue', sans-serif;
+      --body:     'Barlow', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background:   var(--bg);
+      color:        var(--ink);
+      font-family:  var(--body);
+      line-height:  1.6;
+    }
+
+    .wrap { max-width: 1000px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+    .topbar {
+      display:         flex;
+      justify-content: space-between;
+      align-items:     center;
+      border-bottom:   3px solid var(--red);
+      padding-bottom:  1.25rem;
+      margin-bottom:   2.5rem;
+    }
+
+    .brand { font-family: var(--display); font-size: 1.6rem; letter-spacing: 0.08em; }
+    .brand span { color: var(--red); }
+
+    .doc-tag {
+      font-family: var(--mono); font-size: 0.62rem;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gray-dark);
+      border: 1px solid var(--line); padding: 0.35rem 0.8rem;
+    }
+
+    header h1 {
+      font-family: var(--display);
+      font-size: clamp(2.6rem, 6vw, 4rem);
+      line-height: 0.95;
+      letter-spacing: 0.02em;
+      margin-bottom: 1rem;
+    }
+    header h1 .ghost {
+      -webkit-text-stroke: 1.5px var(--ink);
+      color: transparent;
+    }
+    header .lead {
+      font-size: 1rem; color: var(--mid); font-weight: 300;
+      max-width: 640px; line-height: 1.7;
+    }
+    header .lead strong { color: var(--ink); font-weight: 600; }
+
+    .note {
+      margin-top: 1.5rem;
+      display: flex; gap: 0.75rem; align-items: flex-start;
+      background: var(--white); border: 1px solid var(--line);
+      border-left: 3px solid var(--red);
+      padding: 1rem 1.25rem;
+      font-size: 0.85rem; color: var(--mid);
+    }
+    .note strong { color: var(--ink); font-weight: 600; }
+
+    section { margin-top: 3rem; }
+
+    .sec-head {
+      display: flex; align-items: baseline; justify-content: space-between;
+      border-bottom: 1px solid var(--ink);
+      padding-bottom: 0.5rem; margin-bottom: 1.25rem;
+    }
+    .sec-head h2 {
+      font-family: var(--display); font-size: 1.7rem;
+      letter-spacing: 0.04em;
+    }
+    .sec-head h2::before {
+      content: '// ';
+      color: var(--red); font-family: var(--mono); font-size: 0.85rem;
+    }
+    .sec-head .sec-note {
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray-dark);
+    }
+
+    table { width: 100%; border-collapse: collapse; background: var(--white); }
+    thead th {
+      font-family: var(--mono); font-size: 0.6rem; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--gray-dark); text-align: left;
+      border-bottom: 1px solid var(--ink);
+      padding: 0.7rem 1rem;
+    }
+    tbody td {
+      font-size: 0.9rem; color: var(--ink2); font-weight: 300;
+      border-bottom: 1px solid var(--line);
+      padding: 0.75rem 1rem;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--bg); }
+    td.name { font-weight: 500; color: var(--ink); width: 55%; }
+    td.detail { color: var(--mid); font-size: 0.8rem; }
+    td.price {
+      font-family: var(--mono); font-weight: 700; color: var(--ink);
+      white-space: nowrap; text-align: right; width: 130px;
+    }
+    td.price span { color: var(--red); }
+    td.price .u { font-weight: 400; color: var(--gray-dark); font-size: 0.7rem; }
+
+    tr.sub-row td {
+      background: var(--bg);
+      font-family: var(--mono); font-size: 0.58rem; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--red-deep);
+      padding: 0.45rem 1rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+
+    .disclaimer {
+      margin-top: 3rem;
+      background: var(--ink); color: var(--white);
+      padding: 1.75rem 1.75rem 1.5rem;
+    }
+    .disclaimer h3 {
+      font-family: var(--display); font-size: 1.4rem; letter-spacing: 0.04em;
+      margin-bottom: 0.9rem;
+    }
+    .disclaimer ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; }
+    .disclaimer li {
+      font-size: 0.85rem; color: var(--gray-dark); font-weight: 300;
+      display: flex; gap: 0.6rem;
+    }
+    .disclaimer li::before { content: '›'; color: var(--red); font-weight: 700; }
+
+    footer {
+      margin-top: 2rem; text-align: center;
+      font-family: var(--mono); font-size: 0.6rem;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--gray-dark);
+    }
+
+    @media (max-width: 720px) {
+      .two-col { grid-template-columns: 1fr; }
+      .topbar { flex-direction: column; align-items: flex-start; gap: 0.75rem; }
+      td.detail { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+
+    <div class="topbar">
+      <div class="brand">SHC<span>.</span>DIGITAL</div>
+      <div class="doc-tag">Nomenclador interno · Rev. 2026-08</div>
+    </div>
+
+    <header>
+      <h1>NOMENCLADOR<br /><span class="ghost">DE COTIZACIÓN</span></h1>
+      <p class="lead">
+        Documento interno de referencia para armar presupuestos. Cada ítem se cotiza en
+        <strong>USD</strong> de acuerdo a los valores actuales de mercado en Argentina (2026).
+        La cotización final = <strong>base de sitio + ítems seleccionados</strong> según lo que pida el cliente.
+      </p>
+      <div class="note">
+        <strong>Uso:</strong> no compartir esta página en redes ni enlazarla desde el sitio. Se accede
+        únicamente por URL directa, para pasar el presupuesto final al cliente interesado.
+      </div>
+    </header>
+
+    <!-- ─────────── SITIOS (BASE) ─────────── -->
+    <section>
+      <div class="sec-head">
+        <h2>Base de sitio</h2>
+        <span class="sec-note">inicio de cotización</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Ítem</th><th>Detalle</th><th>Precio</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">Landing page (1 sección)</td><td class="detail">Una página: hero + contacto. Ideal para validar o campañas.</td><td class="price"><span>USD</span> 250</td></tr>
+          <tr><td class="name">Sitio 1–3 páginas</td><td class="detail">Landing + 2 páginas internas (servicios, términos).</td><td class="price"><span>USD</span> 400</td></tr>
+          <tr><td class="name">Sitio corporativo (hasta 5 páginas)</td><td class="detail">Home + secciones + páginas internas. Perfil empresa.</td><td class="price"><span>USD</span> 550</td></tr>
+          <tr><td class="name">Sitio multi-página (6–10 páginas)</td><td class="detail">Sitios institucionales con varias áreas o servicios.</td><td class="price"><span>USD</span> 800</td></tr>
+          <tr><td class="name">E-commerce básico</td><td class="detail">Hasta 30 productos, carrito + pasarela de pago.</td><td class="price"><span>USD</span> 1.200</td></tr>
+          <tr><td class="name">E-commerce completo</td><td class="detail">Catálogo amplio, stock, pagos, integraciones.</td><td class="price"><span>USD</span> 2.500</td></tr>
+          <tr class="sub-row"><td colspan="3">Extras sobre la base</td></tr>
+          <tr><td class="name">Página adicional</td><td class="detail">Sobre cualquier base del sitio.</td><td class="price"><span>USD</span> 60</td></tr>
+          <tr><td class="name">Sección extra</td><td class="detail">Bloque nuevo dentro de una página existente.</td><td class="price"><span>USD</span> 25</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─────────── DISEÑO ─────────── -->
+    <section>
+      <div class="sec-head">
+        <h2>Diseño</h2>
+        <span class="sec-note">a medida</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Ítem</th><th>Detalle</th><th>Precio</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">Diseño a medida con IA</td><td class="detail">Incluido en toda base de sitio (identidad + layout).</td><td class="price"><span>USD</span> 0</td></tr>
+          <tr><td class="name">Rediseño / restyling</td><td class="detail">Actualización visual de un sitio existente.</td><td class="price"><span>USD</span> 150</td></tr>
+          <tr><td class="name">Logo simple</td><td class="detail">Símbolo + tipografía, 1 propuesta.</td><td class="price"><span>USD</span> 60</td></tr>
+          <tr><td class="name">Logo profesional</td><td class="detail">2–3 propuestas + variantes + archivos vectoriales.</td><td class="price"><span>USD</span> 120</td></tr>
+          <tr><td class="name">Manual de marca</td><td class="detail">Usos, paleta, tipografías, aplicaciones básicas.</td><td class="price"><span>USD</span> 200</td></tr>
+          <tr><td class="name">Paleta + tipografía</td><td class="detail">Definición de colores y fuentes para el sitio.</td><td class="price"><span>USD</span> 40</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─────────── FUNCIONALIDADES ─────────── -->
+    <section>
+      <div class="sec-head">
+        <h2>Funcionalidades</h2>
+        <span class="sec-note">extras</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Ítem</th><th>Detalle</th><th>Precio</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">Formulario de contacto</td><td class="detail">Envío a email / hoja de cálculo (Google Apps Script).</td><td class="price"><span>USD</span> 50</td></tr>
+          <tr><td class="name">Botón WhatsApp flotante</td><td class="detail">Acceso directo de conversación.</td><td class="price"><span>USD</span> 20</td></tr>
+          <tr><td class="name">Multi-idioma</td><td class="detail">Segunda versión del sitio (es/en).</td><td class="price"><span>USD</span> 150</td></tr>
+          <tr><td class="name">Blog (hasta 5 posts)</td><td class="detail">Sección de publicaciones + carga inicial.</td><td class="price"><span>USD</span> 200</td></tr>
+          <tr><td class="name">Calendario de reservas</td><td class="detail">Agenda online para turnos/citas.</td><td class="price"><span>USD</span> 120</td></tr>
+          <tr><td class="name">Carrito + pasarela de pago</td><td class="detail">Mercado Pago / Stripe, para e-commerce.</td><td class="price"><span>USD</span> 300</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─────────── SEO / ANALÍTICA ─────────── -->
+    <section>
+      <div class="sec-head">
+        <h2>SEO y analítica</h2>
+        <span class="sec-note">visibilidad</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Ítem</th><th>Detalle</th><th>Precio</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">SEO técnico base</td><td class="detail">Estructura, metas, velocidad, etiquetas.</td><td class="price"><span>USD</span> 40</td></tr>
+          <tr><td class="name">SEO on-page</td><td class="detail">Palabras clave, títulos y descripciones por página.</td><td class="price"><span>USD</span> 80</td></tr>
+          <tr><td class="name">Google Analytics</td><td class="detail">Configuración y verificación.</td><td class="price"><span>USD</span> 20</td></tr>
+          <tr><td class="name">Google Business Profile</td><td class="detail">Ficha de negocio en Google Maps.</td><td class="price"><span>USD</span> 30</td></tr>
+          <tr><td class="name">SEO avanzado (contenido)</td><td class="detail">Plan de contenidos + optimización editorial.</td><td class="price"><span>USD</span> 200</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─────────── CONTENIDO ─────────── -->
+    <section>
+      <div class="sec-head">
+        <h2>Contenido</h2>
+        <span class="sec-note">textos</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Ítem</th><th>Detalle</th><th>Precio</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">Redacción por página</td><td class="detail">Textos optimizados, listos para publicar.</td><td class="price"><span>USD</span> 30</td></tr>
+          <tr><td class="name">Copywriting hero / landing</td><td class="detail">Titulares y propuesta de valor que convierten.</td><td class="price"><span>USD</span> 50</td></tr>
+          <tr><td class="name">Carga de contenido provisto</td><td class="detail">Colocación de textos e imágenes que entrega el cliente.</td><td class="price"><span>USD</span> 30</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─────────── MANTENIMIENTO ─────────── -->
+    <section>
+      <div class="sec-head">
+        <h2>Mantenimiento</h2>
+        <span class="sec-note">mensual · opcional</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Ítem</th><th>Detalle</th><th>Precio</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">Mantenimiento básico</td><td class="detail">Backup, monitoreo y actualizaciones.</td><td class="price"><span>USD</span> 25<span class="u">/mes</span></td></tr>
+          <tr><td class="name">Mantenimiento estándar</td><td class="detail">Básico + hasta 1 hora/mes de cambios de contenido.</td><td class="price"><span>USD</span> 40<span class="u">/mes</span></td></tr>
+          <tr><td class="name">Mantenimiento pro</td><td class="detail">Contenido, soporte prioritario y mejoras menores.</td><td class="price"><span>USD</span> 75<span class="u">/mes</span></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─────────── DOMINIO / HOSTING ─────────── -->
+    <section>
+      <div class="sec-head">
+        <h2>Dominio y hosting</h2>
+        <span class="sec-note">infraestructura</span>
+      </div>
+      <table>
+        <thead>
+          <tr><th>Ítem</th><th>Detalle</th><th>Precio</th></tr>
+        </thead>
+        <tbody>
+          <tr><td class="name">Configuración de dominio</td><td class="detail">DNS, apuntado y verificación del dominio del cliente.</td><td class="price"><span>USD</span> 15</td></tr>
+          <tr><td class="name">Hosting GitHub Pages + SSL</td><td class="detail">Incluido en toda cotización. Sin costo mensual.</td><td class="price"><span>USD</span> 0</td></tr>
+          <tr><td class="name">Renovación de dominio (anual)</td><td class="detail">A valor de mercado del registrar, abonado por el cliente.</td><td class="price"><span>USD</span> —</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- ─────────── DISCLAIMER ─────────── -->
+    <div class="disclaimer">
+      <h3>NOTAS DE COTIZACIÓN</h3>
+      <ul>
+        <li>Precios expresados en dólares estadounidenses (USD), referencia de mercado Argentina 2026. Pueden ajustarse según alcance final del proyecto.</li>
+        <li>La cotización final = base de sitio + ítems seleccionados + extras. Ej: Landing (250) + Formulario (50) + SEO técnico (40) = <strong style="color:#fff">USD 340</strong>.</li>
+        <li>Todo proyecto incluye 2 rondas de revisión. Rondas adicionales se cotizan aparte (USD 25 cada una).</li>
+        <li>Entrega estimada: 72hs a 15 días según complejidad. Formas de pago: USD transferencia, crypto o equivalente en pesos.</li>
+        <li>El sitio es propiedad total del cliente: código fuente, archivos y repositorio entregados al finalizar.</li>
+        <li>Este documento es de uso interno. No se publica como enlace y no debe indexarse.</li>
+      </ul>
+    </div>
+
+    <footer>SHC Digital · Nomenclador de cotización · USD · Rev. 2026-08</footer>
+
+  </div>
+</body>
+</html>
