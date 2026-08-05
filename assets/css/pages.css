@@ -3,26 +3,27 @@
    Externos a propósito: el CSP bloquea <style> inline.
    ───────────────────────────────────────────── */
 
-/* ── Header de página ── */
+/* ── Header de página ──
+   Igual al index: bajo el nav fijo negro (56px) no hay franja negra,
+   el título y el texto van sobre el fondo claro del sitio. */
 .page-header {
-  padding: 6.5rem 3rem 3rem;
-  background: var(--ink);
-  border-bottom: 3px solid var(--red);
+  padding: 6.5rem 3rem 4rem;
+  background: var(--bg);
 }
 .page-header .big-title {
-  color: var(--white);
-  margin: 0 0 0.75rem;
-  font-size: clamp(2rem, 4vw, 3.25rem);
-  line-height: 1.1;
+  color: var(--ink);
+  margin: 0 0 1rem;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 0.9;
 }
 .page-header .big-title .ghost {
-  -webkit-text-stroke-color: #999;
+  -webkit-text-stroke-color: var(--ink);
   color: transparent;
 }
-.page-header .mono-label { margin-bottom: 0.75rem; }
+.page-header .mono-label { margin-bottom: 1.5rem; }
 .page-header-desc {
-  font-size: 0.95rem; color: var(--gray-dark);
-  line-height: 1.6; max-width: 520px; font-weight: 300;
+  font-size: 0.95rem; color: var(--mid);
+  line-height: 1.7; max-width: 520px; font-weight: 300;
 }
 
 /* ── CTA oscuro final ── */
