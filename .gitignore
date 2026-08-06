@@ -10,3 +10,10 @@ Thumbs.db
 node_modules/
 dist/
 .env
+
+# Worker SSO de clientes — secretos locales y caché
+clientes/.dev.vars
+clientes/.wrangler/
+
+# Reels (videos para redes sociales — no se suben a git)
+reels/

@@ -1,0 +1,7 @@
+# Variables de desarrollo local para `npx wrangler dev`.
+# Copiá este archivo a `.dev.vars` y completalo con valores reales.
+# `.dev.vars` NO se comitea.
+
+# Clave secreta compartida con los paneles de clientes (DEBE ser idéntica en todos).
+# En producción se setea con: wrangler secret put SHARED_JWT_SECRET
+SHARED_JWT_SECRET=
