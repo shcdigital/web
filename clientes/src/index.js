@@ -201,10 +201,14 @@ const WelcomeHTML = `<!DOCTYPE html>
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--ink);font-family:var(--body);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
   /* ---- Banner ---- */
-  .banner{display:flex;align-items:center;justify-content:center;gap:.6rem;padding:1.6rem 1rem;background:var(--ink2);border-bottom:1px solid rgba(255,255,255,.06)}
+  .banner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.6rem 1rem;background:var(--ink2);border-bottom:1px solid rgba(255,255,255,.06)}
+  .banner .brand{display:flex;align-items:baseline;gap:.6rem;margin:0 auto}
   .banner .type{font-family:var(--display);font-size:clamp(1.6rem,6vw,3rem);color:#fff;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
   .banner .dot{color:var(--red)}
   .banner .sub{font-family:var(--mono);font-size:.7rem;color:#999;letter-spacing:.2em;text-transform:uppercase}
+  .banner .btn-exit{display:none;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:.5rem 1.1rem;cursor:pointer;transition:.15s;white-space:nowrap}
+  .banner .btn-exit.show{display:inline-block}
+  .banner .btn-exit:hover{background:var(--red);border-color:var(--red)}
   main{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem 1.25rem 4rem}
   .card{width:100%;max-width:440px;background:var(--bg);border-radius:18px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden}
   .card-head{padding:2rem 2rem 1.4rem;background:#fff;border-bottom:1px solid var(--line)}
@@ -232,7 +236,10 @@ const WelcomeHTML = `<!DOCTYPE html>
 </head>
 <body>
   <div class="banner">
-    <div class="type">SHC<span class="dot">.</span>DIGITAL</div>
+    <div class="brand">
+      <div class="type">SHC<span class="dot">.</span>DIGITAL</div>
+    </div>
+    <button class="btn-exit hidden" id="btnSalir">Salir</button>
   </div>
   <main>
     <div class="card">
@@ -270,6 +277,7 @@ const WelcomeHTML = `<!DOCTYPE html>
     const s = await api("/auth/me").catch(()=>({authed:false}));
     if(s.authed){
       $("loginForm").style.display="none";
+      $("btnSalir").classList.add("show");
       const list=$("tenants");
       list.innerHTML="";
       if(TENANTS.length){
@@ -295,6 +303,8 @@ const WelcomeHTML = `<!DOCTYPE html>
       location.reload();
     }catch(er){showErr(er.message);btn.disabled=false;}
   });
+
+  $("btnSalir").addEventListener("click", ()=>{ location.href = "/auth/logout"; });
 
   check();
 </script>
