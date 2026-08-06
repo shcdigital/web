@@ -2,13 +2,18 @@ name = "shc-clientes-sso"
 main = "src/index.js"
 compatibility_date = "2026-08-06"
 
-# Aquí se podrá enrutar: clientes.shcdigital.net.ar/*
-# (ruta DNS en Cloudflare → este Worker)
+# Dominio de producción para este SSO
+[observability]
+enabled = true
+
+[[routes]]
+pattern = "clientes.shcdigital.net.ar"
+custom_domain = true
 
 # Sesiones del SSO (login + estado OAuth)
 [[kv_namespaces]]
 binding = "SESSIONS"
-id = "PENDIENTE_REEMPLAZAR_CON_KV_ID"
+id = "1fbe445a905f4550a4613f8b92727cae"
 
 [vars]
 APP_NAME = "SHC Digital — Clientes"
@@ -19,7 +24,7 @@ BASE_URL = "https://clientes.shcdigital.net.ar"
 #   name     : nombre visible en la pantalla de bienvenida.
 #   admin_url: URL raíz del panel del cliente (debe implementar /auth/sso).
 #   emails   : correos permitidos vía Google OAuth para ese tenant.
-TENANTS = '[{"id":"geo-graficas","name":"Geo.Gráficas","admin_url":"https://geo-graficas-admin.tudominio.workers.dev","emails":[]}]'
+TENANTS = '[{"id":"geo-graficas","name":"Geo.Gráficas","admin_url":"https://geo-graficas-admin.pablo-berthold.workers.dev","emails":[]}]'
 
 # Login local de prueba (hash PBKDF2-SHA256, 100000 iter). NO la contraseña en claro.
 LOCAL_USER = "admin"
