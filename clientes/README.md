@@ -38,7 +38,7 @@ En Cloudflare: Workers → tu Worker → **Custom domain** o **Routes** →
 ### Agregar un cliente (tenant)
 
 1. En `wrangler.toml`, sumá un objeto a `TENANTS`:
-   `{"id":"<cliente>","name":"<Nombre>","admin_url":"https://<panel>","emails":[]}`
+   `{"id":"<cliente>","name":"<Nombre>","admin_url":"https://panel.<cliente>.shcdigital.net.ar","emails":[]}`
 2. En el panel de ese cliente, el Worker debe implementar `/auth/sso` (mismo
    `SHARED_JWT_SECRET`) y tener `TENANT_ID = "<cliente>"`.
 3. `wrangler deploy` del SSO y del panel.
