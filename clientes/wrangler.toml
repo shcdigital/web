@@ -24,7 +24,7 @@ BASE_URL = "https://clientes.shcdigital.net.ar"
 #   name     : nombre visible en la pantalla de bienvenida.
 #   admin_url: URL raíz del panel del cliente (debe implementar /auth/sso).
 #   emails   : correos permitidos vía Google OAuth para ese tenant.
-TENANTS = '[{"id":"geo-graficas","name":"Geo.Gráficas","admin_url":"https://panel.geograficas.shcdigital.net.ar","emails":[]}]'
+TENANTS = '[{"id":"geo-graficas","name":"Geo.Gráficas","admin_url":"https://panel.geograficas.shcdigital.net.ar","emails":[]},{"id":"shcdigital","name":"SHC Digital","admin_url":"https://panel.shcdigital.net.ar","emails":[]}]'
 
 # Login local de prueba (hash PBKDF2-SHA256, 100000 iter). NO la contraseña en claro.
 LOCAL_USER = "admin"
