@@ -9,6 +9,11 @@ enabled = true
 pattern = "briefing-api.shcdigital.net.ar"
 custom_domain = true
 
+# Rate-limit anti-abuso (bomba de emails): contadores por IP en KV.
+[[kv_namespaces]]
+binding = "SHC_RATELIMIT"
+id = "6ea7e09083a946c8bea864bfd3fb2f6b"
+
 [vars]
 # Destinatario de los briefings
 TO_EMAIL = "shcdigitalsolutions@gmail.com"

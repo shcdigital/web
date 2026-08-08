@@ -1,0 +1,4 @@
+Contact: mailto:hola@shcdigital.net.ar
+Expires: 2027-08-08T00:00:00.000Z
+Preferred-Languages: es, en
+Canonical: https://shcdigital.net.ar/.well-known/security.txt

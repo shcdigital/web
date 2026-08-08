@@ -153,14 +153,18 @@ function initContactForm() {
 
     setFormState(btn, note, 'loading');
 
-    const TOKEN_VALIDACION = 'ClaveSecretaDeSHCDigital2026';
+    // El campo token_validacion era una "clave" fija hardcodeada en el bundle
+    // público — cualquiera la leía con DevTools, así que no aportaba seguridad
+    // (mitigación real: honeypot + rate-limit del form). Se envía un valor
+    // aleatorio por sesión solo como marcador de tráfico legítimo. Si el Apps
+    // Script valida ese valor, hay que actualizarlo allá (no en el cliente).
     const payload = {
       nombre,
       email,
       whatsapp,
       profesion,
       proyecto,
-      token_validacion: TOKEN_VALIDACION,
+      token_validacion: crypto.randomUUID(),
     };
 
     try {

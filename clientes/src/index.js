@@ -12,6 +12,11 @@
 
 const JSON_HEADERS = { "Content-Type": "application/json; charset=utf-8" };
 const HTML_HEADERS = { "Content-Type": "text/html; charset=utf-8" };
+// CSP del HTML: fuentes/estilos desde Google Fonts, scripts inline propios.
+const CSP =
+  "default-src 'self'; font-src 'self' fonts.googleapis.com fonts.gstatic.com; " +
+  "style-src 'self' 'unsafe-inline' fonts.googleapis.com; script-src 'self' 'unsafe-inline'; " +
+  "img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
 
 export default {
   async fetch(request, env, ctx) {
@@ -27,7 +32,7 @@ export default {
 
     // Página de bienvenida + login
     if (url.pathname === "/" || url.pathname === "/home") {
-      return new Response(renderWelcome(env), { headers: { ...HTML_HEADERS, ...security } });
+      return new Response(renderWelcome(env), { headers: { ...HTML_HEADERS, ...security, "Content-Security-Policy": CSP } });
     }
 
     // ---------- API de sesión ----------
@@ -37,7 +42,7 @@ export default {
     if (url.pathname === "/auth/me") {
       return await me(request, env);
     }
-    if (url.pathname === "/auth/logout") {
+    if (url.pathname === "/auth/logout" && request.method === "POST") {
       return logout(request, env, url);
     }
 
@@ -50,13 +55,27 @@ export default {
   },
 };
 
+// ---------- Rate-limit del login local (anti fuerza bruta) ----------
+// Máx intentos fallidos por IP dentro de una ventana. KV: fail:<ip>.
+const LOGIN_MAX_FAILS = 5;
+const LOGIN_WINDOW_SEC = 900; // 15 minutos
+
 async function loginLocal(request, env) {
   let body;
   try { body = await request.json(); } catch { return json({ error: "Body inválido" }, 400); }
   const user = String(body.user || "").trim();
   const pass = String(body.pass || "");
 
-  if (user !== env.LOCAL_USER) return json({ error: "Usuario o contraseña incorrectos" }, 401);
+  // Bloqueo por IP: si ya superó el límite de fallos, rechaza sin procesar.
+  const ip = request.headers.get("CF-Connecting-IP") || "unknown";
+  if (await isBlocked(env, ip)) {
+    return json({ error: "Demasiados intentos. Intentá de nuevo más tarde." }, 429);
+  }
+
+  if (user !== env.LOCAL_USER) {
+    await incrementFail(request, env);
+    return json({ error: "Usuario o contraseña incorrectos" }, 401);
+  }
 
   const salt = Uint8Array.from(atob(env.LOCAL_SALT_B64), (c) => c.charCodeAt(0));
   const expected = Uint8Array.from(atob(env.LOCAL_HASH_B64), (c) => c.charCodeAt(0));
@@ -65,6 +84,9 @@ async function loginLocal(request, env) {
     await incrementFail(request, env);
     return json({ error: "Usuario o contraseña incorrectos" }, 401);
   }
+
+  // Login exitoso → limpia el contador de fallos de esta IP.
+  await env.SESSIONS.delete(`fail:${ip}`);
 
   // Usuario local: acceso "global" que ve todos los tenants
   const sessionId = crypto.randomUUID();
@@ -85,9 +107,11 @@ async function me(request, env) {
 async function logout(request, env, url) {
   const sessionId = getSession(request);
   if (sessionId) await env.SESSIONS.delete(`sso:${sessionId}`);
-  return new Response(`<script>location.href="/";</script>`, {
-    headers: { ...HTML_HEADERS, "Set-Cookie": clearCookie() },
-  });
+  // POST con SameSite=Lax: navegadores no adjuntan la cookie a POST cross-origin,
+  // así que un logout forzado desde otro sitio no cierra la sesión (anti-CSRF).
+  const res = json({ ok: true });
+  res.headers.append("Set-Cookie", clearCookie());
+  return res;
 }
 
 // ---------- Redirect al panel del cliente ----------
@@ -142,7 +166,13 @@ async function incrementFail(request, env) {
   const ip = request.headers.get("CF-Connecting-IP") || "unknown";
   const k = `fail:${ip}`;
   const cur = parseInt(await env.SESSIONS.get(k), 10) || 0;
-  await env.SESSIONS.put(k, String(cur + 1), { expirationTtl: 300 });
+  await env.SESSIONS.put(k, String(cur + 1), { expirationTtl: LOGIN_WINDOW_SEC });
+}
+
+// true si la IP ya superó el máximo de intentos fallidos
+async function isBlocked(env, ip) {
+  const cur = parseInt(await env.SESSIONS.get(`fail:${ip}`), 10) || 0;
+  return cur >= LOGIN_MAX_FAILS;
 }
 
 function getSession(request) {
@@ -347,7 +377,10 @@ const WelcomeHTML = `<!DOCTYPE html>
     }catch(er){showErr(er.message);btn.disabled=false;}
   });
 
-  $("btnSalir").addEventListener("click", ()=>{ location.href = "/auth/logout"; });
+  $("btnSalir").addEventListener("click", async ()=>{
+    await fetch("/auth/logout",{method:"POST"}).catch(()=>{});
+    location.reload();
+  });
 
   check();
 </script>
