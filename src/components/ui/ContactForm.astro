@@ -1,0 +1,100 @@
+---
+// src/components/ui/ContactForm.astro
+// Formulario de contacto — honeypot + anti-bot (ver src/scripts/app.js).
+---
+
+<form id="contactForm" class="cta-form" novalidate aria-label="Formulario de contacto">
+  <!-- Honeypot: invisible para humanos, los bots lo completan -->
+  <div class="hp-field" aria-hidden="true">
+    <label for="hp-website">Sitio web</label>
+    <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off" />
+  </div>
+
+  <div class="f-field">
+    <label class="f-label" for="input-nombre">Nombre</label>
+    <input
+      type="text"
+      id="input-nombre"
+      name="nombre"
+      class="f-input"
+      placeholder="Tu nombre completo"
+      autocomplete="name"
+      required
+    />
+  </div>
+
+  <div class="f-field">
+    <label class="f-label" for="input-email">Email</label>
+    <input
+      type="email"
+      id="input-email"
+      name="email"
+      class="f-input"
+      placeholder="tu@email.com"
+      autocomplete="email"
+      required
+    />
+  </div>
+
+  <div class="f-field">
+    <label class="f-label" for="input-whatsapp">WhatsApp</label>
+    <div class="f-phone">
+      <select id="input-prefix" name="prefix" class="f-select" aria-label="Prefijo internacional">
+        <option value="+54" selected>🇦🇷 +54</option>
+        <option value="+1">🇺🇸 +1</option>
+        <option value="+52">🇲🇽 +52</option>
+        <option value="+57">🇨🇴 +57</option>
+        <option value="+56">🇨🇱 +56</option>
+        <option value="+51">🇵🇪 +51</option>
+        <option value="+58">🇻🇪 +58</option>
+        <option value="+593">🇪🇨 +593</option>
+        <option value="+595">🇵🇾 +595</option>
+        <option value="+598">🇺🇾 +598</option>
+        <option value="+591">🇧🇴 +591</option>
+        <option value="+55">🇧🇷 +55</option>
+        <option value="+34">🇪🇸 +34</option>
+        <option value="+44">🇬🇧 +44</option>
+        <option value="+49">🇩🇪 +49</option>
+        <option value="+33">🇫🇷 +33</option>
+        <option value="+39">🇮🇹 +39</option>
+        <option value="+351">🇵🇹 +351</option>
+      </select>
+      <input
+        type="tel"
+        id="input-whatsapp"
+        name="whatsapp"
+        class="f-input f-input--phone"
+        placeholder="9 11 1234-5678"
+        autocomplete="tel-national"
+      />
+    </div>
+  </div>
+
+  <div class="f-field">
+    <label class="f-label" for="input-profesion">Profesión</label>
+    <input
+      type="text"
+      id="input-profesion"
+      name="profesion"
+      class="f-input"
+      placeholder="Ej: Psicóloga, Contador..."
+      autocomplete="organization-title"
+    />
+  </div>
+
+  <div class="f-field">
+    <label class="f-label" for="input-proyecto">Proyecto</label>
+    <input
+      type="text"
+      id="input-proyecto"
+      name="proyecto"
+      class="f-input"
+      placeholder="Contanos brevemente qué necesitás..."
+    />
+  </div>
+
+  <div class="f-submit">
+    <button type="submit" class="f-btn" id="f-btn-submit">→ Enviar consulta</button>
+    <span class="f-note" id="f-note" role="status" aria-live="polite">Respondemos en &lt;24hs</span>
+  </div>
+</form>

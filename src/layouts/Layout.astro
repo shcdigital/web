@@ -1,0 +1,103 @@
+---
+// src/layouts/Layout.astro
+// Layout base de SHC Digital — SEO + accesibilidad + CSP + nav/footer.
+
+import "../styles/brand.css";
+import "../styles/global.css";
+import "../styles/pages.css";
+import Navbar from "../components/ui/Navbar.astro";
+import Footer from "../components/ui/Footer.astro";
+
+interface Props {
+  title: string;
+  description: string;
+  canonical?: string;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  noindex?: boolean;
+  /** Sobre qué enlace del nav se marca como activo ("" = home, "servicios", ...) */
+  activeNav?: string;
+  /** Páginas aisladas (briefing/nomenclador) que no usan el layout del sitio */
+  standalone?: boolean;
+  /** Clase extra para <body> (ej: "briefing") */
+  bodyClass?: string;
+}
+
+const {
+  title,
+  description,
+  canonical = "https://shcdigital.net.ar/",
+  ogTitle = title,
+  ogDescription = description,
+  ogImage = "https://shcdigital.net.ar/assets/img/logo/shcdigital.png",
+  noindex = false,
+  activeNav = "",
+  standalone = false,
+  bodyClass = "",
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="robots" content={noindex ? "noindex, nofollow" : "index, follow"} />
+    <meta name="theme-color" content="#0f0e0c" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="canonical" href={canonical} />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:site_name" content="SHC Digital" />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={ogImage} />
+
+    <!-- Content Security Policy — sitio estático -->
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com https://cloudflareinsights.com https://briefing-api.shcdigital.net.ar; frame-src 'none'; object-src 'none';"
+    />
+
+    <title>{title}</title>
+
+    <!-- Preconnects -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://script.google.com" />
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class={bodyClass}>
+    {
+      standalone ? (
+        <slot name="standalone" />
+      ) : (
+        <>
+          <Navbar active={activeNav} />
+          <slot />
+          <Footer />
+        </>
+      )
+    }
+    <script>
+      import "../scripts/app.js";
+    </script>
+  </body>
+</html>

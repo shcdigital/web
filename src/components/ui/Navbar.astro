@@ -1,0 +1,73 @@
+---
+// src/components/ui/Navbar.astro
+// Nav fija de SHC Digital con menú móvil accesible (aria-expanded).
+
+interface Props {
+  active?: string;
+}
+
+const { active = "" } = Astro.props;
+
+const links = [
+  { label: "Inicio", href: "/", id: "" },
+  { label: "Servicios", href: "/servicios", id: "servicios" },
+  { label: "Proceso", href: "/#proceso", id: "proceso" },
+  { label: "Planes", href: "/#precios", id: "precios" },
+];
+---
+
+<nav class="site-nav" aria-label="Navegación principal">
+  <a href="/" class="nav-logo" aria-label="SHC Digital — Inicio">
+    <span class="logo-type" aria-hidden="true">SHC<span>.</span>DIGITAL</span>
+  </a>
+
+  <button
+    class="nav-toggle"
+    id="nav-toggle"
+    aria-controls="nav-links"
+    aria-expanded="false"
+    type="button"
+  >
+    Menú
+  </button>
+
+  <ul class="nav-links" id="nav-links" role="list">
+    {
+      links.map((l) => (
+        <li>
+          <a
+            href={l.href}
+            class:list={[
+              l.id === "servicios" || l.id === "" ? "" : "",
+              active === l.id && l.id !== "" ? "is-active" : "",
+              active === "" && l.id === "" ? "" : "",
+            ]}
+            aria-current={active === l.id && l.id !== "" ? "page" : undefined}
+          >
+            {l.label}
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <a href="/#contacto" class="nav-cta">→ Empezar</a>
+    </li>
+  </ul>
+</nav>
+
+<script>
+  const toggle = document.getElementById("nav-toggle");
+  const menu = document.getElementById("nav-links");
+  if (toggle && menu) {
+    toggle.addEventListener("click", () => {
+      const open = menu.classList.toggle("open");
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    menu.querySelectorAll("a").forEach((a) => {
+      a.addEventListener("click", () => {
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      });
+    });
+  }
+</script>

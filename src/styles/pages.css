@@ -1,0 +1,189 @@
+/* ═══════════════════════════════════════════════════════════
+   SHC Digital — pages.css
+   Estilos de páginas interiores (servicios/terminos/github-pages).
+   Port del pages.css original sobre tokens semánticos del DS.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Header de página ── */
+.page-header {
+  padding: 6.5rem 3rem 4rem;
+  background: var(--color-surface-base);
+}
+.page-header .big-title {
+  color: var(--color-text-primary);
+  margin: 0 0 1rem;
+  font-size: clamp(3rem, 6vw, 5.5rem);
+  line-height: 0.9;
+}
+.page-header .big-title .ghost {
+  -webkit-text-stroke-color: var(--color-text-primary);
+  color: transparent;
+}
+.page-header .mono-label { margin-bottom: 1.5rem; }
+.page-header-desc {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.7;
+  max-width: 520px;
+  font-weight: 300;
+}
+
+/* ── CTA oscuro final ── */
+.page-cta {
+  padding: 5rem 3rem;
+  background: var(--color-surface-inverse);
+  text-align: center;
+}
+.page-cta .mono-label { justify-content: center; margin-bottom: 1.25rem; }
+.page-cta .big-title {
+  color: var(--color-surface-raised);
+  margin-bottom: 1.5rem;
+  font-size: clamp(1.85rem, 3.5vw, 2.75rem);
+  line-height: 1.1;
+}
+.page-cta .big-title .ghost {
+  -webkit-text-stroke-color: #999;
+  color: transparent;
+}
+.page-cta p {
+  font-size: 1.1rem;
+  color: var(--color-text-muted);
+  font-weight: 300;
+  max-width: 400px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+/* ── Secciones legales ── */
+.legal-section {
+  background: var(--color-surface-raised);
+  border-top: 1px solid var(--color-border-default);
+  border-bottom: 1px solid var(--color-border-default);
+  padding: 5rem 3rem 6rem;
+}
+.legal-section .big-title {
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  line-height: 1.15;
+  margin-bottom: 0;
+}
+.legal-section .big-title .ghost { -webkit-text-stroke-width: 1px; }
+.legal-grid .proc-title {
+  font-size: 1.5rem;
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+.date-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: var(--color-surface-inverse);
+  color: var(--color-text-muted);
+  font-family: var(--font-family-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.5rem 1.25rem;
+  margin-bottom: 3rem;
+}
+.date-chip span { color: var(--color-brand-primary); }
+.legal-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  border: 1px solid var(--color-border-default);
+  margin-top: 3rem;
+  max-width: 860px;
+}
+.legal-grid .proc-step {
+  display: grid;
+  grid-template-columns: 96px 1fr;
+  gap: 0 2.5rem;
+  align-items: start;
+  border-right: none;
+  border-bottom: 1px solid var(--color-border-default);
+}
+.legal-grid .proc-step:last-child { border-bottom: none; }
+.legal-left {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.6rem;
+  padding-top: 0.2rem;
+}
+.legal-body-text {
+  font-size: 1.06rem;
+  color: var(--color-text-secondary);
+  line-height: 1.85;
+  font-weight: 300;
+  margin-top: 0.4rem;
+}
+.legal-body-text p + p { margin-top: 0.75rem; }
+.legal-body-text ul + p { margin-top: 0.85rem; }
+.legal-body-text strong { color: var(--color-surface-inverse-2); font-weight: 600; }
+.legal-body-text ul {
+  margin-top: 0.85rem;
+  padding-left: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+}
+.legal-body-text ul li {
+  font-size: 1.03rem;
+  color: var(--color-text-secondary);
+}
+.legal-body-text ul li::before {
+  content: '›';
+  color: var(--color-brand-primary);
+  font-weight: 700;
+  font-size: 1rem;
+  margin-right: 0.75rem;
+}
+.back-cta { margin-top: 3rem; }
+
+/* ── servicios.html ── */
+.svc-section {
+  background: var(--color-surface-raised);
+  border-top: 1px solid var(--color-border-default);
+  border-bottom: 1px solid var(--color-border-default);
+  padding: 5rem 3rem 6rem;
+}
+.svc-section .big-title {
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  line-height: 1.15;
+  margin-bottom: 0;
+}
+.svc-section .big-title .ghost { -webkit-text-stroke-width: 1px; }
+.svc-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  border: 1px solid var(--color-border-default);
+  margin-top: 3rem;
+}
+.svc-grid .proc-step:nth-child(3n) { border-right: none; }
+.svc-grid .proc-step { border-bottom: 1px solid var(--color-border-default); }
+.svc-grid .proc-step:nth-child(4),
+.svc-grid .proc-step:nth-child(5),
+.svc-grid .proc-step:nth-child(6) { border-bottom: none; }
+.svc-grid .proc-step { background: var(--color-surface-base); }
+
+.inline-link {
+  color: var(--color-brand-primary);
+  font-weight: 600;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-brand-primary);
+  padding-bottom: 1px;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .page-header { padding: 5rem 1.5rem 2rem; }
+  .legal-section { padding: 3rem 1.5rem 4rem; }
+  .legal-grid .proc-step { grid-template-columns: 1fr; gap: 1rem; }
+  .svc-section { padding: 3rem 1.5rem 4rem; }
+  .svc-grid { grid-template-columns: 1fr; }
+  .svc-grid .proc-step { border-right: none; border-bottom: 1px solid var(--color-border-default) !important; }
+  .svc-grid .proc-step:last-child { border-bottom: none !important; }
+  .page-cta { padding: 4rem 1.5rem; }
+}

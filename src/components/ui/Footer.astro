@@ -1,0 +1,20 @@
+---
+// src/components/ui/Footer.astro
+// Footer de SHC Digital — grid 3 columnas.
+
+interface Props {
+  year?: number;
+}
+
+const { year = new Date().getFullYear() } = Astro.props;
+---
+
+<footer class="site-footer">
+  <div class="footer-brand" aria-label="SHC Digital">SHC<span>.</span>DIGITAL</div>
+  <p class="footer-copy">© {year} SHC Digital — Todos los derechos reservados</p>
+  <ul class="footer-links" role="list">
+    <li><a href="/servicios">Servicios</a></li>
+    <li><a href="/terminos">Términos</a></li>
+    <li><a href="/#contacto">Contacto</a></li>
+  </ul>
+</footer>
