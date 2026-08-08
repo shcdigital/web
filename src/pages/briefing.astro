@@ -1,0 +1,355 @@
+---
+// src/pages/briefing.astro
+// Página aislada (no usa nav/footer del sitio) — port de briefing.html.
+
+import "../styles/briefing.css";
+import Layout from "../layouts/Layout.astro";
+
+const title = "Briefing — SHC Digital";
+const description =
+  "SHC Digital — Briefing para diseño de sitio web con IA. Completá esta guía y recibí tu sitio diseñado a medida.";
+---
+
+<Layout
+  title={title}
+  description={description}
+  canonical="https://shcdigital.net.ar/briefing/"
+  standalone
+  bodyClass="briefing"
+>
+  <Fragment slot="standalone">
+    <!-- ════════ CABECERA FIJA ════════ -->
+    <header class="b-header">
+      <div class="b-header-row">
+        <a class="b-logo" href="/">SHC<span>.</span>DIGITAL</a>
+        <div class="b-tag">// briefing para diseño web con IA</div>
+      </div>
+      <div class="b-progress-wrap">
+        <div class="b-progress-label">
+          <span>Progreso</span><span id="progressPct">0%</span>
+        </div>
+        <div class="b-progress-bar"><div class="b-progress-fill" id="progressFill"></div></div>
+      </div>
+    </header>
+
+    <!-- ════════ FORMULARIO ════════ -->
+    <main class="b-wrap">
+      <!-- Hero -->
+      <section class="b-hero" aria-labelledby="b-title">
+        <h1 class="b-title" id="b-title">GUÍA DE <span class="ghost">PREGUNTAS</span></h1>
+        <p class="b-sub">
+          Completá los datos que quieras compartirnos en este formulario para que diseñemos
+          juntos tus ideas.
+        </p>
+        <div class="b-persuade">
+          <strong>¿Dudás si completar todo?</strong> Tranquilo: solo el nombre y el email son
+          obligatorios. Pero acá va el secreto — cuanto más nos contés, más fino y más a tu
+          medida va a ser el diseño. Cada respuesta es un pincelazo con el que pintamos tu
+          sitio, y los mejores resultados nacen de los briefings más completos. El tuyo puede
+          ser el próximo: tomate 10 minutos y contanos todo, así recibís un sitio que parece
+          hecho por alguien que te conoce de toda la vida.
+        </div>
+      </section>
+
+      <form id="briefingForm" novalidate>
+        <!-- Honeypot anti-spam propio -->
+        <div class="hp" aria-hidden="true">
+          <label for="hp-web">Sitio web</label>
+          <input type="text" id="hp-web" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <!-- ════ SECCIÓN 1 · DATOS DE CONTACTO ════ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">01</span>
+            <h2 class="b-section-title">DATOS DE CONTACTO</h2>
+            <span class="b-section-hint">datos del cliente</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field">
+              <label class="f-label" for="in-nombre">Nombre y apellido <span class="req">*</span></label>
+              <input class="f-input" type="text" id="in-nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name" required />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-empresa">Empresa / Marca</label>
+              <input class="f-input" type="text" id="in-empresa" name="empresa" placeholder="Nombre de tu negocio (si tenés)" autocomplete="organization" />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-rubro">Rubro / Profesión</label>
+              <input class="f-input" type="text" id="in-rubro" name="rubro" placeholder="Ej: Psicóloga, Contador, Barbería..." autocomplete="organization-title" />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-email">Email <span class="req">*</span></label>
+              <input class="f-input" type="email" id="in-email" name="email" placeholder="tu@email.com" autocomplete="email" required />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-whatsapp">WhatsApp</label>
+              <input class="f-input" type="tel" id="in-whatsapp" name="whatsapp" placeholder="+54 9 11 1234-5678" autocomplete="tel" />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-ciudad">Ciudad / País</label>
+              <input class="f-input" type="text" id="in-ciudad" name="ciudad" placeholder="Ej: CABA, Argentina" />
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ SECCIÓN 2 · SOBRE TU NEGOCIO ════ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">02</span>
+            <h2 class="b-section-title">SOBRE TU NEGOCIO</h2>
+            <span class="b-section-hint">qué vendés y a quién</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field full">
+              <label class="f-label" for="in-quehaces">¿A qué te dedicás?</label>
+              <textarea class="f-textarea" id="in-quehaces" name="que_haces" placeholder="Contanos en 2 o 3 frases qué hacés y qué ofrecés..."></textarea>
+            </div>
+            <div class="f-field full">
+              <label class="f-label" for="in-audiencia">¿A quién apuntás? (audiencia ideal)</label>
+              <textarea class="f-textarea" id="in-audiencia" name="audiencia" placeholder="Ej: profesionales de 30-50 años, dueños de locales, clientes de la zona..."></textarea>
+            </div>
+            <div class="f-field full">
+              <label class="f-label" for="in-valor">¿Cuál es tu propuesta de valor?</label>
+              <textarea class="f-textarea" id="in-valor" name="valor" placeholder="¿Por qué deberían elegirte a vos y no a otro? Ej: atención personalizada, 15 años de experiencia, precios únicos..."></textarea>
+            </div>
+            <div class="f-field full">
+              <label class="f-label" for="in-diferencial">¿Qué te diferencia de la competencia?</label>
+              <textarea class="f-textarea" id="in-diferencial" name="diferencial" placeholder="Ej: entrega en 48hs, servicio a domicilio, método propio..."></textarea>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">Objetivo principal del sitio</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="objetivo" value="Captar clientes y consultas" /><span class="opt-body"><span class="opt-title">Captar clientes y consultas</span></span></label>
+                <label class="opt"><input type="radio" name="objetivo" value="Mostrar portfolio / trabajos" /><span class="opt-body"><span class="opt-title">Mostrar portfolio / trabajos</span></span></label>
+                <label class="opt"><input type="radio" name="objetivo" value="Vender productos o servicios online" /><span class="opt-body"><span class="opt-title">Vender productos o servicios online</span></span></label>
+                <label class="opt"><input type="radio" name="objetivo" value="Dar imagen profesional e información" /><span class="opt-body"><span class="opt-title">Dar imagen profesional e información</span></span></label>
+                <label class="opt"><input type="radio" name="objetivo" value="Otro" /><span class="opt-body"><span class="opt-title">Otro</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label" for="in-competencia">Competencia (si conocés)</label>
+              <input class="f-input" type="text" id="in-competencia" name="competencia" placeholder="Ej: MiEstudio.com.ar, @competidor en Instagram..." />
+            </div>
+            <div class="f-field full">
+              <label class="f-label" for="in-referencias">Sitios que te gusten (links de referencia)</label>
+              <textarea class="f-textarea" id="in-referencias" name="referencias" placeholder="Pegá 1 a 3 links de páginas que te gusten y contá qué te gusta de cada una..."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ SECCIÓN 3 · CONTENIDO Y MARCA ════ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">03</span>
+            <h2 class="b-section-title">CONTENIDO Y MARCA</h2>
+            <span class="b-section-hint">textos, fotos y colores</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field full">
+              <label class="f-label">¿Tenés los textos del sitio?</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="textos" value="Los tengo listos" /><span class="opt-body"><span class="opt-title">Los tengo listos</span><span class="opt-desc">Los voy a pegar cuando me los pidan</span></span></label>
+                <label class="opt"><input type="radio" name="textos" value="Los tengo pero quiero pulirlos" /><span class="opt-body"><span class="opt-title">Los tengo pero quiero pulirlos</span></span></label>
+                <label class="opt"><input type="radio" name="textos" value="Necesito que me ayuden a redactarlos" /><span class="opt-body"><span class="opt-title">Necesito que me ayuden a redactarlos</span><span class="opt-desc">Lo hacemos con IA junto al diseño</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">¿Qué fotos tenés para el sitio?</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="fotos" value="Fotos profesionales de alta calidad" /><span class="opt-body"><span class="opt-title">Fotos profesionales de alta calidad</span></span></label>
+                <label class="opt"><input type="radio" name="fotos" value="Fotos básicas de celular" /><span class="opt-body"><span class="opt-title">Fotos básicas de celular</span></span></label>
+                <label class="opt"><input type="radio" name="fotos" value="No tengo — usen banco de imágenes" /><span class="opt-body"><span class="opt-title">No tengo — usen banco de imágenes</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">¿Tenés logo?</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="logo" value="Sí, tengo logo" /><span class="opt-body"><span class="opt-title">Sí, tengo logo</span></span></label>
+                <label class="opt"><input type="radio" name="logo" value="No, necesito que me lo hagan" /><span class="opt-body"><span class="opt-title">No, necesito que me lo hagan</span></span></label>
+                <label class="opt"><input type="radio" name="logo" value="No, no lo necesito" /><span class="opt-body"><span class="opt-title">No, no lo necesito</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">Paleta de colores preferida</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="colores" value="Rojo / naranja — energía y pasión" /><span class="opt-body"><span class="opt-title">Rojo / naranja — energía y pasión</span><span class="opt-desc">Marcas intensas, gastronomía, deporte</span></span></label>
+                <label class="opt"><input type="radio" name="colores" value="Azul — confianza y profesionalismo" /><span class="opt-body"><span class="opt-title">Azul — confianza y profesionalismo</span><span class="opt-desc">Abogados, finanzas, tecnología</span></span></label>
+                <label class="opt"><input type="radio" name="colores" value="Verde — crecimiento y naturaleza" /><span class="opt-body"><span class="opt-title">Verde — crecimiento y naturaleza</span><span class="opt-desc">Salud, ecología, bienestar</span></span></label>
+                <label class="opt"><input type="radio" name="colores" value="Negro / dorado — elegancia y lujo" /><span class="opt-body"><span class="opt-title">Negro / dorado — elegancia y lujo</span><span class="opt-desc">Moda, estética, alta gama</span></span></label>
+                <label class="opt"><input type="radio" name="colores" value="Minimalista — blanco y neutros" /><span class="opt-body"><span class="opt-title">Minimalista — blanco y neutros</span><span class="opt-desc">Limpio, moderno, atemporal</span></span></label>
+                <label class="opt"><input type="radio" name="colores" value="Violeta / rosa — creatividad" /><span class="opt-body"><span class="opt-title">Violeta / rosa — creatividad</span><span class="opt-desc">Diseño, belleza, audiencias jóvenes</span></span></label>
+                <label class="opt"><input type="radio" name="colores" value="Otro" /><span class="opt-body"><span class="opt-title">Otro / los defino después</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">Estilo visual que buscás</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="estilo" value="Moderno y tecnológico" /><span class="opt-body"><span class="opt-title">Moderno y tecnológico</span><span class="opt-desc">Audaz, tipografías grandes, animaciones</span></span></label>
+                <label class="opt"><input type="radio" name="estilo" value="Elegante y sobrio" /><span class="opt-body"><span class="opt-title">Elegante y sobrio</span><span class="opt-desc">Sereno, fino, muchos espacios blancos</span></span></label>
+                <label class="opt"><input type="radio" name="estilo" value="Colorido y creativo" /><span class="opt-body"><span class="opt-title">Colorido y creativo</span><span class="opt-desc">Divertido, cercano, llamativo</span></span></label>
+                <label class="opt"><input type="radio" name="estilo" value="Clásico y profesional" /><span class="opt-body"><span class="opt-title">Clásico y profesional</span><span class="opt-desc">Tradicional, genera confianza</span></span></label>
+                <label class="opt"><input type="radio" name="estilo" value="No sé — recomendame" /><span class="opt-body"><span class="opt-title">No sé — recomendame</span><span class="opt-desc">Lo decidimos juntos según tu rubro</span></span></label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ SECCIÓN 4 · ESTRUCTURA Y FUNCIONALIDADES ════ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">04</span>
+            <h2 class="b-section-title">ESTRUCTURA Y FUNCIONALIDADES</h2>
+            <span class="b-section-hint">qué páginas y extras</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field full">
+              <label class="f-label">¿Qué tipo de sitio necesitás?</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="tipo_sitio" value="Landing page (1 página)" /><span class="opt-body"><span class="opt-title">Landing page (1 página)</span><span class="opt-desc">Plan Starter</span></span></label>
+                <label class="opt"><input type="radio" name="tipo_sitio" value="Sitio de hasta 5 secciones" /><span class="opt-body"><span class="opt-title">Sitio de hasta 5 secciones</span><span class="opt-desc">Plan Pro — más elegido</span></span></label>
+                <label class="opt"><input type="radio" name="tipo_sitio" value="Sitio multi-página" /><span class="opt-body"><span class="opt-title">Sitio multi-página</span><span class="opt-desc">Plan Business</span></span></label>
+                <label class="opt"><input type="radio" name="tipo_sitio" value="No sé — recomendame" /><span class="opt-body"><span class="opt-title">No sé — recomendame</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">¿Qué páginas / secciones necesitás?</label>
+              <div class="opt-group">
+                <label class="opt"><input type="checkbox" name="secciones" value="Inicio" /><span class="opt-body"><span class="opt-title">Inicio</span></span></label>
+                <label class="opt"><input type="checkbox" name="secciones" value="Servicios" /><span class="opt-body"><span class="opt-title">Servicios</span></span></label>
+                <label class="opt"><input type="checkbox" name="secciones" value="Sobre mí / Nosotros" /><span class="opt-body"><span class="opt-title">Sobre mí / Nosotros</span></span></label>
+                <label class="opt"><input type="checkbox" name="secciones" value="Portfolio / Galería" /><span class="opt-body"><span class="opt-title">Portfolio / Galería</span></span></label>
+                <label class="opt"><input type="checkbox" name="secciones" value="Testimonios" /><span class="opt-body"><span class="opt-title">Testimonios</span></span></label>
+                <label class="opt"><input type="checkbox" name="secciones" value="Precios / Paquetes" /><span class="opt-body"><span class="opt-title">Precios / Paquetes</span></span></label>
+                <label class="opt"><input type="checkbox" name="secciones" value="Preguntas frecuentes (FAQ)" /><span class="opt-body"><span class="opt-title">Preguntas frecuentes (FAQ)</span></span></label>
+                <label class="opt"><input type="checkbox" name="secciones" value="Blog" /><span class="opt-body"><span class="opt-title">Blog</span></span></label>
+                <label class="opt"><input type="checkbox" name="secciones" value="Contacto" /><span class="opt-body"><span class="opt-title">Contacto</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label" for="in-sec-otras">Otras secciones que no estén en la lista</label>
+              <input class="f-input" type="text" id="in-sec-otras" name="secciones_otras" placeholder="Ej: Turnos online, Mapa, Equipo..." />
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">¿Cómo querés que los clientes te contacten?</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="contacto_modo" value="Formulario de contacto" /><span class="opt-body"><span class="opt-title">Formulario de contacto</span><span class="opt-desc">Te llegan los mensajes por mail</span></span></label>
+                <label class="opt"><input type="radio" name="contacto_modo" value="Botón de WhatsApp" /><span class="opt-body"><span class="opt-title">Botón de WhatsApp</span><span class="opt-desc">Un toque y hablan directo por WhatsApp</span></span></label>
+                <label class="opt"><input type="radio" name="contacto_modo" value="Formulario + WhatsApp" /><span class="opt-body"><span class="opt-title">Formulario + WhatsApp</span><span class="opt-desc">Los dos juntos — recomendado</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">Funcionalidades extras que necesitás</label>
+              <div class="opt-group">
+                <label class="opt"><input type="checkbox" name="funcionalidades" value="Galería / portfolio con imágenes" /><span class="opt-body"><span class="opt-title">Galería / portfolio con imágenes</span></span></label>
+                <label class="opt"><input type="checkbox" name="funcionalidades" value="Reservas / turnos" /><span class="opt-body"><span class="opt-title">Reservas / turnos</span></span></label>
+                <label class="opt"><input type="checkbox" name="funcionalidades" value="Botón de pago" /><span class="opt-body"><span class="opt-title">Botón de pago (Mercado Pago, etc.)</span></span></label>
+                <label class="opt"><input type="checkbox" name="funcionalidades" value="Blog integrado" /><span class="opt-body"><span class="opt-title">Blog integrado</span></span></label>
+                <label class="opt"><input type="checkbox" name="funcionalidades" value="Mapa de ubicación" /><span class="opt-body"><span class="opt-title">Mapa de ubicación</span></span></label>
+                <label class="opt"><input type="checkbox" name="funcionalidades" value="Enlaces a redes sociales" /><span class="opt-body"><span class="opt-title">Enlaces a redes sociales</span></span></label>
+                <label class="opt"><input type="checkbox" name="funcionalidades" value="Estadísticas / Google Analytics" /><span class="opt-body"><span class="opt-title">Estadísticas / Google Analytics</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">Idioma del sitio</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="idioma" value="Español" /><span class="opt-body"><span class="opt-title">Español</span></span></label>
+                <label class="opt"><input type="radio" name="idioma" value="Bilingüe (Español + Inglés)" /><span class="opt-body"><span class="opt-title">Bilingüe (Español + Inglés)</span></span></label>
+                <label class="opt"><input type="radio" name="idioma" value="Inglés" /><span class="opt-body"><span class="opt-title">Inglés</span></span></label>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ SECCIÓN 5 · PLAN Y PLAZOS ════ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">05</span>
+            <h2 class="b-section-title">PLAN Y PLAZOS</h2>
+            <span class="b-section-hint">cómo avanzamos</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field full">
+              <label class="f-label">¿Qué plan elegís?</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="plan" value="Starter — 1 página" /><span class="opt-body"><span class="opt-title">Starter — 1 página</span><span class="opt-desc">Landing page + 2 rondas de revisión</span></span></label>
+                <label class="opt"><input type="radio" name="plan" value="Pro — hasta 5 secciones (más elegido)" /><span class="opt-body"><span class="opt-title">Pro — hasta 5 secciones</span><span class="opt-desc">Formulario + SEO básico + 4 rondas</span></span></label>
+                <label class="opt"><input type="radio" name="plan" value="Business — multi-página" /><span class="opt-body"><span class="opt-title">Business — multi-página</span><span class="opt-desc">SEO avanzado + Analytics + soporte 30 días</span></span></label>
+                <label class="opt"><input type="radio" name="plan" value="No sé — recomendame" /><span class="opt-body"><span class="opt-title">No sé — recomendame</span><span class="opt-desc">Elegimos juntos según tu necesidad</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">¿Para cuándo lo necesitás?</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="plazo" value="Con urgencia (menos de 72hs)" /><span class="opt-body"><span class="opt-title">Con urgencia (menos de 72hs)</span></span></label>
+                <label class="opt"><input type="radio" name="plazo" value="En 1 a 2 semanas" /><span class="opt-body"><span class="opt-title">En 1 a 2 semanas</span></span></label>
+                <label class="opt"><input type="radio" name="plazo" value="Sin apuro" /><span class="opt-body"><span class="opt-title">Sin apuro</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field">
+              <label class="f-label" for="in-presupuesto">Presupuesto estimado (opcional)</label>
+              <input class="f-input" type="text" id="in-presupuesto" name="presupuesto" placeholder="Ej: USD 150-250" />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-dominio">¿Ya tenés dominio?</label>
+              <input class="f-input" type="text" id="in-dominio" name="dominio" placeholder="Ej: tudominio.com.ar / No tengo" />
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ SECCIÓN 6 · NOTAS ════ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">06</span>
+            <h2 class="b-section-title">NOTAS ADICIONALES</h2>
+            <span class="b-section-hint">todo lo que falte</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field full">
+              <label class="f-label" for="in-notas">Algo más que debamos saber</label>
+              <textarea class="f-textarea" id="in-notas" name="notas" placeholder="Ideas, ejemplos, mensajes que quieras que diga el sitio, frases de marca..."></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- ════ ENVIAR ════ -->
+        <div class="b-submit">
+          <button type="submit" class="btn-send" id="btnSend">
+            → ENVIAR BRIEFING
+            <span class="mono-note">| llega a shcdigitalsolutions@gmail.com</span>
+          </button>
+          <p class="b-note" id="bNote" role="status" aria-live="polite">
+            Solo el nombre y el email son obligatorios · mientras más completes, mejor el resultado
+          </p>
+        </div>
+      </form>
+
+      <!-- Globo de éxito (lo único que ve el cliente al enviar) -->
+      <div class="b-toast" id="bToast" role="status" aria-live="polite">
+        <span class="b-toast-check" aria-hidden="true">✓</span>
+        <span class="b-toast-text">Enviado. ¡Gracias por confiar en nosotros!</span>
+      </div>
+    </main>
+
+    <footer class="b-footer">
+      <p>SHC Digital — Diseño web con IA · <a href="/">shcdigital.net.ar</a></p>
+    </footer>
+  </Fragment>
+</Layout>
+
+<script>
+  import "../scripts/briefing.js";
+</script>
