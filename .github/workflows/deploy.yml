@@ -1,0 +1,46 @@
+# .github/workflows/deploy.yml
+#
+# Publica el sitio estático Astro en GitHub Pages (dominio custom: shcdigital.net.ar).
+# Requiere en GitHub → Settings → Pages que la fuente sea "GitHub Actions".
+#
+# Configurado según el template del AI Workspace. No modificar manualmente sin
+# pasar por el agente GitHub Pages — cambios acá afectan la disponibilidad del sitio.
+
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci
+      - run: npm run build
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./dist
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
