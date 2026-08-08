@@ -1,0 +1,49 @@
+/* GENERADO por scripts/sync-brand.mjs — NO editar a mano. */
+/* Fuente única: brand/tokens.json (ver npm run sync:brand). */
+
+:root {
+  --color-surface-base: #f2ede6;
+  --color-surface-raised: #faf8f4;
+  --color-surface-inverse: #0f0e0c;
+  --color-surface-inverse-2: #1e1c18;
+  --color-surface-card: #141310;
+  --color-text-primary: #0f0e0c;
+  --color-text-secondary: #6b6358;
+  --color-text-muted: #999490;
+  --color-text-inverse: #ffffff;
+  --color-brand-primary: #e8321a;
+  --color-brand-primary-deep: #d3281a;
+  --color-brand-primary-dark: #c82a14;
+  --color-border-default: #d8d2c8;
+  --color-state-success: #1a7a3a;
+  --color-line-dark: #222222;
+  --font-family-base: 'Barlow', sans-serif;
+  --font-family-display: 'Bebas Neue', sans-serif;
+  --font-family-mono: 'Space Mono', monospace;
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+  --spacing-3xl: 4.5rem;
+  --container-max-width: 1200px;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-heading-sm: 1.75rem;
+  --font-size-heading-md: 2.25rem;
+  --font-size-heading-lg: 3rem;
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+  --line-height-tight: 1.2;
+  --line-height-base: 1.5;
+  --line-height-relaxed: 1.7;
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+  --radius-full: 9999px;
+}

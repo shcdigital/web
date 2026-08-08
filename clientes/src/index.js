@@ -193,45 +193,88 @@ const WelcomeHTML = `<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
-  :root{
-    --bg:#f2ede6; --white:#faf8f4; --ink:#0f0e0c; --ink2:#1e1c18; --mid:#6b6358;
-    --line:#d8d2c8; --red:#e8321a; --red-deep:#d3281a; --gray:#8f8a83;
-    --mono:'Space Mono',monospace; --display:'Bebas Neue',sans-serif; --body:'Barlow',sans-serif;
+  /*__STYLE_BLOCK_START__*/  /*__BRAND_START__*/
+  :root {
+    --color-surface-base: #f2ede6;
+    --color-surface-raised: #faf8f4;
+    --color-surface-inverse: #0f0e0c;
+    --color-surface-inverse-2: #1e1c18;
+    --color-surface-card: #141310;
+    --color-text-primary: #0f0e0c;
+    --color-text-secondary: #6b6358;
+    --color-text-muted: #999490;
+    --color-text-inverse: #ffffff;
+    --color-brand-primary: #e8321a;
+    --color-brand-primary-deep: #d3281a;
+    --color-brand-primary-dark: #c82a14;
+    --color-border-default: #d8d2c8;
+    --color-state-success: #1a7a3a;
+    --color-line-dark: #222222;
+    --font-family-base: 'Barlow', sans-serif;
+    --font-family-display: 'Bebas Neue', sans-serif;
+    --font-family-mono: 'Space Mono', monospace;
+    --spacing-xs: 0.25rem;
+    --spacing-sm: 0.5rem;
+    --spacing-md: 1rem;
+    --spacing-lg: 1.5rem;
+    --spacing-xl: 2rem;
+    --spacing-2xl: 3rem;
+    --spacing-3xl: 4.5rem;
+    --container-max-width: 1200px;
+    --font-size-xs: 0.75rem;
+    --font-size-sm: 0.875rem;
+    --font-size-md: 1rem;
+    --font-size-lg: 1.125rem;
+    --font-size-xl: 1.5rem;
+    --font-size-heading-sm: 1.75rem;
+    --font-size-heading-md: 2.25rem;
+    --font-size-heading-lg: 3rem;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --line-height-tight: 1.2;
+    --line-height-base: 1.5;
+    --line-height-relaxed: 1.7;
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 1rem;
+    --radius-full: 9999px;
   }
+  /*__BRAND_END__*/
   *{box-sizing:border-box;margin:0;padding:0}
-  body{background:var(--ink);font-family:var(--body);color:var(--ink);min-height:100vh;display:flex;flex-direction:column}
+  body{background:var(--color-surface-inverse);font-family:var(--font-family-base);color:var(--color-surface-inverse);min-height:100vh;display:flex;flex-direction:column}
   /* ---- Banner ---- */
-  .banner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.6rem 1rem;background:var(--ink2);border-bottom:1px solid rgba(255,255,255,.06)}
+  .banner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.6rem 1rem;background:var(--color-surface-inverse-2);border-bottom:1px solid rgba(255,255,255,.06)}
   .banner .brand{display:flex;align-items:baseline;gap:.6rem;margin:0 auto}
-  .banner .type{font-family:var(--display);font-size:clamp(1.6rem,6vw,3rem);color:#fff;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
-  .banner .dot{color:var(--red)}
-  .banner .sub{font-family:var(--mono);font-size:.7rem;color:#999;letter-spacing:.2em;text-transform:uppercase}
-  .banner .btn-exit{display:none;font-family:var(--mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:.5rem 1.1rem;cursor:pointer;transition:.15s;white-space:nowrap}
+  .banner .type{font-family:var(--font-family-display);font-size:clamp(1.6rem,6vw,3rem);color:#fff;letter-spacing:.14em;text-transform:uppercase;white-space:nowrap}
+  .banner .dot{color:var(--color-brand-primary)}
+  .banner .sub{font-family:var(--font-family-mono);font-size:.7rem;color:#999;letter-spacing:.2em;text-transform:uppercase}
+  .banner .btn-exit{display:none;font-family:var(--font-family-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;background:transparent;border:1px solid rgba(255,255,255,.3);border-radius:999px;padding:.5rem 1.1rem;cursor:pointer;transition:.15s;white-space:nowrap}
   .banner .btn-exit.show{display:inline-block}
-  .banner .btn-exit:hover{background:var(--red);border-color:var(--red)}
+  .banner .btn-exit:hover{background:var(--color-brand-primary);border-color:var(--color-brand-primary)}
   main{flex:1;display:flex;align-items:center;justify-content:center;padding:2rem 1.25rem 4rem}
-  .card{width:100%;max-width:440px;background:var(--bg);border-radius:18px;border:1px solid var(--line);box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden}
-  .card-head{padding:2rem 2rem 1.4rem;background:#fff;border-bottom:1px solid var(--line)}
-  .card-head h1{font-family:var(--display);font-size:1.7rem;letter-spacing:.06em;line-height:1}
-  .card-head h1 span{color:var(--red-deep)}
-  .card-head p{color:var(--mid);font-size:.92rem;margin-top:.5rem;line-height:1.4}
+  .card{width:100%;max-width:440px;background:var(--color-surface-base);border-radius:18px;border:1px solid var(--color-border-default);box-shadow:0 24px 60px rgba(0,0,0,.35);overflow:hidden}
+  .card-head{padding:2rem 2rem 1.4rem;background:#fff;border-bottom:1px solid var(--color-border-default)}
+  .card-head h1{font-family:var(--font-family-display);font-size:1.7rem;letter-spacing:.06em;line-height:1}
+  .card-head h1 span{color:var(--color-brand-primary-deep)}
+  .card-head p{color:var(--color-text-secondary);font-size:.92rem;margin-top:.5rem;line-height:1.4}
   .card-body{padding:1.6rem 2rem 2rem}
   .field{margin-bottom:1rem}
-  label{display:block;font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--mid);margin-bottom:.35rem}
-  input{width:100%;font-family:var(--body);font-size:1rem;padding:.7rem .9rem;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink)}
-  input:focus{outline:2px solid var(--red-deep);outline-offset:1px;border-color:transparent}
-  .btn{display:block;width:100%;border:none;cursor:pointer;font-family:var(--body);font-weight:600;padding:.85rem 1rem;border-radius:12px;background:var(--red);color:#fff;font-size:1rem;transition:.15s}
-  .btn:hover{background:var(--red-deep)}
-  .divider{display:flex;align-items:center;gap:.7rem;color:var(--gray-dark);font-size:.75rem;margin:1.1rem 0;text-transform:uppercase;letter-spacing:.05em}
-  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--line)}
-  .err{display:none;font-family:var(--mono);font-size:.8rem;color:var(--red-deep);background:#fbe9e7;border:1px solid #f5c6c0;border-radius:10px;padding:.7rem .9rem;margin-bottom:1rem}
+  label{display:block;font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:.35rem}
+  input{width:100%;font-family:var(--font-family-base);font-size:1rem;padding:.7rem .9rem;border:1px solid var(--color-border-default);border-radius:10px;background:#fff;color:var(--color-surface-inverse)}
+  input:focus{outline:2px solid var(--color-brand-primary-deep);outline-offset:1px;border-color:transparent}
+  .btn{display:block;width:100%;border:none;cursor:pointer;font-family:var(--font-family-base);font-weight:600;padding:.85rem 1rem;border-radius:12px;background:var(--color-brand-primary);color:#fff;font-size:1rem;transition:.15s}
+  .btn:hover{background:var(--color-brand-primary-deep)}
+  .divider{display:flex;align-items:center;gap:.7rem;color:var(--color-text-muted);font-size:.75rem;margin:1.1rem 0;text-transform:uppercase;letter-spacing:.05em}
+  .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--color-border-default)}
+  .err{display:none;font-family:var(--font-family-mono);font-size:.8rem;color:var(--color-brand-primary-deep);background:#fbe9e7;border:1px solid #f5c6c0;border-radius:10px;padding:.7rem .9rem;margin-bottom:1rem}
   .tenants{display:grid;gap:.7rem;margin-top:.2rem}
-  .tenant{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.1rem;background:#fff;border:1px solid var(--line);border-radius:12px;cursor:pointer;transition:.15s;text-decoration:none;color:var(--ink)}
-  .tenant:hover{border-color:var(--red-deep);box-shadow:0 4px 14px rgba(211,40,26,.12)}
+  .tenant{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.1rem;background:#fff;border:1px solid var(--color-border-default);border-radius:12px;cursor:pointer;transition:.15s;text-decoration:none;color:var(--color-surface-inverse)}
+  .tenant:hover{border-color:var(--color-brand-primary-deep);box-shadow:0 4px 14px rgba(211,40,26,.12)}
   .tenant .t-name{font-weight:600;font-size:.98rem}
-  .tenant .t-go{font-family:var(--mono);color:var(--red-deep);font-size:.75rem;letter-spacing:.08em}
-  .see{font-family:var(--mono);font-size:.78rem;color:var(--gray-dark);text-align:center;margin-top:1.2rem;line-height:1.5}
-.note{font-family:var(--mono);font-size:.72rem;color:var(--gray-dark);text-align:center;margin-top:1rem;line-height:1.5}
+  .tenant .t-go{font-family:var(--font-family-mono);color:var(--color-brand-primary-deep);font-size:.75rem;letter-spacing:.08em}
+  .see{font-family:var(--font-family-mono);font-size:.78rem;color:var(--color-text-muted);text-align:center;margin-top:1.2rem;line-height:1.5}
+.note{font-family:var(--font-family-mono);font-size:.72rem;color:var(--color-text-muted);text-align:center;margin-top:1rem;line-height:1.5}
 </style>
 </head>
 <body>
