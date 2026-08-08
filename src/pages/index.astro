@@ -1,0 +1,293 @@
+---
+// src/pages/index.astro
+// Home de SHC Digital — contenido idéntico al index.html original.
+
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/ui/Hero.astro";
+import ContactForm from "../components/ui/ContactForm.astro";
+
+const stats = [
+  { value: "$", unit: "0", label: "Hosting mensual", desc: "GitHub Pages · Infraestructura Microsoft" },
+  { value: "72", unit: "hs", label: "Entrega promedio", desc: "Desde briefing hasta sitio online" },
+  { value: "1", unit: "×", label: "Pago único", desc: "Sin suscripciones ni renovaciones" },
+  { muted: "SSL · HTTPS · DOMINIO PROPIO", label: "Incluido en todos los planes", desc: "", small: true },
+];
+
+const ticker = [
+  "GitHub Pages",
+  "Diseño con IA",
+  "Pago único",
+  "Sin suscripciones",
+  "Dominio propio",
+  "SSL incluido",
+  "100% responsive",
+  "Código tuyo",
+  "72hs entrega",
+];
+
+const proceso = [
+  {
+    n: "01",
+    chip: "Briefing",
+    title: "NOS CONTÁS TU PROYECTO",
+    desc: "Completás un formulario con datos de tu profesión, servicios y estilo. Sin reuniones. Sin vueltas.",
+  },
+  {
+    n: "02",
+    chip: "Diseño",
+    title: "CREAMOS CON IA",
+    desc: "Usamos herramientas de última generación para diseñar tu sitio moderno, veloz y personalizado.",
+  },
+  {
+    n: "03",
+    chip: "Revisión",
+    title: "AJUSTAMOS CONTIGO",
+    desc: "Te mostramos el resultado y realizamos todas las correcciones necesarias según el plan elegido.",
+  },
+  {
+    n: "04",
+    chip: "Deploy",
+    title: "ONLINE EN GITHUB PAGES",
+    desc: "Publicamos tu sitio con dominio propio y SSL. Hosting gratuito profesional sin costos futuros.",
+  },
+];
+
+const servicios = [
+  {
+    n: "01",
+    tag: "Diseño",
+    title: "DISEÑO A MEDIDA CON IA",
+    desc: "Cada sitio es único. IA generativa aplicada a crear un diseño adaptado exactamente a tu identidad. Sin plantillas.",
+  },
+  {
+    n: "02",
+    tag: "Hosting",
+    title: "GITHUB PAGES GRATUITO",
+    desc: "Infraestructura de Microsoft. Cero costos mensuales, cero interrupciones, disponibilidad garantizada.",
+  },
+  {
+    n: "03",
+    tag: "Dominio",
+    title: "DOMINIO PROPIO + SSL",
+    desc: "Configuramos tu dominio personalizado y el certificado HTTPS. Si no tenés, te asesoramos para conseguir uno.",
+  },
+  {
+    n: "04",
+    tag: "Mobile",
+    title: "100% RESPONSIVE",
+    desc: "Diseñado desde mobile. Perfecto en celular, tablet y escritorio. Código limpio que puntúa alto en PageSpeed.",
+  },
+  {
+    n: "05",
+    tag: "Código",
+    title: "CÓDIGO FUENTE ENTREGADO",
+    desc: "El sitio es completamente tuyo. Archivos + repositorio GitHub. Nunca dependés de nosotros para nada.",
+  },
+  {
+    n: "06",
+    tag: "SEO",
+    title: "SEO Y ANALÍTICA",
+    desc: "Estructura optimizada para motores de búsqueda e integración con Google Analytics desde el día uno.",
+  },
+];
+
+const planes = [
+  {
+    tag: "// Starter",
+    items: [
+      { text: "1 página (landing page)" },
+      { text: "Diseño con IA personalizado" },
+      { text: "GitHub Pages + SSL" },
+      { text: "Dominio propio configurado" },
+      { text: "2 rondas de revisión" },
+      { text: "Páginas múltiples", no: true },
+      { text: "Formulario de contacto", no: true },
+    ],
+    hot: false,
+  },
+  {
+    tag: "// Pro — más elegido",
+    items: [
+      { text: "Hasta 5 secciones" },
+      { text: "Diseño con IA premium" },
+      { text: "GitHub Pages + SSL" },
+      { text: "Dominio propio configurado" },
+      { text: "Formulario de contacto" },
+      { text: "SEO básico optimizado" },
+      { text: "4 rondas de revisión" },
+    ],
+    hot: true,
+  },
+  {
+    tag: "// Business",
+    items: [
+      { text: "Múltiples páginas" },
+      { text: "Diseño con IA exclusivo" },
+      { text: "SEO avanzado" },
+      { text: "Google Analytics" },
+      { text: "Revisiones periódicas" },
+      { text: "Soporte 30 días post-entrega" },
+    ],
+    hot: false,
+  },
+];
+
+const testimonios = [
+  {
+    text: "Increíble la calidad del resultado. Mi sitio quedó exactamente como lo imaginaba y no tengo que pagar nada mes a mes. Lo recomiendo a todos mis colegas.",
+    name: "Martina González",
+    role: "Psicóloga clínica · Buenos Aires",
+  },
+  {
+    text: "Siempre diferí tener página web por los costos. Con SHC Digital lo hice por primera vez y el resultado superó todas mis expectativas.",
+    name: "Roberto Lagos",
+    role: "Contador público",
+  },
+  {
+    text: "En 48 horas tenía mi sitio online, moderno y profesional. La tecnología de IA realmente hace la diferencia en el diseño final.",
+    name: "Valeria Soto",
+    role: "Nutricionista deportiva",
+  },
+];
+
+const why = [
+  { icon: "$0/MES", title: "Hosting gratuito permanente", text: "GitHub Pages no tiene costos. Nunca. Tu sitio online sin pagar nada mensual." },
+  { icon: "72HS", title: "Entrega ultrarrápida", text: "Desde que nos escribís hasta tener el sitio online, en promedio 72 horas." },
+  { icon: "100%", title: "El código es tuyo", text: "Te entregamos todo. Sin locks. Sin dependencias. Tu sitio vive donde quieras." },
+  { icon: "IA", title: "Diseño de nivel profesional", text: "Inteligencia artificial aplicada a crear diseños únicos, modernos y de alta calidad." },
+];
+---
+
+<Layout
+  title="SHC Digital — Diseño Web con IA"
+  description="SHC Digital — Diseño web profesional con IA publicado en GitHub Pages. Sin costos mensuales. Pago único."
+  ogTitle="SHC Digital — Diseño Web con IA"
+  ogDescription="Diseño web profesional con IA publicado en GitHub Pages. Sin costos mensuales. Pago único. Tu sitio online para siempre."
+  canonical="https://shcdigital.net.ar/"
+>
+
+  <Hero stats={stats} ticker={ticker} />
+
+  <!-- PROCESO -->
+  <section id="proceso" class="site-section proceso-section" aria-labelledby="proceso-title">
+    <div class="container">
+      <p class="mono-label">Proceso</p>
+      <h2 id="proceso-title" class="big-title">CÓMO<br /><span class="ghost">FUNCIONA</span></h2>
+      <div class="proc-grid">
+        {
+          proceso.map((p) => (
+            <div class="proc-step">
+              <div class="proc-n" aria-hidden="true">{p.n}</div>
+              <span class="proc-chip">{p.chip}</span>
+              <h3 class="proc-title">{p.title}</h3>
+              <p class="proc-desc">{p.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="site-section" aria-labelledby="servicios-title">
+    <div class="container serv-layout">
+      <div class="serv-sticky">
+        <p class="mono-label">Servicios</p>
+        <h2 id="servicios-title" class="big-title">TODO<br />LO QUE<br /><span class="ghost">INCLUYE</span></h2>
+        <p>Cada proyecto entregado con atención al detalle. Sin plantillas genéricas. Sin atajos.</p>
+        <a href="/#contacto" class="btn-fill">→ Empezar</a>
+      </div>
+      <div class="serv-grid">
+        {
+          servicios.map((s) => (
+            <div class="serv-card">
+              <div class="serv-icon">[ {s.n} ] {s.tag}</div>
+              <h3 class="serv-title">{s.title}</h3>
+              <p class="serv-desc">{s.desc}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section id="precios" class="site-section precios-section" aria-labelledby="precios-title">
+    <div class="container">
+      <p class="mono-label">Planes</p>
+      <h2 id="precios-title" class="big-title">ELEGÍ TU<br /><span class="ghost">PLAN</span></h2>
+      <div class="price-layout">
+        {
+          planes.map((plan) => (
+            <div class:list={["p-card", plan.hot && "hot"]}>
+              <div class="p-tag">{plan.tag}</div>
+              <ul class="p-items">
+                {plan.items.map((it) => (
+                  <li class:list={[it.no && "no"]}>{it.text}</li>
+                ))}
+              </ul>
+              <div class="p-cta">
+                <a href="/#contacto" class:list={[plan.hot ? "p-btn-hot" : "p-btn"]}>→ Consultar precio</a>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios" class="site-section testimonios-section" aria-labelledby="testimonios-title">
+    <div class="container">
+      <p class="mono-label">Testimonios</p>
+      <h2 id="testimonios-title" class="big-title">LO QUE<br /><span class="ghost">DICEN</span></h2>
+      <div class="testi-layout">
+        {
+          testimonios.map((t) => (
+            <article class="t-card">
+              <div class="t-mark" aria-hidden="true">"</div>
+              <blockquote class="t-text">{t.text}</blockquote>
+              <div class="t-rule" aria-hidden="true"></div>
+              <p class="t-name">{t.name}</p>
+              <p class="t-role">{t.role}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="site-section contacto-section" aria-labelledby="contacto-title">
+    <div class="container">
+      <p class="mono-label">Contacto</p>
+      <div class="cta-wrapper">
+        <div class="cta-left-block">
+          <h2 id="contacto-title" class="big-title">EMPECEMOS<br />TU<br /><span class="ghost">PROYECTO</span></h2>
+          <p class="cta-intro">
+            Completá el formulario y te respondemos en menos de 24 horas con un presupuesto sin compromiso.
+          </p>
+          <ContactForm />
+        </div>
+
+        <div class="cta-right-block" aria-label="Por qué elegirnos">
+          <div class="why-title">POR QUÉ<br />ELEGIRNOS</div>
+          <div class="why-list">
+            {
+              why.map((w) => (
+                <div class="why-item">
+                  <div class="why-icon" aria-hidden="true">{w.icon}</div>
+                  <div class="why-text">
+                    <strong>{w.title}</strong>
+                    {w.text}
+                  </div>
+                </div>
+              ))
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

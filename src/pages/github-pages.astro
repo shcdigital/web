@@ -1,0 +1,130 @@
+---
+// src/pages/github-pages.astro
+// Anexo: uso comercial de GitHub Pages — contenido idéntico a github-pages.html.
+
+import Layout from "../layouts/Layout.astro";
+
+const articulos = [
+  {
+    n: "01",
+    chip: "Cuentas",
+    title: "USO COMERCIAL DE CUENTAS PERSONALES",
+    body: [
+      "<strong>Permisos de uso:</strong> los Términos de Servicio de GitHub permiten de manera explícita que una cuenta personal gratuita ejecute proyectos con fines comerciales. No existe penalización ni cobro obligatorio por operar un sitio comercial o repositorio privado bajo esta modalidad.",
+      "<strong>Propiedad e independencia:</strong> el proyecto y el código fuente se hospedan bajo la cuenta del cliente. Si en el futuro el proyecto requiere escalar a un esquema corporativo, la cuenta o el repositorio pueden migrarse sin interrupción del servicio hacia una Organización de GitHub.",
+    ],
+  },
+  {
+    n: "02",
+    chip: "Uso aceptable",
+    title: "ALOJAMIENTO EN GITHUB PAGES: CONDICIONES",
+    body: [
+      "GitHub Pages es un servicio diseñado para servir <strong>páginas web estáticas</strong> (HTML, CSS, JavaScript e imágenes). Su uso para sitios comerciales está sujeto a las siguientes pautas:",
+    ],
+    list: [
+      "<strong>Sitios aceptados:</strong> sitios corporativos informativos, portafolios profesionales, páginas de aterrizaje (landing pages), catálogos digitales y blogs de marca.",
+      "<strong>Restricciones comerciales (uso prohibido):</strong> GitHub Pages no está diseñado para funcionar como una plataforma de comercio electrónico masivo (e-commerce con pasarelas de pago transaccionales complejas gestionadas en el mismo servidor), ni para revender servicios de hosting o alojar aplicaciones como un software como servicio (SaaS).",
+    ],
+  },
+  {
+    n: "03",
+    chip: "Límites",
+    title: "LÍMITES TÉCNICOS DEL SERVICIO GRATUITO",
+    body: [
+      "El uso del servicio dentro del plan gratuito de GitHub incluye las siguientes capacidades máximas por repositorio y sitio publicado:",
+    ],
+    list: [
+      "<strong>Ancho de banda (tráfico):</strong> 100 GB al mes — suficiente para miles de visitas mensuales en un sitio optimizado.",
+      "<strong>Tamaño del sitio publicado:</strong> máximo 1 GB — aplica a los archivos desplegados de la página web.",
+      "<strong>Tamaño del repositorio:</strong> máximo 1 GB (recomendado) — límite del código fuente guardado en GitHub.",
+      "<strong>Compilaciones (builds):</strong> máximo 10 despliegues por hora — aplica al publicar o actualizar el contenido del sitio.",
+      "<strong>Minutos de CI/CD (Actions):</strong> 2.000 minutos al mes — tiempo asignado para automatizar actualizaciones o pruebas.",
+    ],
+    note: "<strong>Nota sobre los límites:</strong> si un sitio supera de manera recurrente el límite de ancho de banda (100 GB/mes) o el almacenamiento, GitHub no aplica inmediatamente un cobro sorpresa, sino que puede suspender temporalmente el servicio de GitHub Pages o enviar una notificación para optimizar el contenido o migrar a un servidor dedicado.",
+  },
+  {
+    n: "04",
+    chip: "Mantenimiento",
+    title: "RESPONSABILIDADES Y RECOMENDACIONES",
+    body: [
+      "Para garantizar la continuidad y el correcto funcionamiento del sitio publicado, se recomienda considerar los siguientes puntos:",
+    ],
+    list: [
+      "<strong>Dominio personalizado:</strong> para dar un perfil comercial adecuado, se recomienda vincular un dominio propio (ejemplo: <a href=\"https://www.tuempresa.com\" rel=\"noopener\" target=\"_blank\">www.tuempresa.com</a>). La configuración de registros DNS y la emisión del certificado de seguridad SSL/TLS no generan costo adicional en GitHub.",
+      "<strong>Resguardo de contenidos:</strong> las imágenes de muy alta resolución o archivos pesados (como videos o PDFs voluminosos) deben ser alojados en servicios de almacenamiento externos (como Google Drive, AWS S3 o Cloudinary) para no saturar los límites de GitHub Pages.",
+      "<strong>Pérdida o modificación de acceso:</strong> el cliente es el único responsable de mantener la seguridad y las credenciales de su cuenta de GitHub, incluyendo el acceso a su correo electrónico y la autenticación en dos pasos (2FA).",
+    ],
+  },
+  {
+    n: "05",
+    chip: "Documentación",
+    title: "ENLACES OFICIALES DE GITHUB",
+    body: [
+      "Para más información sobre las políticas oficiales, se pueden consultar los siguientes recursos de la documentación oficial de GitHub:",
+    ],
+    list: [
+      "<strong>Términos de Servicio Generales de GitHub:</strong><br /><a href=\"https://docs.github.com/es/site-policy/github-terms/github-terms-of-service\" rel=\"noopener\" target=\"_blank\">docs.github.com/es/site-policy/github-terms/github-terms-of-service</a>",
+      "<strong>Política de Uso Aceptable de GitHub Pages:</strong><br /><a href=\"https://docs.github.com/es/site-policy/content-and-conduct-terms/github-pages-acceptable-use-policy\" rel=\"noopener\" target=\"_blank\">docs.github.com/es/site-policy/content-and-conduct-terms/github-pages-acceptable-use-policy</a>",
+      "<strong>Límites y usos de GitHub Pages (Acerca de GitHub Pages):</strong><br /><a href=\"https://docs.github.com/es/pages/getting-started-with-github-pages/about-github-pages\" rel=\"noopener\" target=\"_blank\">docs.github.com/es/pages/getting-started-with-github-pages/about-github-pages</a>",
+    ],
+  },
+];
+---
+
+<Layout
+  title="Anexo: GitHub Pages — SHC Digital"
+  description="Anexo de Términos y Condiciones: uso de cuentas personales de GitHub y alojamiento en GitHub Pages con fines comerciales."
+  canonical="https://shcdigital.net.ar/github-pages"
+>
+  <header class="page-header">
+    <div class="container">
+      <p class="mono-label">// anexo técnico y legal</p>
+      <h1 class="big-title">GITHUB PAGES<br /><span class="ghost">USO COMERCIAL</span></h1>
+      <p class="page-header-desc">
+        Anexo de Términos y Condiciones: uso de cuentas personales de GitHub y alojamiento en
+        GitHub Pages con fines comerciales.
+      </p>
+    </div>
+  </header>
+
+  <main>
+    <section class="legal-section" aria-labelledby="legal-h">
+      <div class="container">
+        <div class="date-chip">// Anexo — <span>Mayo 2026</span></div>
+
+        <h2 id="legal-h" class="big-title">CONDICIONES<br /><span class="ghost">Y LÍMITES</span></h2>
+
+        <div class="legal-grid">
+          {
+            articulos.map((a) => (
+              <div class="proc-step">
+                <div class="legal-left">
+                  <div class="proc-n" aria-hidden="true">{a.n}</div>
+                  <span class="proc-chip">{a.chip}</span>
+                </div>
+                <div>
+                  <h3 class="proc-title">{a.title}</h3>
+                  <div class="legal-body-text">
+                    {a.body.map((p) => <p set:html={p} />)}
+                    {
+                      a.list && (
+                        <ul>
+                          {a.list.map((li) => <li set:html={li} />)}
+                        </ul>
+                      )
+                    }
+                    {a.note && <p set:html={a.note} />}
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="back-cta">
+          <a href="/terminos" class="btn-fill">← Volver a términos</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>
