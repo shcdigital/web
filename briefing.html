@@ -46,6 +46,7 @@
       font-family: var(--body);
       line-height: 1.55;
       -webkit-font-smoothing: antialiased;
+      padding-top: 92px;
     }
 
     :focus-visible {
@@ -53,67 +54,63 @@
       outline-offset: 2px;
     }
 
-    /* ── Cabecera ── */
+    /* ── Cabecera fija ── */
     .b-header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 200;
       background: var(--ink);
       color: var(--white);
-      padding: 2.5rem 1.25rem 1.75rem;
-      text-align: center;
       border-bottom: 4px solid var(--red);
+      height: 88px;
+      padding: 0.85rem 1.25rem 0.7rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .b-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
     }
     .b-logo {
       font-family: var(--display);
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       letter-spacing: 0.12em;
       color: var(--white);
       text-decoration: none;
+      white-space: nowrap;
     }
     .b-logo span { color: var(--red); }
     .b-tag {
       font-family: var(--mono);
-      font-size: 0.7rem;
-      color: var(--mid);
-      letter-spacing: 0.15em;
+      font-size: 0.68rem;
+      color: #a49c8f;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      margin-top: 0.35rem;
-    }
-    .b-title {
-      font-family: var(--display);
-      font-size: clamp(2.2rem, 6vw, 3.4rem);
-      letter-spacing: 0.03em;
-      line-height: 1;
-      margin-top: 1rem;
-    }
-    .b-title .ghost { color: var(--red); }
-    .b-sub {
-      max-width: 560px;
-      margin: 0.8rem auto 0;
-      font-weight: 300;
-      color: #c9c2b6;
+      text-align: right;
     }
 
-    /* ── Barra de progreso ── */
+    /* ── Barra de progreso (dentro de la cabecera fija) ── */
     .b-progress-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      background: var(--bg);
-      padding: 0.6rem 1.25rem;
-      border-bottom: 1px solid var(--line);
+      padding: 0;
+      border: none;
+      background: transparent;
     }
     .b-progress-label {
       font-family: var(--mono);
-      font-size: 0.65rem;
+      font-size: 0.62rem;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      color: var(--mid);
+      color: #a49c8f;
       display: flex;
       justify-content: space-between;
     }
     .b-progress-bar {
-      margin-top: 0.4rem;
+      margin-top: 0.35rem;
       height: 6px;
-      background: var(--line);
+      background: rgba(255, 255, 255, 0.16);
       border-radius: 99px;
       overflow: hidden;
     }
@@ -124,6 +121,39 @@
       border-radius: 99px;
       transition: width 0.35s ease;
     }
+
+    /* ── Hero (scrolla, no es fijo) ── */
+    .b-hero {
+      text-align: center;
+      padding: 2rem 0 0.5rem;
+    }
+    .b-title {
+      font-family: var(--display);
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      letter-spacing: 0.03em;
+      line-height: 1;
+    }
+    .b-title .ghost { color: var(--red); }
+    .b-sub {
+      max-width: 560px;
+      margin: 0.8rem auto 0;
+      font-weight: 300;
+      font-size: 1.05rem;
+      color: var(--mid);
+    }
+    .b-persuade {
+      max-width: 640px;
+      margin: 1.4rem auto 0;
+      padding: 1.1rem 1.3rem;
+      text-align: left;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--red);
+      border-radius: 8px;
+      font-weight: 300;
+      color: var(--ink);
+    }
+    .b-persuade strong { color: var(--red-deep); font-weight: 600; }
 
     /* ── Layout ── */
     .b-wrap {
@@ -340,31 +370,51 @@
       .b-grid { grid-template-columns: 1fr; }
       .b-section-hint { display: none; }
     }
+    @media (max-width: 480px) {
+      .b-header { height: 84px; }
+      body { padding-top: 88px; }
+      .b-tag { display: none; }
+      .b-persuade { font-size: 0.92rem; }
+    }
   </style>
 </head>
 <body>
 
-  <!-- ════════ CABECERA ════════ -->
+  <!-- ════════ CABECERA FIJA ════════ -->
   <header class="b-header">
-    <a class="b-logo" href="index.html">SHC<span>.</span>DIGITAL</a>
-    <div class="b-tag">// briefing para diseño web con IA</div>
-    <h1 class="b-title">GUÍA DE <span class="ghost">PREGUNTAS</span></h1>
-    <p class="b-sub">
-      Completá este formulario y nos llega directo por mail. Las respuestas
-      se arman automáticamente como un resumen listo para generar tu sitio con IA.
-    </p>
-  </header>
-
-  <!-- ════════ PROGRESO ════════ -->
-  <div class="b-progress-wrap">
-    <div class="b-progress-label">
-      <span>Progreso</span><span id="progressPct">0%</span>
+    <div class="b-header-row">
+      <a class="b-logo" href="index.html">SHC<span>.</span>DIGITAL</a>
+      <div class="b-tag">// briefing para diseño web con IA</div>
     </div>
-    <div class="b-progress-bar"><div class="b-progress-fill" id="progressFill"></div></div>
-  </div>
+    <div class="b-progress-wrap">
+      <div class="b-progress-label">
+        <span>Progreso</span><span id="progressPct">0%</span>
+      </div>
+      <div class="b-progress-bar"><div class="b-progress-fill" id="progressFill"></div></div>
+    </div>
+  </header>
 
   <!-- ════════ FORMULARIO ════════ -->
   <main class="b-wrap">
+
+    <!-- Hero: presenta la guía (scrolla con la página) -->
+    <section class="b-hero" aria-labelledby="b-title">
+      <h1 class="b-title" id="b-title">GUÍA DE <span class="ghost">PREGUNTAS</span></h1>
+      <p class="b-sub">
+        Completá los datos que quieras compartirnos en este formulario
+        para que diseñemos juntos tus ideas.
+      </p>
+      <div class="b-persuade">
+        <strong>¿Dudás si completar todo?</strong> Tranquilo: solo el nombre y el
+        email son obligatorios. Pero acá va el secreto — cuanto más nos contés,
+        más fino y más a tu medida va a ser el diseño. Cada respuesta es un
+        pincelazo con el que pintamos tu sitio, y los mejores resultados nacen
+        de los briefings más completos. El tuyo puede ser el próximo: tomate 10
+        minutos y contanos todo, así recibís un sitio que parece hecho por alguien
+        que te conoce de toda la vida.
+      </div>
+    </section>
+
     <form id="briefingForm" action="https://formsubmit.co/shcdigitalsolutions@gmail.com" method="POST" novalidate>
 
       <!-- Honeypot anti-spam propio -->
@@ -374,7 +424,7 @@
       </div>
 
       <!-- ════ SECCIÓN 1 · DATOS DE CONTACTO ════ -->
-      <section class="b-section" data-req="nombre email">
+      <section class="b-section">
         <div class="b-section-head">
           <span class="b-section-n">01</span>
           <h2 class="b-section-title">DATOS DE CONTACTO</h2>
@@ -410,7 +460,7 @@
       </section>
 
       <!-- ════ SECCIÓN 2 · SOBRE TU NEGOCIO ════ -->
-      <section class="b-section" data-req="que_haces">
+      <section class="b-section">
         <div class="b-section-head">
           <span class="b-section-n">02</span>
           <h2 class="b-section-title">SOBRE TU NEGOCIO</h2>
@@ -420,7 +470,7 @@
         <div class="b-grid">
           <div class="f-field full">
             <label class="f-label" for="in-quehaces">¿A qué te dedicás? <span class="req">*</span></label>
-            <textarea class="f-textarea" id="in-quehaces" name="que_haces" placeholder="Contanos en 2 o 3 frases qué hacés y qué ofrecés..." required></textarea>
+            <textarea class="f-textarea" id="in-quehaces" name="que_haces" placeholder="Contanos en 2 o 3 frases qué hacés y qué ofrecés..." ></textarea>
           </div>
           <div class="f-field full">
             <label class="f-label" for="in-audiencia">¿A quién apuntás? (audiencia ideal)</label>
@@ -458,7 +508,7 @@
       </section>
 
       <!-- ════ SECCIÓN 3 · CONTENIDO Y MARCA ════ -->
-      <section class="b-section" data-req="textos">
+      <section class="b-section">
         <div class="b-section-head">
           <span class="b-section-n">03</span>
           <h2 class="b-section-title">CONTENIDO Y MARCA</h2>
@@ -469,7 +519,7 @@
           <div class="f-field full">
             <label class="f-label">¿Tenés los textos del sitio? <span class="req">*</span></label>
             <div class="opt-group">
-              <label class="opt"><input type="radio" name="textos" value="Los tengo listos" required /><span class="opt-body"><span class="opt-title">Los tengo listos</span><span class="opt-desc">Los voy a pegar cuando me los pidan</span></span></label>
+              <label class="opt"><input type="radio" name="textos" value="Los tengo listos" /><span class="opt-body"><span class="opt-title">Los tengo listos</span><span class="opt-desc">Los voy a pegar cuando me los pidan</span></span></label>
               <label class="opt"><input type="radio" name="textos" value="Los tengo pero quiero pulirlos" /><span class="opt-body"><span class="opt-title">Los tengo pero quiero pulirlos</span></span></label>
               <label class="opt"><input type="radio" name="textos" value="Necesito que me ayuden a redactarlos" /><span class="opt-body"><span class="opt-title">Necesito que me ayuden a redactarlos</span><span class="opt-desc">Lo hacemos con IA junto al diseño</span></span></label>
             </div>
@@ -520,7 +570,7 @@
       </section>
 
       <!-- ════ SECCIÓN 4 · ESTRUCTURA Y FUNCIONALIDADES ════ -->
-      <section class="b-section" data-req="tipo_sitio">
+      <section class="b-section">
         <div class="b-section-head">
           <span class="b-section-n">04</span>
           <h2 class="b-section-title">ESTRUCTURA Y FUNCIONALIDADES</h2>
@@ -531,7 +581,7 @@
           <div class="f-field full">
             <label class="f-label">¿Qué tipo de sitio necesitás? <span class="req">*</span></label>
             <div class="opt-group">
-              <label class="opt"><input type="radio" name="tipo_sitio" value="Landing page (1 página)" required /><span class="opt-body"><span class="opt-title">Landing page (1 página)</span><span class="opt-desc">Plan Starter</span></span></label>
+              <label class="opt"><input type="radio" name="tipo_sitio" value="Landing page (1 página)" /><span class="opt-body"><span class="opt-title">Landing page (1 página)</span><span class="opt-desc">Plan Starter</span></span></label>
               <label class="opt"><input type="radio" name="tipo_sitio" value="Sitio de hasta 5 secciones" /><span class="opt-body"><span class="opt-title">Sitio de hasta 5 secciones</span><span class="opt-desc">Plan Pro — más elegido</span></span></label>
               <label class="opt"><input type="radio" name="tipo_sitio" value="Sitio multi-página" /><span class="opt-body"><span class="opt-title">Sitio multi-página</span><span class="opt-desc">Plan Business</span></span></label>
               <label class="opt"><input type="radio" name="tipo_sitio" value="No sé — recomendame" /><span class="opt-body"><span class="opt-title">No sé — recomendame</span></span></label>
@@ -592,7 +642,7 @@
       </section>
 
       <!-- ════ SECCIÓN 5 · PLAN Y PLAZOS ════ -->
-      <section class="b-section" data-req="plan">
+      <section class="b-section">
         <div class="b-section-head">
           <span class="b-section-n">05</span>
           <h2 class="b-section-title">PLAN Y PLAZOS</h2>
@@ -603,7 +653,7 @@
           <div class="f-field full">
             <label class="f-label">¿Qué plan elegís? <span class="req">*</span></label>
             <div class="opt-group">
-              <label class="opt"><input type="radio" name="plan" value="Starter — 1 página" required /><span class="opt-body"><span class="opt-title">Starter — 1 página</span><span class="opt-desc">Landing page + 2 rondas de revisión</span></span></label>
+              <label class="opt"><input type="radio" name="plan" value="Starter — 1 página" /><span class="opt-body"><span class="opt-title">Starter — 1 página</span><span class="opt-desc">Landing page + 2 rondas de revisión</span></span></label>
               <label class="opt"><input type="radio" name="plan" value="Pro — hasta 5 secciones (más elegido)" /><span class="opt-body"><span class="opt-title">Pro — hasta 5 secciones</span><span class="opt-desc">Formulario + SEO básico + 4 rondas</span></span></label>
               <label class="opt"><input type="radio" name="plan" value="Business — multi-página" /><span class="opt-body"><span class="opt-title">Business — multi-página</span><span class="opt-desc">SEO avanzado + Analytics + soporte 30 días</span></span></label>
               <label class="opt"><input type="radio" name="plan" value="No sé — recomendame" /><span class="opt-body"><span class="opt-title">No sé — recomendame</span><span class="opt-desc">Elegimos juntos según tu necesidad</span></span></label>
@@ -631,7 +681,7 @@
       </section>
 
       <!-- ════ SECCIÓN 6 · NOTAS ════ -->
-      <section class="b-section" data-req="">
+      <section class="b-section">
         <div class="b-section-head">
           <span class="b-section-n">06</span>
           <h2 class="b-section-title">NOTAS ADICIONALES</h2>
@@ -652,7 +702,7 @@
           → ENVIAR BRIEFING
           <span class="mono-note">| llega a shcdigitalsolutions@gmail.com</span>
         </button>
-        <p class="b-note" id="bNote" role="status" aria-live="polite">Todos los campos con * son obligatorios</p>
+        <p class="b-note" id="bNote" role="status" aria-live="polite">Solo el nombre y el email son obligatorios · mientras más completes, mejor el resultado</p>
       </div>
 
     </form>
@@ -712,25 +762,69 @@
       return v ? v : fallback;
     }
 
-    /* ── Barra de progreso ── */
-    function isSectionDone(section) {
-      var req = (section.getAttribute('data-req') || '').trim();
-      if (!req) return true;
-      var fields = req.split(' ');
-      var any = false;
-      for (var i = 0; i < fields.length; i++) {
-        var el = form.querySelector('[name="' + fields[i] + '"]');
-        if (!el) continue;
-        any = true;
-        if (!el.value.trim()) return false;
+    /* ── Barra de progreso ─────────────────────────────────────────
+       Ponderación pedida: solo con los datos personales y de contacto
+       (sección 1: nombre, empresa, rubro, email, whatsapp, ciudad) la
+       barra llega al 40%. El resto de secciones reparte el 60% entre sus
+       23 campos, creciendo de a poco con cada respuesta.
+    ── */
+    var S1_UNITS   = 6;    // campos de la sección 1
+    var S1_WEIGHT  = 40;   // % de la sección 1
+    var OTHER_UNITS  = 23; // campos de las secciones 2 a 6
+    var OTHER_WEIGHT = 60; // % del resto
+
+    var PROGRESS_FIELDS = [
+      { name: 'nombre',          unit: 's1' },
+      { name: 'empresa',         unit: 's1' },
+      { name: 'rubro',           unit: 's1' },
+      { name: 'email',           unit: 's1' },
+      { name: 'whatsapp',        unit: 's1' },
+      { name: 'ciudad',          unit: 's1' },
+      { name: 'que_haces',       unit: 'o' },
+      { name: 'audiencia',       unit: 'o' },
+      { name: 'valor',           unit: 'o' },
+      { name: 'diferencial',     unit: 'o' },
+      { name: 'objetivo',        unit: 'o' },
+      { name: 'competencia',     unit: 'o' },
+      { name: 'referencias',     unit: 'o' },
+      { name: 'textos',          unit: 'o' },
+      { name: 'fotos',           unit: 'o' },
+      { name: 'logo',            unit: 'o' },
+      { name: 'colores',         unit: 'o' },
+      { name: 'estilo',          unit: 'o' },
+      { name: 'tipo_sitio',      unit: 'o' },
+      { name: 'secciones',       unit: 'o' },
+      { name: 'secciones_otras', unit: 'o' },
+      { name: 'contacto_modo',   unit: 'o' },
+      { name: 'funcionalidades', unit: 'o' },
+      { name: 'idioma',          unit: 'o' },
+      { name: 'plan',            unit: 'o' },
+      { name: 'plazo',           unit: 'o' },
+      { name: 'presupuesto',     unit: 'o' },
+      { name: 'dominio',         unit: 'o' },
+      { name: 'notas',           unit: 'o' },
+    ];
+
+    function isFieldFilled(name) {
+      var els = form.querySelectorAll('[name="' + name + '"]');
+      if (!els.length) return false;
+      var type = els[0].type;
+      if (type === 'radio' || type === 'checkbox') {
+        for (var i = 0; i < els.length; i++) if (els[i].checked) return true;
+        return false;
       }
-      return any;
+      return els[0].value.trim() !== '';
     }
+
     function updateProgress() {
-      var sections = form.querySelectorAll('section.b-section');
-      var done = 0;
-      sections.forEach(function (s) { if (isSectionDone(s)) done++; });
-      var pct = Math.round((done / sections.length) * 100);
+      var s1 = 0, other = 0;
+      PROGRESS_FIELDS.forEach(function (f) {
+        if (!isFieldFilled(f.name)) return;
+        if (f.unit === 's1') s1++;
+        else other++;
+      });
+      var pct = (s1 / S1_UNITS) * S1_WEIGHT + (other / OTHER_UNITS) * OTHER_WEIGHT;
+      pct = Math.min(100, Math.round(pct));
       progressFill.style.width = pct + '%';
       progressPct.textContent = pct + '%';
     }
@@ -806,6 +900,17 @@
       L.push(sep);
       L.push('INSTRUCCIÓN PARA LA IA:');
       L.push(sep);
+      L.push('Fuente de verdad: usá el ORQUESTADOR del AI Workspace');
+      L.push('(archivo ~/GIT/ai-workspace/AGENTS.md + sus agents/, rules/, standards/,');
+      L.push('workflows/ y design-system/) como autoridad principal para TODAS las');
+      L.push('decisiones técnicas, de diseño y buenas prácticas. Seguí su modelo de');
+      L.push('orquestación, sus estándares (naming, CSS con tokens, SEO, accesibilidad');
+      L.push('WCAG, performance, git) y sus workflows antes que cualquier convención');
+      L.push('genérica. Ningún detalle se decide por fuera de esas fuentes.');
+      L.push('Documentación técnica: consultá también el MCP de CONTEXT7');
+      L.push('(servidor context7) para verificar APIs, sintaxis y buenas prácticas');
+      L.push('actuales de las librerías y frameworks que uses, en lugar de confiar');
+      L.push('en memoria del modelo.');
       L.push('Diseñá un sitio web único, moderno y profesional basándote 100% en este briefing.');
       L.push('Requisitos: responsive (mobile-first), HTML/CSS/JS de alta calidad sin frameworks,');
       L.push('estructura optimizada para SEO y velocidad, listo para publicar en GitHub Pages.');
