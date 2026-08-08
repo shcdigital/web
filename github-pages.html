@@ -4,128 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Anexo de Términos y Condiciones: uso de cuentas personales de GitHub y alojamiento en GitHub Pages con fines comerciales." />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com; frame-src 'none'; object-src 'none';" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://static.cloudflareinsights.com; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self' https://script.google.com https://cloudflareinsights.com; frame-src 'none'; object-src 'none';" />
   <title>Anexo: GitHub Pages — SHC Digital</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/css/styles.css" />
-  <style>
-    /* ── Header ── */
-    .page-header {
-      padding: 9rem 3rem 4.5rem;
-      background: var(--ink);
-      border-bottom: 3px solid var(--red);
-    }
-    .page-header .big-title        { color: var(--white); margin-bottom: 1.5rem; }
-    .page-header .big-title .ghost { -webkit-text-stroke-color: #333; }
-    .page-header-desc {
-      font-size: 1rem; color: #666;
-      line-height: 1.75; max-width: 520px; font-weight: 300;
-    }
-
-    /* ── Sección wrapper ── */
-    .legal-section {
-      background:    var(--white);
-      border-top:    1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      padding:       5rem 3rem 6rem;
-    }
-
-    /* Chip de fecha */
-    .date-chip {
-      display:        inline-flex;
-      align-items:    center;
-      gap:            0.75rem;
-      background:     var(--ink);
-      color:          #555;
-      font-family:    var(--mono);
-      font-size:      0.62rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding:        0.5rem 1.25rem;
-      margin-bottom:  3rem;
-    }
-    .date-chip span { color: var(--red); }
-
-    /* ── Grid de artículos — 1 columna, mismo sistema .proc-step ── */
-    .legal-grid {
-      display:    grid;
-      grid-template-columns: 1fr;
-      gap:        0;
-      border:     1px solid var(--line);
-      margin-top: 3rem;
-      max-width:  860px;
-    }
-
-    .legal-grid .proc-step {
-      display:               grid;
-      grid-template-columns: 96px 1fr;
-      gap:                   0 2.5rem;
-      align-items:           start;
-      border-right:          none;
-      border-bottom:         1px solid var(--line);
-    }
-    .legal-grid .proc-step:last-child { border-bottom: none; }
-
-    .legal-left {
-      display:        flex;
-      flex-direction: column;
-      align-items:    flex-start;
-      gap:            0.6rem;
-      padding-top:    0.2rem;
-    }
-
-    /* Texto cuerpo del artículo */
-    .legal-body-text {
-      font-size:   0.9rem;
-      color:       var(--mid);
-      line-height: 1.85;
-      font-weight: 300;
-      margin-top:  0.4rem;
-    }
-    .legal-body-text p + p  { margin-top: 0.75rem; }
-    .legal-body-text strong { color: var(--ink2); font-weight: 600; }
-
-    /* Lista con › rojo del index */
-    .legal-body-text ul {
-      margin-top:     0.85rem;
-      padding-left:   0;
-      list-style:     none;
-      display:        flex;
-      flex-direction: column;
-      gap:            0.55rem;
-    }
-    .legal-body-text ul li {
-      display: flex; gap: 0.75rem;
-      font-size: 0.875rem; color: var(--mid);
-    }
-    .legal-body-text ul li::before {
-      content: '›'; color: var(--red);
-      font-weight: 700; font-size: 1rem;
-      line-height: 1.55; flex-shrink: 0;
-    }
-
-    /* Enlaces dentro del texto legal */
-    .legal-body-text a {
-      color: var(--ink2);
-      font-weight: 600;
-      text-decoration: none;
-      border-bottom: 1px solid var(--red);
-      padding-bottom: 1px;
-      transition: color 0.2s;
-      word-break: break-all;
-    }
-    .legal-body-text a:hover { color: var(--red); }
-
-    .back-cta { margin-top: 3rem; }
-
-    @media (max-width: 960px) {
-      .page-header   { padding: 7rem 1.5rem 3rem; }
-      .legal-section { padding: 3rem 1.5rem 4rem; }
-      .legal-grid .proc-step { grid-template-columns: 1fr; gap: 1rem; }
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/pages.css" />
 </head>
 <body>
 
