@@ -207,7 +207,7 @@ nav {
 }
 
 .hero-desc {
-  font-size:     1rem;
+  font-size:     1.13rem;
   color:         var(--mid);
   line-height:   1.7;
   max-width:     460px;
@@ -318,7 +318,7 @@ nav {
 }
 
 .side-desc {
-  font-size:   0.78rem;
+  font-size:   0.91rem;
   color:       var(--gray-dark);
   margin-top:  0.3rem;
   font-weight: 300;
@@ -482,7 +482,7 @@ section { padding: 6rem 3rem; }
 }
 
 .proc-desc {
-  font-size:   0.875rem;
+  font-size:   1.03rem;
   color:       var(--mid);
   line-height: 1.7;
   font-weight: 300;
@@ -510,7 +510,7 @@ section { padding: 6rem 3rem; }
 .serv-sticky .big-title { margin-bottom: 1.5rem; }
 
 .serv-sticky p {
-  font-size:     0.9rem;
+  font-size:     1.06rem;
   color:         var(--mid);
   line-height:   1.7;
   margin-bottom: 2rem;
@@ -554,7 +554,7 @@ section { padding: 6rem 3rem; }
 }
 
 .serv-desc {
-  font-size:   0.875rem;
+  font-size:   1.03rem;
   color:       var(--mid);
   line-height: 1.7;
   font-weight: 300;
@@ -620,7 +620,7 @@ section { padding: 6rem 3rem; }
   display:     flex;
   align-items: flex-start;
   gap:         0.75rem;
-  font-size:   0.85rem;
+  font-size:   0.99rem;
   color:       var(--gray-card);
   font-weight: 300;
 }
@@ -716,7 +716,7 @@ section { padding: 6rem 3rem; }
 }
 
 .t-text {
-  font-size:     0.95rem;
+  font-size:     1.1rem;
   color:         var(--ink2);
   line-height:   1.75;
   margin-bottom: 2rem;
@@ -740,7 +740,7 @@ section { padding: 6rem 3rem; }
 }
 
 .t-role {
-  font-size:  0.78rem;
+  font-size:  0.91rem;
   color:      var(--mid);
   margin-top: 0.2rem;
 }
@@ -767,7 +767,7 @@ section { padding: 6rem 3rem; }
 .cta-left-block .big-title { margin: 1.5rem 0; }
 
 .cta-intro {
-  font-size:     0.95rem;
+  font-size:     1.1rem;
   color:         var(--mid);
   line-height:   1.7;
   margin-bottom: 2.5rem;
@@ -816,7 +816,7 @@ section { padding: 6rem 3rem; }
   border:      none;
   color:       var(--ink);
   font-family: var(--body);
-  font-size:   0.95rem;
+  font-size:   1.08rem;
   font-weight: 300;
   outline:     none;
   width:       100%;
@@ -884,7 +884,7 @@ section { padding: 6rem 3rem; }
 .f-btn.is-success:hover { background: #1a7a3a; }
 
 .f-note {
-  font-size: 0.75rem;
+  font-size: 0.89rem;
   color:     var(--mid);
   padding:   0 1.5rem;
   transition: color 0.2s;
@@ -938,7 +938,7 @@ section { padding: 6rem 3rem; }
 }
 
 .why-text {
-  font-size:   0.875rem;
+  font-size:   1.03rem;
   color:       #888;
   line-height: 1.6;
   font-weight: 300;
