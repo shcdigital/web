@@ -112,6 +112,7 @@
   margin-top:  0.4rem;
 }
 .legal-body-text p + p  { margin-top: 0.75rem; }
+.legal-body-text ul + p { margin-top: 0.85rem; }
 .legal-body-text strong { color: var(--ink2); font-weight: 600; }
 .legal-body-text ul {
   margin-top:     0.85rem;
