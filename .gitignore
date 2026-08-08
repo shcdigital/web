@@ -9,6 +9,7 @@ Thumbs.db
 # Entorno / build (por si algún día hay tooling)
 node_modules/
 dist/
+.astro/
 .env
 
 # Worker SSO de clientes — secretos locales y caché
