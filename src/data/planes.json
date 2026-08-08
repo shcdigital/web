@@ -1,39 +1,84 @@
 [
   {
     "tag": "// Starter",
+    "hot": false,
     "items": [
-      { "text": "1 página (landing page)" },
-      { "text": "Diseño con IA personalizado" },
-      { "text": "GitHub Pages + SSL" },
-      { "text": "Dominio propio configurado" },
-      { "text": "2 rondas de revisión" },
-      { "text": "Páginas múltiples", "no": true },
-      { "text": "Formulario de contacto", "no": true }
-    ],
-    "hot": false
+      {
+        "text": "1 página (landing page)"
+      },
+      {
+        "text": "Diseño con IA personalizado"
+      },
+      {
+        "text": "GitHub Pages + SSL"
+      },
+      {
+        "text": "Dominio propio configurado"
+      },
+      {
+        "text": "2 rondas de revisión"
+      },
+      {
+        "text": "Páginas múltiples",
+        "no": true
+      },
+      {
+        "text": "Formulario de contacto",
+        "no": true
+      },
+      {
+        "text": "✗ revisiones periódicas"
+      }
+    ]
   },
   {
     "tag": "// Pro — más elegido",
     "items": [
-      { "text": "Hasta 5 secciones" },
-      { "text": "Diseño con IA premium" },
-      { "text": "GitHub Pages + SSL" },
-      { "text": "Dominio propio configurado" },
-      { "text": "Formulario de contacto" },
-      { "text": "SEO básico optimizado" },
-      { "text": "4 rondas de revisión" }
+      {
+        "text": "Hasta 5 secciones"
+      },
+      {
+        "text": "Diseño con IA premium"
+      },
+      {
+        "text": "GitHub Pages + SSL"
+      },
+      {
+        "text": "Dominio propio configurado"
+      },
+      {
+        "text": "Formulario de contacto"
+      },
+      {
+        "text": "SEO básico optimizado"
+      },
+      {
+        "text": "4 rondas de revisión"
+      }
     ],
     "hot": true
   },
   {
     "tag": "// Business",
     "items": [
-      { "text": "Múltiples páginas" },
-      { "text": "Diseño con IA exclusivo" },
-      { "text": "SEO avanzado" },
-      { "text": "Google Analytics" },
-      { "text": "Revisiones periódicas" },
-      { "text": "Soporte 30 días post-entrega" }
+      {
+        "text": "Múltiples páginas"
+      },
+      {
+        "text": "Diseño con IA exclusivo"
+      },
+      {
+        "text": "SEO avanzado"
+      },
+      {
+        "text": "Google Analytics"
+      },
+      {
+        "text": "Revisiones periódicas"
+      },
+      {
+        "text": "Soporte 30 días post-entrega"
+      }
     ],
     "hot": false
   }
