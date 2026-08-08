@@ -2,6 +2,21 @@
 
 Todas las versiones notables de SHC Digital.
 
+## [0.2.0] - 2026-08-08
+
+### Security
+- **Briefing API** (`briefing-api`): rate-limit por IP en KV (máx. 3 envíos /
+  10 min), tope de tamaño del body y validación de origen. Control real contra
+  bomba de emails: antes un script podía spamear el formulario ilimitadamente.
+- **SSO de clientes** (`clientes`): bloqueo por IP tras 5 intentos fallidos de
+  login (anti fuerza bruta, 15 min).
+- **Logout por POST**: el logout ahora exige `POST` (anti CSRF de cierre de
+  sesión); la cookie es `SameSite=Lax`.
+- **CSP en el login** de `clientes.shcdigital.net.ar`.
+- Se eliminó la "clave" hardcodeada `ClaveSecretaDeSHCDigital2026` del bundle
+  público (no aportaba seguridad; se envía un valor aleatorio por sesión).
+- Se agregó `security.txt` (`/.well-known/security.txt`) al dominio principal.
+
 ## [0.1.0] - 2026-08-08
 
 ### Added
