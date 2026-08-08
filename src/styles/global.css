@@ -632,24 +632,78 @@ body {
   border-bottom: 1px solid var(--color-border-default);
 }
 
-.testi-layout {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 0;
+.testi-carousel {
   border: 1px solid var(--color-border-default);
   margin-top: 4rem;
+  background: var(--color-surface);
+  overflow: hidden;
 }
 
+.testi-track {
+  display: flex;
+  scroll-snap-type: x mandatory;
+  overflow-x: auto;
+  scrollbar-width: none;
+  -webkit-overflow-scrolling: touch;
+}
+
+.testi-track::-webkit-scrollbar { display: none; }
+
 .t-card {
+  flex: 0 0 100%;
+  scroll-snap-align: start;
   padding: 3rem 2.5rem;
-  border-right: 1px solid var(--color-border-default);
   opacity: 0;
   transform: translateY(16px);
   transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-.t-card:last-child { border-right: none; }
 .t-card.visible { opacity: 1; transform: translateY(0); }
+
+.testi-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  padding: 1.25rem 1.5rem;
+  border-top: 1px solid var(--color-border-default);
+  background: var(--color-surface-raised);
+}
+
+.testi-arrow {
+  border: 1px solid var(--color-border-default);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  font-family: var(--font-family-mono);
+  font-size: 1.1rem;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: 0.15s;
+}
+
+.testi-arrow:hover { border-color: var(--color-brand-primary); color: var(--color-brand-primary); }
+
+.testi-dots {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.testi-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  padding: 0;
+  background: var(--color-border-default);
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.testi-dot.active { background: var(--color-brand-primary); transform: scale(1.25); }
 
 .t-mark {
   font-family: var(--font-family-display);
@@ -985,9 +1039,7 @@ body {
 
   .price-layout { grid-template-columns: 1fr; }
 
-  .testi-layout { grid-template-columns: 1fr; }
-  .t-card { border-right: none; border-bottom: 1px solid var(--color-border-default); }
-  .t-card:last-child { border-bottom: none; }
+  .t-card { padding: 2.5rem 1.5rem; }
 
   .cta-wrapper { grid-template-columns: 1fr; }
   .cta-left-block { border-right: none; border-bottom: 1px solid var(--color-border-default); }

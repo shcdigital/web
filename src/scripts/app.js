@@ -26,7 +26,7 @@ function initSmoothScroll() {
 
 /* ── 3. ANIMACIONES DE ENTRADA ── */
 function initScrollAnimations() {
-  const ANIMATED_SELECTORS = '.proc-step, .serv-card, .p-card, .t-card, .svc-card, .legal-card';
+  const ANIMATED_SELECTORS = '.proc-step, .serv-card, .p-card, .svc-card, .legal-card';
   const STAGGER_COLUMNS = 4;
   const STAGGER_DELAY_MS = 100;
 
@@ -88,6 +88,66 @@ function resetForm(form) {
   });
   const prefixSelect = form.querySelector('[name="prefix"]');
   if (prefixSelect) prefixSelect.value = '+54';
+}
+
+/* ── 4. CARRUSEL DE TESTIMONIOS ── */
+function initTestimonialsCarousel() {
+  const carousel = document.querySelector('[data-carousel]');
+  if (!carousel) return;
+
+  const track = carousel.querySelector('[data-carousel-track]');
+  const slides = [...carousel.querySelectorAll('[data-carousel-slide]')];
+  const dotsEl = carousel.querySelector('[data-carousel-dots]');
+  const prevBtn = carousel.querySelector('[data-carousel-prev]');
+  const nextBtn = carousel.querySelector('[data-carousel-next]');
+  if (!track || slides.length === 0) return;
+
+  let current = 0;
+  let timer = null;
+  const AUTOPLAY_MS = 6000;
+
+  const dots = slides.map((_, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'testi-dot';
+    dot.setAttribute('aria-label', `Testimonio ${i + 1}`);
+    dot.addEventListener('click', () => { goTo(i); restart(); });
+    dotsEl.appendChild(dot);
+    return dot;
+  });
+
+  function goTo(index) {
+    current = (index + slides.length) % slides.length;
+    track.scrollTo({ left: current * track.clientWidth, behavior: 'smooth' });
+    slides.forEach((slide, i) => slide.classList.toggle('visible', i === current));
+    dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
+  }
+
+  function next() { goTo(current + 1); }
+  function prev() { goTo(current - 1); }
+
+  function restart() {
+    if (timer) clearInterval(timer);
+    if (slides.length > 1) timer = setInterval(next, AUTOPLAY_MS);
+  }
+
+  prevBtn.addEventListener('click', () => { prev(); restart(); });
+  nextBtn.addEventListener('click', () => { next(); restart(); });
+
+  // Sincroniza dots si el usuario hace swipe en el track
+  let scrollTimeout = null;
+  track.addEventListener('scroll', () => {
+    clearTimeout(scrollTimeout);
+    scrollTimeout = setTimeout(() => {
+      const index = Math.round(track.scrollLeft / track.clientWidth);
+      goTo(index);
+    }, 120);
+  });
+
+  window.addEventListener('resize', () => { goTo(current); });
+  slides.forEach((slide, i) => slide.classList.toggle('visible', i === 0));
+  dots[0]?.classList.add('active');
+  restart();
 }
 
 function initContactForm() {
@@ -188,6 +248,7 @@ function initContactForm() {
 function init() {
   initSmoothScroll();
   initScrollAnimations();
+  initTestimonialsCarousel();
   initContactForm();
 }
 

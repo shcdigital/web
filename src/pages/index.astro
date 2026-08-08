@@ -184,18 +184,25 @@ const why = [
     <div class="container">
       <p class="mono-label">Testimonios</p>
       <h2 id="testimonios-title" class="big-title">LO QUE<br /><span class="ghost">DICEN</span></h2>
-      <div class="testi-layout">
-        {
-          testimonios.map((t) => (
-            <article class="t-card">
-              <div class="t-mark" aria-hidden="true">"</div>
-              <blockquote class="t-text">{t.text}</blockquote>
-              <div class="t-rule" aria-hidden="true"></div>
-              <p class="t-name">{t.name}</p>
-              <p class="t-role">{t.role}</p>
-            </article>
-          ))
-        }
+      <div class="testi-carousel" data-carousel>
+        <div class="testi-track" data-carousel-track>
+          {
+            testimonios.map((t) => (
+              <article class="t-card" data-carousel-slide>
+                <div class="t-mark" aria-hidden="true">"</div>
+                <blockquote class="t-text">{t.text}</blockquote>
+                <div class="t-rule" aria-hidden="true"></div>
+                <p class="t-name">{t.name}</p>
+                <p class="t-role">{t.role}</p>
+              </article>
+            ))
+          }
+        </div>
+        <div class="testi-nav" data-carousel-nav>
+          <button type="button" class="testi-arrow" data-carousel-prev aria-label="Testimonio anterior">←</button>
+          <div class="testi-dots" data-carousel-dots></div>
+          <button type="button" class="testi-arrow" data-carousel-next aria-label="Testimonio siguiente">→</button>
+        </div>
       </div>
     </div>
   </section>
