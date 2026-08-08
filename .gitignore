@@ -15,5 +15,9 @@ dist/
 clientes/.dev.vars
 clientes/.wrangler/
 
+# Worker API de briefings (Resend) — secretos locales y caché
+briefing-api/.dev.vars
+briefing-api/.wrangler/
+
 # Reels (videos para redes sociales — no se suben a git)
 reels/

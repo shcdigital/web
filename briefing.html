@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="SHC Digital — Briefing para diseño de sitio web con IA. Completá esta guía y recibí tu sitio diseñado a medida." />
+  <meta name="robots" content="index, follow" />
+  <meta name="theme-color" content="#0f0e0c" />
+  <title>Briefing — SHC Digital</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap"
+    rel="stylesheet"
+  />
+
+  <style>
+    /* ════════════════════════════════════════════════
+       BRIEFING SHC DIGITAL — estilos propios de la página
+    ════════════════════════════════════════════════ */
+    *,
+    *::before,
+    *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #f2ede6;
+      --white:     #faf8f4;
+      --ink:       #0f0e0c;
+      --ink2:      #1e1c18;
+      --mid:       #6b6358;
+      --line:      #d8d2c8;
+      --red:       #e8321a;
+      --red-deep:  #d3281a;
+      --green:     #1a7a3a;
+      --mono:      'Space Mono', monospace;
+      --display:   'Bebas Neue', sans-serif;
+      --body:      'Barlow', sans-serif;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color:      var(--ink);
+      font-family: var(--body);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    :focus-visible {
+      outline: 2px solid var(--red-deep);
+      outline-offset: 2px;
+    }
+
+    /* ── Cabecera ── */
+    .b-header {
+      background: var(--ink);
+      color: var(--white);
+      padding: 2.5rem 1.25rem 1.75rem;
+      text-align: center;
+      border-bottom: 4px solid var(--red);
+    }
+    .b-logo {
+      font-family: var(--display);
+      font-size: 1.4rem;
+      letter-spacing: 0.12em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .b-logo span { color: var(--red); }
+    .b-tag {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--mid);
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      margin-top: 0.35rem;
+    }
+    .b-title {
+      font-family: var(--display);
+      font-size: clamp(2.2rem, 6vw, 3.4rem);
+      letter-spacing: 0.03em;
+      line-height: 1;
+      margin-top: 1rem;
+    }
+    .b-title .ghost { color: var(--red); }
+    .b-sub {
+      max-width: 560px;
+      margin: 0.8rem auto 0;
+      font-weight: 300;
+      color: #c9c2b6;
+    }
+
+    /* ── Barra de progreso ── */
+    .b-progress-wrap {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: var(--bg);
+      padding: 0.6rem 1.25rem;
+      border-bottom: 1px solid var(--line);
+    }
+    .b-progress-label {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--mid);
+      display: flex;
+      justify-content: space-between;
+    }
+    .b-progress-bar {
+      margin-top: 0.4rem;
+      height: 6px;
+      background: var(--line);
+      border-radius: 99px;
+      overflow: hidden;
+    }
+    .b-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--red);
+      border-radius: 99px;
+      transition: width 0.35s ease;
+    }
+
+    /* ── Layout ── */
+    .b-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 1.75rem 1.25rem 4rem;
+    }
+
+    .b-section {
+      margin-top: 2.25rem;
+    }
+    .b-section-head {
+      display: flex;
+      align-items: baseline;
+      gap: 0.75rem;
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+    .b-section-n {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      color: var(--red);
+    }
+    .b-section-title {
+      font-family: var(--display);
+      font-size: 1.6rem;
+      letter-spacing: 0.05em;
+    }
+    .b-section-hint {
+      font-family: var(--mono);
+      font-size: 0.65rem;
+      color: var(--mid);
+      margin-left: auto;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      white-space: nowrap;
+    }
+
+    .b-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; }
+    .b-grid .full { grid-column: 1 / -1; }
+
+    .f-field label.f-label {
+      display: block;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+    .f-field label.f-label .req { color: var(--red); }
+
+    .f-input,
+    .f-textarea,
+    .f-select {
+      width: 100%;
+      padding: 0.7rem 0.85rem;
+      font-family: var(--body);
+      font-size: 0.95rem;
+      color: var(--ink);
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+    .f-input:focus,
+    .f-textarea:focus,
+    .f-select:focus {
+      outline: none;
+      border-color: var(--red-deep);
+      box-shadow: 0 0 0 3px rgba(211, 40, 26, 0.18);
+    }
+    .f-input::placeholder,
+    .f-textarea::placeholder { color: #a49c8f; font-weight: 300; }
+    .f-textarea { min-height: 90px; resize: vertical; }
+
+    /* ── Opciones (radio / checkbox) ── */
+    .opt-group { display: flex; flex-direction: column; gap: 0.55rem; }
+    .opt {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      padding: 0.7rem 0.9rem;
+      background: var(--white);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: border-color 0.15s ease, background 0.15s ease;
+    }
+    .opt:hover { border-color: var(--mid); }
+    .opt:has(input:checked) {
+      border-color: var(--red-deep);
+      background: #fdeae6;
+    }
+    .opt input {
+      accent-color: var(--red-deep);
+      margin-top: 0.2rem;
+      flex-shrink: 0;
+      width: 1.05rem;
+      height: 1.05rem;
+      cursor: pointer;
+    }
+    .opt-body { flex: 1; }
+    .opt-title { font-weight: 600; font-size: 0.92rem; }
+    .opt-desc { font-weight: 300; font-size: 0.8rem; color: var(--mid); margin-top: 0.1rem; }
+
+    /* ── Submit ── */
+    .b-submit {
+      margin-top: 2.75rem;
+      border-top: 2px solid var(--ink);
+      padding-top: 1.5rem;
+    }
+    .btn-send {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 1.05rem;
+      font-family: var(--display);
+      font-size: 1.5rem;
+      letter-spacing: 0.08em;
+      color: var(--white);
+      background: var(--ink);
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.1s ease;
+    }
+    .btn-send:hover { background: var(--red); border-color: var(--red); }
+    .btn-send:active { transform: scale(0.99); }
+    .btn-send:disabled { opacity: 0.6; cursor: not-allowed; background: var(--ink); }
+    .btn-send .mono-note { font-family: var(--mono); font-size: 0.65rem; font-weight: 400; letter-spacing: 0.05em; }
+
+    .b-note {
+      margin-top: 0.8rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      text-align: center;
+      color: var(--mid);
+    }
+    .b-note.is-success { color: var(--green); }
+    .b-note.is-error { color: var(--red-deep); }
+
+    /* ── Panel resultado / prompt IA ── */
+    .b-result {
+      display: none;
+      margin-top: 2rem;
+      border: 2px solid var(--green);
+      border-radius: 10px;
+      background: var(--white);
+      overflow: hidden;
+    }
+    .b-result.show { display: block; }
+    .b-result-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+      background: var(--green);
+      color: #fff;
+      padding: 0.8rem 1.1rem;
+      font-family: var(--mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+    .btn-copy {
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: #fff;
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.55);
+      border-radius: 6px;
+      padding: 0.45rem 0.9rem;
+      cursor: pointer;
+      transition: background 0.15s ease;
+    }
+    .btn-copy:hover { background: rgba(255,255,255,0.3); }
+    .b-result-body {
+      padding: 1.1rem;
+      max-height: 420px;
+      overflow: auto;
+    }
+    .b-result-body pre {
+      font-family: var(--mono);
+      font-size: 0.74rem;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      word-break: break-word;
+      color: var(--ink);
+    }
+
+    /* ── Honeypot ── */
+    .hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
+
+    /* ── Footer ── */
+    .b-footer {
+      text-align: center;
+      padding: 2rem 1.25rem 2.5rem;
+      font-family: var(--mono);
+      font-size: 0.7rem;
+      color: var(--mid);
+    }
+    .b-footer a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--line); }
+
+    /* ── Responsive ── */
+    @media (max-width: 640px) {
+      .b-grid { grid-template-columns: 1fr; }
+      .b-section-hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════ CABECERA ════════ -->
+  <header class="b-header">
+    <a class="b-logo" href="index.html">SHC<span>.</span>DIGITAL</a>
+    <div class="b-tag">// briefing para diseño web con IA</div>
+    <h1 class="b-title">GUÍA DE <span class="ghost">PREGUNTAS</span></h1>
+    <p class="b-sub">
+      Completá este formulario y nos llega directo por mail. Las respuestas
+      se arman automáticamente como un resumen listo para generar tu sitio con IA.
+    </p>
+  </header>
+
+  <!-- ════════ PROGRESO ════════ -->
+  <div class="b-progress-wrap">
+    <div class="b-progress-label">
+      <span>Progreso</span><span id="progressPct">0%</span>
+    </div>
+    <div class="b-progress-bar"><div class="b-progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- ════════ FORMULARIO ════════ -->
+  <main class="b-wrap">
+    <form id="briefingForm" action="https://formsubmit.co/shcdigitalsolutions@gmail.com" method="POST" novalidate>
+
+      <!-- Honeypot anti-spam propio -->
+      <div class="hp" aria-hidden="true">
+        <label for="hp-web">Sitio web</label>
+        <input type="text" id="hp-web" name="website" tabindex="-1" autocomplete="off" />
+      </div>
+
+      <!-- ════ SECCIÓN 1 · DATOS DE CONTACTO ════ -->
+      <section class="b-section" data-req="nombre email">
+        <div class="b-section-head">
+          <span class="b-section-n">01</span>
+          <h2 class="b-section-title">DATOS DE CONTACTO</h2>
+          <span class="b-section-hint">datos del cliente</span>
+        </div>
+
+        <div class="b-grid">
+          <div class="f-field">
+            <label class="f-label" for="in-nombre">Nombre y apellido <span class="req">*</span></label>
+            <input class="f-input" type="text" id="in-nombre" name="nombre" placeholder="Tu nombre completo" autocomplete="name" required />
+          </div>
+          <div class="f-field">
+            <label class="f-label" for="in-empresa">Empresa / Marca</label>
+            <input class="f-input" type="text" id="in-empresa" name="empresa" placeholder="Nombre de tu negocio (si tenés)" autocomplete="organization" />
+          </div>
+          <div class="f-field">
+            <label class="f-label" for="in-rubro">Rubro / Profesión</label>
+            <input class="f-input" type="text" id="in-rubro" name="rubro" placeholder="Ej: Psicóloga, Contador, Barbería..." autocomplete="organization-title" />
+          </div>
+          <div class="f-field">
+            <label class="f-label" for="in-email">Email <span class="req">*</span></label>
+            <input class="f-input" type="email" id="in-email" name="email" placeholder="tu@email.com" autocomplete="email" required />
+          </div>
+          <div class="f-field">
+            <label class="f-label" for="in-whatsapp">WhatsApp</label>
+            <input class="f-input" type="tel" id="in-whatsapp" name="whatsapp" placeholder="+54 9 11 1234-5678" autocomplete="tel" />
+          </div>
+          <div class="f-field">
+            <label class="f-label" for="in-ciudad">Ciudad / País</label>
+            <input class="f-input" type="text" id="in-ciudad" name="ciudad" placeholder="Ej: CABA, Argentina" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECCIÓN 2 · SOBRE TU NEGOCIO ════ -->
+      <section class="b-section" data-req="que_haces">
+        <div class="b-section-head">
+          <span class="b-section-n">02</span>
+          <h2 class="b-section-title">SOBRE TU NEGOCIO</h2>
+          <span class="b-section-hint">qué vendés y a quién</span>
+        </div>
+
+        <div class="b-grid">
+          <div class="f-field full">
+            <label class="f-label" for="in-quehaces">¿A qué te dedicás? <span class="req">*</span></label>
+            <textarea class="f-textarea" id="in-quehaces" name="que_haces" placeholder="Contanos en 2 o 3 frases qué hacés y qué ofrecés..." required></textarea>
+          </div>
+          <div class="f-field full">
+            <label class="f-label" for="in-audiencia">¿A quién apuntás? (audiencia ideal)</label>
+            <textarea class="f-textarea" id="in-audiencia" name="audiencia" placeholder="Ej: profesionales de 30-50 años, dueños de locales, clientes de la zona..."></textarea>
+          </div>
+          <div class="f-field full">
+            <label class="f-label" for="in-valor">¿Cuál es tu propuesta de valor?</label>
+            <textarea class="f-textarea" id="in-valor" name="valor" placeholder="¿Por qué deberían elegirte a vos y no a otro? Ej: atención personalizada, 15 años de experiencia, precios únicos..."></textarea>
+          </div>
+          <div class="f-field full">
+            <label class="f-label" for="in-diferencial">¿Qué te diferencia de la competencia?</label>
+            <textarea class="f-textarea" id="in-diferencial" name="diferencial" placeholder="Ej: entrega en 48hs, servicio a domicilio, método propio..."></textarea>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label">Objetivo principal del sitio</label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="objetivo" value="Captar clientes y consultas" /><span class="opt-body"><span class="opt-title">Captar clientes y consultas</span></span></label>
+              <label class="opt"><input type="radio" name="objetivo" value="Mostrar portfolio / trabajos" /><span class="opt-body"><span class="opt-title">Mostrar portfolio / trabajos</span></span></label>
+              <label class="opt"><input type="radio" name="objetivo" value="Vender productos o servicios online" /><span class="opt-body"><span class="opt-title">Vender productos o servicios online</span></span></label>
+              <label class="opt"><input type="radio" name="objetivo" value="Dar imagen profesional e información" /><span class="opt-body"><span class="opt-title">Dar imagen profesional e información</span></span></label>
+              <label class="opt"><input type="radio" name="objetivo" value="Otro" /><span class="opt-body"><span class="opt-title">Otro</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label" for="in-competencia">Competencia (si conocés)</label>
+            <input class="f-input" type="text" id="in-competencia" name="competencia" placeholder="Ej: MiEstudio.com.ar, @competidor en Instagram..." />
+          </div>
+          <div class="f-field full">
+            <label class="f-label" for="in-referencias">Sitios que te gusten (links de referencia)</label>
+            <textarea class="f-textarea" id="in-referencias" name="referencias" placeholder="Pegá 1 a 3 links de páginas que te gusten y contá qué te gusta de cada una..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECCIÓN 3 · CONTENIDO Y MARCA ════ -->
+      <section class="b-section" data-req="textos">
+        <div class="b-section-head">
+          <span class="b-section-n">03</span>
+          <h2 class="b-section-title">CONTENIDO Y MARCA</h2>
+          <span class="b-section-hint">textos, fotos y colores</span>
+        </div>
+
+        <div class="b-grid">
+          <div class="f-field full">
+            <label class="f-label">¿Tenés los textos del sitio? <span class="req">*</span></label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="textos" value="Los tengo listos" required /><span class="opt-body"><span class="opt-title">Los tengo listos</span><span class="opt-desc">Los voy a pegar cuando me los pidan</span></span></label>
+              <label class="opt"><input type="radio" name="textos" value="Los tengo pero quiero pulirlos" /><span class="opt-body"><span class="opt-title">Los tengo pero quiero pulirlos</span></span></label>
+              <label class="opt"><input type="radio" name="textos" value="Necesito que me ayuden a redactarlos" /><span class="opt-body"><span class="opt-title">Necesito que me ayuden a redactarlos</span><span class="opt-desc">Lo hacemos con IA junto al diseño</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label">¿Qué fotos tenés para el sitio?</label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="fotos" value="Fotos profesionales de alta calidad" /><span class="opt-body"><span class="opt-title">Fotos profesionales de alta calidad</span></span></label>
+              <label class="opt"><input type="radio" name="fotos" value="Fotos básicas de celular" /><span class="opt-body"><span class="opt-title">Fotos básicas de celular</span></span></label>
+              <label class="opt"><input type="radio" name="fotos" value="No tengo — usen banco de imágenes" /><span class="opt-body"><span class="opt-title">No tengo — usen banco de imágenes</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label">¿Tenés logo?</label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="logo" value="Sí, tengo logo" /><span class="opt-body"><span class="opt-title">Sí, tengo logo</span></span></label>
+              <label class="opt"><input type="radio" name="logo" value="No, necesito que me lo hagan" /><span class="opt-body"><span class="opt-title">No, necesito que me lo hagan</span></span></label>
+              <label class="opt"><input type="radio" name="logo" value="No, no lo necesito" /><span class="opt-body"><span class="opt-title">No, no lo necesito</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label">Paleta de colores preferida</label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="colores" value="Rojo / naranja — energía y pasión" /><span class="opt-body"><span class="opt-title">Rojo / naranja — energía y pasión</span><span class="opt-desc">Marcas intensas, gastronomía, deporte</span></span></label>
+              <label class="opt"><input type="radio" name="colores" value="Azul — confianza y profesionalismo" /><span class="opt-body"><span class="opt-title">Azul — confianza y profesionalismo</span><span class="opt-desc">Abogados, finanzas, tecnología</span></span></label>
+              <label class="opt"><input type="radio" name="colores" value="Verde — crecimiento y naturaleza" /><span class="opt-body"><span class="opt-title">Verde — crecimiento y naturaleza</span><span class="opt-desc">Salud, ecología, bienestar</span></span></label>
+              <label class="opt"><input type="radio" name="colores" value="Negro / dorado — elegancia y lujo" /><span class="opt-body"><span class="opt-title">Negro / dorado — elegancia y lujo</span><span class="opt-desc">Moda, estética, alta gama</span></span></label>
+              <label class="opt"><input type="radio" name="colores" value="Minimalista — blanco y neutros" /><span class="opt-body"><span class="opt-title">Minimalista — blanco y neutros</span><span class="opt-desc">Limpio, moderno, atemporal</span></span></label>
+              <label class="opt"><input type="radio" name="colores" value="Violeta / rosa — creatividad" /><span class="opt-body"><span class="opt-title">Violeta / rosa — creatividad</span><span class="opt-desc">Diseño, belleza, audiencias jóvenes</span></span></label>
+              <label class="opt"><input type="radio" name="colores" value="Otro" /><span class="opt-body"><span class="opt-title">Otro / los defino después</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label">Estilo visual que buscás</label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="estilo" value="Moderno y tecnológico" /><span class="opt-body"><span class="opt-title">Moderno y tecnológico</span><span class="opt-desc">Audaz, tipografías grandes, animaciones</span></span></label>
+              <label class="opt"><input type="radio" name="estilo" value="Elegante y sobrio" /><span class="opt-body"><span class="opt-title">Elegante y sobrio</span><span class="opt-desc">Sereno, fino, muchos espacios blancos</span></span></label>
+              <label class="opt"><input type="radio" name="estilo" value="Colorido y creativo" /><span class="opt-body"><span class="opt-title">Colorido y creativo</span><span class="opt-desc">Divertido, cercano, llamativo</span></span></label>
+              <label class="opt"><input type="radio" name="estilo" value="Clásico y profesional" /><span class="opt-body"><span class="opt-title">Clásico y profesional</span><span class="opt-desc">Tradicional, genera confianza</span></span></label>
+              <label class="opt"><input type="radio" name="estilo" value="No sé — recomendame" /><span class="opt-body"><span class="opt-title">No sé — recomendame</span><span class="opt-desc">Lo decidimos juntos según tu rubro</span></span></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECCIÓN 4 · ESTRUCTURA Y FUNCIONALIDADES ════ -->
+      <section class="b-section" data-req="tipo_sitio">
+        <div class="b-section-head">
+          <span class="b-section-n">04</span>
+          <h2 class="b-section-title">ESTRUCTURA Y FUNCIONALIDADES</h2>
+          <span class="b-section-hint">qué páginas y extras</span>
+        </div>
+
+        <div class="b-grid">
+          <div class="f-field full">
+            <label class="f-label">¿Qué tipo de sitio necesitás? <span class="req">*</span></label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="tipo_sitio" value="Landing page (1 página)" required /><span class="opt-body"><span class="opt-title">Landing page (1 página)</span><span class="opt-desc">Plan Starter</span></span></label>
+              <label class="opt"><input type="radio" name="tipo_sitio" value="Sitio de hasta 5 secciones" /><span class="opt-body"><span class="opt-title">Sitio de hasta 5 secciones</span><span class="opt-desc">Plan Pro — más elegido</span></span></label>
+              <label class="opt"><input type="radio" name="tipo_sitio" value="Sitio multi-página" /><span class="opt-body"><span class="opt-title">Sitio multi-página</span><span class="opt-desc">Plan Business</span></span></label>
+              <label class="opt"><input type="radio" name="tipo_sitio" value="No sé — recomendame" /><span class="opt-body"><span class="opt-title">No sé — recomendame</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label">¿Qué páginas / secciones necesitás?</label>
+            <div class="opt-group">
+              <label class="opt"><input type="checkbox" name="secciones" value="Inicio" /><span class="opt-body"><span class="opt-title">Inicio</span></span></label>
+              <label class="opt"><input type="checkbox" name="secciones" value="Servicios" /><span class="opt-body"><span class="opt-title">Servicios</span></span></label>
+              <label class="opt"><input type="checkbox" name="secciones" value="Sobre mí / Nosotros" /><span class="opt-body"><span class="opt-title">Sobre mí / Nosotros</span></span></label>
+              <label class="opt"><input type="checkbox" name="secciones" value="Portfolio / Galería" /><span class="opt-body"><span class="opt-title">Portfolio / Galería</span></span></label>
+              <label class="opt"><input type="checkbox" name="secciones" value="Testimonios" /><span class="opt-body"><span class="opt-title">Testimonios</span></span></label>
+              <label class="opt"><input type="checkbox" name="secciones" value="Precios / Paquetes" /><span class="opt-body"><span class="opt-title">Precios / Paquetes</span></span></label>
+              <label class="opt"><input type="checkbox" name="secciones" value="Preguntas frecuentes (FAQ)" /><span class="opt-body"><span class="opt-title">Preguntas frecuentes (FAQ)</span></span></label>
+              <label class="opt"><input type="checkbox" name="secciones" value="Blog" /><span class="opt-body"><span class="opt-title">Blog</span></span></label>
+              <label class="opt"><input type="checkbox" name="secciones" value="Contacto" /><span class="opt-body"><span class="opt-title">Contacto</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label" for="in-sec-otras">Otras secciones que no estén en la lista</label>
+            <input class="f-input" type="text" id="in-sec-otras" name="secciones_otras" placeholder="Ej: Turnos online, Mapa, Equipo..." />
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label">¿Cómo querés que los clientes te contacten?</label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="contacto_modo" value="Formulario de contacto" /><span class="opt-body"><span class="opt-title">Formulario de contacto</span><span class="opt-desc">Te llegan los mensajes por mail</span></span></label>
+              <label class="opt"><input type="radio" name="contacto_modo" value="Botón de WhatsApp" /><span class="opt-body"><span class="opt-title">Botón de WhatsApp</span><span class="opt-desc">Un toque y hablan directo por WhatsApp</span></span></label>
+              <label class="opt"><input type="radio" name="contacto_modo" value="Formulario + WhatsApp" /><span class="opt-body"><span class="opt-title">Formulario + WhatsApp</span><span class="opt-desc">Los dos juntos — recomendado</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label">Funcionalidades extras que necesitás</label>
+            <div class="opt-group">
+              <label class="opt"><input type="checkbox" name="funcionalidades" value="Galería / portfolio con imágenes" /><span class="opt-body"><span class="opt-title">Galería / portfolio con imágenes</span></span></label>
+              <label class="opt"><input type="checkbox" name="funcionalidades" value="Reservas / turnos" /><span class="opt-body"><span class="opt-title">Reservas / turnos</span></span></label>
+              <label class="opt"><input type="checkbox" name="funcionalidades" value="Botón de pago" /><span class="opt-body"><span class="opt-title">Botón de pago (Mercado Pago, etc.)</span></span></label>
+              <label class="opt"><input type="checkbox" name="funcionalidades" value="Blog integrado" /><span class="opt-body"><span class="opt-title">Blog integrado</span></span></label>
+              <label class="opt"><input type="checkbox" name="funcionalidades" value="Mapa de ubicación" /><span class="opt-body"><span class="opt-title">Mapa de ubicación</span></span></label>
+              <label class="opt"><input type="checkbox" name="funcionalidades" value="Enlaces a redes sociales" /><span class="opt-body"><span class="opt-title">Enlaces a redes sociales</span></span></label>
+              <label class="opt"><input type="checkbox" name="funcionalidades" value="Estadísticas / Google Analytics" /><span class="opt-body"><span class="opt-title">Estadísticas / Google Analytics</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label">Idioma del sitio</label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="idioma" value="Español" /><span class="opt-body"><span class="opt-title">Español</span></span></label>
+              <label class="opt"><input type="radio" name="idioma" value="Bilingüe (Español + Inglés)" /><span class="opt-body"><span class="opt-title">Bilingüe (Español + Inglés)</span></span></label>
+              <label class="opt"><input type="radio" name="idioma" value="Inglés" /><span class="opt-body"><span class="opt-title">Inglés</span></span></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECCIÓN 5 · PLAN Y PLAZOS ════ -->
+      <section class="b-section" data-req="plan">
+        <div class="b-section-head">
+          <span class="b-section-n">05</span>
+          <h2 class="b-section-title">PLAN Y PLAZOS</h2>
+          <span class="b-section-hint">cómo avanzamos</span>
+        </div>
+
+        <div class="b-grid">
+          <div class="f-field full">
+            <label class="f-label">¿Qué plan elegís? <span class="req">*</span></label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="plan" value="Starter — 1 página" required /><span class="opt-body"><span class="opt-title">Starter — 1 página</span><span class="opt-desc">Landing page + 2 rondas de revisión</span></span></label>
+              <label class="opt"><input type="radio" name="plan" value="Pro — hasta 5 secciones (más elegido)" /><span class="opt-body"><span class="opt-title">Pro — hasta 5 secciones</span><span class="opt-desc">Formulario + SEO básico + 4 rondas</span></span></label>
+              <label class="opt"><input type="radio" name="plan" value="Business — multi-página" /><span class="opt-body"><span class="opt-title">Business — multi-página</span><span class="opt-desc">SEO avanzado + Analytics + soporte 30 días</span></span></label>
+              <label class="opt"><input type="radio" name="plan" value="No sé — recomendame" /><span class="opt-body"><span class="opt-title">No sé — recomendame</span><span class="opt-desc">Elegimos juntos según tu necesidad</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field full">
+            <label class="f-label">¿Para cuándo lo necesitás?</label>
+            <div class="opt-group">
+              <label class="opt"><input type="radio" name="plazo" value="Con urgencia (menos de 72hs)" /><span class="opt-body"><span class="opt-title">Con urgencia (menos de 72hs)</span></span></label>
+              <label class="opt"><input type="radio" name="plazo" value="En 1 a 2 semanas" /><span class="opt-body"><span class="opt-title">En 1 a 2 semanas</span></span></label>
+              <label class="opt"><input type="radio" name="plazo" value="Sin apuro" /><span class="opt-body"><span class="opt-title">Sin apuro</span></span></label>
+            </div>
+          </div>
+
+          <div class="f-field">
+            <label class="f-label" for="in-presupuesto">Presupuesto estimado (opcional)</label>
+            <input class="f-input" type="text" id="in-presupuesto" name="presupuesto" placeholder="Ej: USD 150-250" />
+          </div>
+          <div class="f-field">
+            <label class="f-label" for="in-dominio">¿Ya tenés dominio?</label>
+            <input class="f-input" type="text" id="in-dominio" name="dominio" placeholder="Ej: tudominio.com.ar / No tengo" />
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ SECCIÓN 6 · NOTAS ════ -->
+      <section class="b-section" data-req="">
+        <div class="b-section-head">
+          <span class="b-section-n">06</span>
+          <h2 class="b-section-title">NOTAS ADICIONALES</h2>
+          <span class="b-section-hint">todo lo que falte</span>
+        </div>
+
+        <div class="b-grid">
+          <div class="f-field full">
+            <label class="f-label" for="in-notas">Algo más que debamos saber</label>
+            <textarea class="f-textarea" id="in-notas" name="notas" placeholder="Ideas, ejemplos, mensajes que quieras que diga el sitio, frases de marca..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- ════ ENVIAR ════ -->
+      <div class="b-submit">
+        <button type="submit" class="btn-send" id="btnSend">
+          → ENVIAR BRIEFING
+          <span class="mono-note">| llega a shcdigitalsolutions@gmail.com</span>
+        </button>
+        <p class="b-note" id="bNote" role="status" aria-live="polite">Todos los campos con * son obligatorios</p>
+      </div>
+
+    </form>
+
+    <!-- ════ RESULTADO / PROMPT PARA IA ════ -->
+    <div class="b-result" id="bResult">
+      <div class="b-result-head">
+        <span>✓ Briefing enviado — listo para la IA</span>
+        <button type="button" class="btn-copy" id="btnCopy">⧉ Copiar resumen</button>
+      </div>
+      <div class="b-result-body">
+        <pre id="promptText"></pre>
+      </div>
+    </div>
+  </main>
+
+  <footer class="b-footer">
+    <p>SHC Digital — Diseño web con IA · <a href="index.html">shcdigital.net.ar</a></p>
+  </footer>
+
+  <script>
+  (function () {
+    'use strict';
+
+    var form        = document.getElementById('briefingForm');
+    var btnSend     = document.getElementById('btnSend');
+    var bNote       = document.getElementById('bNote');
+    var bResult     = document.getElementById('bResult');
+    var promptText  = document.getElementById('promptText');
+    var btnCopy     = document.getElementById('btnCopy');
+    var progressFill = document.getElementById('progressFill');
+    var progressPct  = document.getElementById('progressPct');
+
+    var EMAIL_DESTINO = 'shcdigitalsolutions@gmail.com';
+    var API_ENDPOINT  = 'https://briefing-api.shcdigital.net.ar/send';
+
+    /* ── Utilidades ── */
+    function val(name) {
+      var el = form.querySelector('[name="' + name + '"]');
+      return el ? el.value.trim() : '';
+    }
+    function radio(name) {
+      var el = form.querySelector('input[name="' + name + '"]:checked');
+      return el ? el.value : '';
+    }
+    function checks(name) {
+      return Array.prototype.map.call(
+        form.querySelectorAll('input[name="' + name + '"]:checked'),
+        function (c) { return c.value; }
+      );
+    }
+    function list(items) {
+      return items.length ? items.join(', ') : 'No especificado';
+    }
+    function or(value, fallback) {
+      var v = value.trim();
+      return v ? v : fallback;
+    }
+
+    /* ── Barra de progreso ── */
+    function isSectionDone(section) {
+      var req = (section.getAttribute('data-req') || '').trim();
+      if (!req) return true;
+      var fields = req.split(' ');
+      var any = false;
+      for (var i = 0; i < fields.length; i++) {
+        var el = form.querySelector('[name="' + fields[i] + '"]');
+        if (!el) continue;
+        any = true;
+        if (!el.value.trim()) return false;
+      }
+      return any;
+    }
+    function updateProgress() {
+      var sections = form.querySelectorAll('section.b-section');
+      var done = 0;
+      sections.forEach(function (s) { if (isSectionDone(s)) done++; });
+      var pct = Math.round((done / sections.length) * 100);
+      progressFill.style.width = pct + '%';
+      progressPct.textContent = pct + '%';
+    }
+    form.addEventListener('input', updateProgress);
+    form.addEventListener('change', updateProgress);
+
+    /* ── Validación ── */
+    function isValidEmail(email) {
+      return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    function setNote(msg, state) {
+      bNote.textContent = msg;
+      bNote.classList.remove('is-success', 'is-error');
+      if (state) bNote.classList.add(state);
+    }
+
+    /* ── Construir resumen listo para la IA ── */
+    function buildPrompt() {
+      var L = [];
+      var sep = '═══════════════════════════════════════════════════════════';
+      L.push(sep);
+      L.push('  BRIEFING SHC DIGITAL — DISEÑO DE SITIO WEB CON IA (ONESHOT)');
+      L.push(sep);
+      L.push('');
+
+      L.push('[1] DATOS DEL CLIENTE');
+      L.push('- Nombre y apellido: ' + or(val('nombre'), '—'));
+      L.push('- Empresa / Marca: ' + or(val('empresa'), '—'));
+      L.push('- Rubro / Profesión: ' + or(val('rubro'), '—'));
+      L.push('- Email: ' + or(val('email'), '—'));
+      L.push('- WhatsApp: ' + or(val('whatsapp'), '—'));
+      L.push('- Ciudad / País: ' + or(val('ciudad'), '—'));
+      L.push('');
+
+      L.push('[2] SOBRE EL NEGOCIO');
+      L.push('- ¿A qué se dedica?: ' + or(val('que_haces'), '—'));
+      L.push('- Audiencia objetivo: ' + or(val('audiencia'), '—'));
+      L.push('- Propuesta de valor: ' + or(val('valor'), '—'));
+      L.push('- Diferencial frente a la competencia: ' + or(val('diferencial'), '—'));
+      L.push('- Objetivo principal del sitio: ' + or(radio('objetivo'), 'No especificado'));
+      L.push('- Competencia: ' + or(val('competencia'), '—'));
+      L.push('- Sitios de referencia: ' + or(val('referencias'), '—'));
+      L.push('');
+
+      L.push('[3] CONTENIDO Y MARCA');
+      L.push('- Textos: ' + or(radio('textos'), 'No especificado'));
+      L.push('- Fotos: ' + or(radio('fotos'), 'No especificado'));
+      L.push('- Logo: ' + or(radio('logo'), 'No especificado'));
+      L.push('- Paleta de colores: ' + or(radio('colores'), 'No especificado'));
+      L.push('- Estilo visual: ' + or(radio('estilo'), 'No especificado'));
+      L.push('');
+
+      L.push('[4] ESTRUCTURA Y FUNCIONALIDADES');
+      L.push('- Tipo de sitio: ' + or(radio('tipo_sitio'), 'No especificado'));
+      L.push('- Páginas / secciones: ' + list(checks('secciones')));
+      L.push('- Otras secciones: ' + or(val('secciones_otras'), '—'));
+      L.push('- Contacto: ' + or(radio('contacto_modo'), 'No especificado'));
+      L.push('- Funcionalidades extras: ' + list(checks('funcionalidades')));
+      L.push('- Idioma: ' + or(radio('idioma'), 'No especificado'));
+      L.push('');
+
+      L.push('[5] PLAN Y PLAZOS');
+      L.push('- Plan elegido: ' + or(radio('plan'), 'No especificado'));
+      L.push('- Plazo: ' + or(radio('plazo'), 'No especificado'));
+      L.push('- Presupuesto estimado: ' + or(val('presupuesto'), '—'));
+      L.push('- Dominio: ' + or(val('dominio'), '—'));
+      L.push('');
+
+      L.push('[6] NOTAS ADICIONALES');
+      L.push(or(val('notas'), '—'));
+      L.push('');
+
+      L.push(sep);
+      L.push('INSTRUCCIÓN PARA LA IA:');
+      L.push(sep);
+      L.push('Diseñá un sitio web único, moderno y profesional basándote 100% en este briefing.');
+      L.push('Requisitos: responsive (mobile-first), HTML/CSS/JS de alta calidad sin frameworks,');
+      L.push('estructura optimizada para SEO y velocidad, listo para publicar en GitHub Pages.');
+      L.push('Incluí: navegación, secciones pedidas, formulario de contacto funcional y enlaces');
+      L.push('a WhatsApp. Textos en el idioma indicado. Generá el sitio completo de una sola vez.');
+
+      return L.join('\n');
+    }
+
+    /* ── Enviar al Worker (Resend) ── */
+    function sendForm() {
+      var objetivo = radio('objetivo');
+      var secciones = checks('secciones');
+      var funcs = checks('funcionalidades');
+
+      var payload = {
+        nombre:          val('nombre'),
+        email:           val('email'),
+        whatsapp:        val('whatsapp'),
+        empresa:         val('empresa'),
+        rubro:           val('rubro'),
+        ciudad:          val('ciudad'),
+        que_haces:       val('que_haces'),
+        audiencia:       val('audiencia'),
+        valor:           val('valor'),
+        diferencial:     val('diferencial'),
+        objetivo:        objetivo,
+        competencia:     val('competencia'),
+        referencias:     val('referencias'),
+        textos:          radio('textos'),
+        fotos:           radio('fotos'),
+        logo:            radio('logo'),
+        colores:         radio('colores'),
+        estilo:          radio('estilo'),
+        tipo_sitio:      radio('tipo_sitio'),
+        secciones:       secciones,
+        secciones_otras: val('secciones_otras'),
+        contacto_modo:   radio('contacto_modo'),
+        funcionalidades: funcs,
+        idioma:          radio('idioma'),
+        plan:            radio('plan'),
+        plazo:           radio('plazo'),
+        presupuesto:     val('presupuesto'),
+        dominio:         val('dominio'),
+        notas:           val('notas'),
+        subject:         'Nuevo briefing web — ' + (val('nombre') || 'sin nombre'),
+        briefing_prompt: buildPrompt(),
+      };
+
+      return fetch(API_ENDPOINT, {
+        method:  'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body:    JSON.stringify(payload),
+      });
+    }
+
+    /* ── Copiar resumen ── */
+    function copyPrompt() {
+      var text = promptText.textContent;
+      function fallback() {
+        var ta = document.createElement('textarea');
+        ta.value = text;
+        document.body.appendChild(ta);
+        ta.select();
+        try { document.execCommand('copy'); } catch (e) {}
+        document.body.removeChild(ta);
+      }
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(
+          function () { btnCopy.textContent = '✓ Copiado'; },
+          fallback
+        );
+      } else {
+        fallback();
+      }
+    }
+
+    btnCopy.addEventListener('click', copyPrompt);
+
+    /* ── Submit ── */
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      // Honeypot
+      var hp = form.querySelector('#hp-web');
+      if (hp && hp.value.trim() !== '') { setNote('✓ Listo', 'is-success'); return; }
+
+      var nombre = val('nombre');
+      var email = val('email');
+
+      if (!nombre) { setNote('⚠ El nombre y apellido es obligatorio.', 'is-error'); return; }
+      if (!email) { setNote('⚠ El email es obligatorio.', 'is-error'); return; }
+      if (!isValidEmail(email)) { setNote('⚠ El formato del email no es válido.', 'is-error'); return; }
+
+      btnSend.disabled = true;
+      btnSend.textContent = '→ ENVIANDO...';
+      setNote('Enviando tu briefing...', null);
+
+      sendForm()
+        .then(function (res) {
+          return res.json().catch(function () { return {}; }).then(function (data) {
+            return { res: res, data: data };
+          });
+        })
+        .then(function (result) {
+          if (!result.res.ok) {
+            throw new Error(result.data && result.data.error ? result.data.error : 'Error del servidor');
+          }
+          var prompt = buildPrompt();
+          promptText.textContent = prompt;
+          bResult.classList.add('show');
+          btnSend.textContent = '✓ BRIEFING ENVIADO';
+          setNote('✓ Llegó a ' + EMAIL_DESTINO + '. Copiá el resumen para la IA.', 'is-success');
+          bResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        })
+        .catch(function (err) {
+          btnSend.disabled = false;
+          btnSend.textContent = '→ ENVIAR BRIEFING';
+          setNote('⚠ No se pudo enviar: ' + (err && err.message ? err.message : 'error de red') + '. Reintentá.', 'is-error');
+        });
+    });
+
+    updateProgress();
+  })();
+  </script>
+</body>
+</html>

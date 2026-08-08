@@ -1,0 +1,18 @@
+name = "shc-briefing-api"
+main = "src/index.js"
+compatibility_date = "2026-08-06"
+
+[observability]
+enabled = true
+
+[[routes]]
+pattern = "briefing-api.shcdigital.net.ar"
+custom_domain = true
+
+[vars]
+# Destinatario de los briefings
+TO_EMAIL = "shcdigitalsolutions@gmail.com"
+
+# Remitente. Por defecto onboarding@resend.dev (solo puede enviar a la cuenta
+# dueña). Cuando verifiqués un dominio en Resend, activá y personalizá:
+# FROM_EMAIL = "SHC Digital <noreply@shcdigital.net.ar>"
