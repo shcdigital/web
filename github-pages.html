@@ -119,33 +119,46 @@
     .legal-body-text a:hover { color: var(--red); }
 
     /* ── Tabla de límites (Art. 03) ── */
+    .legal-table-wrap {
+      overflow-x: auto;
+      margin-top:  1rem;
+      border:      1px solid var(--line);
+    }
     .legal-table {
       width:        100%;
       border-collapse: collapse;
-      margin-top:   1rem;
       font-size:    0.8rem;
     }
     .legal-table th {
       font-family:    var(--mono);
-      font-size:      0.6rem;
+      font-size:      0.62rem;
       letter-spacing: 0.1em;
       text-transform: uppercase;
       text-align:     left;
-      color:          var(--red);
-      padding:        0.75rem 1rem;
-      border-bottom:  2px solid var(--ink);
+      color:          var(--white);
+      background:     var(--ink);
+      padding:        0.85rem 1rem;
       white-space:    nowrap;
     }
     .legal-table td {
-      padding:      0.75rem 1rem;
+      padding:      0.8rem 1rem;
       border-bottom: 1px solid var(--line);
       color:        var(--mid);
       font-weight:  300;
       line-height:  1.6;
       vertical-align: top;
     }
+    /* Primera columna (concepto) destacada */
+    .legal-table td:first-child {
+      color: var(--ink2);
+      font-weight: 600;
+      white-space: nowrap;
+      min-width: 170px;
+    }
+    /* Filas alternadas para legibilidad */
+    .legal-table tbody tr:nth-child(even) { background: #f3f0ea; }
+    .legal-table tbody tr:hover         { background: #efe9df; }
     .legal-table tr:last-child td { border-bottom: none; }
-    .legal-table td strong { color: var(--ink2); font-weight: 600; }
 
     .back-cta { margin-top: 3rem; }
 
@@ -155,6 +168,7 @@
       .legal-grid .proc-step { grid-template-columns: 1fr; gap: 1rem; }
       .legal-table th, .legal-table td { padding: 0.6rem 0.75rem; }
       .legal-table th { white-space: normal; }
+      .legal-table td:first-child { white-space: normal; min-width: 0; }
     }
   </style>
 </head>
@@ -238,42 +252,44 @@
               <h3 class="proc-title">LÍMITES TÉCNICOS DEL SERVICIO GRATUITO</h3>
               <div class="legal-body-text">
                 <p>El uso del servicio dentro del plan gratuito de GitHub incluye las siguientes capacidades máximas por repositorio y sitio publicado:</p>
-                <table class="legal-table">
-                  <thead>
-                    <tr>
-                      <th>Concepto</th>
-                      <th>Límite gratuito</th>
-                      <th>Impacto en el servicio</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td><strong>Ancho de banda</strong> (tráfico)</td>
-                      <td>100 GB al mes</td>
-                      <td>Suficiente para miles de visitas mensuales en un sitio optimizado.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Tamaño del sitio</strong> publicado</td>
-                      <td>Máximo 1 GB</td>
-                      <td>Aplica a los archivos desplegados de la página web.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Tamaño del repositorio</strong></td>
-                      <td>Máximo 1 GB (recomendado)</td>
-                      <td>Límite del código fuente guardado en GitHub.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Compilaciones</strong> (builds)</td>
-                      <td>Máximo 10 despliegues por hora</td>
-                      <td>Aplica al publicar o actualizar el contenido del sitio.</td>
-                    </tr>
-                    <tr>
-                      <td><strong>Minutos de CI/CD</strong> (Actions)</td>
-                      <td>2.000 minutos al mes</td>
-                      <td>Tiempo asignado para automatizar actualizaciones o pruebas.</td>
-                    </tr>
-                  </tbody>
-                </table>
+                <div class="legal-table-wrap">
+                  <table class="legal-table">
+                    <thead>
+                      <tr>
+                        <th>Concepto</th>
+                        <th>Límite gratuito</th>
+                        <th>Impacto en el servicio</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>Ancho de banda (tráfico)</td>
+                        <td>100 GB al mes</td>
+                        <td>Suficiente para miles de visitas mensuales en un sitio optimizado.</td>
+                      </tr>
+                      <tr>
+                        <td>Tamaño del sitio publicado</td>
+                        <td>Máximo 1 GB</td>
+                        <td>Aplica a los archivos desplegados de la página web.</td>
+                      </tr>
+                      <tr>
+                        <td>Tamaño del repositorio</td>
+                        <td>Máximo 1 GB (recomendado)</td>
+                        <td>Límite del código fuente guardado en GitHub.</td>
+                      </tr>
+                      <tr>
+                        <td>Compilaciones (builds)</td>
+                        <td>Máximo 10 despliegues por hora</td>
+                        <td>Aplica al publicar o actualizar el contenido del sitio.</td>
+                      </tr>
+                      <tr>
+                        <td>Minutos de CI/CD (Actions)</td>
+                        <td>2.000 minutos al mes</td>
+                        <td>Tiempo asignado para automatizar actualizaciones o pruebas.</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
                 <p><strong>Nota sobre los límites:</strong> si un sitio supera de manera recurrente el límite de ancho de banda (100 GB/mes) o el almacenamiento, GitHub no aplica inmediatamente un cobro sorpresa, sino que puede suspender temporalmente el servicio de GitHub Pages o enviar una notificación para optimizar el contenido o migrar a un servidor dedicado.</p>
               </div>
             </div>
