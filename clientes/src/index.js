@@ -30,48 +30,60 @@ const CSP =
 
 const SESSION_TTL_SEC = 60 * 60 * 12; // 12 horas
 
+// Seguridad de cabeceras para todas las respuestas HTML/API
+const SECURITY_HEADERS = {
+  "X-Content-Type-Options": "nosniff",
+  "X-Frame-Options": "DENY",
+  "Referrer-Policy": "no-referrer",
+  "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
+};
+
 export default {
   async fetch(request, env, ctx) {
-    const url = new URL(request.url);
+    try {
+      const url = new URL(request.url);
+      const security = SECURITY_HEADERS;
 
-    // Seguridad de cabeceras para todas las respuestas HTML/API
-    const security = {
-      "X-Content-Type-Options": "nosniff",
-      "X-Frame-Options": "DENY",
-      "Referrer-Policy": "no-referrer",
-      "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
-    };
+      // Página de bienvenida + login (server-side según la sesión)
+      if (url.pathname === "/" || url.pathname === "/home") {
+        return await renderWelcome(request, env, security);
+      }
 
-    // Página de bienvenida + login (server-side según la sesión)
-    if (url.pathname === "/" || url.pathname === "/home") {
-      return renderWelcome(request, env, security);
-    }
+      // ---------- API de sesión ----------
+      if (url.pathname === "/auth/login-local" && request.method === "POST") {
+        return await loginLocal(request, env);
+      }
+      if (url.pathname === "/auth/me") {
+        return await me(request, env);
+      }
+      if (url.pathname === "/auth/logout" && request.method === "POST") {
+        return await logout(request, env, url);
+      }
 
-    // ---------- API de sesión ----------
-    if (url.pathname === "/auth/login-local" && request.method === "POST") {
-      return await loginLocal(request, env);
-    }
-    if (url.pathname === "/auth/me") {
-      return await me(request, env);
-    }
-    if (url.pathname === "/auth/logout" && request.method === "POST") {
-      return logout(request, env, url);
-    }
+      // ---------- Google OAuth ----------
+      if (url.pathname === "/auth/oauth2/google" && request.method === "GET") {
+        return await startGoogleOAuth(env, url, security);
+      }
+      if (url.pathname === "/auth/oauth2/google/callback" && request.method === "GET") {
+        return await googleCallback(request, env, url, security);
+      }
 
-    // ---------- Google OAuth ----------
-    if (url.pathname === "/auth/oauth2/google" && request.method === "GET") {
-      return startGoogleOAuth(env, url, security);
-    }
-    if (url.pathname === "/auth/oauth2/google/callback" && request.method === "GET") {
-      return await googleCallback(request, env, url, security);
-    }
+      // ---------- Redirect al panel del cliente ----------
+      // GET /auth/sso/<tenantId> → valida sesión + acceso al tenant → emite JWT → 302 al admin del cliente
+      const m = url.pathname.match(/^\/auth\/sso\/([a-zA-Z0-9_-]+)$/);
+      if (m) return await ssoRedirect(request, env, m[1], url, security);
 
-    // ---------- Redirect al panel del cliente ----------
-    // GET /auth/sso/<tenantId> → valida sesión + acceso al tenant → emite JWT → 302 al admin del cliente
-    const m = url.pathname.match(/^\/auth\/sso\/([a-zA-Z0-9_-]+)$/);
-    if (m) return await ssoRedirect(request, env, m[1], url, security);
-
-    return new Response("Not found", { status: 404, headers: security });
+      return new Response("Not found", { status: 404, headers: security });
+    } catch (err) {
+      // Nunca devolver un 1101 al navegador: loguear la causa y responder 500 limpio.
+      console.error("[shc-clientes-sso] excepción sin controlar:", err && err.stack ? err.stack : String(err));
+      const msg =
+        "Error interno del servidor. Si vuelve a pasar, avisá a SHC Digital con la hora exacta.";
+      return new Response(renderErrorPage(msg, 500), {
+        status: 500,
+        headers: { ...HTML_HEADERS, ...SECURITY_HEADERS, "Content-Security-Policy": CSP },
+      });
+    }
   },
 };
 
@@ -126,18 +138,24 @@ async function googleCallback(request, env, url, security) {
   }
 
   // 1) Intercambiar el code por tokens
-  const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
-    method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-    body: new URLSearchParams({
-      code,
-      client_id: clientId,
-      client_secret: clientSecret,
-      redirect_uri: googleCallbackUrl(url),
-      grant_type: "authorization_code",
-      code_verifier: verifier,
-    }),
-  });
+  let tokenRes;
+  try {
+    tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: new URLSearchParams({
+        code,
+        client_id: clientId,
+        client_secret: clientSecret,
+        redirect_uri: googleCallbackUrl(url),
+        grant_type: "authorization_code",
+        code_verifier: verifier,
+      }),
+    });
+  } catch (err) {
+    console.error("[shc-clientes-sso] token endpoint fetch falló:", String(err));
+    return htmlError("No se pudo contactar a Google. Intentá de nuevo en unos segundos.", 502, security);
+  }
   const tokens = await tokenRes.json().catch(() => ({}));
   if (!tokenRes.ok || !tokens.access_token) {
     console.warn("[shc-clientes-sso] token exchange falló", tokenRes.status, tokens.error);
@@ -145,9 +163,15 @@ async function googleCallback(request, env, url, security) {
   }
 
   // 2) Obtener la identidad verificada (email) desde Google
-  const infoRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
-    headers: { Authorization: `Bearer ${tokens.access_token}` },
-  });
+  let infoRes;
+  try {
+    infoRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: { Authorization: `Bearer ${tokens.access_token}` },
+    });
+  } catch (err) {
+    console.error("[shc-clientes-sso] userinfo endpoint fetch falló:", String(err));
+    return htmlError("No se pudo verificar tu identidad de Google. Intentá de nuevo.", 502, security);
+  }
   const info = await infoRes.json().catch(() => ({}));
   const email = String(info.email || "").toLowerCase().trim();
   if (!infoRes.ok || !email || info.email_verified !== true) {
@@ -420,7 +444,7 @@ function esc(s) {
     .replace(/"/g, "&quot;");
 }
 
-function htmlError(msg, status, security) {
+function renderErrorPage(msg, status) {
   const html = `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -447,7 +471,11 @@ function htmlError(msg, status, security) {
   </div>
 </body>
 </html>`;
-  return new Response(html, {
+  return html;
+}
+
+function htmlError(msg, status, security) {
+  return new Response(renderErrorPage(msg, status), {
     status,
     headers: { ...HTML_HEADERS, ...(security || {}), "Content-Security-Policy": CSP },
   });
