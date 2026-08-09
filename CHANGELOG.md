@@ -2,6 +2,24 @@
 
 Todas las versiones notables de SHC Digital.
 
+## [0.3.0] - 2026-08-09
+
+### Added
+- **Google OAuth en el SSO de clientes** (`clientes`): login con Google
+  (authorization code + PKCE, parámetro `state` anti-CSRF, validación de
+  `email_verified`). El acceso se controla por email:
+  - `GOOGLE_ADMIN_EMAILS` (vars): correos con acceso global a todos los paneles.
+  - `TENANTS[i].emails`: correos permitidos para cada panel.
+  - `/auth/sso/<tenantId>` ahora verifica el acceso del email al tenant (403 si
+    no corresponde). Configurados: `shcdigitalsolutions@gmail.com` (admin global)
+    y `revistaliterariatds@gmail.com` (solo geo-gráficas).
+- La pantalla de bienvenida se renderiza en el servidor según la sesión: lista
+  solo los paneles permitidos; botón "Continuar con Google".
+
+### Changed
+- Login local (`admin/admin123`) queda **solo en dev**, detrás de
+  `ENABLE_LOCAL_LOGIN` (en producción `false`).
+
 ## [0.2.0] - 2026-08-08
 
 ### Security

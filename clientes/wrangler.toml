@@ -19,12 +19,24 @@ id = "1fbe445a905f4550a4613f8b92727cae"
 APP_NAME = "SHC Digital — Clientes"
 BASE_URL = "https://clientes.shcdigital.net.ar"
 
+# Google OAuth (Web OAuth Client ID — público).
+# Client ID: crear en Google Cloud → Credentials → OAuth Client ID (Web application)
+#   → Authorized redirect URI: https://clientes.shcdigital.net.ar/auth/oauth2/google/callback
+# Client Secret: NUNCA acá — se setea con: wrangler secret put GOOGLE_CLIENT_SECRET
+GOOGLE_CLIENT_ID = ""
+
+# Emails con acceso GLOBAL a todos los paneles (separados por coma).
+GOOGLE_ADMIN_EMAILS = "shcdigitalsolutions@gmail.com"
+
+# "true" habilita el login local de prueba (PBKDF2). En producción mantener "false".
+ENABLE_LOCAL_LOGIN = "false"
+
 # Tenants: cada cliente → su panel-admin (Worker) autenticado por este SSO.
 #   id       : identifica al tenant (va como claim "aud" del JWT).
 #   name     : nombre visible en la pantalla de bienvenida.
 #   admin_url: URL raíz del panel del cliente (debe implementar /auth/sso).
 #   emails   : correos permitidos vía Google OAuth para ese tenant.
-TENANTS = '[{"id":"geo-graficas","name":"Geo.Gráficas","admin_url":"https://panel.geograficas.shcdigital.net.ar","emails":[]},{"id":"shcdigital","name":"SHC Digital","admin_url":"https://panel.shcdigital.net.ar","emails":[]}]'
+TENANTS = '[{"id":"geo-graficas","name":"Geo.Gráficas","admin_url":"https://panel.geograficas.shcdigital.net.ar","emails":["revistaliterariatds@gmail.com"]},{"id":"shcdigital","name":"SHC Digital","admin_url":"https://panel.shcdigital.net.ar","emails":["shcdigitalsolutions@gmail.com"]}]'
 
 # Login local de prueba (hash PBKDF2-SHA256, 100000 iter). NO la contraseña en claro.
 LOCAL_USER = "admin"

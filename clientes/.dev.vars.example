@@ -5,3 +5,14 @@
 # Clave secreta compartida con los paneles de clientes (DEBE ser idéntica en todos).
 # En producción se setea con: wrangler secret put SHARED_JWT_SECRET
 SHARED_JWT_SECRET=
+
+# Google OAuth — crear OAuth Client ID (Web application) en Google Cloud Console.
+# Para dev, agregá en Google la redirect URI: http://localhost:8787/auth/oauth2/google/callback
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+
+# Emails admin (acceso global). En dev podés poner el tuyo.
+GOOGLE_ADMIN_EMAILS=shcdigitalsolutions@gmail.com
+
+# En dev: "true" habilita el login local de prueba.
+ENABLE_LOCAL_LOGIN=true

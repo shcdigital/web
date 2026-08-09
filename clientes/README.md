@@ -10,14 +10,32 @@ valida para abrir su sesión interna.
 
 ```
 cliente → clientes.shcdigital.net.ar  (Worker SSO — repo web)
-             │  welcome + login local (ahora) / Google OAuth (después)
-             │  email → TENANTS (config en wrangler.toml)
+             │  welcome + Google OAuth (authorization code + PKCE)
+             │  email → autorización por email (admin global + TENANTS.emails)
              ▼
              JWT HS256 (SHARED_JWT_SECRET, TTL 5 min, aud = panel)
              ▼  redirect
        panel del cliente (ej. geo-graficas-admin) /auth/sso
              → valida JWT → sesión KV → cookie → panel
 ```
+
+## Acceso por email (Google OAuth)
+
+- `GOOGLE_ADMIN_EMAILS` (vars): correos con acceso **global** a todos los paneles.
+- `TENANTS[i].emails` (vars): correos con acceso a **ese** panel.
+- `/auth/sso/<tenantId>` solo autoriza si el email de la sesión es admin o está
+  en los `emails` del tenant. Cualquier otro email queda bloqueado (403).
+
+## Configurar Google OAuth
+
+1. En [Google Cloud Console](https://console.cloud.google.com) → **APIs & Services** →
+   **OAuth consent screen**: configurá la pantalla de consentimiento (External, tu correo
+   como owner, agregá los correos que van a entrar como *Test users* o publicá la app).
+2. **Credentials → Create Credentials → OAuth Client ID** → tipo **Web application**.
+3. En **Authorized redirect URIs** agregá:
+   - Producción: `https://clientes.shcdigital.net.ar/auth/oauth2/google/callback`
+   - Dev (opcional): `http://localhost:8787/auth/oauth2/google/callback`
+4. Copiá el **Client ID** y el **Client Secret**.
 
 ## Deploy
 
@@ -26,8 +44,13 @@ cd clientes
 npm i
 npx wrangler kv namespace create SESSIONS        # copiar el <id> al wrangler.toml
 npx wrangler secret put SHARED_JWT_SECRET         # MISMO valor en el SSO y en cada panel
+npx wrangler secret put GOOGLE_CLIENT_SECRET      # client secret de Google
+# setear GOOGLE_CLIENT_ID en [vars] del wrangler.toml (es público, no es secreto)
 npx wrangler deploy
 ```
+
+> `GOOGLE_CLIENT_ID` va en `[vars]` del `wrangler.toml` (es público). El
+> `GOOGLE_CLIENT_SECRET` **nunca** va al repo: se setea con `wrangler secret`.
 
 ### DNS
 
@@ -38,21 +61,29 @@ En Cloudflare: Workers → tu Worker → **Custom domain** o **Routes** →
 ### Agregar un cliente (tenant)
 
 1. En `wrangler.toml`, sumá un objeto a `TENANTS`:
-   `{"id":"<cliente>","name":"<Nombre>","admin_url":"https://panel.<cliente>.shcdigital.net.ar","emails":[]}`
+   `{"id":"<cliente>","name":"<Nombre>","admin_url":"https://panel.<cliente>.shcdigital.net.ar","emails":["<email-del-cliente>"]}`
 2. En el panel de ese cliente, el Worker debe implementar `/auth/sso` (mismo
    `SHARED_JWT_SECRET`) y tener `TENANT_ID = "<cliente>"`.
 3. `wrangler deploy` del SSO y del panel.
 
-## Login local (prueba)
+### Dar acceso a un email
 
-`admin` / `admin123`. El hash PBKDF2 está en `wrangler.toml` (nunca la
-contraseña en claro). Para cambiar la contraseña, regenerá salt/hash (ver
-README de geo-graficas-admin) y actualizá `LOCAL_SALT_B64` / `LOCAL_HASH_B64`.
+- **A un solo panel**: agregalo al array `emails` de ese tenant en `TENANTS`.
+- **A todos los paneles (admin)**: agregalo a `GOOGLE_ADMIN_EMAILS`.
+
+## Login local (solo dev)
+
+Para desarrollar sin Google, seteá `ENABLE_LOCAL_LOGIN = "true"` (en `.dev.vars`)
+y usá `admin` / `admin123`. El hash PBKDF2 está en `wrangler.toml` (nunca la
+contraseña en claro). En producción `ENABLE_LOCAL_LOGIN = "false"` lo deshabilita.
 
 ## Seguridad
 
-- `SHARED_JWT_SECRET` se setea con `wrangler secret` (nunca en el repo).
+- `SHARED_JWT_SECRET` y `GOOGLE_CLIENT_SECRET` se setean con `wrangler secret`
+  (nunca en el repo).
+- OAuth: **PKCE** (S256) + parámetro `state` (anti-CSRF), validación de
+  `email_verified` de Google.
 - JWT: TTL 5 min, `aud` específico del panel (impide reuso en otro), y cada
   panel guarda el session id en su propia KV.
 - Cookies `HttpOnly; Secure; SameSite=Lax` + CSP en la welcome.
-- Rate-limit del login local en KV (anti fuerza bruta).
+- Rate-limit del login local en KV (anti fuerza bruta; solo dev).

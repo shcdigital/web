@@ -1,14 +1,22 @@
 // shc-clientes-sso · Cloudflare Worker — SSO de clientes SHC Digital
 // Sirve (clientes.shcdigital.net.ar):
-//   /              pantalla de bienvenida + login (estilo SHC Digital)
-//   /auth/login-local   login local (PBKDF2)
-//   /auth/me            estado de sesión
+//   /                     pantalla de bienvenida + login (estilo SHC Digital)
+//   /auth/oauth2/google   login con Google (authorization code + PKCE)
+//   /auth/oauth2/google/callback   intercambio de code → email → sesión
+//   /auth/login-local     login local (PBKDF2) — SOLO dev (ENABLE_LOCAL_LOGIN)
+//   /auth/me              estado de sesión
 //   /auth/logout
-//   /auth/sso/:tenant   autentica y redirige al panel del cliente con un JWT firmado
+//   /auth/sso/:tenant     autentica y redirige al panel del cliente con un JWT firmado
 //
 // Arquitectura: este Worker es la ÚNICA autoridad de login. Cada panel de cliente
 // (ex: geo-graficas-admin) implementa /auth/sso y valida el JWT con el mismo
 // SHARED_JWT_SECRET para abrir su sesión interna sin pedir credenciales.
+//
+// Autorización por email (Google OAuth):
+//   - GOOGLE_ADMIN_EMAILS (vars): correos con acceso GLOBAL a todos los tenants.
+//   - TENANTS[i].emails (vars): correos permitidos para ese tenant.
+//   - Con una sesión, /auth/sso/<tenantId> solo deja pasar si el email de la
+//     sesión es admin o está en los emails del tenant.
 
 const JSON_HEADERS = { "Content-Type": "application/json; charset=utf-8" };
 const HTML_HEADERS = { "Content-Type": "text/html; charset=utf-8" };
@@ -17,6 +25,8 @@ const CSP =
   "default-src 'self'; font-src 'self' fonts.googleapis.com fonts.gstatic.com; " +
   "style-src 'self' 'unsafe-inline' fonts.googleapis.com; script-src 'self' 'unsafe-inline'; " +
   "img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
+
+const SESSION_TTL_SEC = 60 * 60 * 12; // 12 horas
 
 export default {
   async fetch(request, env, ctx) {
@@ -30,9 +40,9 @@ export default {
       "Permissions-Policy": "geolocation=(), microphone=(), camera=()",
     };
 
-    // Página de bienvenida + login
+    // Página de bienvenida + login (server-side según la sesión)
     if (url.pathname === "/" || url.pathname === "/home") {
-      return new Response(renderWelcome(env), { headers: { ...HTML_HEADERS, ...security, "Content-Security-Policy": CSP } });
+      return renderWelcome(request, env, security);
     }
 
     // ---------- API de sesión ----------
@@ -46,21 +56,136 @@ export default {
       return logout(request, env, url);
     }
 
+    // ---------- Google OAuth ----------
+    if (url.pathname === "/auth/oauth2/google" && request.method === "GET") {
+      return startGoogleOAuth(env, url, security);
+    }
+    if (url.pathname === "/auth/oauth2/google/callback" && request.method === "GET") {
+      return await googleCallback(request, env, url, security);
+    }
+
     // ---------- Redirect al panel del cliente ----------
-    // GET /auth/sso/<tenantId> → valida sesión → emite JWT → 302 al admin del cliente
+    // GET /auth/sso/<tenantId> → valida sesión + acceso al tenant → emite JWT → 302 al admin del cliente
     const m = url.pathname.match(/^\/auth\/sso\/([a-zA-Z0-9_-]+)$/);
-    if (m) return await ssoRedirect(request, env, m[1], url);
+    if (m) return await ssoRedirect(request, env, m[1], url, security);
 
     return new Response("Not found", { status: 404, headers: security });
   },
 };
 
+// ---------- Google OAuth (authorization code + PKCE) ----------
+
+function googleAuthorizeUrl(env, url, state, challenge) {
+  const clientId = env.GOOGLE_CLIENT_ID;
+  const params = new URLSearchParams({
+    client_id: clientId,
+    redirect_uri: googleCallbackUrl(url),
+    response_type: "code",
+    scope: "openid email profile",
+    state,
+    code_challenge: challenge,
+    code_challenge_method: "S256",
+    prompt: "select_account",
+  });
+  return "https://accounts.google.com/o/oauth2/v2/auth?" + params.toString();
+}
+
+function googleCallbackUrl(url) {
+  return new URL("/auth/oauth2/google/callback", url.origin).toString();
+}
+
+async function startGoogleOAuth(env, url, security) {
+  if (!env.GOOGLE_CLIENT_ID) {
+    return htmlError("Google login no está configurado. Avisá al administrador.", 503, security);
+  }
+  const state = crypto.randomUUID();
+  const codeVerifier = randomB64url(48);
+  const challenge = await pkceChallenge(codeVerifier);
+  // state → code_verifier en KV (TTL 10 min); se consume una sola vez en el callback.
+  await env.SESSIONS.put(`oauth:${state}`, codeVerifier, { expirationTtl: 600 });
+  return Response.redirect(googleAuthorizeUrl(env, url, state, challenge), 302);
+}
+
+async function googleCallback(request, env, url, security) {
+  const code = url.searchParams.get("code");
+  const state = url.searchParams.get("state");
+  const oauthError = url.searchParams.get("error");
+  if (oauthError) return htmlError("Acceso cancelado.", 403, security);
+  if (!code || !state) return htmlError("Parámetros inválidos. Volvé a intentar.", 400, security);
+
+  const verifier = await env.SESSIONS.get(`oauth:${state}`);
+  if (!verifier) return htmlError("Estado inválido o expirado. Volvé a intentar.", 400, security);
+  await env.SESSIONS.delete(`oauth:${state}`);
+
+  const clientId = env.GOOGLE_CLIENT_ID;
+  const clientSecret = env.GOOGLE_CLIENT_SECRET;
+  if (!clientId || !clientSecret) {
+    return htmlError("Google login no está configurado. Avisá al administrador.", 503, security);
+  }
+
+  // 1) Intercambiar el code por tokens
+  const tokenRes = await fetch("https://oauth2.googleapis.com/token", {
+    method: "POST",
+    headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    body: new URLSearchParams({
+      code,
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: googleCallbackUrl(url),
+      grant_type: "authorization_code",
+      code_verifier: verifier,
+    }),
+  });
+  const tokens = await tokenRes.json().catch(() => ({}));
+  if (!tokenRes.ok || !tokens.access_token) {
+    console.warn("[shc-clientes-sso] token exchange falló", tokenRes.status, tokens.error);
+    return htmlError("No se pudo completar el login con Google.", 502, security);
+  }
+
+  // 2) Obtener la identidad verificada (email) desde Google
+  const infoRes = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+    headers: { Authorization: `Bearer ${tokens.access_token}` },
+  });
+  const info = await infoRes.json().catch(() => ({}));
+  const email = String(info.email || "").toLowerCase().trim();
+  if (!infoRes.ok || !email || info.email_verified !== true) {
+    return htmlError("No se pudo verificar tu identidad de Google.", 403, security);
+  }
+
+  // 3) Autorización por email → tenants permitidos
+  const tenants = parseTenants(env.TENANTS);
+  const admin = adminEmails(env).has(email);
+  const tenantIds = tenants
+    .filter((t) => admin || tenantAllows(t, email))
+    .map((t) => t.id);
+
+  if (!admin && tenantIds.length === 0) {
+    return htmlError("Este email no tiene acceso a ningún panel. Contactá a SHC Digital.", 403, security);
+  }
+
+  // 4) Crear sesión (KV) + cookie
+  const sessionId = crypto.randomUUID();
+  const session = {
+    email,
+    name: String(info.name || "").trim() || email,
+    admin,
+    tenant_ids: tenantIds,
+    google: true,
+  };
+  await env.SESSIONS.put(`sso:${sessionId}`, JSON.stringify(session), { expirationTtl: SESSION_TTL_SEC });
+  const res = Response.redirect(new URL("/", url.origin).toString(), 302);
+  res.headers.append("Set-Cookie", sessionCookie(sessionId));
+  return res;
+}
+
 // ---------- Rate-limit del login local (anti fuerza bruta) ----------
-// Máx intentos fallidos por IP dentro de una ventana. KV: fail:<ip>.
 const LOGIN_MAX_FAILS = 5;
 const LOGIN_WINDOW_SEC = 900; // 15 minutos
 
 async function loginLocal(request, env) {
+  if (env.ENABLE_LOCAL_LOGIN !== "true") {
+    return json({ error: "Login deshabilitado. Usá Google." }, 403);
+  }
   let body;
   try { body = await request.json(); } catch { return json({ error: "Body inválido" }, 400); }
   const user = String(body.user || "").trim();
@@ -88,10 +213,17 @@ async function loginLocal(request, env) {
   // Login exitoso → limpia el contador de fallos de esta IP.
   await env.SESSIONS.delete(`fail:${ip}`);
 
-  // Usuario local: acceso "global" que ve todos los tenants
+  // Usuario local: acceso "global" que ve todos los tenants (solo dev).
+  const tenants = parseTenants(env.TENANTS);
   const sessionId = crypto.randomUUID();
-  const session = { email: `${user}@local`, name: "Administrador SHC", locals: true };
-  await env.SESSIONS.put(`sso:${sessionId}`, JSON.stringify(session), { expirationTtl: 60 * 60 * 12 });
+  const session = {
+    email: `${user}@local`,
+    name: "Administrador SHC",
+    admin: true,
+    tenant_ids: tenants.map((t) => t.id),
+    locals: true,
+  };
+  await env.SESSIONS.put(`sso:${sessionId}`, JSON.stringify(session), { expirationTtl: SESSION_TTL_SEC });
 
   return resWithSession(json({ ok: true }, 200), sessionId);
 }
@@ -101,7 +233,13 @@ async function me(request, env) {
   const data = sessionId && await env.SESSIONS.get(`sso:${sessionId}`);
   if (!data) return json({ authed: false });
   const session = JSON.parse(data);
-  return json({ authed: true, email: session.email, name: session.name, locals: !!session.locals });
+  return json({
+    authed: true,
+    email: session.email,
+    name: session.name,
+    admin: !!session.admin,
+    tenant_ids: session.tenant_ids || [],
+  });
 }
 
 async function logout(request, env, url) {
@@ -115,16 +253,20 @@ async function logout(request, env, url) {
 }
 
 // ---------- Redirect al panel del cliente ----------
-async function ssoRedirect(request, env, tenantId, url) {
+async function ssoRedirect(request, env, tenantId, url, security) {
   const sessionId = getSession(request);
   const data = sessionId && await env.SESSIONS.get(`sso:${sessionId}`);
-  if (!data) return new Response("No autenticado", { status: 401, headers: HTML_HEADERS });
+  if (!data) return htmlError("No autenticado.", 401, security);
 
   const tenants = parseTenants(env.TENANTS);
   const tenant = tenants.find((t) => t.id === tenantId);
-  if (!tenant) return new Response("Cliente no encontrado", { status: 404, headers: HTML_HEADERS });
+  if (!tenant) return htmlError("Cliente no encontrado.", 404, security);
 
   const session = JSON.parse(data);
+  // Control de acceso por email: admin global o email del tenant.
+  const allowed = session.admin || (session.tenant_ids || []).includes(tenantId);
+  if (!allowed) return htmlError("No tenés acceso a este panel.", 403, security);
+
   const token = await signJWT(
     {
       sub: session.email,
@@ -143,10 +285,65 @@ async function ssoRedirect(request, env, tenantId, url) {
   return Response.redirect(target.toString(), 302);
 }
 
+// ---------- Welcome (server-side según la sesión) ----------
+async function renderWelcome(request, env, security) {
+  const tenants = parseTenants(env.TENANTS);
+  const sessionId = getSession(request);
+  const data = sessionId && await env.SESSIONS.get(`sso:${sessionId}`);
+
+  let session = null;
+  let allowedTenants = [];
+  if (data) {
+    session = JSON.parse(data);
+    allowedTenants = session.admin
+      ? tenants
+      : tenants.filter((t) => (session.tenant_ids || []).includes(t.id));
+  }
+
+  const localsEnabled = env.ENABLE_LOCAL_LOGIN === "true";
+  const html = WelcomeHTML
+    .replace("/*__TENANTS__*/[]", JSON.stringify(allowedTenants))
+    .replace("/*__SESSION__*/null", JSON.stringify(session && { email: session.email, name: session.name, admin: !!session.admin }))
+    .replace("/*__LOCALS__*/false", JSON.stringify(localsEnabled));
+
+  return new Response(html, {
+    headers: { ...HTML_HEADERS, ...security, "Content-Security-Policy": CSP },
+  });
+}
+
 // ---------- Utilidades ----------
 function parseTenants(raw) {
   try { const arr = JSON.parse(raw || "[]"); return Array.isArray(arr) ? arr : []; }
   catch { return []; }
+}
+
+function adminEmails(env) {
+  return new Set(
+    String(env.GOOGLE_ADMIN_EMAILS || "")
+      .split(",")
+      .map((e) => e.trim().toLowerCase())
+      .filter(Boolean)
+  );
+}
+
+function tenantAllows(tenant, email) {
+  return (tenant.emails || []).map((e) => String(e).toLowerCase().trim()).includes(email);
+}
+
+function randomB64url(bytes = 32) {
+  const arr = crypto.getRandomValues(new Uint8Array(bytes));
+  return btoa(String.fromCharCode(...arr))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
+}
+
+async function pkceChallenge(verifier) {
+  const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(verifier));
+  return btoa(String.fromCharCode(...new Uint8Array(digest)))
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/, "");
 }
 
 async function signJWT(payload, secret) {
@@ -181,6 +378,10 @@ function getSession(request) {
   return m ? decodeURIComponent(m[1]) : null;
 }
 
+function sessionCookie(sessionId) {
+  return `shc_sso=${sessionId}; HttpOnly; Path=/; SameSite=Lax; Secure; Max-Age=${SESSION_TTL_SEC}`;
+}
+
 function clearCookie() {
   return "shc_sso=; HttpOnly; Path=/; Max-Age=0; Secure; SameSite=Lax";
 }
@@ -198,21 +399,59 @@ function constantTimeEqual(a, b) {
   return diff === 0;
 }
 
-// ---------- Render ----------
-function renderWelcome(env) {
-  // Inyecta config de tenants como JSON (sin secretos)
-  return WelcomeHTML.replace("/*__TENANTS__*/[]", JSON.stringify(parseTenants(env.TENANTS)));
-}
-
 function json(data, status = 200) {
   return new Response(JSON.stringify(data), { status, headers: JSON_HEADERS });
 }
 
 function resWithSession(res, sessionId) {
-  const cookie = `shc_sso=${sessionId}; HttpOnly; Path=/; SameSite=Lax; Secure; Max-Age=${60 * 60 * 12}`;
-  return new Response(res.body, { status: res.status, headers: { ...JSON_HEADERS, "Set-Cookie": cookie } });
+  return new Response(res.body, {
+    status: res.status,
+    headers: { ...JSON_HEADERS, "Set-Cookie": sessionCookie(sessionId) },
+  });
 }
 
+function esc(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function htmlError(msg, status, security) {
+  const html = `<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>SHC Digital — Panel de Clientes</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0f0e0c;font-family:'Barlow',sans-serif;color:#f2ede6;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:1rem}
+  .box{max-width:420px;width:100%;text-align:center}
+  .label{font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.2em;text-transform:uppercase;color:#e8321a}
+  h1{font-family:'Bebas Neue',sans-serif;font-weight:400;font-size:2rem;letter-spacing:.04em;line-height:1.1;margin-top:.6rem}
+  p{color:#999490;font-weight:300;line-height:1.6;margin-top:.75rem}
+  a{display:inline-block;margin-top:1.5rem;color:#e8321a;border:1px solid #e8321a;padding:.6rem 1.2rem;text-decoration:none;font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase}
+</style>
+</head>
+<body>
+  <div class="box">
+    <div class="label">// panel de clientes</div>
+    <h1>${esc(msg)}</h1>
+    <p>SHC Digital — Diseño web con IA</p>
+    <a href="/">← Volver</a>
+  </div>
+</body>
+</html>`;
+  return new Response(html, {
+    status,
+    headers: { ...HTML_HEADERS, ...(security || {}), "Content-Security-Policy": CSP },
+  });
+}
+
+// ---------- Render ----------
 const WelcomeHTML = `<!DOCTYPE html>
 <html lang="es">
 <head>
@@ -223,7 +462,7 @@ const WelcomeHTML = `<!DOCTYPE html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet" />
 <style>
-  /*__STYLE_BLOCK_START__*/  /*__BRAND_START__*/
+  /*__BRAND_START__*/
   :root {
     --color-surface-base: #f2ede6;
     --color-surface-raised: #faf8f4;
@@ -273,6 +512,7 @@ const WelcomeHTML = `<!DOCTYPE html>
   /*__BRAND_END__*/
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--color-surface-inverse);font-family:var(--font-family-base);color:var(--color-surface-inverse);min-height:100vh;display:flex;flex-direction:column}
+  .hidden{display:none!important}
   /* ---- Banner ---- */
   .banner{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1.6rem 1rem;background:var(--color-surface-inverse-2);border-bottom:1px solid rgba(255,255,255,.06)}
   .banner .brand{display:flex;align-items:baseline;gap:.6rem;margin:0 auto}
@@ -289,6 +529,9 @@ const WelcomeHTML = `<!DOCTYPE html>
   .card-head h1 span{color:var(--color-brand-primary-deep)}
   .card-head p{color:var(--color-text-secondary);font-size:.92rem;margin-top:.5rem;line-height:1.4}
   .card-body{padding:1.6rem 2rem 2rem}
+  .gbtn{display:flex;align-items:center;justify-content:center;gap:.75rem;width:100%;background:#fff;border:1px solid var(--color-border-default);border-radius:12px;color:var(--color-surface-inverse);font-family:var(--font-family-base);font-weight:600;font-size:1rem;padding:.85rem 1rem;cursor:pointer;text-decoration:none;transition:.15s}
+  .gbtn:hover{border-color:var(--color-brand-primary-deep);box-shadow:0 4px 14px rgba(211,40,26,.12)}
+  .gbtn .g{font-family:var(--font-family-display);font-size:1.25rem;line-height:1;color:var(--color-brand-primary)}
   .field{margin-bottom:1rem}
   label{display:block;font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:.35rem}
   input{width:100%;font-family:var(--font-family-base);font-size:1rem;padding:.7rem .9rem;border:1px solid var(--color-border-default);border-radius:10px;background:#fff;color:var(--color-surface-inverse)}
@@ -297,14 +540,14 @@ const WelcomeHTML = `<!DOCTYPE html>
   .btn:hover{background:var(--color-brand-primary-deep)}
   .divider{display:flex;align-items:center;gap:.7rem;color:var(--color-text-muted);font-size:.75rem;margin:1.1rem 0;text-transform:uppercase;letter-spacing:.05em}
   .divider::before,.divider::after{content:"";flex:1;height:1px;background:var(--color-border-default)}
-  .err{display:none;font-family:var(--font-family-mono);font-size:.8rem;color:var(--color-brand-primary-deep);background:#fbe9e7;border:1px solid #f5c6c0;border-radius:10px;padding:.7rem .9rem;margin-bottom:1rem}
+  .err{font-family:var(--font-family-mono);font-size:.8rem;color:var(--color-brand-primary-deep);background:#fbe9e7;border:1px solid #f5c6c0;border-radius:10px;padding:.7rem .9rem;margin-bottom:1rem}
   .tenants{display:grid;gap:.7rem;margin-top:.2rem}
   .tenant{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:1rem 1.1rem;background:#fff;border:1px solid var(--color-border-default);border-radius:12px;cursor:pointer;transition:.15s;text-decoration:none;color:var(--color-surface-inverse)}
   .tenant:hover{border-color:var(--color-brand-primary-deep);box-shadow:0 4px 14px rgba(211,40,26,.12)}
   .tenant .t-name{font-weight:600;font-size:.98rem}
   .tenant .t-go{font-family:var(--font-family-mono);color:var(--color-brand-primary-deep);font-size:.75rem;letter-spacing:.08em}
-  .see{font-family:var(--font-family-mono);font-size:.78rem;color:var(--color-text-muted);text-align:center;margin-top:1.2rem;line-height:1.5}
-.note{font-family:var(--font-family-mono);font-size:.72rem;color:var(--color-text-muted);text-align:center;margin-top:1rem;line-height:1.5}
+  .logged-email{font-family:var(--font-family-mono);font-size:.78rem;color:var(--color-text-muted);text-align:center;margin-bottom:1.1rem;line-height:1.5}
+  .note{font-family:var(--font-family-mono);font-size:.72rem;color:var(--color-text-muted);text-align:center;margin-top:1rem;line-height:1.5}
 </style>
 </head>
 <body>
@@ -323,66 +566,83 @@ const WelcomeHTML = `<!DOCTYPE html>
       <div class="card-body">
         <div class="err hidden" id="err"></div>
 
-        <!-- Login local -->
-        <form id="loginForm">
+        <!-- Acceso no autenticado -->
+        <a class="gbtn" id="googleBtn" href="/auth/oauth2/google"><span class="g">G</span> Continuar con Google</a>
+        <div class="divider hidden" id="divider">o · acceso local (dev)</div>
+        <form id="loginForm" class="hidden">
           <div class="field"><label>Usuario</label><input type="text" id="user" autocomplete="username" /></div>
           <div class="field"><label>Contraseña</label><input type="password" id="pass" autocomplete="current-password" /></div>
           <button class="btn" type="submit">Ingresar</button>
         </form>
 
-        <div class="divider">o</div>
-
-        <!-- Tenants disponibles -->
-        <div class="tenants" id="tenants"></div>
+        <!-- Sesión iniciada -->
+        <div id="sessionBlock" class="hidden">
+          <p class="logged-email" id="loggedEmail"></p>
+          <div class="tenants" id="tenants"></div>
+        </div>
         <p class="note" id="status">Cargando…</p>
       </div>
     </div>
   </main>
 <script>
   const TENANTS = /*__TENANTS__*/[];
+  const SESSION = /*__SESSION__*/null;
+  const LOCALS_ENABLED = /*__LOCALS__*/false;
   const $ = (id) => document.getElementById(id);
   const err = $("err");
   function showErr(m){err.textContent=m;err.classList.remove("hidden");}
   function clearErr(){err.classList.add("hidden");}
   async function api(path, m){const r=await fetch(path,m);const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||"Error de red");return d;}
 
-  async function check(){
-    const s = await api("/auth/me").catch(()=>({authed:false}));
-    if(s.authed){
-      $("loginForm").style.display="none";
+  function render(){
+    if (SESSION) {
+      $("googleBtn").classList.add("hidden");
+      $("loginForm").classList.add("hidden");
+      $("divider").classList.add("hidden");
+      $("sessionBlock").classList.remove("hidden");
       $("btnSalir").classList.add("show");
-      const list=$("tenants");
-      list.innerHTML="";
-      if(TENANTS.length){
-        TENANTS.forEach(t=>{
-          const a=document.createElement("a");a.className="tenant";a.href="/auth/sso/"+encodeURIComponent(t.id);
-          a.innerHTML='<span class="tname">'+t.name+'</span><span class="t-go">ENTRAR →</span>';
+      $("loggedEmail").textContent = "Sesión: " + SESSION.email;
+      const list = $("tenants");
+      list.innerHTML = "";
+      if (TENANTS.length) {
+        TENANTS.forEach(function(t){
+          const a = document.createElement("a");
+          a.className = "tenant";
+          a.href = "/auth/sso/" + encodeURIComponent(t.id);
+          a.innerHTML = '<span class="t-name">' + t.name + '</span><span class="t-go">ENTRAR →</span>';
           list.appendChild(a);
         });
-        $("status").textContent="Bienvenido, "+s.name+".";
+        $("status").textContent = "Elegí tu panel para continuar.";
       } else {
-        $("status").textContent="No hay clientes configurados.";
+        $("status").textContent = "Este email no tiene paneles habilitados.";
       }
-    }else{
-      $("tenants").style.display="none";
-      $("status").textContent="Acceso exclusivo para clientes de SHC Digital.";
+    } else {
+      $("sessionBlock").classList.add("hidden");
+      $("googleBtn").classList.remove("hidden");
+      $("loginForm").classList.toggle("hidden", !LOCALS_ENABLED);
+      $("divider").classList.toggle("hidden", !LOCALS_ENABLED);
+      $("status").textContent = LOCALS_ENABLED
+        ? "Ingresá con Google o con tu acceso local."
+        : "Acceso exclusivo para clientes de SHC Digital.";
     }
   }
 
-  $("loginForm").addEventListener("submit", async (e)=>{
-    e.preventDefault();clearErr();const btn=e.target.querySelector("button");btn.disabled=true;
-    try{
-      await api("/auth/login-local",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user:$("user").value,pass:$("pass").value})});
-      location.reload();
-    }catch(er){showErr(er.message);btn.disabled=false;}
-  });
+  if (LOCALS_ENABLED) {
+    $("loginForm").addEventListener("submit", async function(e){
+      e.preventDefault();clearErr();const btn=e.target.querySelector("button");btn.disabled=true;
+      try{
+        await api("/auth/login-local",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user:$("user").value,pass:$("pass").value})});
+        location.reload();
+      }catch(er){showErr(er.message);btn.disabled=false;}
+    });
+  }
 
-  $("btnSalir").addEventListener("click", async ()=>{
-    await fetch("/auth/logout",{method:"POST"}).catch(()=>{});
+  $("btnSalir").addEventListener("click", async function(){
+    await fetch("/auth/logout",{method:"POST"}).catch(function(){});
     location.reload();
   });
 
-  check();
+  render();
 </script>
 </body>
 </html>`;
