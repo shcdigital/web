@@ -56,7 +56,7 @@ export default {
       if (url.pathname === "/auth/me") {
         return await me(request, env);
       }
-      if (url.pathname === "/auth/logout" && request.method === "POST") {
+      if (url.pathname === "/auth/logout") {
         return await logout(request, env, url);
       }
 
@@ -278,6 +278,18 @@ async function me(request, env) {
 async function logout(request, env, url) {
   const sessionId = getSession(request);
   if (sessionId) await env.SESSIONS.delete(`sso:${sessionId}`);
+  // GET (ej: usuario escribe /auth/logout en la barra o link directo): limpiar la
+  // cookie y volver a la portada. Response.redirect() tiene headers inmutables,
+  // así que se arma el 302 propio con la cookie de borrado.
+  if (request.method === "GET") {
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: new URL("/", url.origin).toString(),
+        "Set-Cookie": clearCookie(),
+      },
+    });
+  }
   // POST con SameSite=Lax: navegadores no adjuntan la cookie a POST cross-origin,
   // así que un logout forzado desde otro sitio no cierra la sesión (anti-CSRF).
   const res = json({ ok: true });
