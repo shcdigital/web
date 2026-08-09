@@ -21,10 +21,12 @@
 const JSON_HEADERS = { "Content-Type": "application/json; charset=utf-8" };
 const HTML_HEADERS = { "Content-Type": "text/html; charset=utf-8" };
 // CSP del HTML: fuentes/estilos desde Google Fonts, scripts inline propios.
+// Se permite static.cloudflareinsights.com porque Cloudflare inyecta su beacon
+// de Web Analytics en las respuestas (igual que en el sitio principal).
 const CSP =
   "default-src 'self'; font-src 'self' fonts.googleapis.com fonts.gstatic.com; " +
-  "style-src 'self' 'unsafe-inline' fonts.googleapis.com; script-src 'self' 'unsafe-inline'; " +
-  "img-src 'self' data:; connect-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
+  "style-src 'self' 'unsafe-inline' fonts.googleapis.com; script-src 'self' 'unsafe-inline' https://static.cloudflareinsights.com; " +
+  "img-src 'self' data:; connect-src 'self' https://cloudflareinsights.com; frame-ancestors 'none'; base-uri 'none'; form-action 'self'";
 
 const SESSION_TTL_SEC = 60 * 60 * 12; // 12 horas
 
