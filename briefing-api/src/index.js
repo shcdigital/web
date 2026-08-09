@@ -90,8 +90,8 @@ async function sendBriefing(request, env, origin) {
     from,
     to: [to],
     subject,
-    text: prompt,
-    html: htmlEmail(prompt),
+    text: textEmail(body, prompt),
+    html: htmlEmail(body, prompt),
   };
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -132,13 +132,111 @@ async function checkRateLimit(env, ip) {
   return { allowed: true };
 }
 
-function htmlEmail(text) {
-  const esc = String(text).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// ---------- Armado del mail profesional ----------
+// Estructura: cabecera SHC.DIGITAL + bloque de datos del cliente (formato
+// profesional) + bloque con el prompt para la IA (listo para copiar y pegar).
+
+function escHtml(s) {
+  return String(s == null ? "" : s)
+    .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+}
+
+// Datos de contacto/profesionales que van "aparte" del prompt (formato tabular)
+const CLIENT_FIELDS = [
+  ["Nombre y apellido", "nombre"],
+  ["Empresa / Marca", "empresa"],
+  ["Rubro / Profesión", "rubro"],
+  ["Email", "email"],
+  ["WhatsApp", "whatsapp"],
+  ["Ciudad / País", "ciudad"],
+  ["Plan elegido", "plan"],
+  ["Plazo", "plazo"],
+  ["Dominio", "dominio"],
+];
+
+function clientRows(body) {
+  const rows = [];
+  for (const [label, key] of CLIENT_FIELDS) {
+    let value = String(body && body[key] != null ? body[key] : "").trim();
+    if (Array.isArray(body && body[key])) value = body[key].join(", ");
+    if (key === "dominio" && body && body.dominio_disponible != null) {
+      value = value + " — " + (body.dominio_disponible ? "DISPONIBLE" : "REGISTRADO");
+    }
+    if (value) rows.push([label, value]);
+  }
+  return rows;
+}
+
+function textEmail(body, prompt) {
+  const L = [];
+  L.push("SHC DIGITAL — NUEVO BRIEFING WEB");
+  L.push("══════════════════════════════════════════");
+  L.push("");
+  L.push("DATOS DEL CLIENTE");
+  for (const [label, value] of clientRows(body)) L.push("• " + label + ": " + value);
+  L.push("");
+  L.push("PROMPT PARA LA IA");
+  L.push("──────────────────────────────────────────");
+  L.push(prompt);
+  return L.join("\n");
+}
+
+function htmlEmail(body, prompt) {
+  const rows = clientRows(body)
+    .map(
+      ([label, value]) => `
+      <tr>
+        <td style="padding:0.55rem 1.1rem;border-bottom:1px solid #e8e2d8;font-size:0.7rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:#6b6358;white-space:nowrap;vertical-align:top">${escHtml(label)}</td>
+        <td style="padding:0.55rem 1.1rem;border-bottom:1px solid #e8e2d8;font-size:0.9rem;color:#0f0e0c;vertical-align:top">${escHtml(value)}</td>
+      </tr>`
+    )
+    .join("");
+
   return `<!DOCTYPE html>
 <html lang="es">
 <head><meta charset="utf-8" /></head>
-<body style="margin:0;padding:28px;background:#f2ede6;font-family:'Courier New',monospace;font-size:12px;line-height:1.55;color:#0f0e0c">
-  <pre style="white-space:pre-wrap;word-break:break-word;max-width:760px;margin:0 auto">${esc}</pre>
+<body style="margin:0;padding:0;background:#f2ede6;font-family:'Helvetica Neue',Arial,sans-serif;color:#0f0e0c">
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:720px;margin:0 auto;border-collapse:collapse">
+
+    <!-- CABECERA -->
+    <tr>
+      <td style="background:#0f0e0c;padding:1.6rem 2rem;border-bottom:4px solid #e8321a">
+        <div style="font-family:'Arial Black',Arial,sans-serif;font-size:1.6rem;font-weight:900;letter-spacing:0.06em;color:#ffffff">SHC<span style="color:#e8321a">.</span>DIGITAL</div>
+        <div style="font-family:'Courier New',monospace;font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;color:#999490;margin-top:0.25rem">// nuevo briefing web · diseño con IA</div>
+      </td>
+    </tr>
+
+    <!-- DATOS DEL CLIENTE -->
+    <tr>
+      <td style="padding:2rem 2rem 0">
+        <div style="font-family:'Courier New',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#e8321a;margin-bottom:0.4rem">// datos del cliente</div>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#ffffff;border:1px solid #d8d2c8;border-radius:8px;border-collapse:collapse;overflow:hidden">
+          <tr><td style="padding:0">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+              ${rows || '<tr><td style="padding:0.75rem 1.1rem;color:#6b6358">—</td></tr>'}
+            </table>
+          </td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <!-- PROMPT PARA LA IA -->
+    <tr>
+      <td style="padding:2rem">
+        <div style="font-family:'Courier New',monospace;font-size:0.68rem;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;color:#e8321a;margin-bottom:0.4rem">// prompt para la IA · copiar y pegar</div>
+        <pre style="margin:0;background:#0f0e0c;border-radius:8px;color:#e8e2d8;font-family:'Courier New',monospace;font-size:0.78rem;line-height:1.6;padding:1.2rem 1.3rem;white-space:pre-wrap;word-break:break-word;overflow:hidden">${escHtml(prompt)}</pre>
+      </td>
+    </tr>
+
+    <!-- FOOTER -->
+    <tr>
+      <td style="padding:0 2rem 2rem;text-align:center;font-family:'Courier New',monospace;font-size:0.65rem;letter-spacing:0.12em;color:#6b6358">
+        SHC Digital — Diseño web con IA · <a href="https://shcdigital.net.ar" style="color:#e8321a;text-decoration:none">shcdigital.net.ar</a>
+      </td>
+    </tr>
+
+  </table>
 </body>
 </html>`;
 }

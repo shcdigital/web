@@ -180,8 +180,7 @@
     L.push(sep);
     L.push('');
 
-    L.push('[1] DATOS DEL CLIENTE');
-    L.push('- Nombre y apellido: ' + or(val('nombre'), '—'));
+    L.push('[1] EMPRESA Y CONTACTO');
     L.push('- Empresa / Marca: ' + or(val('empresa'), '—'));
     L.push('- Rubro / Profesión: ' + or(val('rubro'), '—'));
     L.push('- Email: ' + or(val('email'), '—'));
@@ -219,9 +218,7 @@
     L.push('- Idioma: ' + or(radio('idioma'), 'No especificado'));
     L.push('');
 
-    L.push('[5] PLAN Y PLAZOS');
-    L.push('- Plan elegido: ' + or(radio('plan'), 'No especificado'));
-    L.push('- Plazo: ' + or(radio('plazo'), 'No especificado'));
+    L.push('[5] DOMINIO');
     const dominioRaw = val('dominio');
     if (domainStatus) {
       L.push('- Dominio: ' + domainStatus.full + ' — ' + (domainStatus.disponible ? 'DISPONIBLE' : 'YA REGISTRADO'));
