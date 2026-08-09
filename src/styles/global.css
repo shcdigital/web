@@ -225,7 +225,6 @@ body {
   padding: 1rem 2rem;
   text-decoration: none;
   border: 1px solid var(--color-text-primary);
-  border-left: none;
   transition: background 0.2s, color 0.2s;
 }
 
