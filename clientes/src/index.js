@@ -216,8 +216,10 @@ const LOGIN_MAX_FAILS = 5;
 const LOGIN_WINDOW_SEC = 900; // 15 minutos
 
 async function loginLocal(request, env) {
+  // Deshabilitado: responder 404 como si el endpoint no existiera, para que un
+  // escáner no detecte que hay una autenticación local oculta.
   if (env.ENABLE_LOCAL_LOGIN !== "true") {
-    return json({ error: "Login deshabilitado. Usá Google." }, 403);
+    return new Response("Not found", { status: 404 });
   }
   let body;
   try { body = await request.json(); } catch { return json({ error: "Body inválido" }, 400); }
@@ -345,11 +347,34 @@ async function renderWelcome(request, env, security) {
       : tenants.filter((t) => (session.tenant_ids || []).includes(t.id));
   }
 
+  // Login local: SOLO se renderiza (form + JS) si está habilitado. En producción
+  // (ENABLE_LOCAL_LOGIN=false) el HTML servido no contiene NINGUNA referencia a
+  // autenticación local, para no dar pistas de un posible acceso con admin.
   const localsEnabled = env.ENABLE_LOCAL_LOGIN === "true";
+  const localForm = localsEnabled
+    ? '<div class="divider" id="divider">o · acceso local (dev)</div>' +
+      '<form id="loginForm">' +
+      '<div class="field"><label>Usuario</label><input type="text" id="user" autocomplete="username" /></div>' +
+      '<div class="field"><label>Contraseña</label><input type="password" id="pass" autocomplete="current-password" /></div>' +
+      '<button class="btn" type="submit">Ingresar</button>' +
+      '</form>'
+    : "";
+  const localJs = localsEnabled
+    ? 'const lf = $("loginForm");' +
+      'if (lf) lf.addEventListener("submit", async function(e){' +
+      'e.preventDefault();clearErr();const btn=e.target.querySelector("button");btn.disabled=true;' +
+      'try{await api("/auth/login-local",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user:$("user").value,pass:$("pass").value})});' +
+      'location.reload();' +
+      '}catch(er){showErr(er.message);btn.disabled=false;}' +
+      '});'
+    : "";
+
+  // Al cliente solo se le manda lo mínimo: nombre + si es admin (no el email).
   const html = WelcomeHTML
     .replace("/*__TENANTS__*/[]", JSON.stringify(allowedTenants))
-    .replace("/*__SESSION__*/null", JSON.stringify(session && { email: session.email, name: session.name, admin: !!session.admin }))
-    .replace("/*__LOCALS__*/false", JSON.stringify(localsEnabled));
+    .replace("/*__SESSION__*/null", JSON.stringify(session && { name: session.name, admin: !!session.admin }))
+    .replace("/*__LOCAL_FORM__*/", localForm)
+    .replace("/*__LOCAL_JS__*/", localJs);
 
   return new Response(html, {
     headers: { ...HTML_HEADERS, ...security, "Content-Security-Policy": CSP },
@@ -580,7 +605,7 @@ const WelcomeHTML = `<!DOCTYPE html>
   .card-body{padding:1.6rem 2rem 2rem}
   .gbtn{display:flex;align-items:center;justify-content:center;gap:.75rem;width:100%;background:#fff;border:1px solid var(--color-border-default);border-radius:12px;color:var(--color-surface-inverse);font-family:var(--font-family-base);font-weight:600;font-size:1rem;padding:.85rem 1rem;cursor:pointer;text-decoration:none;transition:.15s}
   .gbtn:hover{border-color:var(--color-brand-primary-deep);box-shadow:0 4px 14px rgba(211,40,26,.12)}
-  .gbtn .g{font-family:var(--font-family-display);font-size:1.25rem;line-height:1;color:var(--color-brand-primary)}
+  .gbtn .g{display:flex;align-items:center;justify-content:center}
   .field{margin-bottom:1rem}
   label{display:block;font-size:.78rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--color-text-secondary);margin-bottom:.35rem}
   input{width:100%;font-family:var(--font-family-base);font-size:1rem;padding:.7rem .9rem;border:1px solid var(--color-border-default);border-radius:10px;background:#fff;color:var(--color-surface-inverse)}
@@ -616,13 +641,11 @@ const WelcomeHTML = `<!DOCTYPE html>
         <div class="err hidden" id="err"></div>
 
         <!-- Acceso no autenticado -->
-        <a class="gbtn" id="googleBtn" href="/auth/oauth2/google"><span class="g">G</span> Continuar con Google</a>
-        <div class="divider hidden" id="divider">o · acceso local (dev)</div>
-        <form id="loginForm" class="hidden">
-          <div class="field"><label>Usuario</label><input type="text" id="user" autocomplete="username" /></div>
-          <div class="field"><label>Contraseña</label><input type="password" id="pass" autocomplete="current-password" /></div>
-          <button class="btn" type="submit">Ingresar</button>
-        </form>
+        <a class="gbtn" id="googleBtn" href="/auth/oauth2/google">
+          <span class="g"><svg viewBox="0 0 48 48" width="20" height="20" aria-hidden="true" focusable="false"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg></span>
+          Continuar con Google
+        </a>
+        /*__LOCAL_FORM__*/
 
         <!-- Sesión iniciada -->
         <div id="sessionBlock" class="hidden">
@@ -636,7 +659,6 @@ const WelcomeHTML = `<!DOCTYPE html>
 <script>
   const TENANTS = /*__TENANTS__*/[];
   const SESSION = /*__SESSION__*/null;
-  const LOCALS_ENABLED = /*__LOCALS__*/false;
   const $ = (id) => document.getElementById(id);
   const err = $("err");
   function showErr(m){err.textContent=m;err.classList.remove("hidden");}
@@ -646,11 +668,9 @@ const WelcomeHTML = `<!DOCTYPE html>
   function render(){
     if (SESSION) {
       $("googleBtn").classList.add("hidden");
-      $("loginForm").classList.add("hidden");
-      $("divider").classList.add("hidden");
       $("sessionBlock").classList.remove("hidden");
       $("btnSalir").classList.add("show");
-      $("loggedEmail").textContent = "Sesión: " + SESSION.email;
+      $("loggedEmail").textContent = "Bienvenido, " + SESSION.name;
       const list = $("tenants");
       list.innerHTML = "";
       if (TENANTS.length) {
@@ -668,23 +688,11 @@ const WelcomeHTML = `<!DOCTYPE html>
     } else {
       $("sessionBlock").classList.add("hidden");
       $("googleBtn").classList.remove("hidden");
-      $("loginForm").classList.toggle("hidden", !LOCALS_ENABLED);
-      $("divider").classList.toggle("hidden", !LOCALS_ENABLED);
-      $("status").textContent = LOCALS_ENABLED
-        ? "Ingresá con Google o con tu acceso local."
-        : "Acceso exclusivo para clientes de SHC Digital.";
+      $("status").textContent = "Acceso exclusivo para clientes de SHC Digital.";
     }
   }
 
-  if (LOCALS_ENABLED) {
-    $("loginForm").addEventListener("submit", async function(e){
-      e.preventDefault();clearErr();const btn=e.target.querySelector("button");btn.disabled=true;
-      try{
-        await api("/auth/login-local",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({user:$("user").value,pass:$("pass").value})});
-        location.reload();
-      }catch(er){showErr(er.message);btn.disabled=false;}
-    });
-  }
+  /*__LOCAL_JS__*/
 
   $("btnSalir").addEventListener("click", async function(){
     await fetch("/auth/logout",{method:"POST"}).catch(function(){});
