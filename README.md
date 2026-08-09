@@ -46,6 +46,23 @@ briefing-api/           Worker de briefings (Resend) — proyecto anidado
   su propio CSS/JS y envío al worker `briefing-api`.
 - **`/nomenclador/`** — documento interno de cotización (noindex, no enlazado).
 
+## SSO de clientes (`clientes/`)
+
+Worker de Cloudflare que sirve **clientes.shcdigital.net.ar**: login con Google
+(única autoridad de autenticación) y redirect a los paneles de los clientes con
+un JWT firmado. Detalle completo en [`clientes/README.md`](clientes/README.md).
+Aspectos destacados:
+
+- **Google OAuth** con authorization code + PKCE y acceso por email
+  (`GOOGLE_ADMIN_EMAILS` global, `TENANTS[].emails` por panel).
+- **Sin `1101`**: las excepciones se loguean y responden un 500 limpio; los
+  `fetch` a Google están blindados. `Response.redirect()` tiene headers
+  inmutables, por eso los `302` con cookie se construyen a mano.
+- `/auth/logout` responde a GET (redirige a `/`) y POST (JSON).
+- **Login local solo en dev** (`ENABLE_LOCAL_LOGIN`): en producción responde
+  `404` y el HTML servido no contiene ninguna referencia a autenticación local.
+- Botón "Continuar con Google" con el logo oficial de Google (SVG 4 colores).
+
 ## Marca sincronizada
 
 La marca se mantiene en `brand/tokens.json`. `npm run sync:brand` regenera

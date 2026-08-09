@@ -71,19 +71,47 @@ En Cloudflare: Workers → tu Worker → **Custom domain** o **Routes** →
 - **A un solo panel**: agregalo al array `emails` de ese tenant en `TENANTS`.
 - **A todos los paneles (admin)**: agregalo a `GOOGLE_ADMIN_EMAILS`.
 
+## Endpoints
+
+| Ruta | Método | Qué hace |
+| --- | --- | --- |
+| `/` | GET | Bienvenida + login renderizados según la sesión (server-side). |
+| `/auth/oauth2/google` | GET | Inicia el login con Google (authorization code + PKCE). |
+| `/auth/oauth2/google/callback` | GET | Intercambia `code` → email → crea sesión → `302 /` con cookie. |
+| `/auth/me` | GET | Estado de sesión (JSON). |
+| `/auth/logout` | GET/POST | Borra sesión y cookie. GET redirige a `/`; POST responde JSON. |
+| `/auth/sso/<tenantId>` | GET | Valida sesión + acceso al tenant → emite JWT → redirige al panel. |
+| `/auth/login-local` | POST | Login local. **Solo dev**; en producción responde `404`. |
+
 ## Login local (solo dev)
 
 Para desarrollar sin Google, seteá `ENABLE_LOCAL_LOGIN = "true"` (en `.dev.vars`)
 y usá `admin` / `admin123`. El hash PBKDF2 está en `wrangler.toml` (nunca la
-contraseña en claro). En producción `ENABLE_LOCAL_LOGIN = "false"` lo deshabilita.
+contraseña en claro).
+
+**En producción** (`ENABLE_LOCAL_LOGIN = "false"`):
+- `POST /auth/login-local` responde **404** (como si el endpoint no existiera),
+  para que un escáner no detecte que hay una auth local oculta.
+- El HTML servido **no contiene ninguna referencia** a autenticación local: el
+  form y el JS del login local solo se renderizan si está habilitado.
 
 ## Seguridad
 
 - `SHARED_JWT_SECRET` y `GOOGLE_CLIENT_SECRET` se setean con `wrangler secret`
   (nunca en el repo).
 - OAuth: **PKCE** (S256) + parámetro `state` (anti-CSRF), validación de
-  `email_verified` de Google.
+  `email_verified` de Google. Los `fetch` a los endpoints de Google están
+  envueltos en `try/catch` (una falla de red devuelve 502 controlado, nunca
+  excepción).
+- **Nunca se devuelve un `1101`**: cualquier excepción se loguea con `console.error`
+  y se responde un 500 limpio, para no exponer stack traces ni pistas.
 - JWT: TTL 5 min, `aud` específico del panel (impide reuso en otro), y cada
   panel guarda el session id en su propia KV.
-- Cookies `HttpOnly; Secure; SameSite=Lax` + CSP en la welcome.
+- Cookies `HttpOnly; Secure; SameSite=Lax` + CSP en la welcome. `Response.redirect()`
+  tiene headers **inmutables**, por eso los `302` con cookie se construyen como
+  `new Response(null, { status: 302, headers })`.
+- Al cliente solo se le envía `{ name, admin }` en la sesión (no el email) y la
+  pantalla muestra "Bienvenido, {nombre}" en vez de la dirección.
+- **CSP** permite `static.cloudflareinsights.com` porque Cloudflare inyecta su
+  beacon de Web Analytics en las respuestas (igual que el sitio principal).
 - Rate-limit del login local en KV (anti fuerza bruta; solo dev).

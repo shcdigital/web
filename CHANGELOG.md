@@ -2,6 +2,29 @@
 
 Todas las versiones notables de SHC Digital.
 
+## [0.3.1] - 2026-08-09
+
+### Fixed
+- **Login de Google funcionando** en el SSO de clientes: `Response.redirect()`
+  tiene headers inmutables y no se le podía `append("Set-Cookie", …)`, lo que
+  tiraba `TypeError` (1101/500) y nunca completaba la sesión. Ahora el `302` se
+  construye con `new Response(null, { headers })`.
+- **Nunca más `1101`**: todo el handler de fetch está envuelto en `try/catch`
+  que loguea la causa y responde un 500 limpio. Los `fetch` a los endpoints de
+  Google quedaron blindados (falla de red → 502 controlado).
+- `/auth/logout` ahora responde a **GET** (borra sesión y redirige a `/`); antes
+  solo aceptaba POST y un GET directo daba 404.
+- **CSP** del SSO: se permite `static.cloudflareinsights.com` (beacon de Cloudflare
+  Web Analytics) para eliminar el warning de script bloqueado.
+
+### Changed
+- El botón "Continuar con Google" usa el **logo oficial de Google** (SVG 4
+  colores) en lugar de la "G" de marca.
+- La pantalla muestra "Bienvenido, {nombre}" en lugar de "Sesión: <email>".
+- **Login local oculto en producción**: `POST /auth/login-local` responde `404`
+  (no `403`) y el HTML servido ya no contiene ninguna referencia a autenticación
+  local (form, JS ni textos) cuando `ENABLE_LOCAL_LOGIN=false`.
+
 ## [0.3.0] - 2026-08-09
 
 ### Added
