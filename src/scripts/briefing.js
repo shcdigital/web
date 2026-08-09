@@ -35,15 +35,11 @@
   function list(items) {
     return items.length ? items.join(', ') : 'No especificado';
   }
-  function or(value, fallback) {
-    const v = value.trim();
-    return v ? v : fallback;
-  }
 
   /* ── Barra de progreso ── */
   const S1_UNITS = 6;
   const S1_WEIGHT = 40;
-  const OTHER_UNITS = 27;
+  const OTHER_UNITS = 28;
   const OTHER_WEIGHT = 60;
 
   const PROGRESS_FIELDS = [
@@ -61,6 +57,7 @@
     { name: 'competencia', unit: 'o' },
     { name: 'referencias', unit: 'o' },
     { name: 'redes', unit: 'o' },
+    { name: 'redes_otras', unit: 'o' },
     { name: 'textos', unit: 'o' },
     { name: 'fotos', unit: 'o' },
     { name: 'logo', unit: 'o' },
@@ -171,6 +168,89 @@
   if (domInput) domInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') { e.preventDefault(); checkDomain(); } });
   if (domTld) domTld.addEventListener('change', () => { if (domInput && domInput.value.trim()) checkDomain(); });
 
+  /* ── Subida de archivos (logo / fotos) ──
+     El cliente puede adjuntar su logo (1 archivo) y hasta 3 fotos cuando
+     responda que los tiene. Los archivos viajan en base64 en el payload y el
+     Worker los adjunta al mail. */
+  const MAX_FOTOS = 3;
+  const MAX_FILE_BYTES = 3 * 1024 * 1024; // 3 MB por archivo
+  let logoFile = null;   // { name, type, data }
+  let fotosFiles = [];   // [{ name, type, data }]
+
+  function toggleUpload(name, valuesToShow) {
+    const el = document.getElementById(name);
+    if (!el) return;
+    const show = valuesToShow.includes(radio(name));
+    el.hidden = !show;
+    if (!show) {
+      const file = el.querySelector('input[type="file"]');
+      if (file) file.value = '';
+      if (name === 'logo-upload') logoFile = null;
+      if (name === 'fotos-upload') fotosFiles = [];
+    }
+  }
+
+  function readFile(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve({ name: file.name, type: file.type, data: String(reader.result).split(',')[1] || '' });
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  async function onLogoChange(e) {
+    const file = e.target.files && e.target.files[0];
+    if (!file) { logoFile = null; return; }
+    if (file.size > MAX_FILE_BYTES) {
+      setNote('⚠ El logo supera los 3 MB. Subí un archivo más liviano.', 'is-error');
+      e.target.value = '';
+      logoFile = null;
+      return;
+    }
+    try { logoFile = await readFile(file); } catch { logoFile = null; }
+  }
+
+  async function onFotosChange(e) {
+    const files = Array.prototype.slice.call(e.target.files || []);
+    if (files.length > MAX_FOTOS) {
+      setNote('⚠ Podés subir máximo ' + MAX_FOTOS + ' fotos.', 'is-error');
+      e.target.value = '';
+      fotosFiles = [];
+      return;
+    }
+    if (files.some((f) => f.size > MAX_FILE_BYTES)) {
+      setNote('⚠ Una de las fotos supera los 3 MB. Subí archivos más livianos.', 'is-error');
+      e.target.value = '';
+      fotosFiles = [];
+      return;
+    }
+    const loaded = [];
+    for (const f of files) { try { loaded.push(await readFile(f)); } catch {} }
+    fotosFiles = loaded;
+  }
+
+  const fotosUpload = document.getElementById('fotos-upload');
+  const logoUpload = document.getElementById('logo-upload');
+  if (logoUpload) {
+    const logoFileInput = logoUpload.querySelector('input[type="file"]');
+    if (logoFileInput) logoFileInput.addEventListener('change', onLogoChange);
+  }
+  if (fotosUpload) {
+    const fotosFileInput = fotosUpload.querySelector('input[type="file"]');
+    if (fotosFileInput) fotosFileInput.addEventListener('change', onFotosChange);
+  }
+
+  function syncUploadVisibility() {
+    toggleUpload('logo-upload', ['Sí, tengo logo']);
+    toggleUpload('fotos-upload', ['Fotos profesionales de alta calidad', 'Fotos básicas de celular']);
+  }
+  form.addEventListener('change', (e) => {
+    if (e.target && e.target.name === 'logo') syncUploadVisibility();
+    if (e.target && e.target.name === 'fotos') syncUploadVisibility();
+  });
+  syncUploadVisibility();
+
   /* ── Construir resumen listo para la IA ── */
   function buildPrompt() {
     const L = [];
@@ -180,58 +260,70 @@
     L.push(sep);
     L.push('');
 
+    // Solo se incluyen los campos completados (vacíos quedan fuera)
+    function line(label, value) {
+      const v = value == null ? '' : String(value).trim();
+      if (v) L.push('- ' + label + ': ' + v);
+    }
+
     L.push('[1] EMPRESA Y CONTACTO');
-    L.push('- Empresa / Marca: ' + or(val('empresa'), '—'));
-    L.push('- Rubro / Profesión: ' + or(val('rubro'), '—'));
-    L.push('- Email: ' + or(val('email'), '—'));
-    L.push('- WhatsApp: ' + or(val('whatsapp'), '—'));
-    L.push('- Ciudad / País: ' + or(val('ciudad'), '—'));
+    line('Empresa / Marca', val('empresa'));
+    line('Rubro / Profesión', val('rubro'));
+    line('Email', val('email'));
+    line('WhatsApp', val('whatsapp'));
+    line('Ciudad / País', val('ciudad'));
     L.push('');
 
     L.push('[2] SOBRE EL NEGOCIO');
-    L.push('- ¿A qué se dedica?: ' + or(val('que_haces'), '—'));
-    L.push('- Audiencia objetivo: ' + or(val('audiencia'), '—'));
-    L.push('- Propuesta de valor: ' + or(val('valor'), '—'));
-    L.push('- Diferencial frente a la competencia: ' + or(val('diferencial'), '—'));
-    L.push('- Objetivo principal del sitio: ' + or(radio('objetivo'), 'No especificado'));
-    L.push('- Competencia: ' + or(val('competencia'), '—'));
-    L.push('- Sitios de referencia: ' + or(val('referencias'), '—'));
-    L.push('- Redes sociales: ' + or(val('redes'), '—'));
+    line('¿A qué se dedica?', val('que_haces'));
+    line('Audiencia objetivo', val('audiencia'));
+    line('Propuesta de valor', val('valor'));
+    line('Diferencial frente a la competencia', val('diferencial'));
+    line('Objetivo principal del sitio', radio('objetivo'));
+    line('Competencia', val('competencia'));
+    line('Sitios de referencia', val('referencias'));
+    const redesChecked = checks('redes');
+    const redesOtras = val('redes_otras');
+    const redesParts = redesChecked.slice();
+    if (redesOtras) redesParts.push(redesOtras);
+    line('Redes sociales', redesParts.join(', '));
     L.push('');
 
     L.push('[3] CONTENIDO Y MARCA');
-    L.push('- Textos: ' + or(radio('textos'), 'No especificado'));
-    L.push('- Fotos: ' + or(radio('fotos'), 'No especificado'));
-    L.push('- Logo: ' + or(radio('logo'), 'No especificado'));
-    L.push('- Paleta de colores: ' + or(radio('colores'), 'No especificado'));
-    L.push('- Estilo visual: ' + or(radio('estilo'), 'No especificado'));
-    L.push('- Tono de voz: ' + or(radio('tono'), 'No especificado'));
+    line('Textos', radio('textos'));
+    line('Fotos', radio('fotos'));
+    line('Logo', radio('logo'));
+    line('Paleta de colores', radio('colores'));
+    line('Estilo visual', radio('estilo'));
+    line('Tono de voz', radio('tono'));
+    if (logoFile) L.push('- Adjuntos: logo subido (' + logoFile.name + ')');
+    if (fotosFiles.length) L.push('- Adjuntos: ' + fotosFiles.length + ' foto(s) subida(s)');
     L.push('');
 
     L.push('[4] ESTRUCTURA Y FUNCIONALIDADES');
-    L.push('- Tipo de sitio: ' + or(radio('tipo_sitio'), 'No especificado'));
-    L.push('- Páginas / secciones: ' + list(checks('secciones')));
-    L.push('- Otras secciones: ' + or(val('secciones_otras'), '—'));
-    L.push('- Contacto: ' + or(radio('contacto_modo'), 'No especificado'));
-    L.push('- Acción principal (CTA): ' + or(radio('cta'), 'No especificado'));
-    L.push('- Funcionalidades extras: ' + list(checks('funcionalidades')));
-    L.push('- Idioma: ' + or(radio('idioma'), 'No especificado'));
+    line('Tipo de sitio', radio('tipo_sitio'));
+    line('Páginas / secciones', list(checks('secciones')));
+    line('Otras secciones', val('secciones_otras'));
+    line('Contacto', radio('contacto_modo'));
+    line('Acción principal (CTA)', radio('cta'));
+    line('Funcionalidades extras', list(checks('funcionalidades')));
+    line('Idioma', radio('idioma'));
     L.push('');
 
     L.push('[5] DOMINIO');
     const dominioRaw = val('dominio');
     if (domainStatus) {
-      L.push('- Dominio: ' + domainStatus.full + ' — ' + (domainStatus.disponible ? 'DISPONIBLE' : 'YA REGISTRADO'));
+      line('Dominio', domainStatus.full + ' — ' + (domainStatus.disponible ? 'DISPONIBLE' : 'YA REGISTRADO'));
       if (!domainStatus.disponible) {
         L.push('  (el cliente eligió un dominio ya registrado: sugerí alternativas cercanas)');
       }
-    } else {
-      L.push('- Dominio: ' + or(dominioRaw, '—'));
+    } else if (dominioRaw) {
+      line('Dominio', dominioRaw);
     }
     L.push('');
 
     L.push('[6] NOTAS ADICIONALES');
-    L.push(or(val('notas'), '—'));
+    line('Notas', val('notas'));
     L.push('');
 
     L.push(sep);
@@ -285,7 +377,8 @@
       objetivo: radio('objetivo'),
       competencia: val('competencia'),
       referencias: val('referencias'),
-      redes: val('redes'),
+      redes: checks('redes'),
+      redes_otras: val('redes_otras'),
       textos: radio('textos'),
       fotos: radio('fotos'),
       logo: radio('logo'),
@@ -304,6 +397,8 @@
       dominio: domainStatus ? domainStatus.full : val('dominio'),
       dominio_disponible: domainStatus ? domainStatus.disponible : null,
       notas: val('notas'),
+      logo_file: logoFile,
+      fotos_files: fotosFiles,
       subject: 'Nuevo briefing web — ' + (val('nombre') || 'sin nombre'),
       briefing_prompt: buildPrompt(),
     };

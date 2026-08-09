@@ -138,8 +138,17 @@ const description =
               <textarea class="f-textarea" id="in-referencias" name="referencias" placeholder="Pegá 1 a 3 links de páginas que te gusten y contá qué te gusta de cada una..."></textarea>
             </div>
             <div class="f-field full">
-              <label class="f-label" for="in-redes">Redes sociales (links)</label>
-              <input class="f-input" type="text" id="in-redes" name="redes" placeholder="Ej: instagram.com/tumarca, facebook.com/tumarca..." />
+              <label class="f-label">¿En qué redes sociales está tu marca?</label>
+              <div class="opt-group">
+                <label class="opt"><input type="checkbox" name="redes" value="Instagram" /><span class="opt-body"><span class="opt-title">Instagram</span></span></label>
+                <label class="opt"><input type="checkbox" name="redes" value="X (Twitter)" /><span class="opt-body"><span class="opt-title">X (Twitter)</span></span></label>
+                <label class="opt"><input type="checkbox" name="redes" value="Facebook" /><span class="opt-body"><span class="opt-title">Facebook</span></span></label>
+                <label class="opt"><input type="checkbox" name="redes" value="LinkedIn" /><span class="opt-body"><span class="opt-title">LinkedIn</span></span></label>
+              </div>
+              <div class="f-field" style="margin-top:0.6rem">
+                <label class="f-label" for="in-redes-otras">Otras / links</label>
+                <input class="f-input" type="text" id="in-redes-otras" name="redes_otras" placeholder="Ej: tiktok.com/tumarca, youtube.com/@tumarca..." />
+              </div>
             </div>
           </div>
         </section>
@@ -168,6 +177,11 @@ const description =
                 <label class="opt"><input type="radio" name="fotos" value="Fotos básicas de celular" /><span class="opt-body"><span class="opt-title">Fotos básicas de celular</span></span></label>
                 <label class="opt"><input type="radio" name="fotos" value="No tengo — usen banco de imágenes" /><span class="opt-body"><span class="opt-title">No tengo — usen banco de imágenes</span></span></label>
               </div>
+              <div class="upload-box" id="fotos-upload" hidden>
+                <label class="f-label upload-label" for="in-fotos-file">Subí tus fotos (máximo 3)</label>
+                <input class="f-input" type="file" id="in-fotos-file" name="fotos_files" accept="image/*" multiple />
+                <p class="upload-hint">JPG, PNG o WebP · máximo 3 archivos · se adjuntan al briefing</p>
+              </div>
             </div>
 
             <div class="f-field full">
@@ -176,6 +190,11 @@ const description =
                 <label class="opt"><input type="radio" name="logo" value="Sí, tengo logo" /><span class="opt-body"><span class="opt-title">Sí, tengo logo</span></span></label>
                 <label class="opt"><input type="radio" name="logo" value="No, necesito que me lo hagan" /><span class="opt-body"><span class="opt-title">No, necesito que me lo hagan</span></span></label>
                 <label class="opt"><input type="radio" name="logo" value="No, no lo necesito" /><span class="opt-body"><span class="opt-title">No, no lo necesito</span></span></label>
+              </div>
+              <div class="upload-box" id="logo-upload" hidden>
+                <label class="f-label upload-label" for="in-logo-file">Subí tu logo</label>
+                <input class="f-input" type="file" id="in-logo-file" name="logo_file" accept="image/*" />
+                <p class="upload-hint">PNG, JPG, SVG o WebP · se adjunta al briefing</p>
               </div>
             </div>
 

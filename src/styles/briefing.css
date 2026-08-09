@@ -200,6 +200,27 @@ body.briefing {
 .f-textarea::placeholder { color: #a49c8f; font-weight: 300; }
 .f-textarea { min-height: 90px; resize: vertical; }
 
+/* ── Subida de archivos (logo / fotos) ── */
+.upload-box {
+  margin-top: 0.65rem;
+  padding: 0.85rem;
+  background: #faf8f4;
+  border: 1px dashed var(--color-border-default);
+  border-radius: 8px;
+}
+.upload-box .upload-label { margin-bottom: 0.4rem; font-size: 0.62rem; }
+.upload-box .f-input[type="file"] {
+  padding: 0.5rem;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.upload-hint {
+  margin-top: 0.4rem;
+  font-family: var(--font-family-mono);
+  font-size: 0.65rem;
+  color: var(--color-text-secondary);
+}
+
 /* ── Opciones (radio / checkbox) ── */
 .opt-group { display: flex; flex-direction: column; gap: 0.55rem; }
 .opt {

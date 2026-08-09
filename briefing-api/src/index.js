@@ -26,8 +26,9 @@ const CORS_ORIGINS = [
 const RATE_LIMIT_MAX = 3;
 const RATE_LIMIT_WINDOW_SEC = 600; // 10 minutos
 
-// Tamaño máximo del body JSON (briefings razonables: < 64 KB).
-const MAX_BODY_BYTES = 65536;
+// Tamaño máximo del body JSON (briefings con adjuntos en base64: hasta 3 fotos
+// de 3 MB + 1 logo de 3 MB ≈ 16 MB en base64; dejamos margen).
+const MAX_BODY_BYTES = 32 * 1024 * 1024; // 32 MB
 
 export default {
   async fetch(request, env) {
@@ -86,12 +87,26 @@ async function sendBriefing(request, env, origin) {
   const from = env.FROM_EMAIL || "SHC Digital <onboarding@resend.dev>";
   const to = env.TO_EMAIL || "shcdigitalsolutions@gmail.com";
 
+  // Adjuntos (logo + fotos en base64)
+  const attachments = [];
+  const logoFile = body.logo_file;
+  if (logoFile && logoFile.data && logoFile.name) {
+    attachments.push({ filename: logoFile.name, content: logoFile.data, content_type: logoFile.type || "application/octet-stream" });
+  }
+  const fotos = Array.isArray(body.fotos_files) ? body.fotos_files : [];
+  for (const f of fotos) {
+    if (f && f.data && f.name) {
+      attachments.push({ filename: f.name, content: f.data, content_type: f.type || "application/octet-stream" });
+    }
+  }
+
   const resendBody = {
     from,
     to: [to],
     subject,
     text: textEmail(body, prompt),
     html: htmlEmail(body, prompt),
+    ...(attachments.length ? { attachments } : {}),
   };
 
   const res = await fetch("https://api.resend.com/emails", {
@@ -150,6 +165,7 @@ const CLIENT_FIELDS = [
   ["Email", "email"],
   ["WhatsApp", "whatsapp"],
   ["Ciudad / País", "ciudad"],
+  ["Redes sociales", "redes"],
   ["Plan elegido", "plan"],
   ["Plazo", "plazo"],
   ["Dominio", "dominio"],
@@ -158,8 +174,15 @@ const CLIENT_FIELDS = [
 function clientRows(body) {
   const rows = [];
   for (const [label, key] of CLIENT_FIELDS) {
-    let value = String(body && body[key] != null ? body[key] : "").trim();
-    if (Array.isArray(body && body[key])) value = body[key].join(", ");
+    let value = "";
+    if (key === "redes") {
+      const arr = Array.isArray(body && body.redes) ? body.redes : [];
+      const otras = String((body && body.redes_otras) || "").trim();
+      value = arr.concat(otras ? [otras] : []).join(", ");
+    } else {
+      value = String(body && body[key] != null ? body[key] : "").trim();
+      if (Array.isArray(body && body[key])) value = body[key].join(", ");
+    }
     if (key === "dominio" && body && body.dominio_disponible != null) {
       value = value + " — " + (body.dominio_disponible ? "DISPONIBLE" : "REGISTRADO");
     }
