@@ -177,16 +177,16 @@
   let logoFile = null;   // { name, type, data }
   let fotosFiles = [];   // [{ name, type, data }]
 
-  function toggleUpload(name, valuesToShow) {
-    const el = document.getElementById(name);
+  function toggleUpload(elId, radioName, valuesToShow) {
+    const el = document.getElementById(elId);
     if (!el) return;
-    const show = valuesToShow.includes(radio(name));
+    const show = valuesToShow.includes(radio(radioName));
     el.hidden = !show;
     if (!show) {
       const file = el.querySelector('input[type="file"]');
       if (file) file.value = '';
-      if (name === 'logo-upload') logoFile = null;
-      if (name === 'fotos-upload') fotosFiles = [];
+      if (elId === 'logo-upload') logoFile = null;
+      if (elId === 'fotos-upload') fotosFiles = [];
     }
   }
 
@@ -242,8 +242,8 @@
   }
 
   function syncUploadVisibility() {
-    toggleUpload('logo-upload', ['Sí, tengo logo']);
-    toggleUpload('fotos-upload', ['Fotos profesionales de alta calidad', 'Fotos básicas de celular']);
+    toggleUpload('logo-upload', 'logo', ['Sí, tengo logo']);
+    toggleUpload('fotos-upload', 'fotos', ['Fotos profesionales de alta calidad', 'Fotos básicas de celular']);
   }
   form.addEventListener('change', (e) => {
     if (e.target && e.target.name === 'logo') syncUploadVisibility();

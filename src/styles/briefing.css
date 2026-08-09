@@ -184,7 +184,7 @@ body.briefing {
   font-family: var(--font-family-base);
   font-size: 0.95rem;
   color: var(--color-text-primary);
-  background: var(--color-surface-raised);
+  background: #ffffff;
   border: 1px solid var(--color-border-default);
   border-radius: 6px;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
@@ -200,11 +200,15 @@ body.briefing {
 .f-textarea::placeholder { color: #a49c8f; font-weight: 300; }
 .f-textarea { min-height: 90px; resize: vertical; }
 
+/* Campo "Otras / links" de redes sociales */
+.redes-otras { margin-top: 0.7rem; }
+.redes-otras .f-label { margin-bottom: 0.3rem; }
+
 /* ── Subida de archivos (logo / fotos) ── */
 .upload-box {
   margin-top: 0.65rem;
   padding: 0.85rem;
-  background: #faf8f4;
+  background: #ffffff;
   border: 1px dashed var(--color-border-default);
   border-radius: 8px;
 }
@@ -228,7 +232,7 @@ body.briefing {
   align-items: flex-start;
   gap: 0.65rem;
   padding: 0.7rem 0.9rem;
-  background: var(--color-surface-raised);
+  background: #ffffff;
   border: 1px solid var(--color-border-default);
   border-radius: 8px;
   cursor: pointer;
