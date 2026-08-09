@@ -2,6 +2,15 @@
 
 Todas las versiones notables de SHC Digital.
 
+## [0.3.2] - 2026-08-09
+
+### Security
+- **Emails de permisos fuera de GitHub**: `GOOGLE_ADMIN_EMAILS` y `TENANTS`
+  (que contienen los correos autorizados y las `admin_url`) dejaron de estar en
+  `wrangler.toml` y pasaron a **secrets de Cloudflare** (`wrangler secret put`).
+- **El HTML servido ya no expone emails**: la pantalla de bienvenida solo envía
+  `id` + `name` de cada panel al cliente (ni `emails` ni `admin_url`).
+
 ## [0.3.1] - 2026-08-09
 
 ### Fixed

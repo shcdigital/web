@@ -45,12 +45,15 @@ npm i
 npx wrangler kv namespace create SESSIONS        # copiar el <id> al wrangler.toml
 npx wrangler secret put SHARED_JWT_SECRET         # MISMO valor en el SSO y en cada panel
 npx wrangler secret put GOOGLE_CLIENT_SECRET      # client secret de Google
+npx wrangler secret put GOOGLE_ADMIN_EMAILS       # correos admin globales (csv)
+npx wrangler secret put TENANTS                   # JSON de tenants (ver abajo)
 # setear GOOGLE_CLIENT_ID en [vars] del wrangler.toml (es público, no es secreto)
 npx wrangler deploy
 ```
 
-> `GOOGLE_CLIENT_ID` va en `[vars]` del `wrangler.toml` (es público). El
-> `GOOGLE_CLIENT_SECRET` **nunca** va al repo: se setea con `wrangler secret`.
+> `GOOGLE_CLIENT_ID` va en `[vars]` del `wrangler.toml` (es público). Los secrets
+> **nunca** van al repo: `GOOGLE_CLIENT_SECRET`, `SHARED_JWT_SECRET`,
+> `GOOGLE_ADMIN_EMAILS` y `TENANTS` se setean con `wrangler secret`.
 
 ### DNS
 
@@ -58,18 +61,32 @@ En Cloudflare: Workers → tu Worker → **Custom domain** o **Routes** →
 `clientes.shcdigital.net.ar/*` (certificado automático). El dominio
 `shcdigital.net.ar` ya está en Cloudflare.
 
-### Agregar un cliente (tenant)
+### Agregar/quitar un cliente (tenant)
 
-1. En `wrangler.toml`, sumá un objeto a `TENANTS`:
-   `{"id":"<cliente>","name":"<Nombre>","admin_url":"https://panel.<cliente>.shcdigital.net.ar","emails":["<email-del-cliente>"]}`
+1. `TENANTS` es un **secret** (JSON string). Para cambiarlo:
+   ```bash
+   cd clientes
+   printf '%s' '[{"id":"geo-graficas","name":"Geo.Gráficas","admin_url":"https://panel.geograficas.shcdigital.net.ar","emails":["revistaliterariatds@gmail.com"]},{"id":"shcdigital","name":"SHC Digital","admin_url":"https://panel.shcdigital.net.ar","emails":["shcdigitalsolutions@gmail.com"]}]' | npx wrangler secret put TENANTS
+   npx wrangler deploy
+   ```
+   - Cada objeto del array: `id` (identifica al tenant), `name` (visible en la
+     pantalla), `admin_url` (URL del panel, claim `aud` del JWT) y `emails`
+     (correos con acceso a **ese** panel).
 2. En el panel de ese cliente, el Worker debe implementar `/auth/sso` (mismo
    `SHARED_JWT_SECRET`) y tener `TENANT_ID = "<cliente>"`.
 3. `wrangler deploy` del SSO y del panel.
 
-### Dar acceso a un email
+### Dar/quitar acceso a un email
 
-- **A un solo panel**: agregalo al array `emails` de ese tenant en `TENANTS`.
-- **A todos los paneles (admin)**: agregalo a `GOOGLE_ADMIN_EMAILS`.
+- **A un solo panel**: editá el array `emails` de ese tenant en `TENANTS` y volvé
+  a subir el secret (comando de arriba) + `wrangler deploy`.
+- **A todos los paneles (admin)**: editá `GOOGLE_ADMIN_EMAILS` (csv) y subilo de nuevo:
+  ```bash
+  printf '%s' "mail1@gmail.com,mail2@gmail.com" | npx wrangler secret put GOOGLE_ADMIN_EMAILS
+  npx wrangler deploy
+  ```
+  > Los emails también deben estar como *Test users* en Google Cloud si la app
+  > OAuth sigue en modo "Testing".
 
 ## Endpoints
 
@@ -97,8 +114,11 @@ contraseña en claro).
 
 ## Seguridad
 
-- `SHARED_JWT_SECRET` y `GOOGLE_CLIENT_SECRET` se setean con `wrangler secret`
-  (nunca en el repo).
+- `SHARED_JWT_SECRET`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_ADMIN_EMAILS` y `TENANTS`
+  se setean con `wrangler secret` (nunca en el repo ni en `[vars]`).
+- Los **emails autorizados no se exponen**: no están en GitHub (son secrets) y el
+  HTML servido al cliente solo incluye `id` + `name` de cada panel (ni `emails`
+  ni `admin_url`).
 - OAuth: **PKCE** (S256) + parámetro `state` (anti-CSRF), validación de
   `email_verified` de Google. Los `fetch` a los endpoints de Google están
   envueltos en `try/catch` (una falla de red devuelve 502 controlado, nunca

@@ -342,9 +342,13 @@ async function renderWelcome(request, env, security) {
   let allowedTenants = [];
   if (data) {
     session = JSON.parse(data);
-    allowedTenants = session.admin
+    // Al cliente solo se le envía id + name de cada panel. Los emails autorizados
+    // y la admin_url viven del lado del servidor y NO se exponen en el HTML.
+    const publicTenant = (t) => ({ id: t.id, name: t.name });
+    const visible = session.admin
       ? tenants
       : tenants.filter((t) => (session.tenant_ids || []).includes(t.id));
+    allowedTenants = visible.map(publicTenant);
   }
 
   // Login local: SOLO se renderiza (form + JS) si está habilitado. En producción

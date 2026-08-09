@@ -54,7 +54,9 @@ un JWT firmado. Detalle completo en [`clientes/README.md`](clientes/README.md).
 Aspectos destacados:
 
 - **Google OAuth** con authorization code + PKCE y acceso por email
-  (`GOOGLE_ADMIN_EMAILS` global, `TENANTS[].emails` por panel).
+  (`GOOGLE_ADMIN_EMAILS` global, `TENANTS[].emails` por panel). Ambos son
+  **secrets de Cloudflare** (`wrangler secret put`), no van en el repo, y el
+  HTML servido al cliente no expone los emails (solo `id` + `name` de cada panel).
 - **Sin `1101`**: las excepciones se loguean y responden un 500 limpio; los
   `fetch` a Google están blindados. `Response.redirect()` tiene headers
   inmutables, por eso los `302` con cookie se construyen a mano.
