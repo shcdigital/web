@@ -139,11 +139,23 @@ const description =
             </div>
             <div class="f-field full">
               <label class="f-label">¿En qué redes sociales está tu marca?</label>
-              <div class="opt-group">
-                <label class="opt"><input type="checkbox" name="redes" value="Instagram" /><span class="opt-body"><span class="opt-title">Instagram</span></span></label>
-                <label class="opt"><input type="checkbox" name="redes" value="X (Twitter)" /><span class="opt-body"><span class="opt-title">X (Twitter)</span></span></label>
-                <label class="opt"><input type="checkbox" name="redes" value="Facebook" /><span class="opt-body"><span class="opt-title">Facebook</span></span></label>
-                <label class="opt"><input type="checkbox" name="redes" value="LinkedIn" /><span class="opt-body"><span class="opt-title">LinkedIn</span></span></label>
+              <div class="redes-group">
+                <div class="red-row">
+                  <label class="opt red-opt"><input type="checkbox" name="redes" value="Instagram" /><span class="opt-body"><span class="opt-title">Instagram</span></span></label>
+                  <input class="f-input red-user" type="text" name="red_user_instagram" placeholder="usuario" autocomplete="off" />
+                </div>
+                <div class="red-row">
+                  <label class="opt red-opt"><input type="checkbox" name="redes" value="X (Twitter)" /><span class="opt-body"><span class="opt-title">X (Twitter)</span></span></label>
+                  <input class="f-input red-user" type="text" name="red_user_x" placeholder="usuario" autocomplete="off" />
+                </div>
+                <div class="red-row">
+                  <label class="opt red-opt"><input type="checkbox" name="redes" value="Facebook" /><span class="opt-body"><span class="opt-title">Facebook</span></span></label>
+                  <input class="f-input red-user" type="text" name="red_user_facebook" placeholder="usuario" autocomplete="off" />
+                </div>
+                <div class="red-row">
+                  <label class="opt red-opt"><input type="checkbox" name="redes" value="LinkedIn" /><span class="opt-body"><span class="opt-title">LinkedIn</span></span></label>
+                  <input class="f-input red-user" type="text" name="red_user_linkedin" placeholder="usuario" autocomplete="off" />
+                </div>
               </div>
               <div class="redes-otras">
                 <label class="f-label" for="in-redes-otras">Otras / links</label>

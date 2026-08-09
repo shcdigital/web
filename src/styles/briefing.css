@@ -164,6 +164,16 @@ body.briefing {
 .b-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem 1.25rem; }
 .b-grid .full { grid-column: 1 / -1; }
 
+/* global.css define .f-field como grid de 110px + 1fr para el ContactForm
+   de la home. El briefing lo sobrescribe para que cada campo sea un bloque
+   de ancho completo, alineado verticalmente. */
+body.briefing .f-field {
+  display: block;
+  border-bottom: none;
+  padding: 0;
+  align-items: normal;
+}
+
 .f-field label.f-label {
   display: block;
   font-family: var(--font-family-mono);
@@ -221,7 +231,7 @@ body.briefing .f-select {
 .f-textarea { min-height: 90px; resize: vertical; }
 
 /* Campo "Otras / links" de redes sociales */
-.redes-otras { margin-top: 0.7rem; }
+.redes-otras { margin-top: 0.9rem; padding-top: 0.9rem; border-top: 1px solid var(--color-border-default); }
 .redes-otras .f-label { margin-bottom: 0.3rem; }
 
 /* ── Subida de archivos (logo / fotos) ── */
@@ -234,10 +244,7 @@ body.briefing .f-select {
 }
 .upload-box .upload-label { margin-bottom: 0.45rem; font-size: 0.62rem; }
 .upload-box .f-input[type="file"] {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
+  display: block;
   width: 100%;
   padding: 0.55rem 0.75rem;
   font-size: 0.85rem;
@@ -246,10 +253,9 @@ body.briefing .f-select {
 }
 .upload-box .f-input[type="file"]:hover { border-color: var(--color-text-secondary); }
 .upload-box .f-input[type="file"]::file-selector-button {
-  flex-shrink: 0;
+  float: right;
   margin: -0.55rem -0.75rem 0 0;
-  padding: 0.55rem 1rem;
-  align-self: stretch;
+  padding: 0.55rem 1.1rem;
   border: none;
   border-left: 1px solid var(--color-border-default);
   border-radius: 0 5px 5px 0;
@@ -300,6 +306,27 @@ body.briefing .f-select {
 .opt-body { flex: 1; }
 .opt-title { font-weight: 600; font-size: 0.92rem; }
 .opt-desc { font-weight: 300; font-size: 0.8rem; color: var(--color-text-secondary); margin-top: 0.1rem; }
+
+/* ── Redes sociales con usuario por red ── */
+.redes-group { display: flex; flex-direction: column; gap: 0.55rem; }
+.red-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 0.55rem;
+  align-items: stretch;
+}
+.red-row .red-opt { width: 100%; }
+.red-row .red-user {
+  min-width: 0;
+  height: auto;
+  font-size: 0.85rem;
+  opacity: 0.55;
+}
+.red-row:has(.red-opt input:checked) .red-user { opacity: 1; border-color: var(--color-text-secondary); }
+.red-user::placeholder { color: #a49c8f; }
+@media (max-width: 640px) {
+  .red-row { grid-template-columns: 1fr; }
+}
 
 /* ── Submit ── */
 .b-submit {

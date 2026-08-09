@@ -177,8 +177,18 @@ function clientRows(body) {
     let value = "";
     if (key === "redes") {
       const arr = Array.isArray(body && body.redes) ? body.redes : [];
+      const conUser = Array.isArray(body && body.redes_con_usuarios)
+        ? body.redes_con_usuarios
+        : [];
+      const parts = conUser.length
+        ? conUser.map((r) => {
+            const red = String(r && r.red ? r.red : "").trim();
+            const usr = String(r && r.usuario ? r.usuario : "").trim();
+            return usr ? red + " (@" + usr + ")" : red;
+          })
+        : arr;
       const otras = String((body && body.redes_otras) || "").trim();
-      value = arr.concat(otras ? [otras] : []).join(", ");
+      value = parts.concat(otras ? [otras] : []).join(", ");
     } else {
       value = String(body && body[key] != null ? body[key] : "").trim();
       if (Array.isArray(body && body[key])) value = body[key].join(", ");

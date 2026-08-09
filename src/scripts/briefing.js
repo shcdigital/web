@@ -32,6 +32,24 @@
       (c) => c.value
     );
   }
+
+  /* Redes sociales: devuelve [{ red, usuario }] para las marcadas,
+     emparejando cada checkbox con su campo de usuario (red_user_*). */
+  function redesConUsuarios() {
+    const map = {
+      'Instagram': 'red_user_instagram',
+      'X (Twitter)': 'red_user_x',
+      'Facebook': 'red_user_facebook',
+      'LinkedIn': 'red_user_linkedin',
+    };
+    const out = [];
+    form.querySelectorAll('input[name="redes"]:checked').forEach((c) => {
+      const field = map[c.value];
+      const usr = field ? val(field) : '';
+      out.push({ red: c.value, usuario: usr });
+    });
+    return out;
+  }
   function list(items) {
     return items.length ? items.join(', ') : 'No especificado';
   }
@@ -284,7 +302,10 @@
     line('Sitios de referencia', val('referencias'));
     const redesChecked = checks('redes');
     const redesOtras = val('redes_otras');
-    const redesParts = redesChecked.slice();
+    const redesConUser = redesConUsuarios();
+    const redesParts = redesConUser.length
+      ? redesConUser.map((r) => r.red + (r.usuario ? ' (@' + r.usuario + ')' : ''))
+      : redesChecked.slice();
     if (redesOtras) redesParts.push(redesOtras);
     line('Redes sociales', redesParts.join(', '));
     L.push('');
@@ -378,6 +399,7 @@
       competencia: val('competencia'),
       referencias: val('referencias'),
       redes: checks('redes'),
+      redes_con_usuarios: redesConUsuarios(),
       redes_otras: val('redes_otras'),
       textos: radio('textos'),
       fotos: radio('fotos'),
