@@ -137,6 +137,10 @@ const description =
               <label class="f-label" for="in-referencias">Sitios que te gusten (links de referencia)</label>
               <textarea class="f-textarea" id="in-referencias" name="referencias" placeholder="Pegá 1 a 3 links de páginas que te gusten y contá qué te gusta de cada una..."></textarea>
             </div>
+            <div class="f-field full">
+              <label class="f-label" for="in-redes">Redes sociales (links)</label>
+              <input class="f-input" type="text" id="in-redes" name="redes" placeholder="Ej: instagram.com/tumarca, facebook.com/tumarca..." />
+            </div>
           </div>
         </section>
 
@@ -198,6 +202,17 @@ const description =
                 <label class="opt"><input type="radio" name="estilo" value="No sé — recomendame" /><span class="opt-body"><span class="opt-title">No sé — recomendame</span><span class="opt-desc">Lo decidimos juntos según tu rubro</span></span></label>
               </div>
             </div>
+
+            <div class="f-field full">
+              <label class="f-label">Tono de voz del sitio</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="tono" value="Profesional y formal" /><span class="opt-body"><span class="opt-title">Profesional y formal</span><span class="opt-desc">Transmite confianza, seriedad y experiencia</span></span></label>
+                <label class="opt"><input type="radio" name="tono" value="Cercano y amigable" /><span class="opt-body"><span class="opt-title">Cercano y amigable</span><span class="opt-desc">Habla de igual a igual, calidez y cercanía</span></span></label>
+                <label class="opt"><input type="radio" name="tono" value="Directo y de venta" /><span class="opt-body"><span class="opt-title">Directo y de venta</span><span class="opt-desc">Va al grano, convence y llama a la acción</span></span></label>
+                <label class="opt"><input type="radio" name="tono" value="Creativo y descontracturado" /><span class="opt-body"><span class="opt-title">Creativo y descontracturado</span><span class="opt-desc">Original, con personalidad y frescura</span></span></label>
+                <label class="opt"><input type="radio" name="tono" value="No sé — recomendame" /><span class="opt-body"><span class="opt-title">No sé — recomendame</span><span class="opt-desc">Lo definimos según tu rubro y audiencia</span></span></label>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -245,6 +260,17 @@ const description =
                 <label class="opt"><input type="radio" name="contacto_modo" value="Formulario de contacto" /><span class="opt-body"><span class="opt-title">Formulario de contacto</span><span class="opt-desc">Te llegan los mensajes por mail</span></span></label>
                 <label class="opt"><input type="radio" name="contacto_modo" value="Botón de WhatsApp" /><span class="opt-body"><span class="opt-title">Botón de WhatsApp</span><span class="opt-desc">Un toque y hablan directo por WhatsApp</span></span></label>
                 <label class="opt"><input type="radio" name="contacto_modo" value="Formulario + WhatsApp" /><span class="opt-body"><span class="opt-title">Formulario + WhatsApp</span><span class="opt-desc">Los dos juntos — recomendado</span></span></label>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">¿Cuál es la acción principal que querés que hagan los visitantes?</label>
+              <div class="opt-group">
+                <label class="opt"><input type="radio" name="cta" value="Contactarse / pedir presupuesto" /><span class="opt-body"><span class="opt-title">Contactarse / pedir presupuesto</span></span></label>
+                <label class="opt"><input type="radio" name="cta" value="Comprar o reservar online" /><span class="opt-body"><span class="opt-title">Comprar o reservar online</span></span></label>
+                <label class="opt"><input type="radio" name="cta" value="Llamar por teléfono" /><span class="opt-body"><span class="opt-title">Llamar por teléfono</span></span></label>
+                <label class="opt"><input type="radio" name="cta" value="Ver trabajos / portfolio" /><span class="opt-body"><span class="opt-title">Ver trabajos / portfolio</span></span></label>
+                <label class="opt"><input type="radio" name="cta" value="Informarse / leer contenido" /><span class="opt-body"><span class="opt-title">Informarse / leer contenido</span></span></label>
               </div>
             </div>
 
@@ -299,13 +325,18 @@ const description =
               </div>
             </div>
 
-            <div class="f-field">
-              <label class="f-label" for="in-presupuesto">Presupuesto estimado (opcional)</label>
-              <input class="f-input" type="text" id="in-presupuesto" name="presupuesto" placeholder="Ej: USD 150-250" />
-            </div>
-            <div class="f-field">
-              <label class="f-label" for="in-dominio">¿Ya tenés dominio?</label>
-              <input class="f-input" type="text" id="in-dominio" name="dominio" placeholder="Ej: tudominio.com.ar / No tengo" />
+            <div class="f-field full">
+              <label class="f-label">¿Ya tenés dominio? Verificá si está disponible</label>
+              <div class="domain-check">
+                <input class="f-input dom-name" type="text" id="in-dominio" name="dominio" placeholder="tunegocio" autocomplete="off" />
+                <select class="f-select dom-tld" id="dom-tld" aria-label="Extensión del dominio">
+                  <option value=".com.ar">.com.ar</option>
+                  <option value=".net.ar">.net.ar</option>
+                  <option value=".ar">.ar</option>
+                </select>
+                <button type="button" class="dom-btn" id="btnCheckDomain">Verificar</button>
+              </div>
+              <p class="dom-result" id="domResult" role="status" aria-live="polite"></p>
             </div>
           </div>
         </section>

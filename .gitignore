@@ -22,3 +22,7 @@ briefing-api/.wrangler/
 
 # Reels (videos para redes sociales — no se suben a git)
 reels/
+
+# Cookies temporales de curl / pruebas (pueden contener sesiones)
+t.txt
+*.cookies.txt
