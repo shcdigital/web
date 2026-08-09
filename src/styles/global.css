@@ -85,7 +85,7 @@ body {
   transition: color 0.2s, background 0.2s;
 }
 
-.nav-links a:hover { color: var(--color-surface-raised); background: #1a1a1a; }
+.nav-links a:hover { color: var(--color-surface-raised); background: var(--color-surface-inverse-2); }
 .nav-links a.nav-cta { background: var(--color-brand-primary-deep); color: var(--color-surface-raised); border-left: none; font-weight: 700; padding: 0 2rem; }
 .nav-links a.nav-cta:hover { background: var(--color-brand-primary-dark); }
 .nav-links a.is-active { color: var(--color-brand-primary); }
@@ -518,7 +518,7 @@ body {
 .precios-section .mono-label { color: var(--color-brand-primary); }
 .precios-section .mono-label::before { background: var(--color-brand-primary); }
 .precios-section .big-title { color: var(--color-surface-raised); }
-.precios-section .big-title .ghost { -webkit-text-stroke-color: #444; }
+.precios-section .big-title .ghost { -webkit-text-stroke-color: var(--color-text-muted); }
 
 .price-layout {
   display: grid;
@@ -952,7 +952,7 @@ body {
 .briefing-cta .mono-label { color: var(--color-brand-primary); margin-bottom: 1rem; }
 .briefing-cta .mono-label::before { background: var(--color-brand-primary); }
 .briefing-cta .big-title { color: var(--color-surface-raised); }
-.briefing-cta .big-title .ghost { -webkit-text-stroke-color: #444; }
+.briefing-cta .big-title .ghost { -webkit-text-stroke-color: var(--color-text-muted); }
 
 .b-cta-inner {
   display: grid;

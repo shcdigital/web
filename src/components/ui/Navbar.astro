@@ -37,11 +37,7 @@ const links = [
         <li>
           <a
             href={l.href}
-            class:list={[
-              l.id === "servicios" || l.id === "" ? "" : "",
-              active === l.id && l.id !== "" ? "is-active" : "",
-              active === "" && l.id === "" ? "" : "",
-            ]}
+            class:list={[active === l.id && l.id !== "" ? "is-active" : ""]}
             aria-current={active === l.id && l.id !== "" ? "page" : undefined}
           >
             {l.label}
