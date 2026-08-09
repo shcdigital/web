@@ -23,7 +23,7 @@ BASE_URL = "https://clientes.shcdigital.net.ar"
 # Client ID: crear en Google Cloud → Credentials → OAuth Client ID (Web application)
 #   → Authorized redirect URI: https://clientes.shcdigital.net.ar/auth/oauth2/google/callback
 # Client Secret: NUNCA acá — se setea con: wrangler secret put GOOGLE_CLIENT_SECRET
-GOOGLE_CLIENT_ID = ""
+GOOGLE_CLIENT_ID = "538902323549-ro3ft23ag8p7ipd6vhksceu138hkeadl.apps.googleusercontent.com"
 
 # Emails con acceso GLOBAL a todos los paneles (separados por coma).
 GOOGLE_ADMIN_EMAILS = "shcdigitalsolutions@gmail.com"
