@@ -337,6 +337,7 @@ body.briefing .f-select {
 
 /* ── Opciones (radio / checkbox) ── */
 .opt-group { display: flex; flex-direction: column; gap: 0.55rem; }
+.opt-sub { display: flex; flex-direction: column; gap: 0.55rem; margin-left: 1.75rem; padding-left: 0.9rem; border-left: 2px solid var(--color-border-default); }
 .opt {
   display: flex;
   align-items: flex-start;

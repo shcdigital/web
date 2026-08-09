@@ -345,8 +345,23 @@
   form.addEventListener('change', (e) => {
     if (e.target && e.target.name === 'logo') syncUploadVisibility();
     if (e.target && e.target.name === 'fotos') syncUploadVisibility();
+    if (e.target && e.target.name === 'secciones') syncBlogEditVisibility();
   });
   syncUploadVisibility();
+
+  /* Blog: muestra la opción de página de edición/actualización solo si
+     el cliente marcó "Blog" en las secciones. */
+  function syncBlogEditVisibility() {
+    const box = document.getElementById('blog-edit-box');
+    if (!box) return;
+    const blogChecked = !!form.querySelector('input[name="secciones"][value="Blog"]:checked');
+    box.hidden = !blogChecked;
+    if (!blogChecked) {
+      const cb = box.querySelector('input[name="blog_edicion"]');
+      if (cb) cb.checked = false;
+    }
+  }
+  syncBlogEditVisibility();
 
   /* ── Construir resumen listo para la IA ── */
   function buildPrompt() {
@@ -404,6 +419,7 @@
     line('Tipo de sitio', radio('tipo_sitio'));
     line('Páginas / secciones', list(checks('secciones')));
     line('Otras secciones', val('secciones_otras'));
+    line('Blog: edición y actualización', list(checks('blog_edicion')));
     line('Contacto', radio('contacto_modo'));
     line('Acción principal (CTA)', radio('cta'));
     line('Funcionalidades extras', list(checks('funcionalidades')));
