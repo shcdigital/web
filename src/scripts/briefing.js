@@ -189,7 +189,8 @@
   /* ── Subida de archivos (logo / fotos) ──
      El cliente puede adjuntar su logo (1 archivo) y hasta 3 fotos cuando
      responda que los tiene. Los archivos viajan en base64 en el payload y el
-     Worker los adjunta al mail. */
+     Worker los adjunta al mail. Las fotos se acumulan (el input file nativo
+     no suma selecciones, así que mantenemos la lista y un preview propio). */
   const MAX_FOTOS = 3;
   const MAX_FILE_BYTES = 3 * 1024 * 1024; // 3 MB por archivo
   let logoFile = null;   // { name, type, data }
@@ -203,8 +204,8 @@
     if (!show) {
       const file = el.querySelector('input[type="file"]');
       if (file) file.value = '';
-      if (elId === 'logo-upload') logoFile = null;
-      if (elId === 'fotos-upload') fotosFiles = [];
+      if (elId === 'logo-upload') { logoFile = null; renderLogoPreview(); }
+      if (elId === 'fotos-upload') { fotosFiles = []; renderFotosPreviews(); }
     }
   }
 
@@ -217,35 +218,113 @@
     });
   }
 
+  function dataUrlOf(item) {
+    return 'data:' + (item.type || 'image/*') + ';base64,' + item.data;
+  }
+
+  function renderLogoPreview() {
+    const previews = document.getElementById('logo-previews');
+    if (!previews) return;
+    if (!logoFile) { previews.hidden = true; previews.innerHTML = ''; return; }
+    previews.hidden = false;
+    previews.innerHTML = '';
+    const tile = document.createElement('div');
+    tile.className = 'up-preview';
+    const img = document.createElement('img');
+    img.src = dataUrlOf(logoFile);
+    img.alt = logoFile.name;
+    const meta = document.createElement('div');
+    meta.className = 'up-meta';
+    const name = document.createElement('span');
+    name.className = 'up-name';
+    name.textContent = logoFile.name;
+    const rm = document.createElement('button');
+    rm.type = 'button';
+    rm.className = 'up-remove';
+    rm.setAttribute('aria-label', 'Quitar logo');
+    rm.textContent = '✕';
+    rm.addEventListener('click', () => {
+      logoFile = null;
+      const input = document.querySelector('#logo-upload input[type="file"]');
+      if (input) input.value = '';
+      renderLogoPreview();
+    });
+    meta.appendChild(name);
+    meta.appendChild(rm);
+    tile.appendChild(img);
+    tile.appendChild(meta);
+    previews.appendChild(tile);
+  }
+
+  function renderFotosPreviews() {
+    const previews = document.getElementById('fotos-previews');
+    if (!previews) return;
+    if (!fotosFiles.length) { previews.hidden = true; previews.innerHTML = ''; return; }
+    previews.hidden = false;
+    previews.innerHTML = '';
+    fotosFiles.forEach((item, idx) => {
+      const tile = document.createElement('div');
+      tile.className = 'up-preview';
+      const img = document.createElement('img');
+      img.src = dataUrlOf(item);
+      img.alt = item.name;
+      const meta = document.createElement('div');
+      meta.className = 'up-meta';
+      const name = document.createElement('span');
+      name.className = 'up-name';
+      name.textContent = item.name;
+      const rm = document.createElement('button');
+      rm.type = 'button';
+      rm.className = 'up-remove';
+      rm.setAttribute('aria-label', 'Quitar ' + item.name);
+      rm.textContent = '✕';
+      rm.addEventListener('click', () => {
+        fotosFiles.splice(idx, 1);
+        renderFotosPreviews();
+      });
+      meta.appendChild(name);
+      meta.appendChild(rm);
+      tile.appendChild(img);
+      tile.appendChild(meta);
+      previews.appendChild(tile);
+    });
+  }
+
   async function onLogoChange(e) {
     const file = e.target.files && e.target.files[0];
-    if (!file) { logoFile = null; return; }
+    if (!file) { logoFile = null; renderLogoPreview(); return; }
     if (file.size > MAX_FILE_BYTES) {
       setNote('⚠ El logo supera los 3 MB. Subí un archivo más liviano.', 'is-error');
       e.target.value = '';
       logoFile = null;
+      renderLogoPreview();
       return;
     }
     try { logoFile = await readFile(file); } catch { logoFile = null; }
+    e.target.value = '';
+    renderLogoPreview();
   }
 
   async function onFotosChange(e) {
-    const files = Array.prototype.slice.call(e.target.files || []);
-    if (files.length > MAX_FOTOS) {
-      setNote('⚠ Podés subir máximo ' + MAX_FOTOS + ' fotos.', 'is-error');
+    const newFiles = Array.prototype.slice.call(e.target.files || []);
+    const combined = fotosFiles.concat(newFiles);
+    if (combined.length > MAX_FOTOS) {
+      const room = MAX_FOTOS - fotosFiles.length;
+      setNote('⚠ Ya cargaste ' + fotosFiles.length + ' foto(s) de ' + MAX_FOTOS + '. Podés agregar ' + room + ' más.', 'is-error');
       e.target.value = '';
-      fotosFiles = [];
       return;
     }
-    if (files.some((f) => f.size > MAX_FILE_BYTES)) {
+    const oversized = newFiles.some((f) => f.size > MAX_FILE_BYTES);
+    if (oversized) {
       setNote('⚠ Una de las fotos supera los 3 MB. Subí archivos más livianos.', 'is-error');
       e.target.value = '';
-      fotosFiles = [];
       return;
     }
     const loaded = [];
-    for (const f of files) { try { loaded.push(await readFile(f)); } catch {} }
-    fotosFiles = loaded;
+    for (const f of newFiles) { try { loaded.push(await readFile(f)); } catch {} }
+    fotosFiles = fotosFiles.concat(loaded);
+    e.target.value = '';
+    renderFotosPreviews();
   }
 
   const fotosUpload = document.getElementById('fotos-upload');

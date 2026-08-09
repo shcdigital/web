@@ -277,6 +277,64 @@ body.briefing .f-select {
   color: var(--color-text-secondary);
 }
 
+/* ── Previews de archivos subidos (logo / fotos) ── */
+.upload-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.6rem;
+}
+.up-preview {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  max-width: 100%;
+  padding: 0.45rem 0.6rem 0.45rem 0.45rem;
+  background: #fbf9f5;
+  border: 1px solid var(--color-border-default);
+  border-radius: 8px;
+}
+.up-preview img {
+  width: 44px;
+  height: 44px;
+  object-fit: cover;
+  border-radius: 6px;
+  background: #fff;
+  flex-shrink: 0;
+}
+.up-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  min-width: 0;
+}
+.up-name {
+  font-family: var(--font-family-mono);
+  font-size: 0.7rem;
+  color: var(--color-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 180px;
+}
+.up-remove {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--color-text-primary);
+  font-size: 0.7rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.up-remove:hover { background: var(--color-brand-primary-deep); color: #fff; }
+
 /* ── Opciones (radio / checkbox) ── */
 .opt-group { display: flex; flex-direction: column; gap: 0.55rem; }
 .opt {
