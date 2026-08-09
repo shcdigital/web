@@ -1,9 +1,16 @@
 // shc-briefing-api · Cloudflare Worker — envío de briefings vía Resend
 // Sirve (briefing-api.shcdigital.net.ar):
 //   POST /send   recibe el briefing (JSON) y envía el mail a shcdigitalsolutions@gmail.com
+//                con: datos del cliente (incluye plazo + valor total estimado),
+//                el prompt para la IA, los adjuntos (logo/fotos) y el presupuesto
+//                calculado desde el nomenclador (briefing-api/src/nomenclador.js)
+//                adjunto como PDF (briefing-api/src/pdf.js).
 //   GET  /health healthcheck
 //
 // La API key de Resend vive como SECRETO (env.RESEND_API_KEY), nunca en el repo.
+//
+// Presupuesto: se calcula ACÁ en el servidor usando el nomenclador interno, así
+// los precios nunca viajan en el bundle público del sitio.
 //
 // Protección anti-abuso (agregada 2026-08):
 //   - Rate-limit por IP en KV: máx RATE_LIMIT_MAX envíos por ventana.
@@ -13,6 +20,9 @@
 //     es defensa en profundidad (un bot con curl puede no enviar Origin).
 
 const JSON_HEADERS = { "Content-Type": "application/json; charset=utf-8" };
+
+import { computeBudget } from "./nomenclador.js";
+import { budgetAttachment } from "./pdf.js";
 
 // Orígenes permitidos para CORS (el form vive en shcdigital.net.ar)
 const CORS_ORIGINS = [
@@ -47,6 +57,16 @@ export default {
     if (url.pathname === "/send" && request.method === "POST") {
       return await sendBriefing(request, env, origin);
     }
+
+    // [FUTURO — presupuesto en vivo] Si algún día querés mostrar el total al
+    // cliente mientras completa el briefing, activá esta ruta y llamala desde
+    // src/scripts/briefing.js en cada cambio del form. OJO: expone los precios
+    // del nomenclador a cualquiera, por eso está desactivada por ahora.
+    //
+    // if (url.pathname === "/presupuesto" && request.method === "POST") {
+    //   let b; try { b = await request.json(); } catch { return json({ error: "Body JSON inválido" }, 400, origin); }
+    //   return json({ ok: true, presupuesto: computeBudget(b) }, 200, origin);
+    // }
 
     return json({ error: "Not found" }, 404, origin);
   },
@@ -87,7 +107,10 @@ async function sendBriefing(request, env, origin) {
   const from = env.FROM_EMAIL || "SHC Digital <onboarding@resend.dev>";
   const to = env.TO_EMAIL || "shcdigitalsolutions@gmail.com";
 
-  // Adjuntos (logo + fotos en base64)
+  // Presupuesto estimado calculado desde el nomenclador interno (USD, oferta 2026)
+  const budget = computeBudget(body);
+
+  // Adjuntos (logo + fotos en base64 + presupuesto PDF)
   const attachments = [];
   const logoFile = body.logo_file;
   if (logoFile && logoFile.data && logoFile.name) {
@@ -99,13 +122,19 @@ async function sendBriefing(request, env, origin) {
       attachments.push({ filename: f.name, content: f.data, content_type: f.type || "application/octet-stream" });
     }
   }
+  try {
+    attachments.push(budgetAttachment(budget));
+  } catch (err) {
+    // Nunca bloquear el envío por un problema del PDF (se loguea y sigue).
+    console.warn("[shc-briefing-api] No se pudo generar el PDF del presupuesto:", err);
+  }
 
   const resendBody = {
     from,
     to: [to],
     subject,
-    text: textEmail(body, prompt),
-    html: htmlEmail(body, prompt),
+    text: textEmail(body, prompt, budget),
+    html: htmlEmail(body, prompt, budget),
     ...(attachments.length ? { attachments } : {}),
   };
 
@@ -169,9 +198,10 @@ const CLIENT_FIELDS = [
   ["Plan elegido", "plan"],
   ["Plazo", "plazo"],
   ["Dominio", "dominio"],
+  ["Valor total estimado", "presupuesto_total"],
 ];
 
-function clientRows(body) {
+function clientRows(body, budget) {
   const rows = [];
   for (const [label, key] of CLIENT_FIELDS) {
     let value = "";
@@ -189,6 +219,10 @@ function clientRows(body) {
         : arr;
       const otras = String((body && body.redes_otras) || "").trim();
       value = parts.concat(otras ? [otras] : []).join(", ");
+    } else if (key === "presupuesto_total") {
+      if (budget && budget.items && budget.items.length) {
+        value = budget.currency + " " + Number(budget.total_offer).toLocaleString("en-US", { maximumFractionDigits: 2 });
+      }
     } else {
       value = String(body && body[key] != null ? body[key] : "").trim();
       if (Array.isArray(body && body[key])) value = body[key].join(", ");
@@ -201,13 +235,13 @@ function clientRows(body) {
   return rows;
 }
 
-function textEmail(body, prompt) {
+function textEmail(body, prompt, budget) {
   const L = [];
   L.push("SHC DIGITAL — NUEVO BRIEFING WEB");
   L.push("══════════════════════════════════════════");
   L.push("");
   L.push("DATOS DEL CLIENTE");
-  for (const [label, value] of clientRows(body)) L.push("• " + label + ": " + value);
+  for (const [label, value] of clientRows(body, budget)) L.push("• " + label + ": " + value);
   L.push("");
   L.push("PROMPT PARA LA IA");
   L.push("──────────────────────────────────────────");
@@ -215,8 +249,8 @@ function textEmail(body, prompt) {
   return L.join("\n");
 }
 
-function htmlEmail(body, prompt) {
-  const rows = clientRows(body)
+function htmlEmail(body, prompt, budget) {
+  const rows = clientRows(body, budget)
     .map(
       ([label, value]) => `
       <tr>

@@ -528,6 +528,8 @@
       tipo_sitio: radio('tipo_sitio'),
       secciones: checks('secciones'),
       secciones_otras: val('secciones_otras'),
+      blog_edicion: checks('blog_edicion'),
+      precios_edicion: checks('precios_edicion'),
       contacto_modo: radio('contacto_modo'),
       cta: radio('cta'),
       funcionalidades: checks('funcionalidades'),
@@ -536,6 +538,7 @@
       plazo: radio('plazo'),
       dominio: domainStatus ? domainStatus.full : val('dominio'),
       dominio_disponible: domainStatus ? domainStatus.disponible : null,
+      colores_otro: val('colores_otro'),
       notas: val('notas'),
       logo_file: logoFile,
       fotos_files: fotosFiles,
@@ -549,6 +552,30 @@
       body: JSON.stringify(payload),
     });
   }
+
+  /* ── [FUTURO] Presupuesto en vivo ──
+     El presupuesto se calcula en el worker briefing-api (computeBudget sobre el
+     nomenclador interno) y hoy viaja solo en el mail + PDF al enviar.
+
+     Si algún día querés mostrar el total estimado al cliente mientras completa:
+     1. Activá la ruta POST /presupuesto en briefing-api/src/index.js (está
+        comentada a propósito: expone los precios del nomenclador).
+     2. Descomentá y usá esta función en cada 'change' del form:
+
+     const API_PRESUPUESTO = 'https://briefing-api.shcdigital.net.ar/presupuesto';
+     async function presupuestoEnVivo(payload) {
+       const res = await fetch(API_PRESUPUESTO, {
+         method: 'POST',
+         headers: { 'Content-Type': 'application/json' },
+         body: JSON.stringify(payload),
+       });
+       const data = await res.json().catch(() => ({}));
+       const total = data && data.presupuesto ? data.presupuesto.total_offer : null;
+       const el = document.getElementById('total-presupuesto');
+       if (el) el.textContent = total != null ? 'USD ' + total : '';
+       return total;
+     }
+  */
 
   /* ── Globo de éxito y redirección ── */
   function showSuccessToast() {

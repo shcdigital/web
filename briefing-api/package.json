@@ -2,6 +2,7 @@
   "name": "shc-briefing-api",
   "version": "1.0.0",
   "private": true,
+  "type": "module",
   "description": "Worker de Cloudflare que envía briefings por email vía Resend para SHC Digital.",
   "main": "src/index.js",
   "scripts": {
