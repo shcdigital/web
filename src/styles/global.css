@@ -942,6 +942,45 @@ body {
   margin-bottom: 0.2rem;
 }
 
+/* 9b. BRIEFING CTA */
+.briefing-cta {
+  background: var(--color-surface-inverse);
+  color: var(--color-surface-raised);
+  border-top: 1px solid var(--color-line-dark);
+  border-bottom: 1px solid var(--color-line-dark);
+}
+
+.briefing-cta .mono-label { color: var(--color-brand-primary); margin-bottom: 1rem; }
+.briefing-cta .mono-label::before { background: var(--color-brand-primary); }
+.briefing-cta .big-title { color: var(--color-surface-raised); }
+.briefing-cta .big-title .ghost { -webkit-text-stroke-color: #444; }
+
+.b-cta-inner {
+  display: grid;
+  grid-template-columns: 5fr 4fr;
+  gap: 4rem;
+  align-items: center;
+}
+
+.b-cta-text {
+  font-size: 1.13rem;
+  color: var(--color-text-muted);
+  line-height: 1.75;
+  font-weight: 300;
+  margin-bottom: 2rem;
+}
+
+.b-cta-text strong { color: var(--color-surface-raised); font-weight: 600; }
+
+.b-cta-note {
+  font-family: var(--font-family-mono);
+  font-size: 0.62rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: 1.25rem;
+}
+
 /* 10. FOOTER */
 .site-footer {
   background: var(--color-surface-inverse);
@@ -1043,6 +1082,8 @@ body {
 
   .cta-wrapper { grid-template-columns: 1fr; }
   .cta-left-block { border-right: none; border-bottom: 1px solid var(--color-border-default); }
+
+  .b-cta-inner { grid-template-columns: 1fr; gap: 2rem; }
 
   .site-footer { grid-template-columns: 1fr; padding: 1.5rem; gap: 1rem; }
   .footer-copy { text-align: left; }
