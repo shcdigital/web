@@ -189,6 +189,26 @@ body.briefing {
   border-radius: 6px;
   transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
+/* Sobrescribe .f-input/.f-select de global.css (ContactForm) cuando
+   la página briefing es la que se está renderizando. */
+body.briefing .f-input,
+body.briefing .f-textarea,
+body.briefing .f-select {
+  background: #ffffff;
+  border: 1px solid var(--color-border-default);
+  font-weight: 400;
+}
+.f-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path d='M1 1l5 5 5-5' stroke='%23595a5e' stroke-width='2' fill='none' stroke-linecap='round'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 0.7rem;
+  padding-right: 2.1rem;
+  cursor: pointer;
+}
+.f-select option { background: #ffffff; color: var(--color-text-primary); }
 .f-input:focus,
 .f-textarea:focus,
 .f-select:focus {
@@ -207,19 +227,45 @@ body.briefing {
 /* ── Subida de archivos (logo / fotos) ── */
 .upload-box {
   margin-top: 0.65rem;
-  padding: 0.85rem;
+  padding: 0.9rem 1rem;
   background: #ffffff;
-  border: 1px dashed var(--color-border-default);
+  border: 1px solid var(--color-border-default);
   border-radius: 8px;
 }
-.upload-box .upload-label { margin-bottom: 0.4rem; font-size: 0.62rem; }
+.upload-box .upload-label { margin-bottom: 0.45rem; font-size: 0.62rem; }
 .upload-box .f-input[type="file"] {
-  padding: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  width: 100%;
+  padding: 0.55rem 0.75rem;
   font-size: 0.85rem;
+  background: #fbf9f5;
   cursor: pointer;
 }
+.upload-box .f-input[type="file"]:hover { border-color: var(--color-text-secondary); }
+.upload-box .f-input[type="file"]::file-selector-button {
+  flex-shrink: 0;
+  margin: -0.55rem -0.75rem 0 0;
+  padding: 0.55rem 1rem;
+  align-self: stretch;
+  border: none;
+  border-left: 1px solid var(--color-border-default);
+  border-radius: 0 5px 5px 0;
+  background: var(--color-surface-inverse);
+  color: var(--color-surface-raised);
+  font-family: var(--font-family-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+.upload-box .f-input[type="file"]:hover::file-selector-button { background: var(--color-brand-primary); }
 .upload-hint {
-  margin-top: 0.4rem;
+  margin-top: 0.45rem;
   font-family: var(--font-family-mono);
   font-size: 0.65rem;
   color: var(--color-text-secondary);
@@ -337,18 +383,20 @@ body.briefing {
 .hp { position: absolute; left: -9999px; opacity: 0; height: 0; overflow: hidden; }
 
 /* ── Verificador de dominio ── */
-.domain-check { display: flex; gap: 0.5rem; align-items: center; }
+.domain-check { display: flex; gap: 0.5rem; align-items: stretch; }
 .domain-check .dom-name { flex: 1; min-width: 0; }
 .domain-check .dom-tld {
   flex: 0 0 auto;
   width: auto;
-  padding: 0.7rem 0.4rem;
+  padding: 0.7rem 2.1rem 0.7rem 0.6rem;
   font-family: var(--font-family-mono);
   font-size: 0.85rem;
+  background-color: #ffffff;
+  border-radius: 6px;
 }
 .dom-btn {
   flex: 0 0 auto;
-  padding: 0.7rem 1rem;
+  padding: 0 1.05rem;
   font-family: var(--font-family-mono);
   font-size: 0.7rem;
   font-weight: 700;
