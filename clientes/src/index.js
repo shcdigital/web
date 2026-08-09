@@ -199,8 +199,15 @@ async function googleCallback(request, env, url, security) {
     google: true,
   };
   await env.SESSIONS.put(`sso:${sessionId}`, JSON.stringify(session), { expirationTtl: SESSION_TTL_SEC });
-  const res = Response.redirect(new URL("/", url.origin).toString(), 302);
-  res.headers.append("Set-Cookie", sessionCookie(sessionId));
+  // OJO: Response.redirect() tiene headers INMUTABLES, no se le puede append.
+  // Se construye un Response 302 propio para poder adjuntar la cookie de sesión.
+  const res = new Response(null, {
+    status: 302,
+    headers: {
+      Location: new URL("/", url.origin).toString(),
+      "Set-Cookie": sessionCookie(sessionId),
+    },
+  });
   return res;
 }
 
