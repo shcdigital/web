@@ -135,3 +135,25 @@ contraseña en claro).
 - **CSP** permite `static.cloudflareinsights.com` porque Cloudflare inyecta su
   beacon de Web Analytics en las respuestas (igual que el sitio principal).
 - Rate-limit del login local en KV (anti fuerza bruta; solo dev).
+
+## Troubleshooting
+
+### "Este email no tiene paneles habilitados" aunque el usuario es admin
+
+Los permisos se evalúan **al momento del login** y quedan congelados en la sesión
+(KV, TTL 12 h). Cambiar `GOOGLE_ADMIN_EMAILS` o `TENANTS` no afecta a las sesiones
+ya creadas: el usuario debe **volver a loguear** (o borrar su key `sso:<id>` de KV).
+
+Si el problema persiste tras reloguear, puede haber **sesiones huérfanas** del
+login local de pruebas (`admin@local`, formato viejo sin `admin`/`tenant_ids`):
+la cookie sigue siendo válida pero la sesión no autoriza paneles. Limpiarlas:
+
+```bash
+npx wrangler kv key list --binding=SESSIONS --prefix=sso:
+# borrar cada key que no corresponda (las sso:<uuid> viejas / admin@local)
+npx wrangler kv key delete --binding=SESSIONS "sso:<session-id>"
+```
+
+> Nota: si usás la API de Cloudflare (curl) para inspeccionar KV, las keys con `:`
+> en el nombre deben URL-encodearse (`sso:` → `sso%3A`); el CLI de wrangler puede
+> no listarlas según el carácter.

@@ -2,6 +2,24 @@
 
 Todas las versiones notables de SHC Digital.
 
+## [0.3.3] - 2026-08-09
+
+### Fixed
+- **Cuentas admin correctas en `GOOGLE_ADMIN_EMAILS`**: las cuentas globales son
+  `shcdigitalsolutions@gmail.com` y `pablo.berthold@gmail.com`. El secret quedaba
+  con un correo equivocado y `pablo.berthold@gmail.com` no tenía acceso a paneles.
+- **Sesiones huérfanas del login local**: las sesiones `admin@local` creadas en
+  pruebas (login local) quedaban en KV con el formato viejo (sin `admin` ni
+  `tenant_ids`) y su cookie seguía siendo válida 12 h. El SSO las validaba y la
+  pantalla mostraba "este email no tiene paneles" aunque el usuario ya fuera admin.
+  Se limpiaron esas keys de KV. Los permisos se evalúan al login y quedan
+  congelados en la sesión: **cambiar `GOOGLE_ADMIN_EMAILS`/`TENANTS` exige volver a
+  loguear** (o borrar la sesión en KV) para que tome efecto en sesiones existentes.
+
+### Notes
+- Al leer keys de KV con `:` en el nombre por API (curl) hay que URL-encodear el
+  `:` como `%3A`; el CLI de wrangler puede fallar o no listarlas según el carácter.
+
 ## [0.3.2] - 2026-08-09
 
 ### Security
