@@ -222,6 +222,10 @@ const description =
                 <label class="opt"><input type="radio" name="colores" value="Minimalista — blanco y neutros" /><span class="opt-body"><span class="opt-title">Minimalista — blanco y neutros</span><span class="opt-desc">Limpio, moderno, atemporal</span></span></label>
                 <label class="opt"><input type="radio" name="colores" value="Violeta / rosa — creatividad" /><span class="opt-body"><span class="opt-title">Violeta / rosa — creatividad</span><span class="opt-desc">Diseño, belleza, audiencias jóvenes</span></span></label>
                 <label class="opt"><input type="radio" name="colores" value="Otro" /><span class="opt-body"><span class="opt-title">Otro / los defino después</span></span></label>
+                <div class="opt-sub" id="colores-otro-box" hidden>
+                  <label class="f-label" for="in-colores-otro">Contanos qué colores tenés en mente</label>
+                  <input class="f-input" type="text" id="in-colores-otro" name="colores_otro" placeholder="Ej: azul petróleo y dorado, o los defino con ustedes..." autocomplete="off" />
+                </div>
               </div>
             </div>
 
@@ -238,6 +242,7 @@ const description =
 
             <div class="f-field full">
               <label class="f-label">Tono de voz del sitio</label>
+              <p class="f-hint">Es la "personalidad" con la que habla tu sitio: la forma en que redactamos tus textos para que suenen como vos.</p>
               <div class="opt-group">
                 <label class="opt"><input type="radio" name="tono" value="Profesional y formal" /><span class="opt-body"><span class="opt-title">Profesional y formal</span><span class="opt-desc">Transmite confianza, seriedad y experiencia</span></span></label>
                 <label class="opt"><input type="radio" name="tono" value="Cercano y amigable" /><span class="opt-body"><span class="opt-title">Cercano y amigable</span><span class="opt-desc">Habla de igual a igual, calidez y cercanía</span></span></label>
@@ -276,6 +281,9 @@ const description =
                 <label class="opt"><input type="checkbox" name="secciones" value="Portfolio / Galería" /><span class="opt-body"><span class="opt-title">Portfolio / Galería</span></span></label>
                 <label class="opt"><input type="checkbox" name="secciones" value="Testimonios" /><span class="opt-body"><span class="opt-title">Testimonios</span></span></label>
                 <label class="opt"><input type="checkbox" name="secciones" value="Precios / Paquetes" /><span class="opt-body"><span class="opt-title">Precios / Paquetes</span></span></label>
+                <div class="opt-sub" id="precios-edit-box" hidden>
+                  <label class="opt"><input type="checkbox" name="precios_edicion" value="Incluir página de edición y actualización de precios / paquetes" /><span class="opt-body"><span class="opt-title">Incluir página de edición y actualización de precios / paquetes</span></span></label>
+                </div>
                 <label class="opt"><input type="checkbox" name="secciones" value="Preguntas frecuentes (FAQ)" /><span class="opt-body"><span class="opt-title">Preguntas frecuentes (FAQ)</span></span></label>
                 <label class="opt"><input type="checkbox" name="secciones" value="Blog" /><span class="opt-body"><span class="opt-title">Blog</span></span></label>
                 <div class="opt-sub" id="blog-edit-box" hidden>

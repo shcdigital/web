@@ -186,6 +186,13 @@ body.briefing .f-field {
 }
 .f-field label.f-label .req { color: var(--color-brand-primary); }
 
+.f-hint {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  margin: -0.1rem 0 0.6rem;
+  line-height: 1.5;
+}
+
 .f-input,
 .f-textarea,
 .f-select {

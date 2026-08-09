@@ -345,23 +345,45 @@
   form.addEventListener('change', (e) => {
     if (e.target && e.target.name === 'logo') syncUploadVisibility();
     if (e.target && e.target.name === 'fotos') syncUploadVisibility();
-    if (e.target && e.target.name === 'secciones') syncBlogEditVisibility();
+    if (e.target && e.target.name === 'secciones') syncSeccionesSubOptions();
+    if (e.target && e.target.name === 'colores') syncColoresOtro();
   });
   syncUploadVisibility();
+  syncSeccionesSubOptions();
+  syncColoresOtro();
 
-  /* Blog: muestra la opción de página de edición/actualización solo si
-     el cliente marcó "Blog" en las secciones. */
-  function syncBlogEditVisibility() {
-    const box = document.getElementById('blog-edit-box');
+  /* Sub-opciones de secciones: se muestran solo si el cliente marcó la
+     sección madre (ej. "Blog" o "Precios / Paquetes"). */
+  const SECCIONES_SUB = [
+    { boxId: 'blog-edit-box', value: 'Blog', field: 'blog_edicion' },
+    { boxId: 'precios-edit-box', value: 'Precios / Paquetes', field: 'precios_edicion' },
+  ];
+  function syncSeccionesSubOptions() {
+    SECCIONES_SUB.forEach(({ boxId, value, field }) => {
+      const box = document.getElementById(boxId);
+      if (!box) return;
+      const checked = !!form.querySelector('input[name="secciones"][value="' + value + '"]:checked');
+      box.hidden = !checked;
+      if (!checked) {
+        const cb = box.querySelector('input[name="' + field + '"]');
+        if (cb) cb.checked = false;
+      }
+    });
+  }
+  syncSeccionesSubOptions();
+
+  /* Paleta de colores: muestra el campo libre si el cliente elige "Otro". */
+  function syncColoresOtro() {
+    const box = document.getElementById('colores-otro-box');
     if (!box) return;
-    const blogChecked = !!form.querySelector('input[name="secciones"][value="Blog"]:checked');
-    box.hidden = !blogChecked;
-    if (!blogChecked) {
-      const cb = box.querySelector('input[name="blog_edicion"]');
-      if (cb) cb.checked = false;
+    const show = radio('colores') === 'Otro';
+    box.hidden = !show;
+    if (!show) {
+      const input = box.querySelector('input[name="colores_otro"]');
+      if (input) input.value = '';
     }
   }
-  syncBlogEditVisibility();
+  syncColoresOtro();
 
   /* ── Construir resumen listo para la IA ── */
   function buildPrompt() {
@@ -420,6 +442,7 @@
     line('Páginas / secciones', list(checks('secciones')));
     line('Otras secciones', val('secciones_otras'));
     line('Blog: edición y actualización', list(checks('blog_edicion')));
+    line('Precios / paquetes: edición y actualización', list(checks('precios_edicion')));
     line('Contacto', radio('contacto_modo'));
     line('Acción principal (CTA)', radio('cta'));
     line('Funcionalidades extras', list(checks('funcionalidades')));
