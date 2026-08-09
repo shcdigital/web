@@ -1,6 +1,7 @@
 [
   {
     "tag": "// Starter",
+    "slug": "starter",
     "hot": false,
     "items": [
       {
@@ -33,6 +34,7 @@
   },
   {
     "tag": "// Pro — más elegido",
+    "slug": "pro",
     "items": [
       {
         "text": "Hasta 5 secciones"
@@ -60,6 +62,7 @@
   },
   {
     "tag": "// Business",
+    "slug": "business",
     "items": [
       {
         "text": "Múltiples páginas"

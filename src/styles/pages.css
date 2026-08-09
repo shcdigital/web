@@ -176,6 +176,158 @@
   padding-bottom: 1px;
 }
 
+/* ── planes (detalle) ── */
+.plan-header .mono-label { color: var(--color-brand-primary); }
+.plan-header .mono-label::before { background: var(--color-brand-primary); }
+.plan-ideal {
+  font-size: 1.02rem;
+  color: var(--color-text-muted);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 620px;
+  margin-top: 1.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--color-brand-primary);
+}
+.plan-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2.5rem;
+  margin-top: 2.5rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--color-border-default);
+}
+.plan-price { display: flex; flex-direction: column; gap: 0.5rem; }
+.plan-price-num {
+  font-family: var(--font-family-display);
+  font-size: clamp(3rem, 6vw, 4.5rem);
+  line-height: 0.95;
+  color: var(--color-text-primary);
+  letter-spacing: 0.02em;
+}
+.plan-price-txt {
+  font-family: var(--font-family-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.plan-ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-left: auto; }
+.plan-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+}
+.plan-chip {
+  font-family: var(--font-family-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border-default);
+  padding: 0.35rem 0.75rem;
+}
+
+/* Qué no incluye */
+.plan-no-section {
+  background: var(--color-surface-base);
+  padding: 5rem 3rem 6rem;
+  border-top: 1px solid var(--color-border-default);
+  border-bottom: 1px solid var(--color-border-default);
+}
+.plan-no-section .big-title {
+  font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+  line-height: 1.15;
+  margin-bottom: 0;
+}
+.plan-no-section .big-title .ghost { -webkit-text-stroke-width: 1px; }
+.plan-no-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  max-width: 720px;
+  margin: 3rem 0 0;
+  padding: 0;
+}
+.plan-no-list li {
+  position: relative;
+  padding-left: 2rem;
+  font-size: 1.08rem;
+  color: var(--color-text-muted);
+  font-weight: 300;
+  text-decoration: line-through;
+  text-decoration-color: rgba(232, 50, 26, 0.55);
+}
+.plan-no-list li::before {
+  content: '✕';
+  position: absolute;
+  left: 0;
+  color: var(--color-brand-primary);
+  font-weight: 700;
+}
+.plan-note {
+  margin-top: 2.5rem;
+  font-size: 1.02rem;
+  color: var(--color-text-secondary);
+  font-weight: 300;
+  line-height: 1.7;
+  max-width: 620px;
+}
+
+/* Otros planes */
+.plan-switch {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0;
+  border: 1px solid var(--color-border-default);
+  margin-top: 3rem;
+  max-width: 860px;
+}
+.plan-switch-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 2rem 2.5rem;
+  background: var(--color-surface-base);
+  border-right: 1px solid var(--color-border-default);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.plan-switch-card:last-child { border-right: none; }
+.plan-switch-card:hover { background: var(--color-surface-card); }
+.plan-switch-tag {
+  font-family: var(--font-family-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+.plan-switch-name {
+  font-family: var(--font-family-display);
+  font-size: 1.5rem;
+  letter-spacing: 0.04em;
+  color: var(--color-text-primary);
+}
+.plan-switch-precio {
+  font-family: var(--font-family-display);
+  font-size: 2rem;
+  letter-spacing: 0.02em;
+  color: var(--color-brand-primary-deep);
+}
+.plan-switch-link {
+  font-family: var(--font-family-mono);
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-top: 0.4rem;
+}
+.plan-switch-card:hover .plan-switch-link { color: var(--color-brand-primary); }
+
 /* ── Responsive ── */
 @media (max-width: 960px) {
   .page-header { padding: 5rem 1.5rem 2rem; }
@@ -185,5 +337,11 @@
   .svc-grid { grid-template-columns: 1fr; }
   .svc-grid .proc-step { border-right: none; border-bottom: 1px solid var(--color-border-default) !important; }
   .svc-grid .proc-step:last-child { border-bottom: none !important; }
+  .plan-no-section { padding: 3rem 1.5rem 4rem; }
+  .plan-meta { gap: 1.75rem; }
+  .plan-ctas { margin-left: 0; width: 100%; }
+  .plan-switch { grid-template-columns: 1fr; }
+  .plan-switch-card { border-right: none; border-bottom: 1px solid var(--color-border-default); }
+  .plan-switch-card:last-child { border-bottom: none; }
   .page-cta { padding: 4rem 1.5rem; }
 }

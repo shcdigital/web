@@ -11,6 +11,21 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://shcdigital.net.ar/planes/starter/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://shcdigital.net.ar/planes/pro/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://shcdigital.net.ar/planes/business/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://shcdigital.net.ar/briefing/</loc>
     <changefreq>yearly</changefreq>
     <priority>0.4</priority>

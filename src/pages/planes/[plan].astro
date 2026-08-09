@@ -1,0 +1,121 @@
+---
+// src/pages/planes/[plan].astro
+// Página de detalle de cada plan: todo lo que incluye, lo que no, y otros planes.
+
+import Layout from "../../layouts/Layout.astro";
+import { planesDetalle } from "../../data/planes-detalle.js";
+
+export function getStaticPaths() {
+  return planesDetalle.map((p) => ({
+    params: { plan: p.slug },
+    props: { plan: p },
+  }));
+}
+
+const { plan } = Astro.props;
+const otros = planesDetalle.filter((p) => p.slug !== plan.slug);
+---
+
+<Layout
+  title={`${plan.nombre} — Planes · SHC Digital`}
+  description={plan.desc}
+  canonical={`https://shcdigital.net.ar/planes/${plan.slug}`}
+  activeNav="precios"
+>
+  <header class="page-header plan-header">
+    <div class="container">
+      <p class="mono-label">{plan.tag}</p>
+      <h1 class="big-title">{plan.nombre}<br /><span class="ghost">{plan.ghost}</span></h1>
+      <p class="page-header-desc">{plan.desc}</p>
+      <p class="plan-ideal">{plan.ideal}</p>
+
+      <div class="plan-meta">
+        <div class="plan-price">
+          <span class="plan-price-num">{plan.precio}</span>
+          <span class="plan-price-txt">
+            {plan.precio_txt} · <s>{plan.lista}</s> — 60% OFF 2026
+          </span>
+        </div>
+        <div class="plan-ctas">
+          <a href="/briefing" class="btn-fill">→ Completar el briefing</a>
+          <a href="/#precios" class="btn-outline">← Ver todos los planes</a>
+        </div>
+      </div>
+
+      <div class="plan-chips">
+        {plan.chips.map((c) => <span class="plan-chip">{c}</span>)}
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- QUÉ INCLUYE -->
+    <section class="svc-section" aria-labelledby="inc-h">
+      <div class="container">
+        <p class="mono-label">Qué incluye</p>
+        <h2 id="inc-h" class="big-title">TODO LO<br /><span class="ghost">QUE INCLUYE</span></h2>
+        <div class="svc-grid">
+          {
+            plan.incluye.map((it) => (
+              <div class="proc-step">
+                <div class="proc-n" aria-hidden="true">{it.n}</div>
+                <span class="proc-chip">{it.chip}</span>
+                <h3 class="proc-title">{it.title}</h3>
+                <p class="proc-desc">{it.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- QUÉ NO INCLUYE -->
+    <section class="plan-no-section" aria-labelledby="no-h">
+      <div class="container">
+        <p class="mono-label">Para que no queden dudas</p>
+        <h2 id="no-h" class="big-title">QUÉ NO<br /><span class="ghost">INCLUYE</span></h2>
+        <ul class="plan-no-list">
+          {
+            plan.noIncluye.map((item) => (
+              <li>{item}</li>
+            ))
+          }
+        </ul>
+        <p class="plan-note">
+          {plan.nota}
+          {' '}
+          <a href="/briefing" class="inline-link">Contanos qué necesitás →</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- OTROS PLANES -->
+    <section class="svc-section" aria-labelledby="otros-h">
+      <div class="container">
+        <p class="mono-label">Compará</p>
+        <h2 id="otros-h" class="big-title">OTROS<br /><span class="ghost">PLANES</span></h2>
+        <div class="plan-switch">
+          {
+            otros.map((o) => (
+              <a href={`/planes/${o.slug}`} class="plan-switch-card">
+                <span class="plan-switch-tag">{o.tag}</span>
+                <strong class="plan-switch-name">{o.nombre}</strong>
+                <span class="plan-switch-precio">{o.precio}</span>
+                <span class="plan-switch-link">→ Ver plan</span>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <div class="page-cta">
+      <div class="container">
+        <p class="mono-label">Empezá hoy</p>
+        <h2 class="big-title">¿LISTO PARA<br /><span class="ghost">EMPEZAR?</span></h2>
+        <p>Completá el briefing y te enviamos una propuesta en menos de 24 horas.</p>
+        <a href="/briefing" class="btn-fill">→ Completar el briefing</a>
+      </div>
+    </div>
+  </main>
+</Layout>
