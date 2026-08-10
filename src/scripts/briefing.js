@@ -4,6 +4,8 @@
  * Port del script inline original a módulo ES.
  */
 
+import { isValidEmail } from '../scripts/utils.js';
+
 (function () {
   'use strict';
 
@@ -122,9 +124,6 @@
   form.addEventListener('change', updateProgress);
 
   /* ── Validación ── */
-  function isValidEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-  }
   function setNote(msg, state) {
     bNote.textContent = msg;
     bNote.classList.remove('is-success', 'is-error');
@@ -141,6 +140,9 @@
   const domResult = document.getElementById('domResult');
   let domainStatus = null; // { full, disponible }
 
+  const domController = new AbortController();
+  const timeoutId = setTimeout(() => domController.abort(), 10000);
+
   async function checkDomain() {
     if (!domInput || !domTld || !domBtn || !domResult) return;
     const name = domInput.value.trim().toLowerCase();
@@ -148,11 +150,13 @@
     if (!name) {
       domResult.textContent = 'Escribí un nombre para verificar su disponibilidad';
       domResult.className = 'dom-result is-error';
+      clearTimeout(timeoutId);
       return;
     }
     if (!/^[a-z0-9-]+$/.test(name)) {
       domResult.textContent = 'Solo letras, números y guiones';
       domResult.className = 'dom-result is-error';
+      clearTimeout(timeoutId);
       return;
     }
     const full = name + tld;
@@ -163,8 +167,14 @@
     try {
       // Doble chequeo NS + A (como en el panel)
       const [ns, a] = await Promise.all([
-        fetch('https://dns.google/resolve?name=' + encodeURIComponent(full) + '&type=NS', { headers: { Accept: 'application/dns-json' } }).then((r) => r.json()),
-        fetch('https://dns.google/resolve?name=' + encodeURIComponent(full) + '&type=A', { headers: { Accept: 'application/dns-json' } }).then((r) => r.json()),
+        fetch('https://dns.google/resolve?name=' + encodeURIComponent(full) + '&type=NS', {
+          headers: { Accept: 'application/dns-json' },
+          signal: domController.signal,
+        }).then((r) => r.json()),
+        fetch('https://dns.google/resolve?name=' + encodeURIComponent(full) + '&type=A', {
+          headers: { Accept: 'application/dns-json' },
+          signal: domController.signal,
+        }).then((r) => r.json()),
       ]);
       const nxdomain = ns.Status === 3;
       const disponible = nxdomain && a.Status === 3;
@@ -179,6 +189,7 @@
       domResult.className = 'dom-result is-error';
     } finally {
       domBtn.disabled = false;
+      clearTimeout(timeoutId);
     }
   }
 

@@ -1,0 +1,191 @@
+---
+// src/components/LanguageSwitcher/LanguageSwitcher.astro
+// Flag-based language switcher with dropdown
+
+import { getCurrentLanguage, setLanguage } from '../../i18n';
+import { languageCodes, getLanguage } from '../../i18n/languages';
+
+let isOpen: boolean = false;
+
+function toggle() {
+  isOpen = !isOpen;
+}
+
+function selectLang(lang: string) {
+  setLanguage(lang);
+  isOpen = false;
+}
+
+function getFlagCode(code: string): string {
+  const flagMap: Record<string, string> = {
+    es: '🇦🇷',
+    pt: '🇧🇷',
+    en: '🇺🇸'
+  };
+  return flagMap[code] || '🌐';
+}
+
+function getLanguageName(code: string): string {
+  const map: Record<string, string> = { es: 'Español', pt: 'Português', en: 'English' };
+  return map[code] || 'Español';
+}
+
+const currentLang: string = getCurrentLanguage();
+---
+
+<div class="language-switcher" aria-label="Language selector">
+  <button
+    class="language-toggle"
+    aria-expanded={isOpen}
+    aria-haspopup="listbox"
+    type="button"
+    onclick={toggle}
+  >
+    <span class="flag">{getFlagCode(currentLang)}</span>
+    <span class="label" dir="ltr">{getLanguageName(currentLang)}</span>
+    <span class="icon">▼</span>
+  </button>
+
+  <div class:list={['language-menu', isOpen ? 'open' : '']} aria-hidden={!isOpen}>
+    <ul class="menu-list" role="listbox">
+      {#each languageCodes as lang}
+        <li role="menuitem" class:list={{ 'menu-item': true, 'active': lang === currentLang }} onclick={() => selectLang(lang)}>
+          <a href={`/${lang}/`} class="menu-item" aria-current={lang === currentLang ? 'page' : undefined}>
+            <span class="flag">{getFlagCode(lang)}</span>
+            <span class="name">{getLanguageName(lang)}</span>
+            {#if lang === currentLang}
+              <span class="sr-only">(current)</span>
+            {/if}
+          </a>
+        </li>
+      {/each}
+    </ul>
+  </div>
+</div>
+
+<style>
+  .language-switcher {
+    position: relative;
+    display: inline-block;
+    margin: 0.5rem;
+  }
+
+  .language-toggle {
+    background: transparent;
+    border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    color: var(--color-gray-800);
+  }
+
+  .language-toggle:hover,
+  .language-toggle:focus {
+    background: var(--color-gray-50);
+    border-color: var(--color-primary-500);
+    outline: none;
+  }
+
+  .language-toggle:focus-visible {
+    box-shadow: 0 0 0 2px var(--color-primary-500);
+  }
+
+  .flag {
+    font-size: 1.25rem;
+    line-height: 1;
+  }
+
+  .label {
+    font-weight: 500;
+  }
+
+  .icon {
+    font-size: 0.75rem;
+    transition: transform 0.2s ease;
+  }
+
+  .language-toggle[aria-expanded="true"] .icon {
+    transform: rotate(180deg);
+  }
+
+  .language-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    margin-top: 0.25rem;
+    min-width: 120px;
+    background: var(--color-white);
+    border: 1px solid var(--color-gray-200);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    overflow: hidden;
+  }
+
+  .language-menu.open {
+    animation: fadeIn 0.15s ease-out;
+  }
+
+  .menu-list {
+    margin: 0;
+    padding: 0.25rem 0;
+    list-style: none;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    color: var(--color-gray-800);
+    cursor: pointer;
+    gap: 0.5rem;
+    width: 100%;
+    border-radius: 4px;
+  }
+
+  .menu-item:hover,
+  .menu-item:focus,
+  .menu-item.active {
+    background: var(--color-gray-50);
+    color: var(--color-primary-600);
+  }
+
+  .menu-item:focus-visible {
+    outline: 2px solid var(--color-primary-500);
+    outline-offset: 2px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .language-toggle {
+      padding: 0.75rem 1rem;
+    }
+
+    .flag {
+      font-size: 1.5rem;
+    }
+  }
+</style>

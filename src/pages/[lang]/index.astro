@@ -1,0 +1,228 @@
+---
+// src/pages/[lang]/index.astro
+// Home page for each language
+
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/ui/Hero.astro";
+import ContactForm from "../../components/ui/ContactForm.astro";
+import { t, tNs } from "../../i18n";
+import { isValidLanguage, defaultLanguage } from "../../i18n/languages";
+
+export async function getStaticPaths() {
+  const { languageCodes } = await import("../../i18n/languages");
+  return languageCodes.map(lang => ({
+    params: { lang },
+    props: { lang }
+  }));
+}
+
+const { lang } = Astro.props;
+
+// Validate language
+if (!lang || !isValidLanguage(lang)) {
+  throw new Astro.Error({
+    status: 404,
+    message: `Page not found for language: ${lang}`
+  });
+}
+
+// Set current language for translation system
+import { setLanguage } from "../../i18n";
+setLanguage(lang);
+
+// Load translations for the language
+import { loadTranslations } from "../../i18n";
+await loadTranslations(lang);
+
+const hero = tNs("hero");
+const stats = hero.stats;
+const ticker = hero.ticker;
+const process = tNs("process");
+const services = tNs("services");
+const plans = tNs("plans");
+const testimonials = tNs("testimonials");
+const why = tNs("why");
+const briefingCta = tNs("briefingCta");
+const contact = tNs("contact");
+
+// Get domain from environment or default
+const domain = "https://shcdigital.net.ar";
+---
+<Layout
+  title={t("hero.titleLine1", { ns: "hero" }) + t("hero.titleLine2", { ns: "hero" }) + t("hero.titleLine3", { ns: "hero" })}
+  description={hero.description}
+  ogTitle={t("hero.titleLine1", { ns: "hero" }) + " " + t("hero.titleLine2", { ns: "hero" }) + " " + t("hero.titleLine3", { ns: "hero" })}
+  ogDescription={hero.description}
+  canonical={`${domain}/${lang}/`}
+  lang={lang}
+  slug="index"
+>
+
+  <Hero stats={stats} ticker={ticker} lang={lang} />
+
+  <!-- PROCESO -->
+  <section id="proceso" class="site-section proceso-section" aria-labelledby="proceso-title">
+    <div class="container">
+      <p class="mono-label">{process.label}</p>
+      <h2 id="proceso-title" class="big-title">
+        {process.title.split("<br />").map((line, i) => (
+          <>
+            {i > 0 && <span class="ghost">{process.title.split("<br />")[i-1].split('<span class="ghost">')[1]?.split('</span>')[0] || ''}</span>}
+            {line}
+          </>
+        ))}
+      </h2>
+      <div class="proc-grid">
+        {process.steps.map((p) => (
+          <div class="proc-step">
+            <div class="proc-n" aria-hidden="true">{p.n}</div>
+            <span class="proc-chip">{p.chip}</span>
+            <h3 class="proc-title">{p.title}</h3>
+            <p class="proc-desc">{p.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="servicios" class="site-section" aria-labelledby="servicios-title">
+    <div class="container serv-layout">
+      <div class="serv-sticky">
+        <p class="mono-label">{services.label}</p>
+        <h2 id="servicios-title" class="big-title">
+          {services.title.split("<br />").map((line, i) => (
+            <>
+              {i > 0 && <span class="ghost">{services.title.split("<br />")[i-1].split('<span class="ghost">')[1]?.split('</span>')[0] || ''}</span>}
+              {line}
+            </>
+          ))}
+        </h2>
+        <p>{services.description}</p>
+        <a href={`/#${lang}-contacto`} class="btn-fill">{services.cta}</a>
+      </div>
+      <div class="serv-grid">
+        {services.items.map((s) => (
+          <div class="serv-card">
+            <div class="serv-icon">[ {s.n} ] {s.chip}</div>
+            <h3 class="serv-title">{s.title}</h3>
+            <p class="serv-desc">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PRECIOS -->
+  <section id="precios" class="site-section precios-section" aria-labelledby="precios-title">
+    <div class="container">
+      <p class="mono-label">{plans.label}</p>
+      <h2 id="precios-title" class="big-title">
+        {plans.title.split("<br />")[0]}<br />
+        <span class="ghost">{plans.title.split("<br />")[1].match(/<span class="ghost">([^<]+)<\/span>/)?.[1]}</span>
+      </h2>
+      <div class="price-layout">
+        {Object.entries(plans).filter(([k]) => ['starter', 'pro', 'business'].includes(k)).map(([planKey, plan]) => (
+          <div class:list={["p-card", plan.hot && "hot"]}>
+            <div class="p-tag">{plan.tag}</div>
+            <ul class="p-items">
+              {plan.items.map((it) => (
+                <li class:list={[it.no && "no"]}>{it}</li>
+              ))}
+            </ul>
+            <div class="p-cta">
+              <a href={`/${lang}/planes/${planKey}`} class:list={[plan.hot ? "p-btn-hot" : "p-btn"]}>
+                → {t("common.backToPlans", { ns: "common" })}
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIOS -->
+  <section id="testimonios" class="site-section testimonios-section" aria-labelledby="testimonios-title">
+    <div class="container">
+      <p class="mono-label">{testimonials.label}</p>
+      <h2 id="testimonios-title" class="big-title">
+        {testimonials.title.split("<br />")[0]}<br />
+        <span class="ghost">{testimonials.title.split("<br />")[1].match(/<span class="ghost">([^<]+)<\/span>/)?.[1]}</span>
+      </h2>
+      <div class="testi-carousel" data-carousel>
+        <div class="testi-track" data-carousel-track>
+          {testimonials.items.map((t, i) => (
+            <article class="t-card" data-carousel-slide={i === 0 ? "active" : undefined}>
+              <div class="t-mark" aria-hidden="true">"</div>
+              <blockquote class="t-text">{t.text}</blockquote>
+              <div class="t-rule" aria-hidden="true"></div>
+              <p class="t-name">{t.name}</p>
+              <p class="t-role">{t.role}</p>
+            </article>
+          ))}
+        </div>
+        <div class="testi-nav" data-carousel-nav>
+          <button type="button" class="testi-arrow" data-carousel-prev aria-label={t("testimonials.prev")}>←</button>
+          <div class="testi-dots" data-carousel-dots></div>
+          <button type="button" class="testi-arrow" data-carousel-next aria-label={t("testimonials.next")}>→</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BRIEFING -->
+  <section id="briefing" class="site-section briefing-cta" aria-labelledby="briefing-title">
+    <div class="container b-cta-inner">
+      <div class="b-cta-left">
+        <p class="mono-label">{briefingCta.label}</p>
+        <h2 id="briefing-title" class="big-title">
+          {briefingCta.title.split("<br />")[0]}<br />
+          <span class="ghost">{briefingCta.title.split("<br />")[1].match(/<span class="ghost">([^<]+)<\/span>/)?.[1]}</span>
+        </h2>
+      </div>
+      <div class="b-cta-right">
+        <p class="b-cta-text">
+          {briefingCta.description}
+        </p>
+        <a href={`/${lang}/briefing`} class="btn-fill">{briefingCta.cta}</a>
+        <p class="b-cta-note">{briefingCta.note}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto" class="site-section contacto-section" aria-labelledby="contacto-title">
+    <div class="container">
+      <p class="mono-label">{contact.label}</p>
+      <div class="cta-wrapper">
+        <div class="cta-left-block">
+          <h2 id="contacto-title" class="big-title">
+            {contact.title.split("<br />")[0]}<br />
+            <span class="ghost">{contact.title.split("<br />")[1].match(/<span class="ghost">([^<]+)<\/span>/)?.[1]}</span><br />
+            {contact.title.split("<br />")[2]}
+          </h2>
+          <p class="cta-intro">
+            {contact.intro}
+          </p>
+          <ContactForm lang={lang} />
+        </div>
+
+        <div class="cta-right-block" aria-label="Por qué elegirnos">
+          <div class="why-title">POR QUÉ<br />ELEGIRNOS</div>
+          <div class="why-list">
+            {why.map((w) => (
+              <div class="why-item">
+                <div class="why-icon" aria-hidden="true">{w.icon}</div>
+                <div class="why-text">
+                  <strong>{w.title}</strong>
+                  {w.text}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</Layout>

@@ -156,7 +156,7 @@
 .svc-section .big-title .ghost { -webkit-text-stroke-width: 1px; }
 .svc-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   gap: 0;
   border: 1px solid var(--color-border-default);
   margin-top: 3rem;

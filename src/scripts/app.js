@@ -7,6 +7,8 @@
  */
 
 /* ── 1. CONFIGURACIÓN ── */
+import { isValidEmail } from './utils.js';
+
 const GOOGLE_SCRIPT_URL =
   'https://script.google.com/macros/s/AKfycbx6ztEHyXH-q6XAYLrruDCD3lAcS2Jf0OHADsIcykl29xJro4azqtCiUh9L0FApDCENag/exec';
 
@@ -48,10 +50,6 @@ function initScrollAnimations() {
 }
 
 /* ── 4. FORMULARIO DE CONTACTO ── */
-function isValidEmail(email) {
-  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
 function setFormState(btn, note, state, message) {
   btn.classList.remove('is-success');
   note.classList.remove('is-error', 'is-success');
@@ -228,14 +226,17 @@ function initContactForm() {
     };
 
     try {
-      await fetch(GOOGLE_SCRIPT_URL, {
+      const res = await fetch(GOOGLE_SCRIPT_URL, {
         method: 'POST',
-        mode: 'no-cors',
-        headers: { 'Content-Type': 'text/plain' },
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
+      if (!res.ok) {
+        throw new Error('Respuesta del servidor: ' + res.status);
+      }
     } catch (err) {
-      console.warn('[SHC Digital] fetch no-cors warning (ignorado):', err);
+      console.warn('[SHC Digital] fetch error:', err);
     }
 
     sessionStorage.setItem(STORAGE_KEY, Date.now().toString());

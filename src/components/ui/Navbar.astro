@@ -66,5 +66,11 @@ const links = [
         toggle.setAttribute("aria-expanded", "false");
       });
     });
+    window.addEventListener("scroll", () => {
+      if (window.scrollY > 100) {
+        menu.classList.remove("open");
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
   }
 </script>

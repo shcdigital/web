@@ -7,21 +7,21 @@ import "../styles/global.css";
 import "../styles/pages.css";
 import Navbar from "../components/ui/Navbar.astro";
 import Footer from "../components/ui/Footer.astro";
+import { getCurrentLanguage } from '../i18n';
+import { languageCodes, getLanguage } from '../i18n/languages';
 
 interface Props {
   title: string;
   description: string;
-  canonical?: string;
-  ogTitle?: string;
-  ogDescription?: string;
-  ogImage?: string;
-  noindex?: boolean;
-  /** Sobre qué enlace del nav se marca como activo ("" = home, "servicios", ...) */
+  canonical: string;
+  ogTitle: string;
+  ogDescription: string;
+  ogImage: string;
+  noindex: boolean;
   activeNav?: string;
-  /** Páginas aisladas (briefing) que no usan el layout del sitio */
   standalone?: boolean;
-  /** Clase extra para <body> (ej: "briefing") */
   bodyClass?: string;
+  lang?: string;
 }
 
 const {
@@ -35,11 +35,27 @@ const {
   activeNav = "",
   standalone = false,
   bodyClass = "",
+  lang = getCurrentLanguage(),
 } = Astro.props;
+
+// Generate alternate URLs for hreflang SEO
+// Strip leading language code from pathname to build neutral base path
+const currentPathname = Astro.url.pathname;
+const pathWithoutLang = currentPathname.replace(/^\/(es|pt|en)(?=\/|$)/, '') || '/';
+const alternates = {};
+for (const langCode of languageCodes) {
+  const locale = getLanguage(langCode).locale;
+  alternates[locale] = `https://shcdigital.net.ar/${langCode}${pathWithoutLang}`;
+}
+alternates['x-default'] = `https://shcdigital.net.ar/es${pathWithoutLang}`;
+
+// Get ogLocale directly from languages definition for extensibility
+const ogLocale = getLanguage(lang).locale;
+const htmlLang = lang === 'es' ? 'es' : lang;
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang={htmlLang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -50,9 +66,14 @@ const {
     <link rel="apple-touch-icon" href="/favicon.png" />
     <link rel="canonical" href={canonical} />
 
+    <!-- Hreflang for SEO -->
+    {#each Object.entries(alternates) as [locale, url]}
+      <link rel="alternate" hreflang={locale} href={url} />
+    {/each}
+
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
-    <meta property="og:locale" content="es_AR" />
+    <meta property="og:locale" content={ogLocale} />
     <meta property="og:site_name" content="SHC Digital" />
     <meta property="og:title" content={ogTitle} />
     <meta property="og:description" content={ogDescription} />
@@ -90,9 +111,9 @@ const {
         <slot name="standalone" />
       ) : (
         <>
-          <Navbar active={activeNav} />
+          <Navbar active={activeNav} lang={lang} />
           <slot />
-          <Footer />
+          <Footer lang={lang} />
         </>
       )
     }

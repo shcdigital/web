@@ -1,0 +1,901 @@
+{
+  "common": {
+    "logo": "SHC<span>.</span>DIGITAL",
+    "navHome": "Início",
+    "navServices": "Serviços",
+    "navProcess": "Processo",
+    "navPlans": "Planos",
+    "navClients": "Acesso Clientes",
+    "navCta": "→ Começar",
+    "footerBrand": "SHC<span>.</span>DIGITAL",
+    "footerCopyright": "© {year} SHC Digital — Todos os direitos reservados",
+    "footerServices": "Serviços",
+    "footerTerms": "Termos",
+    "footerContact": "Contato",
+    "btnFill": "→ Começar",
+    "btnOutline": "Ver processo",
+    "btnSend": "→ ENVIAR BRIEFING",
+    "btnCheckDomain": "Verificar",
+    "backToHome": "← Voltar ao início",
+    "backToTerms": "← Voltar aos termos",
+    "backToPlans": "← Ver todos os planos",
+    "loading": "Carregando...",
+    "required": "*"
+  },
+  "hero": {
+    "tag": "// design web com inteligência artificial",
+    "titleLine1": "SEU",
+    "titleLine2": "SITE",
+    "titleLine3": "WEB",
+    "subLine": "Sem custos mensuais. Para sempre.",
+    "subNote": "Ou escolha um custo mínimo mensal de manutenção, sem complicações.",
+    "description": "Criamos sua presença digital profissional com IA e publicamos no <strong>GitHub Pages</strong>, hosting de nível mundial gratuito. Pague uma única vez. Seu site online para sempre.",
+    "ctaPrimary": "→ Quero meu site",
+    "ctaSecondary": "Ver processo",
+    "stats": {
+      "hosting": {
+        "value": "$",
+        "unit": "0",
+        "label": "Hosting mensal",
+        "desc": "GitHub Pages · Infraestrutura Microsoft"
+      },
+      "delivery": {
+        "value": "72",
+        "unit": "h",
+        "label": "Entrega média",
+        "desc": "Do briefing até o site online"
+      },
+      "payment": {
+        "value": "1",
+        "unit": "×",
+        "label": "Pagamento único",
+        "desc": "Sem assinaturas ou renovações"
+      },
+      "included": {
+        "muted": "SSL · HTTPS · DOMÍNIO PRÓPRIO",
+        "label": "Incluído em todos os planos",
+        "desc": "",
+        "small": true
+      }
+    },
+    "ticker": [
+      "GitHub Pages",
+      "Design com IA",
+      "Pagamento único",
+      "Sem assinaturas",
+      "Domínio próprio",
+      "SSL incluído",
+      "100% responsivo",
+      "Código seu",
+      "72h entrega"
+    ]
+  },
+  "process": {
+    "label": "Processo",
+    "title": "COMO<br /><span class=\"ghost\">FUNCIONA</span>",
+    "steps": [
+      {
+        "n": "01",
+        "chip": "Briefing",
+        "title": "NOSSOS INTEGANTE SEU PROJETO",
+        "desc": "Completar um formulário com dados da sua profissão, serviços e estilo. Sem reuniões. Sem complicações."
+      },
+      {
+        "n": "02",
+        "chip": "Design",
+        "title": "CRIAMOS COM IA",
+        "desc": "Usamos ferramentas de última geração para criar seu site moderno, rápido e personalizado."
+      },
+      {
+        "n": "03",
+        "chip": "Revisão",
+        "title": "AJUSTAMOS JUNTOS",
+        "desc": "Mostramos o resultado e fazemos todas as correções necessárias conforme o plano escolhido."
+      },
+      {
+        "n": "04",
+        "chip": "Deploy",
+        "title": "ONLINE NO GITHUB PAGES",
+        "desc": "Publicamos seu site com domínio próprio e SSL. Hosting profissional gratuito sem custos futuros."
+      }
+    ]
+  },
+  "services": {
+    "label": "Serviços",
+    "title": "TUDO O QUE<br /><span class=\"ghost\">INCORPORA</span>",
+    "description": "Cada projeto entregue com atenção ao detalhe. Sem templates genéricos. Sem atalhos. Tudo incluído desde o plano Starter.",
+    "cta": "→ Começar",
+    "items": [
+      {
+        "n": "01",
+        "chip": "Infraestrutura Legal",
+        "title": "REGISTRO DE DOMÍNIO",
+        "desc": "Orientação técnica e jurídica completa para o registro e delegação de domínios oficiais (.ar ou comerciais). Garantimos a titularidade correta da sua marca na internet desde o primeiro dia."
+      },
+      {
+        "n": "02",
+        "chip": "Identidade Visual",
+        "title": "DESIGN WEB COM IA",
+        "desc": "Interfaces com estética limpa, tipográfica e editorial. Designs minimalistas voltados para profissionais que buscam transmitir sofisticação e clareza absoluta. Sem templates genéricos."
+      },
+      {
+        "n": "03",
+        "chip": "Segurança e DNS",
+        "title": "CLOUDFLARE HARDENING",
+        "desc": "Camadas perimetrais de segurança globais. Registros DNS, firewalls WAF, otimização de cache perimetral e certificados SSL/TLS criptografados de ponta a ponta."
+      },
+      {
+        "n": "04",
+        "chip": "Serverless",
+        "title": "GITHUB PAGES",
+        "desc": "Repositórios com pipelines automatizados. Implantações estáticas com custo de manutenção zero — $0 de hosting mensal — e disponibilidade de servidores de 99,99%.",
+        "extra": "Condições e limites do hosting →"
+      },
+      {
+        "n": "05",
+        "chip": "Automatizações",
+        "title": "FORMULÁRIOS + ALERTAS",
+        "desc": "Integração assíncrona por meio de APIs. Cada consulta salva dados no Google Sheets, notifica por WhatsApp e envia um e-mail de confirmação ao cliente em milissegundos."
+      },
+      {
+        "n": "06",
+        "chip": "WPO & SEO",
+        "title": "CORE WEB VITALS",
+        "desc": "Pontuações próximas a 100% no Google Lighthouse. Minificação de scripts, compressão WebP/AVIF e otimização de renderização crítica para máxima performance e posicionamento."
+      }
+    ]
+  },
+  "plans": {
+    "label": "Planos",
+    "title": "ESCOLHA SEU<br /><span class=\"ghost\">PLANO</span>",
+    "starter": {
+      "tag": "// Starter",
+      "items": [
+        "1 página (landing page)",
+        "Design com IA personalizado",
+        "GitHub Pages + SSL",
+        "Domínio próprio configurado",
+        "2 rodadas de revisão",
+        "Páginas múltiplas",
+        "Formulário de contato",
+        "✗ revisões periódicas"
+      ]
+    },
+    "pro": {
+      "tag": "// Pro — mais escolhido",
+      "items": [
+        "Até 5 seções",
+        "Design com IA premium",
+        "GitHub Pages + SSL",
+        "Domínio próprio configurado",
+        "Formulário de contato",
+        "SEO básico otimizado",
+        "4 rodadas de revisão"
+      ]
+    },
+    "business": {
+      "tag": "// Business",
+      "items": [
+        "Páginas múltiplas",
+        "Design com IA exclusivo",
+        "SEO avançado",
+        "Google Analytics",
+        "Revisões periódicas",
+        "Suporte 30 dias pós-entrega"
+      ]
+    }
+  },
+  "testimonials": {
+    "label": "Depoimentos",
+    "title": "O QUE<br /><span class=\"ghost\">DIZEM</span>",
+    "items": [
+      {
+        "text": "Incrível a qualidade do resultado. Meu site ficou exatamente como eu imaginava e não preciso pagar nada por mês. Recomendo a todos os meus colegas.",
+        "name": "Martina González",
+        "role": "Psicóloga clínica · Buenos Aires"
+      },
+      {
+        "text": "Só de tecnologia entendo de tudo, me assustava muito fazer um site. Mas a verdade me tornou muito fácil, só precisei mostrar minhas artesanías y ellos armaram uma vitrine linda com todo meu catálogo. ¡Quedó impecável e sem nenhún dolor de cabeça!",
+        "name": "Matías M.",
+        "role": "Artesão em madeira e couro"
+      }
+    ],
+    "prev": "Depoimento anterior",
+    "next": "Depoimento seguinte"
+  },
+  "why": [
+    {
+      "icon": "$0/MÊS",
+      "title": "Hosting gratuito permanente",
+      "text": "GitHub Pages não tem custos. Nunca. Seu site online sem pagar nada mensal."
+    },
+    {
+      "icon": "72H",
+      "title": "Entrega ultrarrápida",
+      "text": "Desde que entraram em contato até ter o site online, em média 72 horas."
+    },
+    {
+      "icon": "100%",
+      "title": "O código é seu",
+      "text": "Entregamos tudo. Sem travas. Sem dependências. Seu site vive onde quiser."
+    },
+    {
+      "icon": "IA",
+      "title": "Design de nível profissional",
+      "text": "Inteligência artificial aplicada para criar designs únicos, modernos e de alta qualidade."
+    }
+  ],
+  "briefingCta": {
+    "label": "Briefing",
+    "title": "COMENTE SEU<br /><span class=\"ghost\">PROJETO</span>",
+    "description": "Cada site da SHC começa com um briefing: uma guia rápida onde contamos seu ramo, sua audiência e o estilo que buscamos. São <strong>10 minutos, sem reuniões e sem compromisso</strong>. Com suas respostas criamos uma proposta personalizada e te enviamos em menos de 24 horas. Quanto mais contarmos, mais fino e seu é o design será.",
+    "cta": "→ Completar o briefing",
+    "note": "Somente o nome e o email são obrigatórios"
+  },
+  "contact": {
+    "label": "Contato",
+    "title": "ENTRE EM CONTATO<br /><span class=\"ghost\">E FALEMOS</span><br />SOBRE SUAS IDEIAS",
+    "intro": "Complete o formulário e respondemos em menos de 24 horas com um orçamento sem compromisso."
+  },
+  "briefing": {
+    "title": "Briefing — SHC Digital",
+    "description": "SHC Digital — Briefing para design de site web com IA. Complete este guia e receba seu site projetado sob medida.",
+    "header": {
+      "logo": "SHC<span>.</span>DIGITAL",
+      "tag": "// briefing para design web com IA"
+    },
+    "progress": {
+      "label": "Progresso"
+    },
+    "hero": {
+      "title": "GUIA DE <span class=\"ghost\">PERGUNTAS</span>",
+      "subtitle": "Complete os dados que deseja compartilhar conosco neste formulário para que projetemos juntos suas ideias.",
+      "persuade": "<strong>¿Dúvidas em completar tudo?</strong> Calmo: só o nome e o email são obrigatórios. Mas vem a verdade — quanto mais contarmos, mais fino e seu é o design será. Cada resposta é uma pincelada com a qual pintamos seu site, e as melhores resultados nascem dos briefings mais completos. O seu pode ser o próximo: tome 10 minutos e conte tudo, assim você receberá um site que parece feito por alguém que te conhece de toda a vida."
+    },
+    "sections": {
+      "contact": {
+        "number": "01",
+        "title": "DADOS DE CONTATO",
+        "hint": "dados do cliente",
+        "fields": {
+          "name": {
+            "label": "Nome e sobrenome",
+            "placeholder": "Seu nome completo"
+          },
+          "company": {
+            "label": "Empresa / Marca",
+            "placeholder": "Nome do seu negócio (se tiver)"
+          },
+          "profession": {
+            "label": "Ramificação / Profissão",
+            "placeholder": "Ex: Psicóloga, contador, cabeleireiro..."
+          },
+          "email": {
+            "label": "E-mail",
+            "placeholder": "seu@email.com"
+          },
+          "whatsapp": {
+            "label": "WhatsApp",
+            "placeholder": "+54 9 11 1234-5678"
+          },
+          "city": {
+            "label": "Cidade / País",
+            "placeholder": "Ex: CABA, Argentina"
+          }
+        }
+      },
+      "business": {
+        "number": "02",
+        "title": "SOBRE SEU NEGÓCIO",
+        "hint": "o que vendem e a quem",
+        "fields": {
+          "whatYouDo": {
+            "label": "A que você se dedica?",
+            "placeholder": "Conte-nos em 2 ou 3 frases o que faz e o que oferece..."
+          },
+          "audience": {
+            "label": "A quem você aponta? (público ideal)",
+            "placeholder": "Ex: profissionais de 30-50 anos, proprietários de lojas, clientes da região..."
+          },
+          "valueProp": {
+            "label": "Qual é sua proposta de valor?",
+            "placeholder": "Por que eles devem escolher você e não outro? Ex: atendimento personalizado, 15 anos de experiência, preços únicos..."
+          },
+          "differentiator": {
+            "label": "O que difere você da concorrência?",
+            "placeholder": "Ex: entrega em 48h, atendimento a domicílio, método próprio..."
+          },
+          "objective": {
+            "label": "Objetivo principal do site",
+            "options": [
+              "Atraer clientes e consultas",
+              "Mostrar portfólio / trabalhos",
+              "Vender produtos ou serviços online",
+              "Dar imagem profissional e informação",
+              "Outro"
+            ]
+          },
+          "competition": {
+            "label": "Concorrência (se conhece)",
+            "placeholder": "Ex: SeuEstudio.com.ar, @concorrente no Instagram..."
+          },
+          "references": {
+            "label": "Sites que você gosta (links de referência)",
+            "placeholder": "Cole 1 a 3 links de páginas que goste e conte o que gosta de cada um..."
+          },
+          "socialMedia": {
+            "label": "Em quais redes sociais está sua marca?",
+            "platforms": {
+              "instagram": "Instagram",
+              "x": "X (Twitter)",
+              "facebook": "Facebook",
+              "linkedin": "LinkedIn"
+            },
+            "placeholder": "usuário",
+            "otherLabel": "Outras / links",
+            "otherPlaceholder": "Ex: tiktok.com/suamarca, youtube.com/@suamarca..."
+          }
+        }
+      },
+      "content": {
+        "number": "03",
+        "title": "CONTEÚDO E MARCA",
+        "hint": "textos, fotos e cores",
+        "fields": {
+          "texts": {
+            "label": "Tem os textos do site?",
+            "options": [
+              { "value": "Tenho prontos", "title": "Tenho prontos", "desc": "Vou colar quando pedir" },
+              { "value": "Tenho mas quero aprimorar", "title": "Tenho mas quero aprimorar", "desc": "" },
+              { "value": "Preciso que me ajudem a redigir", "title": "Preciso que me ajudem a redigir", "desc": "Fazemos com IA junto ao design" }
+            ]
+          },
+          "photos": {
+            "label": "Que fotos tem para o site?",
+            "options": [
+              "Fotos profissionais de alta qualidade",
+              "Fotos básicas de celular",
+              "Não tenho — usaremos banco de imagens"
+            ],
+            "uploadLabel": "Envie suas fotos (máximo 3)",
+            "uploadHint": "JPG, PNG ou WebP · máximo 3 arquivos · anexados ao briefing"
+          },
+          "logo": {
+            "label": "Tem logo?",
+            "options": [
+              "Sim, tenho logo",
+              "Não, preciso que me façam",
+              "Não, não preciso"
+            ],
+            "uploadLabel": "Envie seu logo",
+            "uploadHint": "PNG, JPG, SVG ou WebP · anexado ao briefing"
+          },
+          "colors": {
+            "label": "Paleta de cores preferida",
+            "options": [
+              { "value": "Vermelho / laranja — energia e paixão", "title": "Vermelho / laranja — energia e paixão", "desc": "Marcas intensas, gastronomia, esportes" },
+              { "value": "Azul — confiança e profissionalismo", "title": "Azul — confiança e profissionalismo", "desc": "Advogados, finanças, tecnologia" },
+              { "value": "Verde — crescimento e natureza", "title": "Verde — crescimento e natureza", "desc": "Saúde, ecologia, bem-estar" },
+              { "value": "Preto / dourado — elegância e luxo", "title": "Preto / dourado — elegância e luxo", "desc": "Moda, estética, alta gama" },
+              { "value": "Minimalista — branco e neutros", "title": "Minimalista — branco e neutros", "desc": "Limpo, moderno, atemporal" },
+              { "value": "Violeta / rosa — criatividade", "title": "Violeta / rosa — criatividade", "desc": "Design, beleza, públicos jovens" },
+              { "value": "Outro", "title": "Outro / defino depois", "desc": "" }
+            ],
+            "otherLabel": "Conte-nos as cores que têm em mente",
+            "otherPlaceholder": "Ex: azul petróleo e dourado, ou defino com vocês..."
+          },
+          "style": {
+            "label": "Estilo visual que busca",
+            "options": [
+              { "value": "Moderno e tecnológico", "title": "Moderno e tecnológico", "desc": "Audacioso, fontes grandes, animações" },
+              { "value": "Elegante e discreto", "title": "Elegante e discreto", "desc": "Sereno, fino, muitos espaços brancos" },
+              { "value": "Colorido e criativo", "title": "Colorido e criativo", "desc": "Divertido, próximo, chamativo" },
+              { "value": "Clássico e profissional", "title": "Clássico e profissional", "desc": "Tradicional, gera confiança" },
+              { "value": "Não sei — recomende", "title": "Não sei — recomende", "desc": "Definimos juntos segundo seu ramo" }
+            ]
+          },
+          "tone": {
+            "label": "Tom de voz do site",
+            "hint": "É a \"personalidade\" com a qual seu site fala: a forma como redigimos seus textos para que soem como você.",
+            "options": [
+              { "value": "Profissional e formal", "title": "Profissional e formal", "desc": "Transmite confiança, seriedade e experiência" },
+              { "value": "Próximo e amigável", "title": "Próximo e amigável", "desc": "Fala de igual para igual, calor e proximidade" },
+              { "value": "Direto e de venda", "title": "Direto e de venda", "desc": "Ao ponto, convence e chama à ação" },
+              { "value": "Criativo e descontraído", "title": "Criativo e descontraído", "desc": "Original, com personalidade e frescura" },
+              { "value": "Não sei — recomende", "title": "Não sei — recomende", "desc": "Definimos conforme seu ramo e audiência" }
+            ]
+          }
+        }
+      },
+      "structure": {
+        "number": "04",
+        "title": "ESTRUTURA E FUNCIONALIDADES",
+        "hint": "que páginas e extras",
+        "fields": {
+          "siteType": {
+            "label": "Que tipo de site precisa?",
+            "options": [
+              { "value": "Landing page (1 página)", "title": "Landing page (1 página)", "desc": "Plano Starter" },
+              { "value": "Site de até 5 seções", "title": "Site de até 5 seções", "desc": "Plano Pro — mais escolhido" },
+              { "value": "Site multi-página", "title": "Site multi-página", "desc": "Plano Business" },
+              { "value": "Não sei — recomende", "title": "Não sei — recomende", "desc": "" }
+            ]
+          },
+          "sections": {
+            "label": "Que páginas / seções precisa?",
+            "options": [
+              "Início",
+              "Serviços",
+              "Sobre mim / Nós",
+              "Portfólio / Galeria",
+              "Depoimentos",
+              "Preços / Pacotes",
+              "Perguntas frequentes (FAQ)",
+              "Blog",
+              "Contato"
+            ],
+            "extras": {
+              "pricesEdit": "Incluir página de edição e atualização de preços / pacotes",
+              "blogEdit": "Incluir página de edição e atualização de blog"
+            },
+            "otherLabel": "Outras seções não listadas",
+            "otherPlaceholder": "Ex: Agenda online, Mapa, Equipe..."
+          },
+          "contactMode": {
+            "label": "Como você quer que os clientes entem em contato?",
+            "options": [
+              { "value": "Formulário de contato", "title": "Formulário de contato", "desc": "Você recebe as mensagens por e-mail" },
+              { "value": "Botão do WhatsApp", "title": "Botão do WhatsApp", "desc": "Um toque e falam direto pelo WhatsApp" },
+              { "value": "Formulário + WhatsApp", "title": "Formulário + WhatsApp", "desc": "Os dois juntos — recomendado" }
+            ]
+          },
+          "cta": {
+            "label": "Qual é a ação principal que você quer que os visitantes façam?",
+            "options": [
+              "Contactar / pedir orçamento",
+              "Comprar ou reservar online",
+              "Ligar por telefone",
+              "Ver trabalhos / portfólio",
+              "Informar-se / ler conteúdo"
+            ]
+          },
+          "features": {
+            "label": "Funcionalidades extras que precisa",
+            "options": [
+              "Galeria / portfólio com imagens",
+              "Reservas / agendamento",
+              "Botão de pagamento (Mercado Pago, etc.)",
+              "Blog integrado",
+              "Mapa de localização",
+              "Links para redes sociais",
+              "Estatísticas / Google Analytics"
+            ]
+          },
+          "language": {
+            "label": "Idioma do site",
+            "options": [
+              "Espanhol",
+              "Português",
+              "Inglês",
+              "Bilingue (Espanhol + Português)",
+              "Bilingue (Espanhol + Inglês)",
+              "Trilingue (Espanhol + Português + Inglês)"
+            ]
+          }
+        }
+      },
+      "plan": {
+        "number": "05",
+        "title": "PLANO E PRAZOS",
+        "hint": "como avançamos",
+        "fields": {
+          "plan": {
+            "label": "Qual plano escolheu?",
+            "options": [
+              { "value": "Starter — 1 página", "title": "Starter — 1 página", "desc": "Landing page + 2 rodadas de revisão" },
+              { "value": "Pro — até 5 seções (mais escolhido)", "title": "Pro — até 5 seções", "desc": "Formulário + SEO básico + 4 rodadas" },
+              { "value": "Business — multi-página", "title": "Business — multi-página", "desc": "SEO avançado + Analytics + suporte 30 dias" },
+              { "value": "Não sei — recomende", "title": "Não sei — recomende", "desc": "Escolhemos juntos conforme sua necessidade" }
+            ]
+          },
+          "deadline": {
+            "label": "Para quando precisa?",
+            "options": [
+              "Com urgência (menos de 72h)",
+              "Em 1 a 2 semanas",
+              "Sem pressa"
+            ]
+          },
+          "domain": {
+            "label": "Já tem domínio? Verifique se está disponível",
+            "placeholder": "sastrabalho",
+            "tlds": [".com.ar", ".net.ar", ".ar"],
+            "checkButton": "Verificar"
+          }
+        }
+      },
+      "notes": {
+        "number": "06",
+        "title": "NOTAS ADICIONAIS",
+        "hint": "tudo que faltar",
+        "fields": {
+          "notes": {
+            "label": "Algo mais que devemos saber",
+            "placeholder": "Ideias, exemplos, mensagens que você quer que o site diga, frases de marca..."
+          }
+        }
+      }
+    },
+    "submit": {
+      "button": "→ ENVIAR BRIEFING",
+      "note": "Somente nome e e-mail são obrigatórios · quanto mais completar, melhor o resultado",
+      "emailNote": "| chega a shcdigitalsolutions@gmail.com"
+    },
+    "toast": {
+      "success": "Enviado. Obrigado por confiar em nós!"
+    },
+    "footer": "SHC Digital — Design web com IA · <a href=\"/\">shcdigital.net.ar</a>"
+  },
+  "planDetail": {
+    "starter": {
+      "tag": "// planos · 1 página",
+      "name": "PLANO STARTER",
+      "ghost": "PARA COMEÇAR",
+      "description": "Presença profissional em uma única página. A forma mais simples de estar online: ideal para validar uma ideia, lançar uma campanha ou dar identidade digital ao seu trabalho.",
+      "ideal": "Ideal para profissionais e empreendedores que estão começando: presença clara e profissional, sem pagar demais.",
+      "price": "USD 100",
+      "listPrice": "USD 250",
+      "priceText": "investimento único · pagamento único",
+      "chips": ["Pagamento único", "Entrega ~72h", "SSL + domínio próprio", "Código seu"],
+      "includes": [
+        {
+          "n": "01",
+          "chip": "Site",
+          "title": "1 PÁGINA (LANDING PAGE)",
+          "desc": "Uma página única com hero, proposta de valor e seus dados de contato. Perfeito para validar uma ideia, lançar uma campanha ou dar identidade digital ao seu trabalho."
+        },
+        {
+          "n": "02",
+          "chip": "Design",
+          "title": "DESIGN COM IA PERSONALIZADO",
+          "desc": "Nada de templates genéricos. Seu design é gerado sob medida conforme seu ramo, cores e estilo, com a estética limpa e tipográfica de SHC."
+        },
+        {
+          "n": "03",
+          "chip": "Hosting",
+          "title": "GITHUB PAGES + SSL",
+          "desc": "Publicação no GitHub Pages: hosting de nível mundial com certificado HTTPS. Sem servidores a pagar: $0 por mês, para sempre."
+        },
+        {
+          "n": "04",
+          "chip": "Domínio",
+          "title": "DOMÍNIO PRÓPRIO CONFIGURADO",
+          "desc": "Apontamos seu domínio (seunome.com.ar) e deixamos funcionando com DNS, verificação e HTTPS. Sua marca na internet desde o primeiro dia."
+        },
+        {
+          "n": "05",
+          "chip": "Revisão",
+          "title": "2 RODADAS DE REVISÃO",
+          "desc": "Duas instâncias de ajustes sobre o design para deixar tudo como você imaginou."
+        },
+        {
+          "n": "06",
+          "chip": "Qualidade",
+          "title": "100% RESPONSIVE + SEO BÁSICO",
+          "desc": "Desenhado do celular: vê perfeito em qualquer tela. Estrutura, meta e velocidade otimizadas para aparecer no Google."
+        }
+      ],
+      "notIncludes": [
+        "Páginas múltiplas",
+        "Formulário de contato (o contato é por WhatsApp ou e-mail)",
+        "Revisões periódicas de conteúdo",
+        "SEO avançado e Google Analytics",
+        "Blog, reservas, galeria ou outras funcionalidades"
+      ],
+      "note": "Precisa de mais? Adicionamos qualquer extra — como formulário, blog ou galeria — ao seu orçamento.",
+      "ctaPrimary": "→ Completar o briefing",
+      "ctaSecondary": "← Ver todos os planos"
+    },
+    "pro": {
+      "tag": "// planos · até 5 seções",
+      "name": "PLANO PRO",
+      "ghost": "O MAIS ESCOLHIDO",
+      "description": "Um site completo em uma única página bem organizada. Tudo o que seu negócio precisa para se mostrar, gerar consultas e ser encontrado no Google.",
+      "ideal": "A opção mais escolhida: um site completo, bem organizado e pensado para converter visitas em consultas.",
+      "price": "USD 160",
+      "listPrice": "USD 400",
+      "priceText": "investimento único · pagamento único",
+      "chips": ["Pagamento único", "Formulário incluído", "SEO incluído", "Entrega ~72h"],
+      "includes": [
+        {
+          "n": "01",
+          "chip": "Site",
+          "title": "ATÉ 5 SEÇÕES",
+          "desc": "Hero, serviços, preços, depoimentos, contato... tudo o que seu negócio precisa em uma página bem organizada que guia o visitante até a consulta."
+        },
+        {
+          "n": "02",
+          "chip": "Design",
+          "title": "DESIGN COM IA PREMIUM",
+          "desc": "Mais profundidade e detalhe em cada bloco. Um trabalho polido em um nível superior, sempre sob medida."
+        },
+        {
+          "n": "03",
+          "chip": "Hosting",
+          "title": "GITHUB PAGES + SSL",
+          "desc": "Publicação com hosting de nível mundial e certificado HTTPS. Sem custos mensais: $0 por mês, para sempre."
+        },
+        {
+          "n": "04",
+          "chip": "Domínio",
+          "title": "DOMÍNIO PRÓPRIO CONFIGURADO",
+          "desc": "Apontamos seu domínio e deixamos rodando com DNS e HTTPS. Sua marca, com seu próprio endereço."
+        },
+        {
+          "n": "05",
+          "chip": "Conversão",
+          "title": "FORMULÁRIO DE CONTATO",
+          "desc": "Um formulário que chega direto ao seu e-mail (com aviso ao WhatsApp se desejar). Seus clientes escrevem sem intermediários."
+        },
+        {
+          "n": "06",
+          "chip": "SEO",
+          "title": "SEO BÁSICO OTIMIZADO",
+          "desc": "Otimização por palavras-chave e estrutura para posicionar melhor e aparecer quando procurado."
+        },
+        {
+          "n": "07",
+          "chip": "Revisão",
+          "title": "4 RODADAS DE REVISÃO",
+          "desc": "O dobro de instâncias de ajuste que o Starter: mais margem para deixar tudo perfeito."
+        }
+      ],
+      "notIncludes": [
+        "Páginas múltiplas (o plano é em uma única página com até 5 seções)",
+        "SEO avançado e Google Analytics",
+        "Revisões periódicas e suporte contínuo",
+        "Blog, reservas, galeria ou outras funcionalidades"
+      ],
+      "note": "Ficou curto? Adicionamos blog, galeria ou páginas adicionais ao seu orçamento.",
+      "ctaPrimary": "→ Completar o briefing",
+      "ctaSecondary": "← Ver todos os planos"
+    },
+    "business": {
+      "tag": "// planos · múltiplas páginas",
+      "name": "PLANO BUSINESS",
+      "ghost": "MÁXIMA PROJECÇÃO",
+      "description": "O site completo da sua empresa. Várias páginas, conteúdo que cresce e medição real: a máxima projeção para sua marca.",
+      "ideal": "Para empresas e marcas que querem um site institucional completo, com conteúdo que cresce e métricas reais.",
+      "price": "USD 320",
+      "listPrice": "USD 800",
+      "priceText": "investimento único · pagamento único",
+      "chips": ["Pagamento único", "Google Analytics", "Revisões periódicas", "Suporte 30 dias"],
+      "includes": [
+        {
+          "n": "01",
+          "chip": "Site",
+          "title": "MÚLTIPLAS PÁGINAS",
+          "desc": "Início, serviços, sobre nós, blog, contato... um site institucional com áreas bem definidas e navegação profissional."
+        },
+        {
+          "n": "02",
+          "chip": "Design",
+          "title": "DESIGN COM IA EXCLUSIVO",
+          "desc": "Um trabalho sob medida com mais alcance e personalidade da marca, pensado para projetos que querem impor presença."
+        },
+        {
+          "n": "03",
+          "chip": "Hosting",
+          "title": "GITHUB PAGES + SSL",
+          "desc": "Hosting de nível mundial com certificado HTTPS. Sem custos mensais: $0 por mês, para sempre."
+        },
+        {
+          "n": "04",
+          "chip": "Domínio",
+          "title": "DOMÍNIO PRÓPRIO CONFIGURADO",
+          "desc": "Apontamos seu domínio e deixamos funcionando com DNS e HTTPS. Sua marca, com seu próprio endereço."
+        },
+        {
+          "n": "05",
+          "chip": "SEO",
+          "title": "SEO AVANÇADO",
+          "desc": "Plano de conteúdos e otimização editorial para posicionar forte e sustentar o crescimento no Google."
+        },
+        {
+          "n": "06",
+          "chip": "Analítica",
+          "title": "GOOGLE ANALYTICS",
+          "desc": "Métricas de visitas integradas desde o primeiro dia: você sabe quem visita, de onde vem e o que olha."
+        },
+        {
+          "n": "07",
+          "chip": "Conteúdo",
+          "title": "REVISÕES PERIÓDICAS",
+          "desc": "Ajustes e atualizações de conteúdo durante o período acordado, para que o site esteja sempre atualizado."
+        },
+        {
+          "n": "08",
+          "chip": "Suporte",
+          "title": "SUPORTE 30 DIAS PÓS-ENTREGA",
+          "desc": "Acompanhamento durante o primeiro mês para começar sem dúvidas e resolver qualquer questão."
+        }
+      ],
+      "notIncludes": [
+        "Manutenção mensal contínua (cotamos separado)",
+        "E-commerce / carrinho com passarelha de pagamento (cotamos separado)",
+        "Redesign completo de marca (logo + manual) — cotamos separado"
+      ],
+      "note": "Precisa de e-commerce ou manutenção mensal? Cotamos separado, sem letras mumaria.",
+      "ctaPrimary": "→ Completar o briefing",
+      "ctaSecondary": "← Ver todos os planos"
+    },
+    "common": {
+      "label": "Comparar",
+      "title": "OUTROS<br /><span class=\"ghost\">PLANOS</span>",
+      "ctaLabel": "Começar hoje",
+      "ctaTitle": "PRONTO PARA<br /><span class=\"ghost\">COMEÇAR?</span>",
+      "ctaDesc": "Complete o briefing e enviamos uma proposta em menos de 24 horas.",
+      "ctaButton": "→ Completar o briefing"
+    }
+  },
+  "servicesPage": {
+    "label": "// soluções digitais",
+    "title": "SERVIÇOS<br /><span class=\"ghost\">ESPECIALIZADOS</span>",
+    "description": "Infraestrutura web de alta velocidade e design minimalista. Eliminamos a complexidade técnica para que sua identidade digital funcione sem interrupções e sem custos mensais.",
+    "sectionLabel": "O que fazemos",
+    "sectionTitle": "TUDO O QUE<br /><span class=\"ghost\">INCORPORA</span>",
+    "ctaLabel": "Começar hoje",
+    "ctaTitle": "PRONTO PARA<br /><span class=\"ghost\">COMEÇAR?</span>",
+    "ctaDesc": "Conte seu projeto e te preparamos uma proposta em menos de 24 horas.",
+    "ctaButton": "→ Consultar agora",
+    "githubPagesLink": "Condições e limites do hosting →"
+  },
+  "terms": {
+    "title": "Termos e Condições — SHC Digital",
+    "description": "Termos e Condições de SHC Digital — Marco legal e contratual.",
+    "label": "// marco legal e contratual",
+    "titleMain": "TERMOS E<br /><span class=\"ghost\">CONDIÇÕES</span>",
+    "descriptionMain": "Por favor, leia atentamente as condições que regulam a prestação de serviços de desenvolvimento web e implantação de infraestrutura digital.",
+    "date": "// Última atualização <span>—</span> Maio 2026",
+    "sectionTitle": "ARTÍCULOS<br /><span class=\"ghost\">LEGAIS</span>",
+    "articles": [
+      {
+        "n": "01",
+        "chip": "Objeto",
+        "title": "OBJETO E ESCOPO DO SERVIÇO",
+        "body": [
+          "Este documento constitui o contrato de prestação de serviços entre o Desenvolvedor (em diante, <strong>SHC Digital</strong>) e o Solicitante (em diante, o <strong>Cliente</strong>). O serviço limita-se ao design visual, maquetagem estática, programação frontend e configuração de infraestrutura perimetral básica especificada na proposta comercial aceita."
+        ]
+      },
+      {
+        "n": "02",
+        "chip": "Conteúdos",
+        "title": "RESPONSABILIDADE PELA INFORMAÇÃO",
+        "body": [
+          "De acordo com os princípios de boa-fé contratual regulados no <strong>Artigo 961 do CCyCN</strong>, o Cliente é o único e exclusivo responsável pela veracidade, exactidão, licitude e direitos de propriedade intelectual de toda a informação, textos, marcas, logotipos e imagens transferidas para SHC Digital.",
+          "SHC Digital não audita os conteúdos fornecidos, mantendo-se isenta de responsabilidade civil, penal ou comercial perante reclamações por infrações à Lei N° 11.723, leis de marcas ou difusão de informação falsa."
+        ]
+      },
+      {
+        "n": "03",
+        "chip": "Implantação",
+        "title": "DECISÃO PÓS-IMPLANTAÇÃO",
+        "body": [
+          "A obrigação de SHC Digital é de <strong>meios e não de resultado</strong>. Uma vez aprovado e implantado o site, <strong>cederá toda responsabilidade técnica e jurídica de SHC Digital</strong> sobre o mesmo (<strong>Art. 958 do CCyCN</strong>).",
+          "SHC Digital mantém-se deslindado de responsabilidade por danos decorrentes de:"
+        ],
+        "list": [
+          "Quedas ou falhas na infraestrutura de terceiros (GitHub Pages, Cloudflare, etc.).",
+          "Vencimento, perda de controle ou má gestão do domínio por parte do Cliente.",
+          "Modificações no código fonte ou registros DNS realizadas pelo Cliente ou terceiros não autorizados.",
+          "Interrupções em APIs de terceiros empregados para automatizações e formulários."
+        ]
+      },
+      {
+        "n": "04",
+        "chip": "Segurança",
+        "title": "AMBIENTE DE SEGURANÇA",
+        "body": [
+          "As configurações em Cloudflare e GitHub Pages são realizadas seguindo boas práticas de hardening (SSL/TLS, WAF básico). O Cliente reconhece que na internet não existe segurança absoluta. SHC Digital não será responsável por ataques cibernéticos ou vazamentos que ultrapassem os limitiares configurados, entendendo como caso fortuito ou fuerza maior tecnológica (<strong>Art. 1730 do CCyCN</strong>)."
+        ]
+      },
+      {
+        "n": "05",
+        "chip": "Jurisdição",
+        "title": "JURDIÇÃO E LEI APLICÁVEL",
+        "body": [
+          "Este contrato regula-se exclusivamente pelas leis vigentes da <strong>República Argentina</strong>. Qualquer controvérsia será submetida à jurisdição dos Tribunais Ordinários competentes, renunciando as partes a qualquer outro foro ou jurisdição que possa lhes corresponder."
+        ]
+      },
+      {
+        "n": "06",
+        "chip": "Anexo",
+        "title": "USO COMERCIAL DE GITHUB PAGES",
+        "body": [
+          "Este anexo detalha as condições, características e limites técnicos aplicáveis aos sites hospedados em <strong>GitHub Pages</strong> mediante conta pessoal gratuita utilizada para projetos com fins comerciais ou profissionais.",
+          "Ver <a href=\"/github-pages\">Anexo: Uso de contas pessoais do GitHub e hospedagem no GitHub Pages →</a>"
+        ]
+      }
+    ],
+    "backButton": "← Voltar ao início"
+  },
+  "githubPages": {
+    "title": "Anexo: GitHub Pages — SHC Digital",
+    "description": "Anexo de Termos e Condições: uso de contas pessoais do GitHub e hospedagem no GitHub Pages com fins comerciais.",
+    "label": "// anexo técnico e legal",
+    "titleMain": "GITHUB PAGES<br /><span class=\"ghost\">USO COMERCIAL</span>",
+    "descriptionMain": "Anexo de Termos e Condições: uso de contas pessoais do GitHub e hospedagem no GitHub Pages com fins comerciais.",
+    "date": "// Anexo — <span>Maio 2026</span>",
+    "sectionTitle": "CONDICÕES<br /><span class=\"ghost\">E LÍMITES</span>",
+    "articles": [
+      {
+        "n": "01",
+        "chip": "Contas",
+        "title": "USO COMERCIAL DE CONTAS PESSOAIS",
+        "body": [
+          "<strong>Permissões de uso:</strong> os Termos de Serviço do GitHub permitem, de forma explícita, que uma conta pessoal gratuita execute projetos com fins comerciais. Não existe penalização ou cobro obrigatório por operar um site comercial ou repositório privado sob esta modalidade.",
+          "<strong>Propriedade e independência:</strong> o projeto e o código fonte são hospedados sob a conta do cliente. Se, no futuro, o projeto requer escalar a um esquema corporativo, a conta ou o repositório podem migrar-se sem interrupção do serviço para uma Organização do GitHub."
+        ]
+      },
+      {
+        "n": "02",
+        "chip": "Uso aceitável",
+        "title": "HOSPITALAGEM NO GITHUB PAGES: CONDIÇÕES",
+        "body": [
+          "GitHub Pages é um serviço projetado para servir <strong>páginas web estáticas</strong> (HTML, CSS, JavaScript e imagens). Seu uso para sites comerciais está sujeito às seguintes diretrizes:"
+        ],
+        "list": [
+          "<strong>Sites aceitos:</strong> sites corporativos informativos, portfólios profissionais, páginas de aterrisagem (landing pages), catálogos digitais e blogs de marca.",
+          "<strong>Restrições comerciais (uso prohibido):</strong> GitHub Pages não está projetado para operar como uma plataforma de comércio eletrônico massivo (e-commerce com passarelas de pagamento transacionais complexas gerenciadas no mesmo servidor), nem para revender serviços de hospedagem ou alojar aplicações como software como serviço (SaaS)."
+        ]
+      },
+      {
+        "n": "03",
+        "chip": "Limites",
+        "title": "LÍMITES TÉCNICOS DO SERVIÇO GRATUITO",
+        "body": [
+          "O uso do serviço dentro do plano gratuito do GitHub inclui as seguintes capacidades máximas por repositório e site publicado:"
+        ],
+        "list": [
+          "<strong>Largura de banda (tráfego):</strong> 100 GB por mês — suficiente para milhares de visitas mensais em um site otimizado.",
+          "<strong>Tamanho do site publicado:</strong> máximo 1 GB — aplica-se aos arquivos desplegados da página web.",
+          "<strong>Tamanho do repositório:</strong> máximo 1 GB (recomendado) — limite do código fonte salvo no GitHub.",
+          "<strong>Compilações (builds):</strong> máximo 10 implantações por hora — aplica-se a publicar ou atualizar o conteúdo do site.",
+          "<strong>Minutos de CI/CD (Actions):</strong> 2.000 minutos por mês — tempo atribuído para automatizar atualizações ou testes."
+        ],
+        "note": "<strong>Nota sobre os limites:</strong> se um site ultrapassar de forma recorrente o limite de largura de banda (100 GB/mês) ou o armazenamento, o GitHub não aplica imediatamente uma cobrança surpresa, mas pode suspender temporariamente o serviço dos GitHub Pages ou enviar uma notificação para otimizar o conteúdo ou migrar para um servidor dedicado."
+      },
+      {
+        "n": "04",
+        "chip": "Manutenção",
+        "title": "RESPONSABILIDADES E RECOMENDAÇÕES",
+        "body": [
+          "Para garantir a continuidade e o correto funcionamento do site publicado, recomemda-se considerar os seguintes pontos:"
+        ],
+        "list": [
+          "<strong>Domínio personalizado:</strong> para dar um perfil comercial adequado, recomemra-se vincular um domínio próprio (exemplo: <a href=\"https://www.suacliente.com\" rel=\"noopener\" target=\"_blank\">www.suacliente.com</a>). A configuração de registros DNS e a emissão do certificado de segurança SSL/TLS não geram custo adicional no GitHub.",
+          "<strong>Resgate de conteúdos:</strong> as imagens de muito alta resolução ou arquivos pesados (como vídeos ou PDFs volumosos) devem ser hospedados em serviços de armazenamento externos (como Google Drive, AWS S3 ou Cloudinary) para não saturar os limites do GitHub Pages.",
+          "<strong>Perda ou modificação de acesso:</strong> o cliente é o único responsável por manter a segurança e as credenciais de sua conta do GitHub, incluindo o acesso ao seu e-mail e a autenticação em dois fatores (2FA)."
+        ]
+      },
+      {
+        "n": "05",
+        "chip": "Documentação",
+        "title": "LINKS OFICIAIS DO GITHUB",
+        "body": [
+          "Para mais informações sobre as políticas oficiais, podem ser consultadas as seguintes recursos da documentação oficial do GitHub:"
+        ],
+        "list": [
+          "<strong>Termos de Serviço Gerais do GitHub:</strong><br /><a href=\"https://docs.github.com/es/site-policy/github-terms/github-terms-of-service\" rel=\"noopener\" target=\"_blank\">docs.github.com/es/site-policy/github-terms/github-terms-of-service</a>",
+          "<strong>Política de Uso Aceitável do GitHub Pages:</strong><br /><a href=\"https://docs.github.com/es/site-policy/content-and-conduct-terms/github-pages-acceptable-use-policy\" rel=\"noopener\" target=\"_blank\">docs.github.com/es/site-policy/content-and-conduct-terms/github-pages-acceptable-use-policy</a>",
+          "<strong>Limtes e usos do GitHub Pages (Sobre o GitHub Pages):</strong><br /><a href=\"https://docs.github.com/es/pages/getting-started-with-github-pages/about-github-pages\" rel=\"noopener\" target=\"_blank\">docs.github.com/es/pages/getting-started-with-github-pages/about-github-pages</a>"
+        ]
+      }
+    ],
+    "backButton": "← Voltar aos termos"
+  },
+  "languageSwitcher": {
+    "label": "Idioma",
+    "ariaLabel": "Seleccionar idioma"
+  }
+}

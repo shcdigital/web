@@ -1,0 +1,44 @@
+---
+// src/pages/[lang]/servicios.astro
+import Layout from "../../layouts/Layout.astro";
+import Hero from "../../components/ui/Hero.astro";
+import ContactForm from "../../components/ui/ContactForm.astro";
+import { t, tNs } from "../../i18n";
+
+const servicios = tNs("services");
+const why = tNs("why");
+
+const data = {
+  label: servicios.label,
+  title: servicios.title,
+  description: servicios.description,
+  items: servicios.items,
+};
+---
+<Layout
+  title={t("common.logo")}
+  description="SHC Digital — Diseño web profesional con IA"
+  canonical={`${domain}/servicios`}
+  lang={lang}
+  slug="servicios"
+>
+  <Hero stats={{}} ticker={[]} />
+
+  <section id="servicios" class="site-section" aria-labelledby="servicios-title">
+    <div class="container">
+      <p class="mono-label">{data.label}</p>
+      <h2 id="servicios-title" class="big-title">{data.title}</h2>
+      <p>{data.description}</p>
+
+      <div class="serv-grid">
+        {data.items.map((s) => (
+          <div class="serv-card">
+            <div class="serv-icon">[ {s.n} ] {s.chip}</div>
+            <h3 class="serv-title">{s.title}</h3>
+            <p class="serv-desc">{s.desc}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>

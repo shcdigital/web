@@ -1,0 +1,473 @@
+---
+// src/pages/[lang]/briefing.astro
+// Briefing page for each language
+
+import Layout from "../../layouts/Layout.astro";
+import { t, tNs } from "../../i18n";
+import { isValidLanguage, defaultLanguage } from "../../i18n/languages";
+
+export async function getStaticPaths() {
+  const { languageCodes } = await import("../../i18n/languages");
+  return languageCodes.map(lang => ({
+    params: { lang },
+    props: { lang }
+  }));
+}
+
+const { lang } = Astro.props;
+
+// Validate language
+if (!lang || !isValidLanguage(lang)) {
+  throw new Astro.Error({
+    status: 404,
+    message: `Page not found for language: ${lang}`
+  });
+}
+
+// Set current language for translation system
+import { setLanguage } from "../../i18n";
+setLanguage(lang);
+
+// Load translations for the language
+import { loadTranslations } from "../../i18n";
+await loadTranslations(lang);
+
+const briefing = tNs("briefing");
+
+// Get domain from environment or default
+const domain = "https://shcdigital.net.ar";
+---
+<Layout
+  title={briefing.title}
+  description={briefing.description}
+  canonical={`${domain}/${lang}/briefing/`}
+  lang={lang}
+  standalone
+  bodyClass="briefing"
+>
+  <Fragment slot="standalone">
+    <!-- �� ═�═�═�═ CABECERA FIJA �� ═�═�═�═ -->
+    <header class="b-header">
+      <div class="b-header-row">
+        <a class="b-logo" href={`/${lang}/`}>SHC<span>.</span>DIGITAL</a>
+        <div class="b-tag">// briefing para diseño web con IA</div>
+      </div>
+      <div class="b-progress-wrap">
+        <div class="b-progress-label">
+          <span>Progreso</span><span id="progressPct">0%</span>
+        </div>
+        <div class="b-progress-bar"><div class="b-progress-fill" id="progressFill"></div></div>
+      </div>
+    </header>
+
+    <!-- �� ═�═�═�═ FORMULARIO �� ═�═�═�═ -->
+    <main class="b-wrap">
+      <!-- Hero -->
+      <section class="b-hero" aria-labelledby="b-title">
+        <h1 class="b-title" id="b-title">{briefing.hero.title}</h1>
+        <p class="b-sub">{briefing.hero.subtitle}</p>
+        <div class="b-persuade" set:html={briefing.hero.persuade} />
+      </div>
+
+      <form id="briefingForm" novalidate>
+        <!-- Honeypot anti-spam propio -->
+        <div class="hp" aria-hidden="true">
+          <label for="hp-web">Sitio web</label>
+          <input type="text" id="hp-web" name="website" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <!-- �� ═�═�═�═ SECCIÓN 1 · DATOS DE CONTACTO �� ═�═�═�═ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">01</span>
+            <h2 class="b-section-title">{briefing.sections.contact.title}</h2>
+            <span class="b-section-hint">{briefing.sections.contact.hint}</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field">
+              <label class="f-label" for="in-nombre">{briefing.sections.contact.fields.name.label} <span class="req">*</span></label>
+              <input class="f-input" type="text" id="in-nombre" name="nombre" placeholder={briefing.sections.contact.fields.name.placeholder} autocomplete="name" required />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-empresa">{briefing.sections.contact.fields.company.label}</label>
+              <input class="f-input" type="text" id="in-empresa" name="empresa" placeholder={briefing.sections.contact.fields.company.placeholder} autocomplete="organization" />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-rubro">{briefing.sections.contact.fields.profession.label}</label>
+              <input class="f-input" type="text" id="in-rubro" name="rubro" placeholder={briefing.sections.contact.fields.profession.placeholder} autocomplete="organization-title" />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-email">{briefing.sections.contact.fields.email.label} <span class="req">*</span></label>
+              <input class="f-input" type="email" id="in-email" name="email" placeholder={briefing.sections.contact.fields.email.placeholder} autocomplete="email" required />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-whatsapp">{briefing.sections.contact.fields.whatsapp.label}</label>
+              <input class="f-input" type="tel" id="in-whatsapp" name="whatsapp" placeholder={briefing.sections.contact.fields.whatsapp.placeholder} autocomplete="tel" />
+            </div>
+            <div class="f-field">
+              <label class="f-label" for="in-ciudad">{briefing.sections.contact.fields.city.label}</label>
+              <input class="f-input" type="text" id="in-ciudad" name="ciudad" placeholder={briefing.sections.contact.fields.city.placeholder} />
+            </div>
+          </div>
+        </section>
+
+        <!-- �� ═�═�═�═ SECCIÓN 2 · SOBRE TU NEGOCIO �� ═�═�═�═ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">02</span>
+            <h2 class="b-section-title">{briefing.sections.business.title}</h2>
+            <span class="b-section-hint">{briefing.sections.business.hint}</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.business.fields.whatYouDo.label}</label>
+              <textarea class="f-textarea" id="in-quehaces" name="que_haces" placeholder={briefing.sections.business.fields.whatYouDo.placeholder}></textarea>
+            </div>
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.business.fields.audience.label}</label>
+              <textarea class="f-textarea" id="in-audiencia" name="audiencia" placeholder={briefing.sections.business.fields.audience.placeholder}></textarea>
+            </div>
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.business.fields.valueProp.label}</label>
+              <textarea class="f-textarea" id="in-valor" name="valor" placeholder={briefing.sections.business.fields.valueProp.placeholder}></textarea>
+            </div>
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.business.fields.differentiator.label}</label>
+              <textarea class="f-textarea" id="in-diferencial" name="diferencial" placeholder={briefing.sections.business.fields.differentiator.placeholder}></textarea>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.business.fields.objective.label}</label>
+              <div class="opt-group">
+                {briefing.sections.business.fields.objective.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="objetivo" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span></span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.business.fields.competition.label}</label>
+              <input class="f-input" type="text" id="in-competencia" name="competencia" placeholder={briefing.sections.business.fields.competition.placeholder} />
+            </div>
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.business.fields.references.label}</label>
+              <textarea class="f-textarea" id="in-referencias" name="referencias" placeholder={briefing.sections.business.fields.references.placeholder}></textarea>
+            </div>
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.business.fields.socialMedia.label}</label>
+              <div class="redes-group">
+                {Object.entries(briefing.sections.business.fields.socialMedia.platforms).map(([key, label]) => (
+                  <>
+                    <div class="red-row">
+                      <label class="opt red-opt"><input type="checkbox" name="redes" value={key} /><span class="opt-body"><span class="opt-title">{label}</span></span></label>
+                      <input class="f-input red-user" type="text" name={`red_user_${key}`} placeholder={briefing.sections.business.fields.socialMedia.placeholder} autocomplete="off" />
+                    </div>
+                  </>
+                ))}
+              </div>
+              <div class="redes-otras">
+                <label class="f-label" for="in-redes-otras">{briefing.sections.business.fields.socialMedia.otherLabel}</label>
+                <input class="f-input" type="text" id="in-redes-otras" name="redes_otras" placeholder={briefing.sections.business.fields.socialMedia.otherPlaceholder} />
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- �� ═�═�═�═ SECCIÓN 3 · CONTENIDO Y MARCA �� ═�═�═�═ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">03</span>
+            <h2 class="b-section-title">{briefing.sections.content.title}</h2>
+            <span class="b-section-hint">{briefing.sections.content.hint}</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.content.fields.texts.label}</label>
+              <div class="opt-group">
+                {briefing.sections.content.fields.texts.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="textos" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
+                  </label>
+                ))}
+              </div>
+              <div class="upload-box" id="fotos-upload" hidden>
+                <label class="f-label upload-label" for="in-fotos-file">{briefing.sections.content.fields.photos.uploadLabel}</label>
+                <input class="f-input" type="file" id="in-fotos-file" name="fotos_files" accept="image/*" multiple />
+                <div class="upload-previews" id="fotos-previews" hidden></div>
+                <p class="upload-hint">{briefing.sections.content.fields.photos.uploadHint}</p>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.content.fields.photos.label}</label>
+              <div class="opt-group">
+                {briefing.sections.content.fields.photos.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="fotos" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span></span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.content.fields.logo.label}</label>
+              <div class="opt-group">
+                {briefing.sections.content.fields.logo.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="logo" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span></span>
+                  </label>
+                ))}
+              </div>
+              <div class="upload-box" id="logo-upload" hidden>
+                <label class="f-label upload-label" for="in-logo-file">{briefing.sections.content.fields.logo.uploadLabel}</label>
+                <input class="f-input" type="file" id="in-logo-file" name="logo_file" accept="image/*" />
+                <div class="upload-previews" id="logo-previews" hidden></div>
+                <p class="upload-hint">{briefing.sections.content.fields.logo.uploadHint}</p>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.content.fields.colors.label}</label>
+              <div class="opt-group">
+                {briefing.sections.content.fields.colors.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="colores" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
+                  </label>
+                ))}
+                <div class="opt-sub" id="colores-otro-box" hidden>
+                  <label class="f-label" for="in-colores-otro">{briefing.sections.content.fields.colors.otherLabel}</label>
+                  <input class="f-input" type="text" id="in-colores-otro" name="colores_otro" placeholder={briefing.sections.content.fields.colors.otherPlaceholder} />
+                </div>
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.content.fields.style.label}</label>
+              <div class="opt-group">
+                {briefing.sections.content.fields.style.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="estilo" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.content.fields.tone.label}</label>
+              <p class="f-hint">{briefing.sections.content.fields.tone.hint}</p>
+              <div class="opt-group">
+                {briefing.sections.content.fields.tone.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="tono" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- �� ═�═�═�═ SECCIÓN 4 · ESTRUCTURA Y FUNCIONALIDADES �� ═�═�═�═ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">04</span>
+            <h2 class="b-section-title">{briefing.sections.structure.title}</h2>
+            <span class="b-section-hint">{briefing.sections.structure.hint}</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.structure.fields.siteType.label}</label>
+              <div class="opt-group">
+                {briefing.sections.structure.fields.siteType.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="tipo_sitio" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.structure.fields.sections.label}</label>
+              <div class="opt-group">
+                {briefing.sections.structure.fields.sections.options.map((option) => (
+                  <label class="opt">
+                    <input type="checkbox" name="secciones" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span></span>
+                  </label
+                ))}
+                {briefing.sections.structure.fields.sections.extras.pricesEdit && (
+                  <div class="opt-sub" id="precios-edit-box" hidden>
+                    <label class="opt"><input type="checkbox" name="precios_edicion" value={briefing.sections.structure.fields.sections.extras.pricesEdit.value} />
+                      <span class="opt-body"><span class="opt-title">{briefing.sections.structure.fields.sections.extras.pricesEdit.title}</span></span>
+                    </label>
+                  </div>
+                )}
+                {briefing.sections.structure.fields.sections.extras.blogEdit && (
+                  <div class="opt-sub" id="blog-edit-box" hidden>
+                    <label class="opt"><input type="checkbox" name="blog_edicion" value={briefing.sections.structure.fields.sections.extras.blogEdit.value} />
+                      <span class="opt-body"><span class="opt-title">{briefing.sections.structure.fields.sections.extras.blogEdit.title}</span></span>
+                    </label>
+                  </div>
+                )}
+                {briefing.sections.structure.fields.sections.options.map((option) => (
+                  !["Inicio", "Servicios", "Sobre mí / Nosotros", "Portfolio / Galería", "Testimonios", "Precios / Paquetes", "Preguntas frecuentes (FAQ)", "Blog", "Contacto"].includes(option.value) && (
+                    <label class="opt">
+                      <input type="checkbox" name="secciones" value={option.value} />
+                      <span class="opt-body"><span class="opt-title">{option.title}</span></span>
+                    </label>
+                  )
+                ))}
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label" for="in-sec-otras">{briefing.sections.structure.fields.contactMode.label}</label>
+              <input class="f-input" type="text" id="in-sec-otras" name="secciones_otras" placeholder={briefing.sections.structure.fields.contactMode.placeholder} />
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.structure.fields.contactMode.label}</label>
+              <div class="opt-group">
+                {briefing.sections.structure.fields.contactMode.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="contacto_modo" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
+                  </label>
+                ))}
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.structure.fields.cta.label}</label>
+              <div class="opt-group">
+                {briefing.sections.structure.fields.cta.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="cta" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span></span>
+                  </label
+                ))}
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.structure.fields.features.label}</label>
+              <div class="opt-group">
+                {briefing.sections.structure.fields.features.options.map((option) => (
+                  <label class="opt">
+                    <input type="checkbox" name="funcionalidades" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span></span>
+                  </label
+                ))}
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.structure.fields.language.label}</label>
+              <div class="opt-group">
+                {briefing.sections.structure.fields.language.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="idioma" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span></span>
+                  </label
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- �� ═�═�═�═ SECCIÓN 5 · PLAN Y PLAZOS �� ═�═�═�═ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">05</span>
+            <h2 class="b-section-title">{briefing.sections.plan.title}</h2>
+            <span class="b-section-hint">{briefing.sections.plan.hint}</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.plan.fields.plan.label}</label>
+              <div class="opt-group">
+                {briefing.sections.plan.fields.plan.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="plan" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
+                  </label
+                ))}
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.plan.fields.plazo.label}</label>
+              <div class="opt-group">
+                {briefing.sections.plan.fields.plazo.options.map((option) => (
+                  <label class="opt">
+                    <input type="radio" name="plazo" value={option.value} />
+                    <span class="opt-body"><span class="opt-title">{option.title}</span></span>
+                  </label
+                ))}
+              </div>
+            </div>
+
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.plan.fields.domain.label}</label>
+              <div class="domain-check">
+                <input class="f-input dom-name" type="text" id="in-dominio" name="dominio" placeholder={briefing.sections.plan.fields.domain.placeholder} autocomplete="off" />
+                <select class="f-select dom-tld" id="dom-tld" aria-label="Extensión del dominio">
+                  {briefing.sections.plan.fields.domain.tlds.map((tld) => (
+                    <option value={tld}>{tld}</option>
+                  ))}
+                </select>
+                <button type="button" class="dom-btn" id="btnCheckDomain">{briefing.sections.plan.fields.domain.checkButton}</button>
+              </div>
+              <p class="dom-result" id="domResult" role="status" aria-live="polite"></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- �� ═�═�═�═ SECCIÓN 6 · NOTAS �� ═�═�═�═ -->
+        <section class="b-section">
+          <div class="b-section-head">
+            <span class="b-section-n">06</span>
+            <h2 class="b-section-title">{briefing.sections.notes.title}</h2>
+            <span class="b-section-hint">{briefing.sections.notes.hint}</span>
+          </div>
+          <div class="b-grid">
+            <div class="f-field full">
+              <label class="f-label">{briefing.sections.notes.fields.notes.label}</label>
+              <textarea class="f-textarea" id="in-notas" name="notas" placeholder={briefing.sections.notes.fields.notes.placeholder}></textarea>
+            </div>
+          </div>
+        </section>
+
+        <!-- �� ═�═�═�═ ENVIAR �� ═�═�═�═ -->
+        <div class="b-submit">
+          <button type="submit" class="btn-send" id="btnSend">
+            {briefing.sections.submit.button}
+            <span class="mono-note">{briefing.sections.submit.emailNote}</span>
+          </button>
+          <p class="b-note" id="bNote" role="status" aria-live="polite">
+            {briefing.sections.submit.note}
+          </p>
+        </div>
+      </form>
+
+      <!-- Globo de éxito (lo único que ve el cliente al enviar) -->
+      <div class="b-toast" id="bToast" role="status" aria-live="polite">
+        <span class="b-toast-check" aria-hidden="true">��✓</span>
+        <span class="b-toast-text">{briefing.sections.toast.success}</span>
+      </div>
+    </main>
+
+    <footer class="b-footer">
+      <p>SHC Digital — Diseño web con IA · <a href={`/${lang}/`}>shcdigital.net.ar</a></p>
+    </footer>
+  </Fragment>
+</Layout>
