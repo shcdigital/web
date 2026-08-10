@@ -1,12 +1,15 @@
 ---
 // src/components/ui/Navbar.astro
-// Nav fija de SHC Digital con menú móvil accesible (aria-expanded).
+// Nav fija de SHC Digital con menú móvil accesible (aria-expanded) y selector de idioma
+
+import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher.astro';
 
 interface Props {
   active?: string;
+  lang?: string;
 }
 
-const { active = "" } = Astro.props;
+const { active = "", lang = "es" } = Astro.props;
 
 const links = [
   { label: "Inicio", href: "/", id: "" },
