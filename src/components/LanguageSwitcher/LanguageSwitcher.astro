@@ -28,7 +28,7 @@ const getLanguageName = (code: string): string => names[code] || names.es;
     aria-haspopup="listbox"
     aria-expanded="false"
   >
-    <span class="flag" aria-hidden="true">{getFlagCode(lang)}</span>
+    <span class="flag" aria-hidden="true" id="geo-flag">{getFlagCode(lang)}</span>
     <span class="label">{lang.toUpperCase()}</span>
     <span class="icon" aria-hidden="true">▼</span>
   </button>
@@ -50,6 +50,61 @@ const getLanguageName = (code: string): string => names[code] || names.es;
 </div>
 
 <script>
+  import {
+    detectCountry,
+    langForCountry,
+    ccToFlag,
+    hasManualPick,
+    markManualPick,
+    getCachedCountry,
+    cacheCountry,
+  } from "../../lib/geo";
+
+  const LANGS = ["es", "pt", "en"];
+
+  const currentLang = () => {
+    const seg = location.pathname.split("/").filter(Boolean)[0];
+    if (seg && LANGS.includes(seg)) return seg;
+    return document.documentElement.lang || "es";
+  };
+
+  // Primer ingreso: detecta el país, muestra su bandera y, si el idioma no
+  // coincide, redirige a /<lang>/ conservando la misma página (si la hay).
+  const applyGeo = async () => {
+    if (hasManualPick()) return; // el usuario ya eligió idioma a mano
+    let cc = getCachedCountry();
+    if (!cc) {
+      cc = await detectCountry();
+      if (!cc) return;
+      cacheCountry(cc);
+    }
+    const lang = langForCountry(cc);
+    if (!lang) return;
+    const flagEl = document.getElementById("geo-flag");
+    if (flagEl) flagEl.textContent = ccToFlag(cc);
+    const here = currentLang();
+    if (here === lang) return;
+    const segs = location.pathname.split("/").filter(Boolean);
+    let dest;
+    if (segs[0] && LANGS.includes(segs[0])) {
+      segs[0] = lang;
+      dest = "/" + segs.join("/") + (location.pathname.endsWith("/") ? "/" : "");
+    } else {
+      dest = "/" + lang + "/";
+    }
+    location.replace(dest);
+  };
+
+  applyGeo().catch(() => {});
+
+  // Elección manual: ignorar la geo a partir de ahora.
+  document.querySelectorAll("#lang-menu .menu-item").forEach((el) => {
+    el.addEventListener("click", () => {
+      const code = (el.getAttribute("href") || "").split("/").filter(Boolean)[0];
+      if (LANGS.includes(code)) markManualPick(code);
+    });
+  });
+
   const toggle = document.getElementById("lang-toggle");
   const menu = document.getElementById("lang-menu");
   if (toggle && menu) {
