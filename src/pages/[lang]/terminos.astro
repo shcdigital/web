@@ -1,0 +1,84 @@
+---
+// src/pages/[lang]/terminos.astro
+// Términos y Condiciones por idioma (es/pt/en). Contenido desde el namespace "terms".
+
+import Layout from "../../layouts/Layout.astro";
+import GhostTitle from "../../components/ui/GhostTitle.astro";
+import { setLanguage, loadTranslations, tNs } from "../../i18n";
+import type { EsTranslations } from "../../i18n";
+
+export async function getStaticPaths() {
+  const { languageCodes } = await import("../../i18n/languages");
+  return languageCodes.map((lang) => ({ params: { lang }, props: { lang } }));
+}
+
+const { lang } = Astro.props;
+
+setLanguage(lang);
+await loadTranslations(lang);
+
+const terms = tNs<EsTranslations["terms"]>("terms");
+
+// Los enlaces internos de las listas (anexo) deben apuntar al idioma activo.
+const localize = (html: string): string =>
+  html
+    .replace(/href="\/github-pages"/g, `href="/${lang}/github-pages"`)
+    .replace(/href="\/terminos"/g, `href="/${lang}/terminos"`);
+
+const domain = "https://shcdigital.net.ar";
+---
+<Layout
+  title={terms.title}
+  description={terms.description}
+  canonical={`${domain}/${lang}/terminos`}
+  lang={lang}
+  slug="terminos"
+>
+  <header class="page-header">
+    <div class="container">
+      <p class="mono-label">{terms.label}</p>
+      <h1 class="big-title"><GhostTitle title={terms.titleMain} /></h1>
+      <p class="page-header-desc">{terms.descriptionMain}</p>
+    </div>
+  </header>
+
+  <main>
+    <section class="legal-section" aria-labelledby="legal-h">
+      <div class="container">
+        <div class="date-chip" set:html={terms.date} />
+
+        <h2 id="legal-h" class="big-title"><GhostTitle title={terms.sectionTitle} /></h2>
+
+        <div class="legal-grid">
+          {
+            terms.articles.map((a) => (
+              <div class="proc-step">
+                <div class="legal-left">
+                  <div class="proc-n" aria-hidden="true">{a.n}</div>
+                  <span class="proc-chip">{a.chip}</span>
+                </div>
+                <div>
+                  <h3 class="proc-title">{a.title}</h3>
+                  <div class="legal-body-text">
+                    {a.body.map((p) => <p set:html={localize(p)} />)}
+                    {
+                      a.list && (
+                        <ul>
+                          {a.list.map((li) => <li set:html={localize(li)} />)}
+                        </ul>
+                      )
+                    }
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+
+        <div class="back-cta">
+          <a href={`/${lang}/`} class="btn-fill">{terms.backButton}</a>
+        </div>
+      </div>
+    </section>
+  </main>
+</Layout>

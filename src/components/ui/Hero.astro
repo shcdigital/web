@@ -1,8 +1,21 @@
 ---
 // src/components/ui/Hero.astro
 // Hero de la home — título, subtítulo, CTAs y panel lateral de stats.
+// Todo el contenido sale del namespace "hero" del idioma activo.
 
-interface Stat {
+import { setLanguage, loadTranslations, tNs } from '../../i18n';
+import type { EsTranslations } from '../../i18n';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+
+setLanguage(lang);
+await loadTranslations(lang);
+
+interface SideStat {
   value?: string;
   unit?: string;
   label: string;
@@ -11,37 +24,30 @@ interface Stat {
   small?: boolean;
 }
 
-interface Props {
-  stats: Stat[];
-  ticker: string[];
-}
-
-const { stats, ticker } = Astro.props;
+const hero = tNs<EsTranslations["hero"]>("hero");
+const stats = Object.values(hero.stats) as SideStat[];
+const ticker = hero.ticker;
 ---
 
 <div class="hero" role="banner">
   <div class="hero-main">
     <div class="hero-text-block">
-      <p class="hero-tag">// diseño web con inteligencia artificial</p>
+      <p class="hero-tag">{hero.tag}</p>
       <h1 class="hero-h1">
-        TU<br />
-        <span class="outline">SITIO</span><br />
-        <span class="red">WEB</span>
+        {hero.titleLine1}<br />
+        <span class="outline">{hero.titleLine2}</span><br />
+        <span class="red">{hero.titleLine3}</span>
       </h1>
-      <p class="hero-sub-line">Sin costos mensuales. Para siempre.</p>
-      <p class="hero-sub-note">O elegí un costo mínimo mensual de mantenimiento, sin vueltas.</p>
-      <p class="hero-desc">
-        Diseñamos tu presencia profesional online con IA y la publicamos en
-        <strong>GitHub Pages</strong>, hosting gratuito de nivel mundial. Pagás una sola vez.
-        Tu sitio online para siempre.
-      </p>
+      <p class="hero-sub-line">{hero.subLine}</p>
+      <p class="hero-sub-note">{hero.subNote}</p>
+      <p class="hero-desc" set:html={hero.description} />
       <div class="hero-btns">
-        <a href="/#contacto" class="btn-fill">→ Quiero mi sitio</a>
-        <a href="/#proceso" class="btn-outline">Ver proceso</a>
+        <a href={`/${lang}/#contacto`} class="btn-fill">{hero.ctaPrimary}</a>
+        <a href={`/${lang}/#proceso`} class="btn-outline">{hero.ctaSecondary}</a>
       </div>
     </div>
 
-    <aside class="hero-side" aria-label="Estadísticas clave">
+    <aside class="hero-side" aria-label={hero.statsAria}>
       {
         stats.map((s) => (
           <div class:list={["side-stat", s.small && "side-stat--sm"]}>

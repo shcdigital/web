@@ -26,8 +26,6 @@ setLanguage(lang);
 await loadTranslations(lang);
 
 const hero = tNs<EsTranslations["hero"]>("hero");
-const stats = Object.values(hero.stats);
-const ticker = hero.ticker;
 const process = tNs<EsTranslations["process"]>("process");
 const services = tNs<EsTranslations["services"]>("services");
 const plans = tNs<EsTranslations["plans"]>("plans");
@@ -57,7 +55,7 @@ const domain = "https://shcdigital.net.ar";
   slug="index"
 >
 
-  <Hero stats={stats} ticker={ticker} />
+  <Hero lang={lang} />
 
   <!-- PROCESO -->
   <section id="proceso" class="site-section proceso-section" aria-labelledby="proceso-title">
