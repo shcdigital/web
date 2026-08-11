@@ -5,6 +5,7 @@
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/ui/Hero.astro";
 import ContactForm from "../../components/ui/ContactForm.astro";
+import GhostTitle from "../../components/ui/GhostTitle.astro";
 import { setLanguage, loadTranslations, t, tNs } from "../../i18n";
 import type { EsTranslations } from "../../i18n";
 
@@ -63,12 +64,7 @@ const domain = "https://shcdigital.net.ar";
     <div class="container">
       <p class="mono-label">{process.label}</p>
       <h2 id="proceso-title" class="big-title">
-        {process.title.split("<br />").map((line, i) => (
-          <>
-            {i > 0 && <span class="ghost">{process.title.split("<br />")[i-1].split('<span class="ghost">')[1]?.split('</span>')[0] || ''}</span>}
-            {line}
-          </>
-        ))}
+        <GhostTitle title={process.title} />
       </h2>
       <div class="proc-grid">
         {process.steps.map((p) => (
@@ -89,12 +85,7 @@ const domain = "https://shcdigital.net.ar";
       <div class="serv-sticky">
         <p class="mono-label">{services.label}</p>
         <h2 id="servicios-title" class="big-title">
-          {services.title.split("<br />").map((line, i) => (
-            <>
-              {i > 0 && <span class="ghost">{services.title.split("<br />")[i-1].split('<span class="ghost">')[1]?.split('</span>')[0] || ''}</span>}
-              {line}
-            </>
-          ))}
+          <GhostTitle title={services.title} />
         </h2>
         <p>{services.description}</p>
         <a href={`/#${lang}-contacto`} class="btn-fill">{services.cta}</a>
@@ -116,8 +107,7 @@ const domain = "https://shcdigital.net.ar";
     <div class="container">
       <p class="mono-label">{plans.label}</p>
       <h2 id="precios-title" class="big-title">
-        {plans.title.split("<br />")[0]}<br />
-        <span class="ghost">{plans.title.split("<br />")[1].match(/<span class="ghost">([^<]+)<\/span>/)?.[1]}</span>
+        <GhostTitle title={plans.title} />
       </h2>
       <div class="price-layout">
         {planCards.map(([planKey, plan]) => (
@@ -144,8 +134,7 @@ const domain = "https://shcdigital.net.ar";
     <div class="container">
       <p class="mono-label">{testimonials.label}</p>
       <h2 id="testimonios-title" class="big-title">
-        {testimonials.title.split("<br />")[0]}<br />
-        <span class="ghost">{testimonials.title.split("<br />")[1].match(/<span class="ghost">([^<]+)<\/span>/)?.[1]}</span>
+        <GhostTitle title={testimonials.title} />
       </h2>
       <div class="testi-carousel" data-carousel>
         <div class="testi-track" data-carousel-track>
@@ -174,14 +163,11 @@ const domain = "https://shcdigital.net.ar";
       <div class="b-cta-left">
         <p class="mono-label">{briefingCta.label}</p>
         <h2 id="briefing-title" class="big-title">
-          {briefingCta.title.split("<br />")[0]}<br />
-          <span class="ghost">{briefingCta.title.split("<br />")[1].match(/<span class="ghost">([^<]+)<\/span>/)?.[1]}</span>
+          <GhostTitle title={briefingCta.title} />
         </h2>
       </div>
       <div class="b-cta-right">
-        <p class="b-cta-text">
-          {briefingCta.description}
-        </p>
+        <p class="b-cta-text" set:html={briefingCta.description}></p>
         <a href={`/${lang}/briefing`} class="btn-fill">{briefingCta.cta}</a>
         <p class="b-cta-note">{briefingCta.note}</p>
       </div>
@@ -195,9 +181,7 @@ const domain = "https://shcdigital.net.ar";
       <div class="cta-wrapper">
         <div class="cta-left-block">
           <h2 id="contacto-title" class="big-title">
-            {contact.title.split("<br />")[0]}<br />
-            <span class="ghost">{contact.title.split("<br />")[1].match(/<span class="ghost">([^<]+)<\/span>/)?.[1]}</span><br />
-            {contact.title.split("<br />")[2]}
+            <GhostTitle title={contact.title} />
           </h2>
           <p class="cta-intro">
             {contact.intro}

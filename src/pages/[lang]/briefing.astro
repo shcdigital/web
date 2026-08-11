@@ -3,6 +3,7 @@
 // Briefing page for each language
 
 import Layout from "../../layouts/Layout.astro";
+import GhostTitle from "../../components/ui/GhostTitle.astro";
 import { setLanguage, loadTranslations, tNs } from "../../i18n";
 import type { EsTranslations } from "../../i18n";
 
@@ -67,7 +68,7 @@ const resolveOptions = (options: unknown): { value: string; title: string; desc?
     <main class="b-wrap">
       <!-- Hero -->
       <section class="b-hero" aria-labelledby="b-title">
-        <h1 class="b-title" id="b-title">{briefing.hero.title}</h1>
+        <h1 class="b-title" id="b-title"><GhostTitle title={briefing.hero.title} /></h1>
         <p class="b-sub">{briefing.hero.subtitle}</p>
         <div class="b-persuade" set:html={briefing.hero.persuade} />
       </section>

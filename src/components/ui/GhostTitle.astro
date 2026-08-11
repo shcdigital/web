@@ -1,0 +1,34 @@
+---
+// src/components/ui/GhostTitle.astro
+// Renderiza títulos de i18n que contienen <br /> y <span class="ghost">…</span>.
+
+interface Props {
+  title: string;
+}
+
+const { title } = Astro.props;
+
+interface TitleLine {
+  prefix: string;
+  ghost: string | null;
+  suffix: string;
+}
+
+const lines: TitleLine[] = title.split("<br />").map((line) => {
+  const match = line.match(/^(.*?)<span class="ghost">([^<]*)<\/span>(.*)$/);
+  return match
+    ? { prefix: match[1], ghost: match[2], suffix: match[3] }
+    : { prefix: line, ghost: null, suffix: "" };
+});
+---
+
+{
+  lines.map((line, i) => (
+    <Fragment>
+      {i > 0 && <br />}
+      {line.prefix}
+      {line.ghost !== null && <span class="ghost">{line.ghost}</span>}
+      {line.suffix}
+    </Fragment>
+  ))
+}

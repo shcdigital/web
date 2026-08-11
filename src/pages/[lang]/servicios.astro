@@ -2,6 +2,7 @@
 // src/pages/[lang]/servicios.astro
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/ui/Hero.astro";
+import GhostTitle from "../../components/ui/GhostTitle.astro";
 import { setLanguage, loadTranslations, tNs } from "../../i18n";
 import type { EsTranslations } from "../../i18n";
 
@@ -20,11 +21,12 @@ setLanguage(lang);
 await loadTranslations(lang);
 
 const servicios = tNs<EsTranslations["services"]>("services");
+const page = tNs<EsTranslations["servicesPage"]>("servicesPage");
 
 const domain = "https://shcdigital.net.ar";
 ---
 <Layout
-  title={servicios.title}
+  title={page.title.replace(/<[^>]*>/g, "")}
   description="SHC Digital — Diseño web profesional con IA"
   canonical={`${domain}/${lang}/servicios`}
   lang={lang}
@@ -34,9 +36,9 @@ const domain = "https://shcdigital.net.ar";
 
   <section id="servicios" class="site-section" aria-labelledby="servicios-title">
     <div class="container">
-      <p class="mono-label">{servicios.label}</p>
-      <h2 id="servicios-title" class="big-title">{servicios.title}</h2>
-      <p>{servicios.description}</p>
+      <p class="mono-label">{page.label}</p>
+      <h2 id="servicios-title" class="big-title"><GhostTitle title={page.title} /></h2>
+      <p>{page.description}</p>
 
       <div class="serv-grid">
         {servicios.items.map((s) => (
