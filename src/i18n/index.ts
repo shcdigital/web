@@ -5,8 +5,15 @@
 
 import type { LanguageCode } from './languages.js';
 
-// Translation keys type - will be inferred from JSON files
-export type TranslationKeys = Record<string, string | Record<string, unknown>>;
+// Translation value type - recursive JSON tree (strings, numbers, booleans,
+// nested objects and arrays), inferred from the JSON files
+export type TranslationValue = string | number | boolean | TranslationValue[] | { [key: string]: TranslationValue };
+export type TranslationKeys = Record<string, TranslationValue>;
+
+// Type of the Spanish translation file, used to type tNs() results per namespace
+// With `with { type: 'json' }`, TS types JSON modules with the JSON keys as
+// named exports (no `default`), so the module namespace IS the JSON object.
+export type EsTranslations = typeof import('./es.json');
 
 let translationsCache: Record<LanguageCode, TranslationKeys> = {
   es: {},
@@ -39,8 +46,16 @@ export async function loadTranslations(lang: LanguageCode): Promise<TranslationK
   }
 
   try {
-    const module = await import(`./${lang}.json`);
-    translationsCache[lang] = module.default as TranslationKeys;
+    // Dynamic import with JSON assertion. TS types `.json` modules structurally
+    // (default + named exports) which never matches the runtime shape exactly,
+    // so pin the shape with an explicit assertion.
+    const modules: Record<LanguageCode, () => Promise<{ default?: TranslationKeys }>> = {
+      es: () => import('./es.json', { with: { type: 'json' } }) as unknown as Promise<{ default?: TranslationKeys }>,
+      pt: () => import('./pt.json', { with: { type: 'json' } }) as unknown as Promise<{ default?: TranslationKeys }>,
+      en: () => import('./en.json', { with: { type: 'json' } }) as unknown as Promise<{ default?: TranslationKeys }>,
+    };
+    const loaded = await modules[lang]();
+    translationsCache[lang] = loaded.default ?? (loaded as unknown as TranslationKeys);
     return translationsCache[lang];
   } catch {
     // Fallback to Spanish if translation not found
@@ -112,24 +127,21 @@ export function tHtml(key: string, options?: { fallback?: string; lang?: Languag
 }
 
 /**
- * Get all translations for a namespace
- * Usage: t.ns('hero') → { title: '...', subtitle: '...', ... }
+ * Get all translations for a namespace (full JSON tree)
+ * Usage: t.ns('hero') → { title: '...', subtitle: '...', items: [...] }
+ * Generic T: pass the namespace type for type safety, e.g.
+ *   tNs<EsTranslations['hero']>('hero')
+ * Without a generic it returns `any` (templates index nested JSON freely).
  */
-export function tNs(namespace: string, lang?: LanguageCode): Record<string, string> {
+export function tNs<T = any>(namespace: string, lang?: LanguageCode): T {
   const targetLang = lang ?? currentLang;
   const translations = translationsCache[targetLang] ?? translationsCache.es;
   const ns = translations[namespace];
 
   if (ns && typeof ns === 'object') {
-    const result: Record<string, string> = {};
-    for (const [key, value] of Object.entries(ns)) {
-      if (typeof value === 'string') {
-        result[key] = value;
-      }
-    }
-    return result;
+    return ns as T;
   }
-  return {};
+  return {} as T;
 }
 
 // Default language constant for internal use

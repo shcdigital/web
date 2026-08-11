@@ -2,36 +2,44 @@
 // src/pages/[lang]/servicios.astro
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/ui/Hero.astro";
-import ContactForm from "../../components/ui/ContactForm.astro";
-import { t, tNs } from "../../i18n";
+import { setLanguage, loadTranslations, tNs } from "../../i18n";
+import type { EsTranslations } from "../../i18n";
 
-const servicios = tNs("services");
-const why = tNs("why");
+export async function getStaticPaths() {
+  const { languageCodes } = await import("../../i18n/languages");
+  return languageCodes.map(lang => ({
+    params: { lang },
+    props: { lang }
+  }));
+}
 
-const data = {
-  label: servicios.label,
-  title: servicios.title,
-  description: servicios.description,
-  items: servicios.items,
-};
+const { lang } = Astro.props;
+
+setLanguage(lang);
+
+await loadTranslations(lang);
+
+const servicios = tNs<EsTranslations["services"]>("services");
+
+const domain = "https://shcdigital.net.ar";
 ---
 <Layout
-  title={t("common.logo")}
+  title={servicios.title}
   description="SHC Digital — Diseño web profesional con IA"
-  canonical={`${domain}/servicios`}
+  canonical={`${domain}/${lang}/servicios`}
   lang={lang}
   slug="servicios"
 >
-  <Hero stats={{}} ticker={[]} />
+  <Hero stats={[]} ticker={[]} />
 
   <section id="servicios" class="site-section" aria-labelledby="servicios-title">
     <div class="container">
-      <p class="mono-label">{data.label}</p>
-      <h2 id="servicios-title" class="big-title">{data.title}</h2>
-      <p>{data.description}</p>
+      <p class="mono-label">{servicios.label}</p>
+      <h2 id="servicios-title" class="big-title">{servicios.title}</h2>
+      <p>{servicios.description}</p>
 
       <div class="serv-grid">
-        {data.items.map((s) => (
+        {servicios.items.map((s) => (
           <div class="serv-card">
             <div class="serv-icon">[ {s.n} ] {s.chip}</div>
             <h3 class="serv-title">{s.title}</h3>

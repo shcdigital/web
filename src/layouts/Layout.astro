@@ -14,14 +14,15 @@ interface Props {
   title: string;
   description: string;
   canonical: string;
-  ogTitle: string;
-  ogDescription: string;
-  ogImage: string;
-  noindex: boolean;
+  ogTitle?: string;
+  ogDescription?: string;
+  ogImage?: string;
+  noindex?: boolean;
   activeNav?: string;
   standalone?: boolean;
   bodyClass?: string;
   lang?: string;
+  slug?: string;
 }
 
 const {
@@ -42,7 +43,7 @@ const {
 // Strip leading language code from pathname to build neutral base path
 const currentPathname = Astro.url.pathname;
 const pathWithoutLang = currentPathname.replace(/^\/(es|pt|en)(?=\/|$)/, '') || '/';
-const alternates = {};
+const alternates: Record<string, string> = {};
 for (const langCode of languageCodes) {
   const locale = getLanguage(langCode).locale;
   alternates[locale] = `https://shcdigital.net.ar/${langCode}${pathWithoutLang}`;
@@ -67,9 +68,9 @@ const htmlLang = lang === 'es' ? 'es' : lang;
     <link rel="canonical" href={canonical} />
 
     <!-- Hreflang for SEO -->
-    {#each Object.entries(alternates) as [locale, url]}
+    {Object.entries(alternates).map(([locale, url]) => (
       <link rel="alternate" hreflang={locale} href={url} />
-    {/each}
+    ))}
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />

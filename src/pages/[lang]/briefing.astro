@@ -3,8 +3,8 @@
 // Briefing page for each language
 
 import Layout from "../../layouts/Layout.astro";
-import { t, tNs } from "../../i18n";
-import { isValidLanguage, defaultLanguage } from "../../i18n/languages";
+import { setLanguage, loadTranslations, tNs } from "../../i18n";
+import type { EsTranslations } from "../../i18n";
 
 export async function getStaticPaths() {
   const { languageCodes } = await import("../../i18n/languages");
@@ -16,26 +16,29 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.props;
 
-// Validate language
-if (!lang || !isValidLanguage(lang)) {
-  throw new Astro.Error({
-    status: 404,
-    message: `Page not found for language: ${lang}`
-  });
-}
-
 // Set current language for translation system
-import { setLanguage } from "../../i18n";
 setLanguage(lang);
 
 // Load translations for the language
-import { loadTranslations } from "../../i18n";
 await loadTranslations(lang);
-
-const briefing = tNs("briefing");
 
 // Get domain from environment or default
 const domain = "https://shcdigital.net.ar";
+
+// Resolve briefing namespace - typed against the Spanish JSON structure
+const briefing = tNs<EsTranslations["briefing"]>("briefing");
+
+// Helper: convert string options array to {value, title} objects
+// Object options ({value, title, desc}) pass through unchanged
+const resolveOptions = (options: unknown): { value: string; title: string; desc?: string }[] => {
+  if (!Array.isArray(options) || options.length === 0) return [];
+  if (typeof options[0] === 'string') {
+    // JSON has plain strings → convert to {value, title} objects
+    return (options as string[]).map(opt => ({ value: opt, title: opt }));
+  }
+  // JSON already has objects with value/title
+  return options as { value: string; title: string; desc?: string }[];
+};
 ---
 <Layout
   title={briefing.title}
@@ -49,12 +52,12 @@ const domain = "https://shcdigital.net.ar";
     <!-- �� ═�═�═�═ CABECERA FIJA �� ═�═�═�═ -->
     <header class="b-header">
       <div class="b-header-row">
-        <a class="b-logo" href={`/${lang}/`}>SHC<span>.</span>DIGITAL</a>
-        <div class="b-tag">// briefing para diseño web con IA</div>
+        <a class="b-logo" href={`/${lang}/`}><span set:html={briefing.header.logo} /></a>
+        <div class="b-tag">{briefing.header.tag}</div>
       </div>
       <div class="b-progress-wrap">
         <div class="b-progress-label">
-          <span>Progreso</span><span id="progressPct">0%</span>
+          <span>{briefing.progress.label}</span><span id="progressPct">0%</span>
         </div>
         <div class="b-progress-bar"><div class="b-progress-fill" id="progressFill"></div></div>
       </div>
@@ -67,7 +70,7 @@ const domain = "https://shcdigital.net.ar";
         <h1 class="b-title" id="b-title">{briefing.hero.title}</h1>
         <p class="b-sub">{briefing.hero.subtitle}</p>
         <div class="b-persuade" set:html={briefing.hero.persuade} />
-      </div>
+      </section>
 
       <form id="briefingForm" novalidate>
         <!-- Honeypot anti-spam propio -->
@@ -139,7 +142,7 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.business.fields.objective.label}</label>
               <div class="opt-group">
-                {briefing.sections.business.fields.objective.options.map((option) => (
+                {resolveOptions(briefing.sections.business.fields.objective.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="objetivo" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span></span>
@@ -187,7 +190,7 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.content.fields.texts.label}</label>
               <div class="opt-group">
-                {briefing.sections.content.fields.texts.options.map((option) => (
+                {resolveOptions(briefing.sections.content.fields.texts.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="textos" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
@@ -205,7 +208,7 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.content.fields.photos.label}</label>
               <div class="opt-group">
-                {briefing.sections.content.fields.photos.options.map((option) => (
+                {resolveOptions(briefing.sections.content.fields.photos.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="fotos" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span></span>
@@ -217,7 +220,7 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.content.fields.logo.label}</label>
               <div class="opt-group">
-                {briefing.sections.content.fields.logo.options.map((option) => (
+                {resolveOptions(briefing.sections.content.fields.logo.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="logo" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span></span>
@@ -235,7 +238,7 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.content.fields.colors.label}</label>
               <div class="opt-group">
-                {briefing.sections.content.fields.colors.options.map((option) => (
+                {resolveOptions(briefing.sections.content.fields.colors.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="colores" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
@@ -251,7 +254,7 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.content.fields.style.label}</label>
               <div class="opt-group">
-                {briefing.sections.content.fields.style.options.map((option) => (
+                {resolveOptions(briefing.sections.content.fields.style.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="estilo" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
@@ -264,7 +267,7 @@ const domain = "https://shcdigital.net.ar";
               <label class="f-label">{briefing.sections.content.fields.tone.label}</label>
               <p class="f-hint">{briefing.sections.content.fields.tone.hint}</p>
               <div class="opt-group">
-                {briefing.sections.content.fields.tone.options.map((option) => (
+                {resolveOptions(briefing.sections.content.fields.tone.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="tono" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
@@ -286,7 +289,7 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.structure.fields.siteType.label}</label>
               <div class="opt-group">
-                {briefing.sections.structure.fields.siteType.options.map((option) => (
+                {resolveOptions(briefing.sections.structure.fields.siteType.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="tipo_sitio" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
@@ -298,46 +301,38 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.structure.fields.sections.label}</label>
               <div class="opt-group">
-                {briefing.sections.structure.fields.sections.options.map((option) => (
+                {resolveOptions(briefing.sections.structure.fields.sections.options).map((option) => (
                   <label class="opt">
-                    <input type="checkbox" name="secciones" value={option.value} />
+                    <input type="checkbox" name="secciones" value={option.value} checked />
                     <span class="opt-body"><span class="opt-title">{option.title}</span></span>
-                  </label
+                  </label>
                 ))}
                 {briefing.sections.structure.fields.sections.extras.pricesEdit && (
                   <div class="opt-sub" id="precios-edit-box" hidden>
-                    <label class="opt"><input type="checkbox" name="precios_edicion" value={briefing.sections.structure.fields.sections.extras.pricesEdit.value} />
-                      <span class="opt-body"><span class="opt-title">{briefing.sections.structure.fields.sections.extras.pricesEdit.title}</span></span>
+                    <label class="opt"><input type="checkbox" name="precios_edicion" value={briefing.sections.structure.fields.sections.extras.pricesEdit} />
+                      <span class="opt-body"><span class="opt-title">{briefing.sections.structure.fields.sections.extras.pricesEdit}</span></span>
                     </label>
                   </div>
                 )}
                 {briefing.sections.structure.fields.sections.extras.blogEdit && (
                   <div class="opt-sub" id="blog-edit-box" hidden>
-                    <label class="opt"><input type="checkbox" name="blog_edicion" value={briefing.sections.structure.fields.sections.extras.blogEdit.value} />
-                      <span class="opt-body"><span class="opt-title">{briefing.sections.structure.fields.sections.extras.blogEdit.title}</span></span>
+                    <label class="opt"><input type="checkbox" name="blog_edicion" value={briefing.sections.structure.fields.sections.extras.blogEdit} />
+                      <span class="opt-body"><span class="opt-title">{briefing.sections.structure.fields.sections.extras.blogEdit}</span></span>
                     </label>
                   </div>
                 )}
-                {briefing.sections.structure.fields.sections.options.map((option) => (
-                  !["Inicio", "Servicios", "Sobre mí / Nosotros", "Portfolio / Galería", "Testimonios", "Precios / Paquetes", "Preguntas frecuentes (FAQ)", "Blog", "Contacto"].includes(option.value) && (
-                    <label class="opt">
-                      <input type="checkbox" name="secciones" value={option.value} />
-                      <span class="opt-body"><span class="opt-title">{option.title}</span></span>
-                    </label>
-                  )
-                ))}
               </div>
             </div>
 
             <div class="f-field full">
-              <label class="f-label" for="in-sec-otras">{briefing.sections.structure.fields.contactMode.label}</label>
-              <input class="f-input" type="text" id="in-sec-otras" name="secciones_otras" placeholder={briefing.sections.structure.fields.contactMode.placeholder} />
+              <label class="f-label" for="in-sec-otras">{briefing.sections.structure.fields.sections.otherLabel}</label>
+              <input class="f-input" type="text" id="in-sec-otras" name="secciones_otras" placeholder={briefing.sections.structure.fields.sections.otherPlaceholder} />
             </div>
 
             <div class="f-field full">
               <label class="f-label">{briefing.sections.structure.fields.contactMode.label}</label>
               <div class="opt-group">
-                {briefing.sections.structure.fields.contactMode.options.map((option) => (
+                {resolveOptions(briefing.sections.structure.fields.contactMode.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="contacto_modo" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
@@ -349,11 +344,11 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.structure.fields.cta.label}</label>
               <div class="opt-group">
-                {briefing.sections.structure.fields.cta.options.map((option) => (
+                {resolveOptions(briefing.sections.structure.fields.cta.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="cta" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span></span>
-                  </label
+                  </label>
                 ))}
               </div>
             </div>
@@ -361,11 +356,11 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.structure.fields.features.label}</label>
               <div class="opt-group">
-                {briefing.sections.structure.fields.features.options.map((option) => (
+                {resolveOptions(briefing.sections.structure.fields.features.options).map((option) => (
                   <label class="opt">
                     <input type="checkbox" name="funcionalidades" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span></span>
-                  </label
+                  </label>
                 ))}
               </div>
             </div>
@@ -373,11 +368,11 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.structure.fields.language.label}</label>
               <div class="opt-group">
-                {briefing.sections.structure.fields.language.options.map((option) => (
+                {resolveOptions(briefing.sections.structure.fields.language.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="idioma" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span></span>
-                  </label
+                  </label>
                 ))}
               </div>
             </div>
@@ -395,23 +390,23 @@ const domain = "https://shcdigital.net.ar";
             <div class="f-field full">
               <label class="f-label">{briefing.sections.plan.fields.plan.label}</label>
               <div class="opt-group">
-                {briefing.sections.plan.fields.plan.options.map((option) => (
+                {resolveOptions(briefing.sections.plan.fields.plan.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="plan" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span><span class="opt-desc">{option.desc}</span></span>
-                  </label
+                  </label>
                 ))}
               </div>
             </div>
 
             <div class="f-field full">
-              <label class="f-label">{briefing.sections.plan.fields.plazo.label}</label>
+              <label class="f-label">{briefing.sections.plan.fields.deadline.label}</label>
               <div class="opt-group">
-                {briefing.sections.plan.fields.plazo.options.map((option) => (
+                {resolveOptions(briefing.sections.plan.fields.deadline.options).map((option) => (
                   <label class="opt">
                     <input type="radio" name="plazo" value={option.value} />
                     <span class="opt-body"><span class="opt-title">{option.title}</span></span>
-                  </label
+                  </label>
                 ))}
               </div>
             </div>
@@ -450,11 +445,11 @@ const domain = "https://shcdigital.net.ar";
         <!-- �� ═�═�═�═ ENVIAR �� ═�═�═�═ -->
         <div class="b-submit">
           <button type="submit" class="btn-send" id="btnSend">
-            {briefing.sections.submit.button}
-            <span class="mono-note">{briefing.sections.submit.emailNote}</span>
+            {briefing.submit.button}
+            <span class="mono-note">{briefing.submit.emailNote}</span>
           </button>
           <p class="b-note" id="bNote" role="status" aria-live="polite">
-            {briefing.sections.submit.note}
+            {briefing.submit.note}
           </p>
         </div>
       </form>
@@ -462,7 +457,7 @@ const domain = "https://shcdigital.net.ar";
       <!-- Globo de éxito (lo único que ve el cliente al enviar) -->
       <div class="b-toast" id="bToast" role="status" aria-live="polite">
         <span class="b-toast-check" aria-hidden="true">��✓</span>
-        <span class="b-toast-text">{briefing.sections.toast.success}</span>
+        <span class="b-toast-text">{briefing.toast.success}</span>
       </div>
     </main>
 

@@ -1,67 +1,77 @@
 ---
 // src/components/LanguageSwitcher/LanguageSwitcher.astro
-// Flag-based language switcher with dropdown
+// Selector de idioma con dropdown. La interacción vive en <script>
+// (los .astro se renderizan en build time y no admiten on:click).
 
-import { getCurrentLanguage, setLanguage } from '../../i18n';
-import { languageCodes, getLanguage } from '../../i18n/languages';
+import { getCurrentLanguage } from '../../i18n';
+import { languageCodes } from '../../i18n/languages';
 
-let isOpen: boolean = false;
-
-function toggle() {
-  isOpen = !isOpen;
+interface Props {
+  lang?: string;
 }
 
-function selectLang(lang: string) {
-  setLanguage(lang);
-  isOpen = false;
-}
+const { lang = getCurrentLanguage() } = Astro.props;
 
-function getFlagCode(code: string): string {
-  const flagMap: Record<string, string> = {
-    es: '🇦🇷',
-    pt: '🇧🇷',
-    en: '🇺🇸'
-  };
-  return flagMap[code] || '🌐';
-}
+const flags: Record<string, string> = { es: '🇦🇷', pt: '🇧🇷', en: '🇺🇸' };
+const names: Record<string, string> = { es: 'Español', pt: 'Português', en: 'English' };
 
-function getLanguageName(code: string): string {
-  const map: Record<string, string> = { es: 'Español', pt: 'Português', en: 'English' };
-  return map[code] || 'Español';
-}
-
-const currentLang: string = getCurrentLanguage();
+const getFlagCode = (code: string): string => flags[code] || '🌐';
+const getLanguageName = (code: string): string => names[code] || names.es;
 ---
 
-<div class="language-switcher" aria-label="Language selector">
+<div class="language-switcher">
   <button
     class="language-toggle"
-    aria-expanded={isOpen}
-    aria-haspopup="listbox"
     type="button"
-    onclick={toggle}
+    id="lang-toggle"
+    aria-label="Cambiar idioma"
+    aria-haspopup="listbox"
+    aria-expanded="false"
   >
-    <span class="flag">{getFlagCode(currentLang)}</span>
-    <span class="label" dir="ltr">{getLanguageName(currentLang)}</span>
-    <span class="icon">▼</span>
+    <span class="flag" aria-hidden="true">{getFlagCode(lang)}</span>
+    <span class="label">{lang.toUpperCase()}</span>
+    <span class="icon" aria-hidden="true">▼</span>
   </button>
 
-  <div class:list={['language-menu', isOpen ? 'open' : '']} aria-hidden={!isOpen}>
-    <ul class="menu-list" role="listbox">
-      {#each languageCodes as lang}
-        <li role="menuitem" class:list={{ 'menu-item': true, 'active': lang === currentLang }} onclick={() => selectLang(lang)}>
-          <a href={`/${lang}/`} class="menu-item" aria-current={lang === currentLang ? 'page' : undefined}>
-            <span class="flag">{getFlagCode(lang)}</span>
-            <span class="name">{getLanguageName(lang)}</span>
-            {#if lang === currentLang}
-              <span class="sr-only">(current)</span>
-            {/if}
-          </a>
-        </li>
-      {/each}
-    </ul>
+  <div class="language-menu" id="lang-menu" role="listbox" aria-label="Idiomas disponibles" hidden>
+    {languageCodes.map((code) => (
+      <a
+        href={`/${code}/`}
+        class:list={{ 'menu-item': true, active: code === lang }}
+        role="option"
+        aria-selected={code === lang}
+        aria-current={code === lang ? 'page' : undefined}
+      >
+        <span class="flag" aria-hidden="true">{getFlagCode(code)}</span>
+        <span class="name">{getLanguageName(code)}</span>
+      </a>
+    ))}
   </div>
 </div>
+
+<script>
+  const toggle = document.getElementById("lang-toggle");
+  const menu = document.getElementById("lang-menu");
+  if (toggle && menu) {
+    toggle.addEventListener("click", () => {
+      const open = menu.hidden;
+      menu.hidden = !open;
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    document.addEventListener("click", (e) => {
+      if (!(e.target as Element).closest(".language-switcher") && !menu.hidden) {
+        menu.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !menu.hidden) {
+        menu.hidden = true;
+        toggle.setAttribute("aria-expanded", "false");
+      }
+    });
+  }
+</script>
 
 <style>
   .language-switcher {
@@ -69,7 +79,6 @@ const currentLang: string = getCurrentLanguage();
     display: inline-block;
     margin: 0.5rem;
   }
-
   .language-toggle {
     background: transparent;
     border: 1px solid var(--color-gray-200);
@@ -81,63 +90,34 @@ const currentLang: string = getCurrentLanguage();
     display: flex;
     align-items: center;
     gap: 0.5rem;
-    transition: all 0.2s ease;
     color: var(--color-gray-800);
   }
-
   .language-toggle:hover,
-  .language-toggle:focus {
+  .language-toggle:focus-visible {
     background: var(--color-gray-50);
     border-color: var(--color-primary-500);
     outline: none;
   }
-
   .language-toggle:focus-visible {
     box-shadow: 0 0 0 2px var(--color-primary-500);
   }
-
-  .flag {
-    font-size: 1.25rem;
-    line-height: 1;
-  }
-
-  .label {
-    font-weight: 500;
-  }
-
-  .icon {
-    font-size: 0.75rem;
-    transition: transform 0.2s ease;
-  }
-
-  .language-toggle[aria-expanded="true"] .icon {
-    transform: rotate(180deg);
-  }
-
+  .flag { font-size: 1.25rem; }
+  .label { font-weight: 500; }
+  .icon { font-size: 0.75rem; }
   .language-menu {
     position: absolute;
     top: 100%;
     left: 0;
     margin-top: 0.25rem;
-    min-width: 120px;
+    min-width: 100%;
     background: var(--color-white);
     border: 1px solid var(--color-gray-200);
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     z-index: 1000;
     overflow: hidden;
-  }
-
-  .language-menu.open {
-    animation: fadeIn 0.15s ease-out;
-  }
-
-  .menu-list {
-    margin: 0;
     padding: 0.25rem 0;
-    list-style: none;
   }
-
   .menu-item {
     display: flex;
     align-items: center;
@@ -146,46 +126,15 @@ const currentLang: string = getCurrentLanguage();
     color: var(--color-gray-800);
     cursor: pointer;
     gap: 0.5rem;
-    width: 100%;
-    border-radius: 4px;
+    white-space: nowrap;
   }
-
   .menu-item:hover,
-  .menu-item:focus,
   .menu-item.active {
     background: var(--color-gray-50);
     color: var(--color-primary-600);
   }
-
   .menu-item:focus-visible {
     outline: 2px solid var(--color-primary-500);
-    outline-offset: 2px;
-  }
-
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    margin: -1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-4px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  @media (max-width: 640px) {
-    .language-toggle {
-      padding: 0.75rem 1rem;
-    }
-
-    .flag {
-      font-size: 1.5rem;
-    }
+    outline-offset: -2px;
   }
 </style>

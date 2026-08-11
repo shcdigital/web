@@ -3,6 +3,7 @@
 // Nav fija de SHC Digital con menú móvil accesible (aria-expanded) y selector de idioma
 
 import LanguageSwitcher from '../LanguageSwitcher/LanguageSwitcher.astro';
+import { t, loadTranslations } from '../../i18n';
 
 interface Props {
   active?: string;
@@ -11,17 +12,19 @@ interface Props {
 
 const { active = "", lang = "es" } = Astro.props;
 
+await loadTranslations(lang);
+
 const links = [
-  { label: "Inicio", href: "/", id: "" },
-  { label: "Servicios", href: "/servicios", id: "servicios" },
-  { label: "Proceso", href: "/#proceso", id: "proceso" },
-  { label: "Planes", href: "/#precios", id: "precios" },
-  { label: "Acceso Clientes", href: "https://clientes.shcdigital.net.ar", id: "clientes" },
+  { label: t("common.navHome", { lang }), href: `/${lang}/`, id: "" },
+  { label: t("common.navServices", { lang }), href: `/${lang}/servicios`, id: "servicios" },
+  { label: t("common.navProcess", { lang }), href: `/${lang}/#proceso`, id: "proceso" },
+  { label: t("common.navPlans", { lang }), href: `/${lang}/#precios`, id: "precios" },
+  { label: t("common.navClients", { lang }), href: "https://clientes.shcdigital.net.ar", id: "clientes" },
 ];
 ---
 
 <nav class="site-nav" aria-label="Navegación principal">
-  <a href="/" class="nav-logo" aria-label="SHC Digital — Inicio">
+  <a href={`/${lang}/`} class="nav-logo" aria-label="SHC Digital — Inicio">
     <span class="logo-type" aria-hidden="true">SHC<span>.</span>DIGITAL</span>
   </a>
 
@@ -50,10 +53,14 @@ const links = [
       ))
     }
     <li>
-      <a href="/#contacto" class="nav-cta">→ Empezar</a>
+      <a href={`/${lang}/#contacto`} class="nav-cta">→ {t("common.navCta", { lang })}</a>
     </li>
   </ul>
 </nav>
+
+<div class="language-switcher-container">
+  <LanguageSwitcher lang={lang} />
+</div>
 
 <script>
   const toggle = document.getElementById("nav-toggle");

@@ -2,19 +2,24 @@
 // src/components/ui/Footer.astro
 // Footer de SHC Digital — grid 3 columnas.
 
+import { t, loadTranslations } from "../../i18n";
+
 interface Props {
   year?: number;
+  lang?: string;
 }
 
-const { year = new Date().getFullYear() } = Astro.props;
+const { year = new Date().getFullYear(), lang = "es" } = Astro.props;
+
+await loadTranslations(lang);
 ---
 
 <footer class="site-footer">
   <div class="footer-brand" aria-label="SHC Digital">SHC<span>.</span>DIGITAL</div>
-  <p class="footer-copy">© {year} SHC Digital — Todos los derechos reservados</p>
+  <p class="footer-copy">{t("common.footerCopyright", { lang }).replace("{year}", String(year))}</p>
   <ul class="footer-links" role="list">
-    <li><a href="/servicios">Servicios</a></li>
-    <li><a href="/terminos">Términos</a></li>
-    <li><a href="/#contacto">Contacto</a></li>
+    <li><a href={`/${lang}/servicios`}>{t("common.footerServices", { lang })}</a></li>
+    <li><a href="/terminos">{t("common.footerTerms", { lang })}</a></li>
+    <li><a href={`/${lang}/#contacto`}>{t("common.footerContact", { lang })}</a></li>
   </ul>
 </footer>

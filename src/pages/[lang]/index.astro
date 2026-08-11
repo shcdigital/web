@@ -5,8 +5,8 @@
 import Layout from "../../layouts/Layout.astro";
 import Hero from "../../components/ui/Hero.astro";
 import ContactForm from "../../components/ui/ContactForm.astro";
-import { t, tNs } from "../../i18n";
-import { isValidLanguage, defaultLanguage } from "../../i18n/languages";
+import { setLanguage, loadTranslations, t, tNs } from "../../i18n";
+import type { EsTranslations } from "../../i18n";
 
 export async function getStaticPaths() {
   const { languageCodes } = await import("../../i18n/languages");
@@ -18,47 +18,45 @@ export async function getStaticPaths() {
 
 const { lang } = Astro.props;
 
-// Validate language
-if (!lang || !isValidLanguage(lang)) {
-  throw new Astro.Error({
-    status: 404,
-    message: `Page not found for language: ${lang}`
-  });
-}
-
 // Set current language for translation system
-import { setLanguage } from "../../i18n";
 setLanguage(lang);
 
 // Load translations for the language
-import { loadTranslations } from "../../i18n";
 await loadTranslations(lang);
 
-const hero = tNs("hero");
-const stats = hero.stats;
+const hero = tNs<EsTranslations["hero"]>("hero");
+const stats = Object.values(hero.stats);
 const ticker = hero.ticker;
-const process = tNs("process");
-const services = tNs("services");
-const plans = tNs("plans");
-const testimonials = tNs("testimonials");
-const why = tNs("why");
-const briefingCta = tNs("briefingCta");
-const contact = tNs("contact");
+const process = tNs<EsTranslations["process"]>("process");
+const services = tNs<EsTranslations["services"]>("services");
+const plans = tNs<EsTranslations["plans"]>("plans");
+// Plan cards: the JSON groups plans as a record; the page renders three of
+// them (starter/pro/business). Items are plain strings.
+interface PlanCard {
+  tag: string;
+  hot?: boolean;
+  items: string[];
+}
+const planCards = (Object.entries(plans) as [string, PlanCard][]).filter(([k]) => ['starter', 'pro', 'business'].includes(k));
+const testimonials = tNs<EsTranslations["testimonials"]>("testimonials");
+const why = tNs<EsTranslations["why"]>("why");
+const briefingCta = tNs<EsTranslations["briefingCta"]>("briefingCta");
+const contact = tNs<EsTranslations["contact"]>("contact");
 
 // Get domain from environment or default
 const domain = "https://shcdigital.net.ar";
 ---
 <Layout
-  title={t("hero.titleLine1", { ns: "hero" }) + t("hero.titleLine2", { ns: "hero" }) + t("hero.titleLine3", { ns: "hero" })}
+  title={t("hero.titleLine1") + t("hero.titleLine2") + t("hero.titleLine3")}
   description={hero.description}
-  ogTitle={t("hero.titleLine1", { ns: "hero" }) + " " + t("hero.titleLine2", { ns: "hero" }) + " " + t("hero.titleLine3", { ns: "hero" })}
+  ogTitle={t("hero.titleLine1") + " " + t("hero.titleLine2") + " " + t("hero.titleLine3")}
   ogDescription={hero.description}
   canonical={`${domain}/${lang}/`}
   lang={lang}
   slug="index"
 >
 
-  <Hero stats={stats} ticker={ticker} lang={lang} />
+  <Hero stats={stats} ticker={ticker} />
 
   <!-- PROCESO -->
   <section id="proceso" class="site-section proceso-section" aria-labelledby="proceso-title">
@@ -122,17 +120,17 @@ const domain = "https://shcdigital.net.ar";
         <span class="ghost">{plans.title.split("<br />")[1].match(/<span class="ghost">([^<]+)<\/span>/)?.[1]}</span>
       </h2>
       <div class="price-layout">
-        {Object.entries(plans).filter(([k]) => ['starter', 'pro', 'business'].includes(k)).map(([planKey, plan]) => (
+        {planCards.map(([planKey, plan]) => (
           <div class:list={["p-card", plan.hot && "hot"]}>
             <div class="p-tag">{plan.tag}</div>
             <ul class="p-items">
               {plan.items.map((it) => (
-                <li class:list={[it.no && "no"]}>{it}</li>
+                <li>{it}</li>
               ))}
             </ul>
             <div class="p-cta">
               <a href={`/${lang}/planes/${planKey}`} class:list={[plan.hot ? "p-btn-hot" : "p-btn"]}>
-                → {t("common.backToPlans", { ns: "common" })}
+                → {t("common.backToPlans")}
               </a>
             </div>
           </div>

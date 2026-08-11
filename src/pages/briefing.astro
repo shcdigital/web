@@ -4,19 +4,18 @@
 import { defaultLanguage } from '../i18n/languages';
 
 export const prerender = true;
+
+const redirectUrl = `/${defaultLanguage}/briefing`;
 ---
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8" />
-    <meta http-equiv="refresh" content="0; url=/${defaultLanguage}/briefing" />
+    <meta http-equiv="refresh" content={"0; url=" + redirectUrl} />
     <meta name="robots" content="noindex" />
     <title>Redirecting...</title>
   </head>
   <body>
-    <p>Redirecting to /${defaultLanguage}/briefing...</p>
-    <script>
-      window.location.replace(`/${defaultLanguage}/briefing`);
-    </script>
+    <p>Redirecting to {redirectUrl}...</p>
   </body>
 </html>
