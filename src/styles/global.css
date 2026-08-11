@@ -41,6 +41,31 @@ body {
   height: 56px;
 }
 
+/* Language switcher dentro de la nav fija (tema claro sobre fondo oscuro) */
+.language-switcher-container {
+  margin-right: 1.25rem;
+}
+.language-switcher-container .language-switcher {
+  margin: 0;
+}
+.language-switcher-container .language-switcher .language-toggle {
+  color: var(--color-surface-raised);
+  border-color: var(--color-line-dark);
+  background: rgba(255, 255, 255, 0.05);
+}
+.language-switcher-container .language-switcher .language-toggle:hover,
+.language-switcher-container .language-switcher .language-toggle:focus-visible {
+  border-color: var(--color-brand-primary);
+  background: rgba(255, 255, 255, 0.1);
+}
+.language-switcher-container .language-switcher .language-menu {
+  right: 0;
+  left: auto;
+}
+.language-switcher-container .language-menu .menu-item {
+  color: var(--color-gray-800);
+}
+
 .nav-logo {
   display: flex;
   align-items: center;

@@ -56,11 +56,11 @@ const links = [
       <a href={`/${lang}/#contacto`} class="nav-cta">→ {t("common.navCta", { lang })}</a>
     </li>
   </ul>
-</nav>
 
-<div class="language-switcher-container">
-  <LanguageSwitcher lang={lang} />
-</div>
+  <div class="language-switcher-container">
+    <LanguageSwitcher lang={lang} />
+  </div>
+</nav>
 
 <script>
   const toggle = document.getElementById("nav-toggle");
