@@ -3,7 +3,7 @@
 // Selector de idioma con dropdown. La interacción vive en <script>
 // (los .astro se renderizan en build time y no admiten on:click).
 
-import { getCurrentLanguage } from '../../i18n';
+import { getCurrentLanguage, t, loadTranslations } from '../../i18n';
 import { languageCodes } from '../../i18n/languages';
 
 interface Props {
@@ -11,6 +11,8 @@ interface Props {
 }
 
 const { lang = getCurrentLanguage() } = Astro.props;
+
+await loadTranslations(lang);
 
 const flags: Record<string, string> = { es: '🇦🇷', pt: '🇧🇷', en: '🇺🇸' };
 const names: Record<string, string> = { es: 'Español', pt: 'Português', en: 'English' };
@@ -24,7 +26,7 @@ const getLanguageName = (code: string): string => names[code] || names.es;
     class="language-toggle"
     type="button"
     id="lang-toggle"
-    aria-label="Cambiar idioma"
+    aria-label={t("common.langToggle", { lang })}
     aria-haspopup="listbox"
     aria-expanded="false"
   >
@@ -33,7 +35,7 @@ const getLanguageName = (code: string): string => names[code] || names.es;
     <span class="icon" aria-hidden="true">▼</span>
   </button>
 
-  <div class="language-menu" id="lang-menu" role="listbox" aria-label="Idiomas disponibles" hidden>
+  <div class="language-menu" id="lang-menu" role="listbox" aria-label={t("common.langMenu", { lang })} hidden>
     {languageCodes.map((code) => (
       <a
         href={`/${code}/`}

@@ -23,8 +23,8 @@ const links = [
 ];
 ---
 
-<nav class="site-nav" aria-label="Navegación principal">
-  <a href={`/${lang}/`} class="nav-logo" aria-label="SHC Digital — Inicio">
+<nav class="site-nav" aria-label={t("common.navAria", { lang })}>
+  <a href={`/${lang}/`} class="nav-logo" aria-label={t("common.logoAria", { lang })}>
     <span class="logo-type" aria-hidden="true">SHC<span>.</span>DIGITAL</span>
   </a>
 
@@ -35,7 +35,7 @@ const links = [
     aria-expanded="false"
     type="button"
   >
-    Menú
+    {t("common.menu", { lang })}
   </button>
 
   <ul class="nav-links" id="nav-links" role="list">

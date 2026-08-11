@@ -416,7 +416,7 @@ const resolveOptions = (options: unknown): { value: string; title: string; desc?
               <label class="f-label">{briefing.sections.plan.fields.domain.label}</label>
               <div class="domain-check">
                 <input class="f-input dom-name" type="text" id="in-dominio" name="dominio" placeholder={briefing.sections.plan.fields.domain.placeholder} autocomplete="off" />
-                <select class="f-select dom-tld" id="dom-tld" aria-label="Extensión del dominio">
+                <select class="f-select dom-tld" id="dom-tld" aria-label={briefing.labels.domain}>
                   {briefing.sections.plan.fields.domain.tlds.map((tld) => (
                     <option value={tld}>{tld}</option>
                   ))}

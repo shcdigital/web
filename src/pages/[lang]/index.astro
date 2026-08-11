@@ -189,8 +189,8 @@ const domain = "https://shcdigital.net.ar";
           <ContactForm lang={lang} />
         </div>
 
-        <div class="cta-right-block" aria-label="Por qué elegirnos">
-          <div class="why-title">POR QUÉ<br />ELEGIRNOS</div>
+        <div class="cta-right-block" aria-label={contact.whyLabel}>
+          <div class="why-title"><GhostTitle title={contact.whyTitle} /></div>
           <div class="why-list">
             {why.map((w) => (
               <div class="why-item">

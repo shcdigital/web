@@ -20,7 +20,12 @@
     "backToTerms": "← Back to terms",
     "backToPlans": "← View all plans",
     "loading": "Loading...",
-    "required": "*"
+    "required": "*",
+    "menu": "Menu",
+    "navAria": "Main navigation",
+    "logoAria": "SHC Digital — Home",
+    "langToggle": "Change language",
+    "langMenu": "Available languages"
   },
   "hero": {
     "tag": "// web design with artificial intelligence",
@@ -250,7 +255,23 @@
   "contact": {
     "label": "Contact",
     "title": "CONTACT US<br /><span class=\"ghost\">AND TALK</span><br />ABOUT YOUR IDEAS",
-    "intro": "Complete the form and we'll respond in less than 24 hours with a budget without commitment."
+    "intro": "Complete the form and we'll respond in less than 24 hours with a budget without commitment.",
+    "whyTitle": "WHY<br /><span class=\"ghost\">CHOOSE US</span>",
+    "whyLabel": "Why choose us",
+    "form": {
+      "name": "Name",
+      "namePlaceholder": "Your full name",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "prefixAria": "International prefix",
+      "profession": "Profession",
+      "professionPlaceholder": "e.g.: Psychologist, Accountant...",
+      "project": "Project",
+      "projectPlaceholder": "Tell us briefly what you need...",
+      "submit": "→ Send message",
+      "note": "We reply in <24h",
+      "aria": "Contact form"
+    }
   },
   "briefing": {
     "title": "Briefing — SHC Digital",
@@ -360,9 +381,21 @@
           "texts": {
             "label": "Do you have the website texts?",
             "options": [
-              { "value": "I have them ready", "title": "I have them ready", "desc": "I'll paste them when asked" },
-              { "value": "I have them but want to refine them", "title": "I have them but want to refine them", "desc": "" },
-              { "value": "I need help writing them", "title": "I need help writing them", "desc": "We'll write them with AI along with the design" }
+              {
+                "value": "I have them ready",
+                "title": "I have them ready",
+                "desc": "I'll paste them when asked"
+              },
+              {
+                "value": "I have them but want to refine them",
+                "title": "I have them but want to refine them",
+                "desc": ""
+              },
+              {
+                "value": "I need help writing them",
+                "title": "I need help writing them",
+                "desc": "We'll write them with AI along with the design"
+              }
             ]
           },
           "photos": {
@@ -388,13 +421,41 @@
           "colors": {
             "label": "Preferred color palette",
             "options": [
-              { "value": "Red / Orange — energy and passion", "title": "Red / Orange — energy and passion", "desc": "Intense brands, restaurants, sports" },
-              { "value": "Blue — trust and professionalism", "title": "Blue — trust and professionalism", "desc": "Law firms, finance, technology" },
-              { "value": "Green — growth and nature", "title": "Green — growth and nature", "desc": "Health, ecology, wellness" },
-              { "value": "Black / Gold — elegance and luxury", "title": "Black / Gold — elegance and luxury", "desc": "Fashion, aesthetics, luxury brands" },
-              { "value": "Minimalist — white and neutrals", "title": "Minimalist — white and neutrals", "desc": "Clean, modern, timeless" },
-              { "value": "Violet / Pink — creativity", "title": "Violet / Pink — creativity", "desc": "Design, beauty, young audiences" },
-              { "value": "Other", "title": "Other / decide later", "desc": "" }
+              {
+                "value": "Red / Orange — energy and passion",
+                "title": "Red / Orange — energy and passion",
+                "desc": "Intense brands, restaurants, sports"
+              },
+              {
+                "value": "Blue — trust and professionalism",
+                "title": "Blue — trust and professionalism",
+                "desc": "Law firms, finance, technology"
+              },
+              {
+                "value": "Green — growth and nature",
+                "title": "Green — growth and nature",
+                "desc": "Health, ecology, wellness"
+              },
+              {
+                "value": "Black / Gold — elegance and luxury",
+                "title": "Black / Gold — elegance and luxury",
+                "desc": "Fashion, aesthetics, luxury brands"
+              },
+              {
+                "value": "Minimalist — white and neutrals",
+                "title": "Minimalist — white and neutrals",
+                "desc": "Clean, modern, timeless"
+              },
+              {
+                "value": "Violet / Pink — creativity",
+                "title": "Violet / Pink — creativity",
+                "desc": "Design, beauty, young audiences"
+              },
+              {
+                "value": "Other",
+                "title": "Other / decide later",
+                "desc": ""
+              }
             ],
             "otherLabel": "Tell us what colors you have in mind",
             "otherPlaceholder": "Ex: navy blue and gold, or decide with them..."
@@ -402,22 +463,62 @@
           "style": {
             "label": "Visual style you're looking for",
             "options": [
-              { "value": "Modern and technological", "title": "Modern and technological", "desc": "Bold, large fonts, animations" },
-              { "value": "Elegant and subtle", "title": "Elegant and subtle", "desc": "Serene, refined, lots of white space" },
-              { "value": "Colorful and creative", "title": "Colorful and creative", "desc": "Fun, approachable, eye-catching" },
-              { "value": "Classic and professional", "title": "Classic and professional", "desc": "Traditional, builds trust" },
-              { "value": "I don't know — recommend", "title": "I don't know — recommend", "desc": "We decide together based on your industry" }
+              {
+                "value": "Modern and technological",
+                "title": "Modern and technological",
+                "desc": "Bold, large fonts, animations"
+              },
+              {
+                "value": "Elegant and subtle",
+                "title": "Elegant and subtle",
+                "desc": "Serene, refined, lots of white space"
+              },
+              {
+                "value": "Colorful and creative",
+                "title": "Colorful and creative",
+                "desc": "Fun, approachable, eye-catching"
+              },
+              {
+                "value": "Classic and professional",
+                "title": "Classic and professional",
+                "desc": "Traditional, builds trust"
+              },
+              {
+                "value": "I don't know — recommend",
+                "title": "I don't know — recommend",
+                "desc": "We decide together based on your industry"
+              }
             ]
           },
           "tone": {
             "label": "Website voice/tone",
             "hint": "It's the 'personality' with which your website speaks: the way we write your texts so they sound like you.",
             "options": [
-              { "value": "Professional and formal", "title": "Professional and formal", "desc": "Conveys trust, seriousness and experience" },
-              { "value": "Friendly and approachable", "title": "Friendly and approachable", "desc": "Speaks as an equal, warmth and closeness" },
-              { "value": "Direct and sales-focused", "title": "Direct and sales-focused", "desc": "Straight to the point, persuasive and calls to action" },
-              { "value": "Creative and casual", "title": "Creative and casual", "desc": "Original, with personality and freshness" },
-              { "value": "I don't know — recommend", "title": "I don't know — recommend", "desc": "We decide based on your industry and audience" }
+              {
+                "value": "Professional and formal",
+                "title": "Professional and formal",
+                "desc": "Conveys trust, seriousness and experience"
+              },
+              {
+                "value": "Friendly and approachable",
+                "title": "Friendly and approachable",
+                "desc": "Speaks as an equal, warmth and closeness"
+              },
+              {
+                "value": "Direct and sales-focused",
+                "title": "Direct and sales-focused",
+                "desc": "Straight to the point, persuasive and calls to action"
+              },
+              {
+                "value": "Creative and casual",
+                "title": "Creative and casual",
+                "desc": "Original, with personality and freshness"
+              },
+              {
+                "value": "I don't know — recommend",
+                "title": "I don't know — recommend",
+                "desc": "We decide based on your industry and audience"
+              }
             ]
           }
         }
@@ -430,10 +531,26 @@
           "siteType": {
             "label": "What type of website do you need?",
             "options": [
-              { "value": "Landing page (1 page)", "title": "Landing page (1 page)", "desc": "Starter plan" },
-              { "value": "Site with up to 5 sections", "title": "Site with up to 5 sections", "desc": "Pro plan — most popular" },
-              { "value": "Multi-page website", "title": "Multi-page website", "desc": "Business plan" },
-              { "value": "I don't know — recommend", "title": "I don't know — recommend", "desc": "" }
+              {
+                "value": "Landing page (1 page)",
+                "title": "Landing page (1 page)",
+                "desc": "Starter plan"
+              },
+              {
+                "value": "Site with up to 5 sections",
+                "title": "Site with up to 5 sections",
+                "desc": "Pro plan — most popular"
+              },
+              {
+                "value": "Multi-page website",
+                "title": "Multi-page website",
+                "desc": "Business plan"
+              },
+              {
+                "value": "I don't know — recommend",
+                "title": "I don't know — recommend",
+                "desc": ""
+              }
             ]
           },
           "sections": {
@@ -459,9 +576,21 @@
           "contactMode": {
             "label": "How do you want clients to contact you?",
             "options": [
-              { "value": "Contact form", "title": "Contact form", "desc": "Messages go directly to your email" },
-              { "value": "WhatsApp button", "title": "WhatsApp button", "desc": "One tap and they contact directly via WhatsApp" },
-              { "value": "Form + WhatsApp", "title": "Form + WhatsApp", "desc": "Both together — recommended" }
+              {
+                "value": "Contact form",
+                "title": "Contact form",
+                "desc": "Messages go directly to your email"
+              },
+              {
+                "value": "WhatsApp button",
+                "title": "WhatsApp button",
+                "desc": "One tap and they contact directly via WhatsApp"
+              },
+              {
+                "value": "Form + WhatsApp",
+                "title": "Form + WhatsApp",
+                "desc": "Both together — recommended"
+              }
             ]
           },
           "cta": {
@@ -507,10 +636,26 @@
           "plan": {
             "label": "Which plan did you choose?",
             "options": [
-              { "value": "Starter — 1 page", "title": "Starter — 1 page", "desc": "Landing page + 2 rounds of review" },
-              { "value": "Pro — up to 5 sections (most popular)", "title": "Pro — up to 5 sections", "desc": "Form + basic SEO + 4 rounds" },
-              { "value": "Business — multi-page", "title": "Business — multi-page", "desc": "Advanced SEO + Analytics + 30-day support" },
-              { "value": "I don't know — recommend", "title": "I don't know — recommend", "desc": "We choose together based on your needs" }
+              {
+                "value": "Starter — 1 page",
+                "title": "Starter — 1 page",
+                "desc": "Landing page + 2 rounds of review"
+              },
+              {
+                "value": "Pro — up to 5 sections (most popular)",
+                "title": "Pro — up to 5 sections",
+                "desc": "Form + basic SEO + 4 rounds"
+              },
+              {
+                "value": "Business — multi-page",
+                "title": "Business — multi-page",
+                "desc": "Advanced SEO + Analytics + 30-day support"
+              },
+              {
+                "value": "I don't know — recommend",
+                "title": "I don't know — recommend",
+                "desc": "We choose together based on your needs"
+              }
             ]
           },
           "deadline": {
@@ -524,7 +669,11 @@
           "domain": {
             "label": "Do you have a domain? Check if available",
             "placeholder": "mybusiness",
-            "tlds": [".com.ar", ".net.ar", ".ar"],
+            "tlds": [
+              ".com.ar",
+              ".net.ar",
+              ".ar"
+            ],
             "checkButton": "Check"
           }
         }
@@ -549,7 +698,10 @@
     "toast": {
       "success": "Sent. Thank you for trusting us!"
     },
-    "footer": "SHC Digital — AI Web Design · <a href=\"/\">shcdigital.net.ar</a>"
+    "footer": "SHC Digital — AI Web Design · <a href=\"/\">shcdigital.net.ar</a>",
+    "labels": {
+      "domain": "Domain extension"
+    }
   },
   "planDetail": {
     "starter": {
@@ -561,7 +713,12 @@
       "price": "USD 100",
       "listPrice": "USD 250",
       "priceText": "one-time investment · single payment",
-      "chips": ["One-time payment", "Delivery ~72h", "SSL + custom domain", "Your code"],
+      "chips": [
+        "One-time payment",
+        "Delivery ~72h",
+        "SSL + custom domain",
+        "Your code"
+      ],
       "includes": [
         {
           "n": "01",
@@ -620,7 +777,12 @@
       "price": "USD 160",
       "listPrice": "USD 400",
       "priceText": "one-time investment · single payment",
-      "chips": ["One-time payment", "Form included", "SEO included", "Delivery ~72h"],
+      "chips": [
+        "One-time payment",
+        "Form included",
+        "SEO included",
+        "Delivery ~72h"
+      ],
       "includes": [
         {
           "n": "01",
@@ -684,7 +846,12 @@
       "price": "USD 320",
       "listPrice": "USD 800",
       "priceText": "one-time investment · single payment",
-      "chips": ["One-time payment", "Google Analytics", "Periodic reviews", "30-day support"],
+      "chips": [
+        "One-time payment",
+        "Google Analytics",
+        "Periodic reviews",
+        "30-day support"
+      ],
       "includes": [
         {
           "n": "01",
@@ -750,7 +917,13 @@
       "ctaLabel": "Start today",
       "ctaTitle": "READY TO<br /><span class=\"ghost\">START?</span>",
       "ctaDesc": "Complete the briefing and we'll send a proposal in less than 24 hours.",
-      "ctaButton": "→ Complete the briefing"
+      "ctaButton": "→ Complete the briefing",
+      "includesLabel": "What's included",
+      "includesTitle": "EVERYTHING<br /><span class=\"ghost\">INCLUDED</span>",
+      "noIncludesLabel": "So there are no doubts",
+      "noIncludesTitle": "WHAT'S NOT<br /><span class=\"ghost\">INCLUDED</span>",
+      "noteLink": "Tell us what you need →",
+      "viewPlan": "→ View plan"
     }
   },
   "servicesPage": {

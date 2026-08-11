@@ -20,7 +20,12 @@
     "backToTerms": "← Volver a términos",
     "backToPlans": "← Ver todos los planes",
     "loading": "Cargando...",
-    "required": "*"
+    "required": "*",
+    "menu": "Menú",
+    "navAria": "Navegación principal",
+    "logoAria": "SHC Digital — Inicio",
+    "langToggle": "Cambiar idioma",
+    "langMenu": "Idiomas disponibles"
   },
   "hero": {
     "tag": "// diseño web con inteligencia artificial",
@@ -250,7 +255,23 @@
   "contact": {
     "label": "Contacto",
     "title": "CONTACTANOS<br /><span class=\"ghost\">Y HABLAMOS</span><br />DE TUS IDEAS",
-    "intro": "Completá el formulario y te respondemos en menos de 24 horas con un presupuesto sin compromiso."
+    "intro": "Completá el formulario y te respondemos en menos de 24 horas con un presupuesto sin compromiso.",
+    "whyTitle": "POR QUÉ<br /><span class=\"ghost\">ELEGIRNOS</span>",
+    "whyLabel": "Por qué elegirnos",
+    "form": {
+      "name": "Nombre",
+      "namePlaceholder": "Tu nombre completo",
+      "email": "Email",
+      "whatsapp": "WhatsApp",
+      "prefixAria": "Prefijo internacional",
+      "profession": "Profesión",
+      "professionPlaceholder": "Ej: Psicóloga, Contador...",
+      "project": "Proyecto",
+      "projectPlaceholder": "Contanos brevemente qué necesitás...",
+      "submit": "→ Enviar consulta",
+      "note": "Respondemos en <24hs",
+      "aria": "Formulario de contacto"
+    }
   },
   "briefing": {
     "title": "Briefing — SHC Digital",
@@ -360,9 +381,21 @@
           "texts": {
             "label": "¿Tenés los textos del sitio?",
             "options": [
-              { "value": "Los tengo listos", "title": "Los tengo listos", "desc": "Los voy a pegar cuando me los pidan" },
-              { "value": "Los tengo pero quiero pulirlos", "title": "Los tengo pero quiero pulirlos", "desc": "" },
-              { "value": "Necesito que me ayuden a redactarlos", "title": "Necesito que me ayuden a redactarlos", "desc": "Lo hacemos con IA junto al diseño" }
+              {
+                "value": "Los tengo listos",
+                "title": "Los tengo listos",
+                "desc": "Los voy a pegar cuando me los pidan"
+              },
+              {
+                "value": "Los tengo pero quiero pulirlos",
+                "title": "Los tengo pero quiero pulirlos",
+                "desc": ""
+              },
+              {
+                "value": "Necesito que me ayuden a redactarlos",
+                "title": "Necesito que me ayuden a redactarlos",
+                "desc": "Lo hacemos con IA junto al diseño"
+              }
             ]
           },
           "photos": {
@@ -388,13 +421,41 @@
           "colors": {
             "label": "Paleta de colores preferida",
             "options": [
-              { "value": "Rojo / naranja — energía y pasión", "title": "Rojo / naranja — energía y pasión", "desc": "Marcas intensas, gastronomía, deporte" },
-              { "value": "Azul — confianza y profesionalismo", "title": "Azul — confianza y profesionalismo", "desc": "Abogados, finanzas, tecnología" },
-              { "value": "Verde — crecimiento y naturaleza", "title": "Verde — crecimiento y naturaleza", "desc": "Salud, ecología, bienestar" },
-              { "value": "Negro / dorado — elegancia y lujo", "title": "Negro / dorado — elegancia y lujo", "desc": "Moda, estética, alta gama" },
-              { "value": "Minimalista — blanco y neutros", "title": "Minimalista — blanco y neutros", "desc": "Limpio, moderno, atemporal" },
-              { "value": "Violeta / rosa — creatividad", "title": "Violeta / rosa — creatividad", "desc": "Diseño, belleza, audiencias jóvenes" },
-              { "value": "Otro", "title": "Otro / los defino después", "desc": "" }
+              {
+                "value": "Rojo / naranja — energía y pasión",
+                "title": "Rojo / naranja — energía y pasión",
+                "desc": "Marcas intensas, gastronomía, deporte"
+              },
+              {
+                "value": "Azul — confianza y profesionalismo",
+                "title": "Azul — confianza y profesionalismo",
+                "desc": "Abogados, finanzas, tecnología"
+              },
+              {
+                "value": "Verde — crecimiento y naturaleza",
+                "title": "Verde — crecimiento y naturaleza",
+                "desc": "Salud, ecología, bienestar"
+              },
+              {
+                "value": "Negro / dorado — elegancia y lujo",
+                "title": "Negro / dorado — elegancia y lujo",
+                "desc": "Moda, estética, alta gama"
+              },
+              {
+                "value": "Minimalista — blanco y neutros",
+                "title": "Minimalista — blanco y neutros",
+                "desc": "Limpio, moderno, atemporal"
+              },
+              {
+                "value": "Violeta / rosa — creatividad",
+                "title": "Violeta / rosa — creatividad",
+                "desc": "Diseño, belleza, audiencias jóvenes"
+              },
+              {
+                "value": "Otro",
+                "title": "Otro / los defino después",
+                "desc": ""
+              }
             ],
             "otherLabel": "Contanos qué colores tenés en mente",
             "otherPlaceholder": "Ej: azul petróleo y dorado, o los defino con ustedes..."
@@ -402,22 +463,62 @@
           "style": {
             "label": "Estilo visual que buscás",
             "options": [
-              { "value": "Moderno y tecnológico", "title": "Moderno y tecnológico", "desc": "Audaz, tipografías grandes, animaciones" },
-              { "value": "Elegante y sobrio", "title": "Elegante y sobrio", "desc": "Sereno, fino, muchos espacios blancos" },
-              { "value": "Colorido y creativo", "title": "Colorido y creativo", "desc": "Divertido, cercano, llamativo" },
-              { "value": "Clásico y profesional", "title": "Clásico y profesional", "desc": "Tradicional, genera confianza" },
-              { "value": "No sé — recomendame", "title": "No sé — recomendame", "desc": "Lo decidimos juntos según tu rubro" }
+              {
+                "value": "Moderno y tecnológico",
+                "title": "Moderno y tecnológico",
+                "desc": "Audaz, tipografías grandes, animaciones"
+              },
+              {
+                "value": "Elegante y sobrio",
+                "title": "Elegante y sobrio",
+                "desc": "Sereno, fino, muchos espacios blancos"
+              },
+              {
+                "value": "Colorido y creativo",
+                "title": "Colorido y creativo",
+                "desc": "Divertido, cercano, llamativo"
+              },
+              {
+                "value": "Clásico y profesional",
+                "title": "Clásico y profesional",
+                "desc": "Tradicional, genera confianza"
+              },
+              {
+                "value": "No sé — recomendame",
+                "title": "No sé — recomendame",
+                "desc": "Lo decidimos juntos según tu rubro"
+              }
             ]
           },
           "tone": {
             "label": "Tono de voz del sitio",
             "hint": "Es la \"personalidad\" con la que habla tu sitio: la forma en que redactamos tus textos para que suenen como vos.",
             "options": [
-              { "value": "Profesional y formal", "title": "Profesional y formal", "desc": "Transmite confianza, seriedad y experiencia" },
-              { "value": "Cercano y amigable", "title": "Cercano y amigable", "desc": "Habla de igual a igual, calidez y cercanía" },
-              { "value": "Directo y de venta", "title": "Directo y de venta", "desc": "Va al grano, convence y llama a la acción" },
-              { "value": "Creativo y descontracturado", "title": "Creativo y descontracturado", "desc": "Original, con personalidad y frescura" },
-              { "value": "No sé — recomendame", "title": "No sé — recomendame", "desc": "Lo definimos según tu rubro y audiencia" }
+              {
+                "value": "Profesional y formal",
+                "title": "Profesional y formal",
+                "desc": "Transmite confianza, seriedad y experiencia"
+              },
+              {
+                "value": "Cercano y amigable",
+                "title": "Cercano y amigable",
+                "desc": "Habla de igual a igual, calidez y cercanía"
+              },
+              {
+                "value": "Directo y de venta",
+                "title": "Directo y de venta",
+                "desc": "Va al grano, convence y llama a la acción"
+              },
+              {
+                "value": "Creativo y descontracturado",
+                "title": "Creativo y descontracturado",
+                "desc": "Original, con personalidad y frescura"
+              },
+              {
+                "value": "No sé — recomendame",
+                "title": "No sé — recomendame",
+                "desc": "Lo definimos según tu rubro y audiencia"
+              }
             ]
           }
         }
@@ -430,10 +531,26 @@
           "siteType": {
             "label": "¿Qué tipo de sitio necesitás?",
             "options": [
-              { "value": "Landing page (1 página)", "title": "Landing page (1 página)", "desc": "Plan Starter" },
-              { "value": "Sitio de hasta 5 secciones", "title": "Sitio de hasta 5 secciones", "desc": "Plan Pro — más elegido" },
-              { "value": "Sitio multi-página", "title": "Sitio multi-página", "desc": "Plan Business" },
-              { "value": "No sé — recomendame", "title": "No sé — recomendame", "desc": "" }
+              {
+                "value": "Landing page (1 página)",
+                "title": "Landing page (1 página)",
+                "desc": "Plan Starter"
+              },
+              {
+                "value": "Sitio de hasta 5 secciones",
+                "title": "Sitio de hasta 5 secciones",
+                "desc": "Plan Pro — más elegido"
+              },
+              {
+                "value": "Sitio multi-página",
+                "title": "Sitio multi-página",
+                "desc": "Plan Business"
+              },
+              {
+                "value": "No sé — recomendame",
+                "title": "No sé — recomendame",
+                "desc": ""
+              }
             ]
           },
           "sections": {
@@ -459,9 +576,21 @@
           "contactMode": {
             "label": "¿Cómo querés que los clientes te contacten?",
             "options": [
-              { "value": "Formulario de contacto", "title": "Formulario de contacto", "desc": "Te llegan los mensajes por mail" },
-              { "value": "Botón de WhatsApp", "title": "Botón de WhatsApp", "desc": "Un toque y hablan directo por WhatsApp" },
-              { "value": "Formulario + WhatsApp", "title": "Formulario + WhatsApp", "desc": "Los dos juntos — recomendado" }
+              {
+                "value": "Formulario de contacto",
+                "title": "Formulario de contacto",
+                "desc": "Te llegan los mensajes por mail"
+              },
+              {
+                "value": "Botón de WhatsApp",
+                "title": "Botón de WhatsApp",
+                "desc": "Un toque y hablan directo por WhatsApp"
+              },
+              {
+                "value": "Formulario + WhatsApp",
+                "title": "Formulario + WhatsApp",
+                "desc": "Los dos juntos — recomendado"
+              }
             ]
           },
           "cta": {
@@ -507,10 +636,26 @@
           "plan": {
             "label": "¿Qué plan elegís?",
             "options": [
-              { "value": "Starter — 1 página", "title": "Starter — 1 página", "desc": "Landing page + 2 rondas de revisión" },
-              { "value": "Pro — hasta 5 secciones (más elegido)", "title": "Pro — hasta 5 secciones", "desc": "Formulario + SEO básico + 4 rondas" },
-              { "value": "Business — multi-página", "title": "Business — multi-página", "desc": "SEO avanzado + Analytics + soporte 30 días" },
-              { "value": "No sé — recomendame", "title": "No sé — recomendame", "desc": "Elegimos juntos según tu necesidad" }
+              {
+                "value": "Starter — 1 página",
+                "title": "Starter — 1 página",
+                "desc": "Landing page + 2 rondas de revisión"
+              },
+              {
+                "value": "Pro — hasta 5 secciones (más elegido)",
+                "title": "Pro — hasta 5 secciones",
+                "desc": "Formulario + SEO básico + 4 rondas"
+              },
+              {
+                "value": "Business — multi-página",
+                "title": "Business — multi-página",
+                "desc": "SEO avanzado + Analytics + soporte 30 días"
+              },
+              {
+                "value": "No sé — recomendame",
+                "title": "No sé — recomendame",
+                "desc": "Elegimos juntos según tu necesidad"
+              }
             ]
           },
           "deadline": {
@@ -524,7 +669,11 @@
           "domain": {
             "label": "¿Ya tenés dominio? Verificá si está disponible",
             "placeholder": "tunegocio",
-            "tlds": [".com.ar", ".net.ar", ".ar"],
+            "tlds": [
+              ".com.ar",
+              ".net.ar",
+              ".ar"
+            ],
             "checkButton": "Verificar"
           }
         }
@@ -549,7 +698,10 @@
     "toast": {
       "success": "Enviado. ¡Gracias por confiar en nosotros!"
     },
-    "footer": "SHC Digital — Diseño web con IA · <a href=\"/\">shcdigital.net.ar</a>"
+    "footer": "SHC Digital — Diseño web con IA · <a href=\"/\">shcdigital.net.ar</a>",
+    "labels": {
+      "domain": "Extensión del dominio"
+    }
   },
   "planDetail": {
     "starter": {
@@ -561,7 +713,12 @@
       "price": "USD 100",
       "listPrice": "USD 250",
       "priceText": "inversión única · pago una sola vez",
-      "chips": ["Pago único", "Entrega ~72hs", "SSL + dominio propio", "Código tuyo"],
+      "chips": [
+        "Pago único",
+        "Entrega ~72hs",
+        "SSL + dominio propio",
+        "Código tuyo"
+      ],
       "includes": [
         {
           "n": "01",
@@ -620,7 +777,12 @@
       "price": "USD 160",
       "listPrice": "USD 400",
       "priceText": "inversión única · pago una sola vez",
-      "chips": ["Pago único", "Formulario incluido", "SEO incluido", "Entrega ~72hs"],
+      "chips": [
+        "Pago único",
+        "Formulario incluido",
+        "SEO incluido",
+        "Entrega ~72hs"
+      ],
       "includes": [
         {
           "n": "01",
@@ -684,7 +846,12 @@
       "price": "USD 320",
       "listPrice": "USD 800",
       "priceText": "inversión única · pago una sola vez",
-      "chips": ["Pago único", "Google Analytics", "Revisiones periódicas", "Soporte 30 días"],
+      "chips": [
+        "Pago único",
+        "Google Analytics",
+        "Revisiones periódicas",
+        "Soporte 30 días"
+      ],
       "includes": [
         {
           "n": "01",
@@ -750,7 +917,13 @@
       "ctaLabel": "Empezá hoy",
       "ctaTitle": "¿LISTO PARA<br /><span class=\"ghost\">EMPEZAR?</span>",
       "ctaDesc": "Completá el briefing y te enviamos una propuesta en menos de 24 horas.",
-      "ctaButton": "→ Completar el briefing"
+      "ctaButton": "→ Completar el briefing",
+      "includesLabel": "Qué incluye",
+      "includesTitle": "TODO LO<br /><span class=\"ghost\">QUE INCLUYE</span>",
+      "noIncludesLabel": "Para que no queden dudas",
+      "noIncludesTitle": "QUÉ NO<br /><span class=\"ghost\">INCLUYE</span>",
+      "noteLink": "Contanos qué necesitás →",
+      "viewPlan": "→ Ver plan"
     }
   },
   "servicesPage": {

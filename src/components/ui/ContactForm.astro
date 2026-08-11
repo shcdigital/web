@@ -1,9 +1,28 @@
 ---
 // src/components/ui/ContactForm.astro
 // Formulario de contacto — honeypot + anti-bot (ver src/scripts/app.js).
+
+import { setLanguage, loadTranslations, tNs } from '../../i18n';
+import type { EsTranslations } from '../../i18n';
+
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+
+setLanguage(lang);
+await loadTranslations(lang);
+
+const contact = tNs<EsTranslations["contact"]>("contact");
+const f = contact.form || {
+  aria: "", name: "Nombre", namePlaceholder: "", email: "Email", whatsapp: "WhatsApp",
+  prefixAria: "", profession: "Profesión", professionPlaceholder: "",
+  project: "Proyecto", projectPlaceholder: "", submit: "→ Enviar consulta", note: "",
+};
 ---
 
-<form id="contactForm" class="cta-form" novalidate aria-label="Formulario de contacto">
+<form id="contactForm" class="cta-form" novalidate aria-label={f.aria}>
   <!-- Honeypot: invisible para humanos, los bots lo completan -->
   <div class="hp-field" aria-hidden="true">
     <label for="hp-website">Sitio web</label>
@@ -11,20 +30,20 @@
   </div>
 
   <div class="f-field">
-    <label class="f-label" for="input-nombre">Nombre</label>
+    <label class="f-label" for="input-nombre">{f.name}</label>
     <input
       type="text"
       id="input-nombre"
       name="nombre"
       class="f-input"
-      placeholder="Tu nombre completo"
+      placeholder={f.namePlaceholder}
       autocomplete="name"
       required
     />
   </div>
 
   <div class="f-field">
-    <label class="f-label" for="input-email">Email</label>
+    <label class="f-label" for="input-email">{f.email}</label>
     <input
       type="email"
       id="input-email"
@@ -37,9 +56,9 @@
   </div>
 
   <div class="f-field">
-    <label class="f-label" for="input-whatsapp">WhatsApp</label>
+    <label class="f-label" for="input-whatsapp">{f.whatsapp}</label>
     <div class="f-phone">
-      <select id="input-prefix" name="prefix" class="f-select" aria-label="Prefijo internacional">
+      <select id="input-prefix" name="prefix" class="f-select" aria-label={f.prefixAria}>
         <option value="+54" selected>🇦🇷 +54</option>
         <option value="+1">🇺🇸 +1</option>
         <option value="+52">🇲🇽 +52</option>
@@ -71,30 +90,30 @@
   </div>
 
   <div class="f-field">
-    <label class="f-label" for="input-profesion">Profesión</label>
+    <label class="f-label" for="input-profesion">{f.profession}</label>
     <input
       type="text"
       id="input-profesion"
       name="profesion"
       class="f-input"
-      placeholder="Ej: Psicóloga, Contador..."
+      placeholder={f.professionPlaceholder}
       autocomplete="organization-title"
     />
   </div>
 
   <div class="f-field">
-    <label class="f-label" for="input-proyecto">Proyecto</label>
+    <label class="f-label" for="input-proyecto">{f.project}</label>
     <input
       type="text"
       id="input-proyecto"
       name="proyecto"
       class="f-input"
-      placeholder="Contanos brevemente qué necesitás..."
+      placeholder={f.projectPlaceholder}
     />
   </div>
 
   <div class="f-submit">
-    <button type="submit" class="f-btn" id="f-btn-submit">→ Enviar consulta</button>
-    <span class="f-note" id="f-note" role="status" aria-live="polite">Respondemos en &lt;24hs</span>
+    <button type="submit" class="f-btn" id="f-btn-submit">{f.submit}</button>
+    <span class="f-note" id="f-note" role="status" aria-live="polite">{f.note}</span>
   </div>
 </form>

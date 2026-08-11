@@ -1,0 +1,159 @@
+---
+// src/pages/[lang]/planes/[plan].astro
+// Detalle de plan por idioma (es/pt/en). Los datos vienen del JSON i18n (planDetail).
+
+import Layout from "../../../layouts/Layout.astro";
+import GhostTitle from "../../../components/ui/GhostTitle.astro";
+import { setLanguage, loadTranslations, tNs } from "../../../i18n";
+import type { EsTranslations } from "../../../i18n";
+
+export async function getStaticPaths() {
+  const { languageCodes } = await import("../../../i18n/languages");
+  const esModule = (await import("../../../i18n/es.json", { with: { type: "json" } })) as {
+    default?: typeof import("../../../i18n/es.json");
+  };
+  const es = esModule.default ?? (esModule as unknown as typeof import("../../../i18n/es.json"));
+  const slugs = Object.keys(es.planDetail).filter((k) => k !== "common");
+  return languageCodes.flatMap((lang) =>
+    slugs.map((plan) => ({ params: { lang, plan }, props: { lang, plan } })),
+  );
+}
+
+const { lang, plan } = Astro.props;
+
+setLanguage(lang);
+await loadTranslations(lang);
+
+interface PlanInclude {
+  n: string;
+  chip: string;
+  title: string;
+  desc: string;
+}
+
+interface PlanDetail {
+  tag: string;
+  name: string;
+  ghost: string;
+  description: string;
+  ideal: string;
+  price: string;
+  listPrice: string;
+  priceText: string;
+  chips: string[];
+  includes: PlanInclude[];
+  notIncludes: string[];
+  note: string;
+  ctaPrimary: string;
+  ctaSecondary: string;
+}
+
+const plans = tNs<EsTranslations["planDetail"]>("planDetail");
+const allPlans = plans as unknown as Record<string, PlanDetail>;
+const p: PlanDetail = allPlans[plan] ?? allPlans.starter;
+const common = plans.common;
+const otrosSlugs = Object.keys(allPlans).filter((k) => k !== "common" && k !== plan);
+
+const domain = "https://shcdigital.net.ar";
+---
+<Layout
+  title={`${p.name} · SHC Digital`}
+  description={p.description}
+  canonical={`${domain}/${lang}/planes/${plan}`}
+  lang={lang}
+  slug="planes"
+  activeNav="precios"
+>
+  <header class="page-header plan-header">
+    <div class="container">
+      <p class="mono-label">{p.tag}</p>
+      <h1 class="big-title">{p.name}<br /><span class="ghost">{p.ghost}</span></h1>
+      <p class="page-header-desc">{p.description}</p>
+      <p class="plan-ideal">{p.ideal}</p>
+
+      <div class="plan-meta">
+        <div class="plan-price">
+          <span class="plan-price-num">{p.price}</span>
+          <span class="plan-price-txt">{p.priceText} · <s>{p.listPrice}</s></span>
+        </div>
+        <div class="plan-ctas">
+          <a href={`/${lang}/briefing`} class="btn-fill">{p.ctaPrimary}</a>
+          <a href={`/${lang}/#precios`} class="btn-outline">{p.ctaSecondary}</a>
+        </div>
+      </div>
+
+      <div class="plan-chips">
+        {p.chips.map((c) => <span class="plan-chip">{c}</span>)}
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- QUÉ INCLUYE -->
+    <section class="svc-section" aria-labelledby="inc-h">
+      <div class="container">
+        <p class="mono-label">{common.includesLabel}</p>
+        <h2 id="inc-h" class="big-title"><GhostTitle title={common.includesTitle} /></h2>
+        <div class="svc-grid">
+          {
+            p.includes.map((it) => (
+              <div class="proc-step">
+                <div class="proc-n" aria-hidden="true">{it.n}</div>
+                <span class="proc-chip">{it.chip}</span>
+                <h3 class="proc-title">{it.title}</h3>
+                <p class="proc-desc">{it.desc}</p>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <!-- QUÉ NO INCLUYE -->
+    <section class="plan-no-section" aria-labelledby="no-h">
+      <div class="container">
+        <p class="mono-label">{common.noIncludesLabel}</p>
+        <h2 id="no-h" class="big-title"><GhostTitle title={common.noIncludesTitle} /></h2>
+        <ul class="plan-no-list">
+          {p.notIncludes.map((item) => <li>{item}</li>)}
+        </ul>
+        <p class="plan-note">
+          {p.note}{' '}
+          <a href={`/${lang}/briefing`} class="inline-link">{common.noteLink}</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- OTROS PLANES -->
+    <section class="svc-section" aria-labelledby="otros-h">
+      <div class="container">
+        <p class="mono-label">{common.label}</p>
+        <h2 id="otros-h" class="big-title"><GhostTitle title={common.title} /></h2>
+        <div class="plan-switch">
+          {
+            otrosSlugs.map((slug) => {
+              const o = allPlans[slug];
+              return (
+                <a href={`/${lang}/planes/${slug}`} class="plan-switch-card">
+                  <span class="plan-switch-tag">{o.tag}</span>
+                  <strong class="plan-switch-name">{o.name}</strong>
+                  <span class="plan-switch-precio">{o.price}</span>
+                  <span class="plan-switch-link">{common.viewPlan}</span>
+                </a>
+              );
+            })
+          }
+        </div>
+      </div>
+    </section>
+
+    <div class="page-cta">
+      <div class="container">
+        <p class="mono-label">{common.ctaLabel}</p>
+        <h2 class="big-title"><GhostTitle title={common.ctaTitle} /></h2>
+        <p>{common.ctaDesc}</p>
+        <a href={`/${lang}/briefing`} class="btn-fill">{common.ctaButton}</a>
+      </div>
+    </div>
+  </main>
+</Layout>
