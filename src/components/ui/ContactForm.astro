@@ -2,7 +2,7 @@
 // src/components/ui/ContactForm.astro
 // Formulario de contacto — honeypot + anti-bot (ver src/scripts/app.js).
 
-import { setLanguage, loadTranslations, tNs } from '../../i18n';
+import { setLanguage, loadTranslations, tNs, t } from '../../i18n';
 import type { EsTranslations } from '../../i18n';
 
 interface Props {
@@ -25,7 +25,7 @@ const f = contact.form || {
 <form id="contactForm" class="cta-form" novalidate aria-label={f.aria}>
   <!-- Honeypot: invisible para humanos, los bots lo completan -->
   <div class="hp-field" aria-hidden="true">
-    <label for="hp-website">Sitio web</label>
+    <label for="hp-website">{t("common.hpLabel", { lang }) || "Sitio web"}</label>
     <input type="text" id="hp-website" name="website" tabindex="-1" autocomplete="off" />
   </div>
 
@@ -49,7 +49,7 @@ const f = contact.form || {
       id="input-email"
       name="email"
       class="f-input"
-      placeholder="tu@email.com"
+      placeholder={f.emailPlaceholder || "tu@email.com"}
       autocomplete="email"
       required
     />

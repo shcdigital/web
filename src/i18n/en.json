@@ -25,7 +25,8 @@
     "navAria": "Main navigation",
     "logoAria": "SHC Digital — Home",
     "langToggle": "Change language",
-    "langMenu": "Available languages"
+    "langMenu": "Available languages",
+    "hpLabel": "Website"
   },
   "hero": {
     "tag": "// web design with artificial intelligence",
@@ -263,6 +264,7 @@
       "name": "Name",
       "namePlaceholder": "Your full name",
       "email": "Email",
+      "emailPlaceholder": "your@email.com",
       "whatsapp": "WhatsApp",
       "prefixAria": "International prefix",
       "profession": "Your profession",

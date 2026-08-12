@@ -35,8 +35,13 @@ const ticker = hero.ticker;
       <p class="hero-tag">{hero.tag}</p>
       <h1 class="hero-h1">
         {hero.titleLine1}<br />
-        <span class="outline">{hero.titleLine2}</span><br />
-        <span class="red">{hero.titleLine3}</span>
+        <span class="outline">{hero.titleLine2}</span>
+        {hero.titleLine3 && (
+          <>
+            <br />
+            <span class="red">{hero.titleLine3}</span>
+          </>
+        )}
       </h1>
       <p class="hero-sub-line">{hero.subLine}</p>
       <p class="hero-sub-note">{hero.subNote}</p>

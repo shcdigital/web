@@ -79,7 +79,7 @@ export async function preloadAllTranslations(): Promise<void> {
  * Get nested value from object using dot notation
  * e.g., getNested(obj, 'hero.title') → obj.hero.title
  */
-function getNested(obj: Record<string, unknown>, key: string): string {
+function getNested(obj: Record<string, unknown>, key: string): string | undefined {
   const keys = key.split('.');
   let current: unknown = obj;
 
@@ -87,11 +87,12 @@ function getNested(obj: Record<string, unknown>, key: string): string {
     if (current && typeof current === 'object' && k in current) {
       current = (current as Record<string, unknown>)[k];
     } else {
-      return '';
+      return undefined;
     }
   }
 
-  return typeof current === 'string' ? current : '';
+  if (current === undefined || current === null) return undefined;
+  return typeof current === 'string' ? current : String(current);
 }
 
 /**
@@ -105,13 +106,14 @@ export function t(key: string, options?: { fallback?: string; lang?: LanguageCod
   let result = getNested(translations, key);
 
   // Fallback chain: requested lang → Spanish → provided fallback → key itself
-  if (!result && lang !== 'es') {
+  // Only falls back when the key is missing — empty strings are valid values.
+  if (result === undefined && lang !== 'es') {
     result = getNested(translationsCache.es, key);
   }
-  if (!result && options?.fallback) {
+  if (result === undefined && options?.fallback) {
     result = options.fallback;
   }
-  if (!result) {
+  if (result === undefined) {
     result = key; // Last resort: return the key
   }
 

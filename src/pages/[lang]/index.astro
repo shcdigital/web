@@ -46,9 +46,9 @@ const contact = tNs<EsTranslations["contact"]>("contact");
 const domain = "https://shcdigital.net.ar";
 ---
 <Layout
-  title={t("hero.titleLine1") + t("hero.titleLine2") + t("hero.titleLine3")}
+  title={[t("hero.titleLine1"), t("hero.titleLine2"), t("hero.titleLine3")].filter(Boolean).join(" ")}
   description={hero.description}
-  ogTitle={t("hero.titleLine1") + " " + t("hero.titleLine2") + " " + t("hero.titleLine3")}
+  ogTitle={[t("hero.titleLine1"), t("hero.titleLine2"), t("hero.titleLine3")].filter(Boolean).join(" ")}
   ogDescription={hero.description}
   canonical={`${domain}/${lang}/`}
   lang={lang}
@@ -86,7 +86,7 @@ const domain = "https://shcdigital.net.ar";
           <GhostTitle title={services.title} />
         </h2>
         <p>{services.description}</p>
-        <a href={`/#${lang}-contacto`} class="btn-fill">{services.cta}</a>
+        <a href={`/${lang}/#contacto`} class="btn-fill">{services.cta}</a>
       </div>
       <div class="serv-grid">
         {services.items.map((s) => (
