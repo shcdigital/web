@@ -137,7 +137,7 @@ const domain = "https://shcdigital.net.ar";
       <div class="testi-carousel" data-carousel>
         <div class="testi-track" data-carousel-track>
           {testimonials.items.map((t, i) => (
-            <article class="t-card" data-carousel-slide={i === 0 ? "active" : undefined}>
+            <article class:list={['t-card', { visible: i === 0 }]} data-carousel-slide={i}>
               <div class="t-mark" aria-hidden="true">"</div>
               <blockquote class="t-text">{t.text}</blockquote>
               <div class="t-rule" aria-hidden="true"></div>
