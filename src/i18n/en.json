@@ -30,12 +30,12 @@
   "hero": {
     "tag": "// web design with artificial intelligence",
     "titleLine1": "YOUR",
-    "titleLine2": "SITE",
-    "titleLine3": "WEB",
+    "titleLine2": "WEB",
+    "titleLine3": "SITE",
     "subLine": "No monthly costs. Ever.",
-    "subNote": "Or choose a minimal monthly maintenance fee, no hassle.",
-    "description": "We design your professional online presence with AI and publish it on <strong>GitHub Pages</strong>, world-class free hosting. Pay once. Your site online forever.",
-    "ctaPrimary": "→ I want my site",
+    "subNote": "Or pay a small monthly maintenance fee if you'd like — no hassle.",
+    "description": "We design your professional online presence with AI and publish it on <strong>GitHub Pages</strong> — world-class free hosting. Pay once. Keep your website online forever.",
+    "ctaPrimary": "→ I want my website",
     "ctaSecondary": "View process",
     "stats": {
       "hosting": {
@@ -47,7 +47,7 @@
       "delivery": {
         "value": "72",
         "unit": "h",
-        "label": "Average delivery",
+        "label": "Average turnaround",
         "desc": "From briefing to live website"
       },
       "payment": {
@@ -71,7 +71,7 @@
       "Custom domain",
       "SSL included",
       "100% responsive",
-      "Your code",
+      "You own the code",
       "72h delivery"
     ],
     "statsAria": "Key stats"
@@ -83,71 +83,71 @@
       {
         "n": "01",
         "chip": "Briefing",
-        "title": "YOU TELL US YOUR PROJECT",
+        "title": "TELL US ABOUT YOUR PROJECT",
         "desc": "Complete a form with your profession, services and style. No meetings. No hassle."
       },
       {
         "n": "02",
         "chip": "Design",
-        "title": "WE CREATE WITH AI",
-        "desc": "We use cutting-edge tools to design a modern, fast and personalized website."
+        "title": "WE DESIGN WITH AI",
+        "desc": "We use cutting-edge tools to design a modern, fast, and personalized website."
       },
       {
         "n": "03",
         "chip": "Review",
-        "title": "WE ADJUST TOGETHER",
-        "desc": "We show the result and make all necessary adjustments according to the selected plan."
+        "title": "WE REFINE IT TOGETHER",
+        "desc": "We show you the result and make all necessary adjustments for the plan you chose."
       },
       {
         "n": "04",
         "chip": "Deploy",
-        "title": "ONLINE ON GITHUB PAGES",
-        "desc": "We publish your website with your custom domain and SSL. Professional free hosting with no future costs."
+        "title": "YOUR WEBSITE GOES LIVE ON GITHUB PAGES",
+        "desc": "We publish your website with your custom domain and SSL. Professional free hosting with no ongoing costs."
       }
     ]
   },
   "services": {
     "label": "Services",
     "title": "EVERYTHING<br /><span class=\"ghost\">INCLUDED</span>",
-    "description": "Each project delivered with attention to detail. No generic templates. No shortcuts. Everything included from the Starter plan.",
+    "description": "Each project delivered with attention to detail. No generic templates. No shortcuts. Everything included in the Starter plan.",
     "cta": "→ Get Started",
     "items": [
       {
         "n": "01",
-        "chip": "Legal Infrastructure",
+        "chip": "Domain & Legal Setup",
         "title": "DOMAIN REGISTRATION",
-        "desc": "Complete technical and legal guidance for registering official domains (.ar or commercial). We ensure correct brand ownership on the internet from day one."
+        "desc": "Full technical and legal guidance for registering official domains (.ar or commercial). We make sure your brand is properly owned online from day one."
       },
       {
         "n": "02",
         "chip": "Visual Identity",
         "title": "AI WEB DESIGN",
-        "desc": "Clean, typographic, editorial interfaces. Minimalist designs for professionals seeking sophistication and absolute clarity. No generic templates."
+        "desc": "Clean, typographic, editorial interfaces. Minimalist designs for professionals seeking sophistication and clarity. No generic templates."
       },
       {
         "n": "03",
         "chip": "Security and DNS",
         "title": "CLOUDFLARE HARDENING",
-        "desc": "Global perimeter security layers. DNS records, WAF firewalls, edge cache optimization, and end-to-end SSL/TLS encrypted certificates."
+        "desc": "Global perimeter security layers. DNS records, WAF firewalls, edge cache optimization, and end-to-end SSL/TLS encryption."
       },
       {
         "n": "04",
         "chip": "Serverless",
         "title": "GITHUB PAGES",
-        "desc": "Automated pipeline repositories. Static deployments with zero maintenance cost — $0 monthly hosting — and 99.99% server availability.",
+        "desc": "Automated pipeline repositories. Static deployments with zero maintenance cost — $0 monthly hosting — and 99.99% uptime.",
         "extra": "Hosting conditions and limits →"
       },
       {
         "n": "05",
         "chip": "Automations",
         "title": "FORMS + ALERTS",
-        "desc": "Asynchronous integration via APIs. Each inquiry saves data in Google Sheets, notifies via WhatsApp, and sends an email confirmation to the client in milliseconds."
+        "desc": "Asynchronous integration via APIs. Each inquiry is saved to Google Sheets, triggers a WhatsApp notification, and sends an email confirmation to the client — all in milliseconds."
       },
       {
         "n": "06",
         "chip": "Performance & SEO",
         "title": "CORE WEB VITALS",
-        "desc": "Scores approaching 100% in Google Lighthouse. Script minification, WebP/AVIF compression and critical rendering optimization for maximum performance and ranking."
+        "desc": "Scores approaching 100 on Google Lighthouse. Script minification, WebP/AVIF compression and critical rendering optimization for maximum performance and search ranking."
       }
     ]
   },
@@ -161,7 +161,7 @@
         "Personalized AI design",
         "GitHub Pages + SSL",
         "Custom domain configured",
-        "2 rounds of review",
+        "2 rounds of revisions",
         "Multiple pages",
         "Contact form",
         "✗ periodic reviews"
@@ -175,8 +175,8 @@
         "GitHub Pages + SSL",
         "Custom domain configured",
         "Contact form",
-        "Optimized basic SEO",
-        "4 rounds of review"
+        "Basic SEO optimization",
+        "4 rounds of revisions"
       ]
     },
     "business": {
@@ -193,30 +193,30 @@
   },
   "testimonials": {
     "label": "Testimonials",
-    "title": "WHAT<br /><span class=\"ghost\">THEY SAY</span>",
+    "title": "WHAT OUR<br /><span class=\"ghost\">CLIENTS SAY</span>",
     "items": [
       {
-        "text": "Incredible quality of the result. My website ended up exactly as I imagined and I don't have to pay monthly. I recommend it to all my colleagues.",
+        "text": "The quality of the result is incredible. My website turned out exactly as I imagined, and I don't have to pay monthly. I recommend it to all my colleagues.",
         "name": "Martina González",
         "role": "Clinical Psychologist · Buenos Aires"
       },
       {
-        "text": "I always avoided having a website because of the costs. With SHC Digital I finally got one and the result exceeded all my expectations.",
+        "text": "I always avoided having a website because of the cost. With SHC Digital I finally got one, and the result exceeded all my expectations.",
         "name": "Roberto Lagos",
         "role": "Public Accountant"
       },
       {
-        "text": "In 48 hours I had my website online, modern and professional. AI technology really makes the difference in the final design.",
+        "text": "Within 48 hours I had my website online, modern and professional. AI really makes a difference in the final design.",
         "name": "Valeria Soto",
         "role": "Sports Nutritionist"
       },
       {
-        "text": "The support throughout the whole process made it incredibly easy to take the leap. Today we have the magazine Tramas del Sur online and it turned out exactly as I dreamed.",
+        "text": "The support I received throughout the whole process made it incredibly easy to take the leap. Today the magazine Tramas del Sur is online, and it turned out exactly as I dreamed.",
         "name": "Karina Villalba",
         "role": "General Coordinator · Revista Tramas del Sur"
       },
       {
-        "text": "I don't understand anything about technology, I was terrified to make a website. But honestly they made it incredibly easy for me, I just showed them my crafts and they built a beautiful showcase with all my catalog. It turned out impeccable and without any headaches!",
+        "text": "I don't know anything about technology and I was terrified of making a website. But honestly, they made it incredibly easy for me — I just showed them my crafts and they built a beautiful showcase with my entire catalog. It turned out impeccable, without any headaches!",
         "name": "Matías M.",
         "role": "Wood and Leather Artisan"
       }
@@ -227,36 +227,36 @@
   "why": [
     {
       "icon": "$0/MONTHLY",
-      "title": "Permanent free hosting",
-      "text": "GitHub Pages has no costs. Ever. Your website online without monthly payments."
+      "title": "Free hosting, forever",
+      "text": "GitHub Pages costs nothing. Ever. Your website stays online with no monthly payments."
     },
     {
       "icon": "72H",
       "title": "Ultra-fast delivery",
-      "text": "From when we contact you to having the website live, on average 72 hours."
+      "text": "From our first contact to your website going live: 72 hours on average."
     },
     {
       "icon": "100%",
-      "title": "The code is yours",
-      "text": "We deliver everything. No locks. No dependencies. Your website lives wherever you want."
+      "title": "You own the code",
+      "text": "We hand everything over — no locks, no dependencies. Your website lives wherever you want."
     },
     {
       "icon": "AI",
-      "title": "Professional-grade design",
-      "text": "Artificial intelligence applied to create unique, modern and high-quality designs."
+      "title": "Professional-quality design",
+      "text": "Artificial intelligence applied to create unique, modern, high-quality designs."
     }
   ],
   "briefingCta": {
     "label": "Briefing",
     "title": "TELL US ABOUT<br /><span class=\"ghost\">YOUR PROJECT</span>",
-    "description": "Every SHC website starts with a briefing: a quick guide where you tell us your profession, audience and the style you're looking for. It's <strong>10 minutes, no meetings and no commitment</strong>. With your answers we create a personalized proposal and send it to you in less than 24 hours. The more you tell us, the more tailored and perfect the design will be.",
+    "description": "Every SHC website starts with a briefing: a quick guide where you tell us your profession, audience, and the style you're looking for. It takes <strong>10 minutes — no meetings, no commitment</strong>. We use your answers to create a personalized proposal and send it to you within 24 hours. The more you tell us, the more tailored your website will be.",
     "cta": "→ Complete the briefing",
-    "note": "Only name and email are required"
+    "note": "Only your name and email are required"
   },
   "contact": {
     "label": "Contact",
     "title": "CONTACT US<br /><span class=\"ghost\">AND TALK</span><br />ABOUT YOUR IDEAS",
-    "intro": "Complete the form and we'll respond in less than 24 hours with a budget without commitment.",
+    "intro": "Complete the form and we'll get back to you within 24 hours with a no-obligation quote.",
     "whyTitle": "WHY<br /><span class=\"ghost\">CHOOSE US</span>",
     "whyLabel": "Why choose us",
     "form": {
@@ -265,10 +265,10 @@
       "email": "Email",
       "whatsapp": "WhatsApp",
       "prefixAria": "International prefix",
-      "profession": "Profession",
+      "profession": "Your profession",
       "professionPlaceholder": "e.g.: Psychologist, Accountant...",
       "project": "Project",
-      "projectPlaceholder": "Tell us briefly what you need...",
+      "projectPlaceholder": "Tell us about your project",
       "submit": "→ Send message",
       "note": "We reply in <24h",
       "aria": "Contact form"
@@ -285,15 +285,15 @@
       "label": "Progress"
     },
     "hero": {
-      "title": "GUIDE TO <span class=\"ghost\">QUESTIONS</span>",
-      "subtitle": "Complete the data you want to share with us in this form so we can design your ideas together.",
-      "persuade": "<strong>Doubtful about completing everything?</strong> Relax: only name and email are required. But here's the secret — the more you tell us, the more refined and perfectly tailored the design will be. Each answer is a brushstroke with which we paint your website, and the best results are born from the most complete briefings. Yours could be the next one: take 10 minutes and tell us everything, so you receive a website that seems made by someone who knows you from day one."
+      "title": "A FEW <span class=\"ghost\">QUESTIONS</span>",
+      "subtitle": "Fill in whatever you'd like to share with us so we can design your ideas together.",
+      "persuade": "<strong>Not sure whether to fill it all in?</strong> Relax: only your name and email are required. But here's the secret — the more you tell us, the more refined and tailor-made the design will be. Each answer is a brushstroke that paints your website, and the best results come from the most complete briefings. Yours could be the next one: take 10 minutes and tell us everything, so you get a website that feels like it was made by someone who knows you from day one."
     },
     "sections": {
       "contact": {
         "number": "01",
         "title": "CONTACT DETAILS",
-        "hint": "client data",
+        "hint": "your details",
         "fields": {
           "name": {
             "label": "First and last name",
@@ -305,7 +305,7 @@
           },
           "profession": {
             "label": "Profession / Industry",
-            "placeholder": "Ex: Psychologist, Accountant, Barber..."
+            "placeholder": "e.g.: Psychologist, Accountant, Barber..."
           },
           "email": {
             "label": "Email",
@@ -317,7 +317,7 @@
           },
           "city": {
             "label": "City / Country",
-            "placeholder": "Ex: CABA, Argentina"
+            "placeholder": "e.g.: CABA, Argentina"
           }
         }
       },
@@ -332,15 +332,15 @@
           },
           "audience": {
             "label": "Who are you targeting? (ideal audience)",
-            "placeholder": "Ex: professionals aged 30-50, business owners, local customers..."
+            "placeholder": "e.g.: professionals aged 30-50, business owners, local customers..."
           },
           "valueProp": {
             "label": "What is your value proposition?",
-            "placeholder": "Why should they choose you over others? Ex: personalized service, 15 years experience, unique pricing..."
+            "placeholder": "Why should they choose you over others? e.g.: personalized service, 15 years of experience, unique pricing..."
           },
           "differentiator": {
             "label": "What differentiates you from competitors?",
-            "placeholder": "Ex: 48h delivery, in-person service, proprietary method..."
+            "placeholder": "e.g.: 48-hour delivery, in-person service, proprietary method..."
           },
           "objective": {
             "label": "Main objective of the website",
@@ -348,17 +348,17 @@
               "Attract clients and inquiries",
               "Show portfolio / work",
               "Sell products or services online",
-              "Appear as professional and informative",
+              "Appear professional and informative",
               "Other"
             ]
           },
           "competition": {
             "label": "Competitors (if known)",
-            "placeholder": "Ex: MyStudio.com.ar, @competitor on Instagram..."
+            "placeholder": "e.g.: MyStudio.com.ar, @competitor on Instagram..."
           },
           "references": {
             "label": "Websites you like (reference links)",
-            "placeholder": "Paste 1-3 links to pages you like and tell what you like about each..."
+            "placeholder": "Paste 1-3 links to pages you like and tell us what you like about each one..."
           },
           "socialMedia": {
             "label": "Which social media platforms is your brand on?",
@@ -370,32 +370,32 @@
             },
             "placeholder": "username",
             "otherLabel": "Other / links",
-            "otherPlaceholder": "Ex: tiktok.com/yourbrand, youtube.com/@yourbrand..."
+            "otherPlaceholder": "e.g.: tiktok.com/yourbrand, youtube.com/@yourbrand..."
           }
         }
       },
       "content": {
         "number": "03",
         "title": "CONTENT & BRAND",
-        "hint": "texts, photos and colors",
+        "hint": "copy, photos and colors",
         "fields": {
           "texts": {
-            "label": "Do you have the website texts?",
+            "label": "Do you have the copy for your website?",
             "options": [
               {
                 "value": "I have them ready",
-                "title": "I have them ready",
-                "desc": "I'll paste them when asked"
+                "title": "I have it ready",
+                "desc": "I'll paste it when asked"
               },
               {
                 "value": "I have them but want to refine them",
-                "title": "I have them but want to refine them",
+                "title": "I have it, but want to refine it",
                 "desc": ""
               },
               {
                 "value": "I need help writing them",
-                "title": "I need help writing them",
-                "desc": "We'll write them with AI along with the design"
+                "title": "I need help writing it",
+                "desc": "We'll write it with AI along with the design"
               }
             ]
           },
@@ -404,7 +404,7 @@
             "options": [
               "Professional high-quality photos",
               "Basic phone photos",
-              "I don't have — we'll use stock images"
+              "I don't have any — we'll use stock images"
             ],
             "uploadLabel": "Upload your photos (max 3)",
             "uploadHint": "JPG, PNG or WebP · max 3 files · attached to briefing"
@@ -459,7 +459,7 @@
               }
             ],
             "otherLabel": "Tell us what colors you have in mind",
-            "otherPlaceholder": "Ex: navy blue and gold, or decide with them..."
+            "otherPlaceholder": "e.g.: navy blue and gold, or we decide together..."
           },
           "style": {
             "label": "Visual style you're looking for",
@@ -493,7 +493,7 @@
           },
           "tone": {
             "label": "Website voice/tone",
-            "hint": "It's the 'personality' with which your website speaks: the way we write your texts so they sound like you.",
+            "hint": "It's the 'personality' your website speaks with — the way we write your copy so it sounds like you.",
             "options": [
               {
                 "value": "Professional and formal",
@@ -503,17 +503,17 @@
               {
                 "value": "Friendly and approachable",
                 "title": "Friendly and approachable",
-                "desc": "Speaks as an equal, warmth and closeness"
+                "desc": "Speaks to readers as equals, with warmth and closeness"
               },
               {
                 "value": "Direct and sales-focused",
                 "title": "Direct and sales-focused",
-                "desc": "Straight to the point, persuasive and calls to action"
+                "desc": "Straight to the point, persuasive, and action-oriented"
               },
               {
                 "value": "Creative and casual",
                 "title": "Creative and casual",
-                "desc": "Original, with personality and freshness"
+                "desc": "Original, full of personality and freshness"
               },
               {
                 "value": "I don't know — recommend",
@@ -568,11 +568,11 @@
               "Contact"
             ],
             "extras": {
-              "pricesEdit": "Include page for editing and updating prices / packages",
-              "blogEdit": "Include page for editing and updating blog"
+              "pricesEdit": "Include a page for editing and updating prices / packages",
+              "blogEdit": "Include a page for editing and updating the blog"
             },
             "otherLabel": "Other sections not in the list",
-            "otherPlaceholder": "Ex: Online booking, Map, Team..."
+            "otherPlaceholder": "e.g.: Online booking, Map, Team..."
           },
           "contactMode": {
             "label": "How do you want clients to contact you?",
@@ -585,7 +585,7 @@
               {
                 "value": "WhatsApp button",
                 "title": "WhatsApp button",
-                "desc": "One tap and they contact directly via WhatsApp"
+                "desc": "One tap and they contact you directly via WhatsApp"
               },
               {
                 "value": "Form + WhatsApp",
@@ -601,7 +601,7 @@
               "Buy or book online",
               "Call by phone",
               "View work / portfolio",
-              "Inform themselves / read content"
+              "Learn more / read content"
             ]
           },
           "features": {
@@ -640,12 +640,12 @@
               {
                 "value": "Starter — 1 page",
                 "title": "Starter — 1 page",
-                "desc": "Landing page + 2 rounds of review"
+                "desc": "Landing page + 2 rounds of revisions"
               },
               {
                 "value": "Pro — up to 5 sections (most popular)",
                 "title": "Pro — up to 5 sections",
-                "desc": "Form + basic SEO + 4 rounds"
+                "desc": "Form + basic SEO + 4 rounds of revisions"
               },
               {
                 "value": "Business — multi-page",
@@ -693,8 +693,8 @@
     },
     "submit": {
       "button": "→ SEND BRIEFING",
-      "note": "Only name and email are required · the more complete, better the result",
-      "emailNote": "| arrives at shcdigitalsolutions@gmail.com"
+      "note": "Only your name and email are required · the more complete the briefing, the better the result",
+      "emailNote": "| gets sent to shcdigitalsolutions@gmail.com"
     },
     "toast": {
       "success": "Sent. Thank you for trusting us!"
@@ -709,8 +709,8 @@
       "tag": "// plans · 1 page",
       "name": "STARTER PLAN",
       "ghost": "TO START",
-      "description": "Professional presence on a single page. The simplest way to be online: ideal to validate an idea, launch a campaign or give digital identity to your work.",
-      "ideal": "Perfect for professionals and entrepreneurs starting out: clear and professional presence, without overpaying.",
+      "description": "Professional presence on a single page. The simplest way to get online — ideal for validating an idea, launching a campaign, or giving your work a digital identity.",
+      "ideal": "Perfect for professionals and entrepreneurs starting out: a clean, professional presence, without overpaying.",
       "price": "USD 100",
       "listPrice": "USD 250",
       "priceText": "one-time investment · single payment",
@@ -718,44 +718,44 @@
         "One-time payment",
         "Delivery ~72h",
         "SSL + custom domain",
-        "Your code"
+        "You own the code"
       ],
       "includes": [
         {
           "n": "01",
           "chip": "Site",
           "title": "1 PAGE (LANDING PAGE)",
-          "desc": "A unique page with hero, value proposition and your contact details. Perfect to validate an idea, launch a campaign or give digital identity to your work."
+          "desc": "A single page with hero, value proposition, and your contact details. Perfect for validating an idea, launching a campaign, or giving your work a digital identity."
         },
         {
           "n": "02",
           "chip": "Design",
           "title": "PERSONALIZED AI DESIGN",
-          "desc": "No generic templates. Your design is custom-generated according to your industry, colors and style, following SHC's clean typography aesthetic."
+          "desc": "No generic templates. Your design is custom-generated for your industry, colors, and style, following SHC's clean typographic aesthetic."
         },
         {
           "n": "03",
           "chip": "Hosting",
           "title": "GITHUB PAGES + SSL",
-          "desc": "Published on GitHub Pages: world-class hosting with HTTPS certificate. No servers to pay: $0 per month, forever."
+          "desc": "Published on GitHub Pages — world-class hosting with an HTTPS certificate. No servers to pay for: $0 per month, forever."
         },
         {
           "n": "04",
           "chip": "Domain",
           "title": "CUSTOM DOMAIN CONFIGURED",
-          "desc": "We point your domain (yourname.com.ar) and set it up with DNS, verification and HTTPS. Your brand online from day one."
+          "desc": "We point your domain (yourname.com.ar) to your site and set up DNS, verification, and HTTPS. Your brand is online from day one."
         },
         {
           "n": "05",
           "chip": "Review",
-          "title": "2 ROUNDS OF REVIEW",
-          "desc": "Two adjustment instances on the design to get everything as you imagined."
+          "title": "2 ROUNDS OF REVISIONS",
+          "desc": "Two rounds of refinements to get everything exactly as you imagined."
         },
         {
           "n": "06",
           "chip": "Quality",
           "title": "100% RESPONSIVE + BASIC SEO",
-          "desc": "Designed for mobile: looks perfect on any screen. Structure, meta tags and speed optimized for Google ranking."
+          "desc": "Designed mobile-first: looks perfect on any screen. Structure, meta tags, and speed optimized for Google ranking."
         }
       ],
       "notIncludes": [
@@ -765,7 +765,7 @@
         "Advanced SEO and Google Analytics",
         "Blog, galleries or other features"
       ],
-      "note": "Need more? We add any extra — like form, blog or gallery — to your budget.",
+      "note": "Need more? We'll add any extra — a form, blog, or gallery — to your budget.",
       "ctaPrimary": "→ Complete the briefing",
       "ctaSecondary": "← View all plans"
     },
@@ -773,8 +773,8 @@
       "tag": "// plans · up to 5 sections",
       "name": "PRO PLAN",
       "ghost": "MOST POPULAR",
-      "description": "A complete website in a single well-organized page. Everything your business needs to appear, generate inquiries and be found on Google.",
-      "ideal": "The most chosen option: a complete, well-organized website designed to convert visits into inquiries.",
+      "description": "A complete website on a single, well-organized page. Everything your business needs to be seen, generate inquiries, and get found on Google.",
+      "ideal": "The most popular choice: a complete, well-organized website designed to turn visits into inquiries.",
       "price": "USD 160",
       "listPrice": "USD 400",
       "priceText": "one-time investment · single payment",
@@ -789,61 +789,61 @@
           "n": "01",
           "chip": "Site",
           "title": "UP TO 5 SECTIONS",
-          "desc": "Hero, services, prices, testimonials, contact... everything your business needs in a well-organized page that guides visitors to inquiry."
+          "desc": "Hero, services, pricing, testimonials, contact — everything your business needs on a well-organized page that guides visitors toward an inquiry."
         },
         {
           "n": "02",
           "chip": "Design",
           "title": "PREMIUM AI DESIGN",
-          "desc": "More depth and detail in each block. A refined, elevated-quality work, always to your specifications."
+          "desc": "More depth and detail in every block. Refined, elevated-quality work — always to your specifications."
         },
         {
           "n": "03",
           "chip": "Hosting",
           "title": "GITHUB PAGES + SSL",
-          "desc": "Published with world-class hosting and HTTPS certificate. No monthly costs: $0 per month, forever."
+          "desc": "Published with world-class hosting and an HTTPS certificate. No monthly costs: $0 per month, forever."
         },
         {
           "n": "04",
           "chip": "Domain",
           "title": "CUSTOM DOMAIN CONFIGURED",
-          "desc": "We point your domain and keep it running with DNS and HTTPS. Your brand, with your own address."
+          "desc": "We point your domain and keep it running with DNS and HTTPS. Your brand, at its own address."
         },
         {
           "n": "05",
           "chip": "Conversion",
           "title": "CONTACT FORM",
-          "desc": "A form that goes directly to your email (with WhatsApp notification if desired). Customers contact you without intermediaries."
+          "desc": "A form that sends inquiries straight to your email (with a WhatsApp notification if you want). Customers reach you directly, with no intermediaries."
         },
         {
           "n": "06",
           "chip": "SEO",
           "title": "OPTIMIZED BASIC SEO",
-          "desc": "Keyword and structure optimization to rank better and appear when searched."
+          "desc": "Keyword and structure optimization to rank higher and get found when people search."
         },
         {
           "n": "07",
           "chip": "Review",
-          "title": "4 ROUNDS OF REVIEW",
-          "desc": "Double the adjustment instances that Starter: more margin to get everything perfect."
+          "title": "4 ROUNDS OF REVISIONS",
+          "desc": "Twice the revisions of the Starter plan — more room to get everything just right."
         }
       ],
       "notIncludes": [
-        "Multiple pages (plan is single page with up to 5 sections)",
+        "Multiple pages (this plan is a single page with up to 5 sections)",
         "Advanced SEO and Google Analytics",
         "Periodic reviews and ongoing support",
         "Blog, galleries or other features"
       ],
-      "note": "Fell short? We add blog, gallery or additional pages to your budget.",
+      "note": "Need more room? We'll add a blog, gallery, or additional pages to your budget.",
       "ctaPrimary": "→ Complete the briefing",
       "ctaSecondary": "← View all plans"
     },
     "business": {
       "tag": "// plans · multi-page",
       "name": "BUSINESS PLAN",
-      "ghost": "MAXIMUM PROJECTION",
-      "description": "Your company's complete website. Multiple pages, growing content and real metrics: maximum projection for your brand.",
-      "ideal": "For businesses and brands wanting a complete institutional website, with growing content and real metrics.",
+      "ghost": "MAXIMUM REACH",
+      "description": "Your company's complete website. Multiple pages, growing content, and real metrics: maximum reach for your brand.",
+      "ideal": "For businesses and brands that want a complete company website, with growing content and real metrics.",
       "price": "USD 320",
       "listPrice": "USD 800",
       "priceText": "one-time investment · single payment",
@@ -858,49 +858,49 @@
           "n": "01",
           "chip": "Site",
           "title": "MULTIPLE PAGES",
-          "desc": "Home, services, about us, blog, contact... an institutional website with well-defined areas and professional navigation."
+          "desc": "Home, services, about us, blog, contact — a complete company website with well-defined sections and professional navigation."
         },
         {
           "n": "02",
           "chip": "Design",
           "title": "EXCLUSIVE AI DESIGN",
-          "desc": "Custom work with greater reach and brand personality, designed for projects that want to make a strong presence."
+          "desc": "Custom work with greater reach and brand personality, designed for projects that want to make a strong impression."
         },
         {
           "n": "03",
           "chip": "Hosting",
           "title": "GITHUB PAGES + SSL",
-          "desc": "World-class hosting with HTTPS certificate. No monthly costs: $0 per month, forever."
+          "desc": "World-class hosting with an HTTPS certificate. No monthly costs: $0 per month, forever."
         },
         {
           "n": "04",
           "chip": "Domain",
           "title": "CUSTOM DOMAIN CONFIGURED",
-          "desc": "We point your domain and keep it running with DNS and HTTPS. Your brand, with your own address."
+          "desc": "We point your domain and keep it running with DNS and HTTPS. Your brand, at its own address."
         },
         {
           "n": "05",
           "chip": "SEO",
           "title": "ADVANCED SEO",
-          "desc": "Content and editorial optimization plan to rank strongly and sustain growth on Google."
+          "desc": "A content and editorial optimization plan to rank strongly and sustain growth on Google."
         },
         {
           "n": "06",
           "chip": "Analytics",
           "title": "GOOGLE ANALYTICS",
-          "desc": "Visit metrics integrated from day one: you know who visits, where they come from and what they look at."
+          "desc": "Visit metrics integrated from day one: see who visits, where they come from, and what they look at."
         },
         {
           "n": "07",
           "chip": "Content",
           "title": "PERIODIC REVIEWS",
-          "desc": "Content adjustments and updates during the agreed period, so the site stays up to date."
+          "desc": "Content updates during the agreed period, so your site stays up to date."
         },
         {
           "n": "08",
           "chip": "Support",
           "title": "30-DAY POST-DELIVERY SUPPORT",
-          "desc": "Ongoing support during the first month to get started without doubt and resolve any issues."
+          "desc": "Dedicated support for the first month, so you can launch with confidence and resolve any issues."
         }
       ],
       "notIncludes": [
@@ -908,7 +908,7 @@
         "E-commerce / cart with payment gateway (quoted separately)",
         "Complete brand redesign (logo + manual) — quoted separately"
       ],
-      "note": "Need e-commerce or monthly maintenance? We quote separately, no hidden fees.",
+      "note": "Need e-commerce or monthly maintenance? We'll quote it separately — no hidden fees.",
       "ctaPrimary": "→ Complete the briefing",
       "ctaSecondary": "← View all plans"
     },
@@ -917,11 +917,11 @@
       "title": "OTHER<br /><span class=\"ghost\">PLANS</span>",
       "ctaLabel": "Start today",
       "ctaTitle": "READY TO<br /><span class=\"ghost\">START?</span>",
-      "ctaDesc": "Complete the briefing and we'll send a proposal in less than 24 hours.",
+      "ctaDesc": "Complete the briefing and we'll send you a proposal within 24 hours.",
       "ctaButton": "→ Complete the briefing",
       "includesLabel": "What's included",
       "includesTitle": "EVERYTHING<br /><span class=\"ghost\">INCLUDED</span>",
-      "noIncludesLabel": "So there are no doubts",
+      "noIncludesLabel": "And to avoid any doubt",
       "noIncludesTitle": "WHAT'S NOT<br /><span class=\"ghost\">INCLUDED</span>",
       "noteLink": "Tell us what you need →",
       "viewPlan": "→ View plan"
@@ -930,13 +930,13 @@
   "servicesPage": {
     "label": "// digital solutions",
     "title": "SPECIALIZED<br /><span class=\"ghost\">SERVICES</span>",
-    "description": "High-speed web infrastructure and minimalist design. We eliminate technical complexity so your digital identity works without interruptions and without monthly costs.",
+    "description": "High-speed web infrastructure and minimalist design. We remove the technical complexity so your digital identity runs without interruptions — and without monthly costs.",
     "sectionLabel": "What we do",
     "sectionTitle": "EVERYTHING<br /><span class=\"ghost\">INCLUDED</span>",
     "ctaLabel": "Start today",
     "ctaTitle": "READY TO<br /><span class=\"ghost\">START?</span>",
-    "ctaDesc": "Tell us about your project and we'll prepare a proposal in less than 24 hours.",
-    "ctaButton": "→ Consult now",
+    "ctaDesc": "Tell us about your project and we'll prepare a proposal within 24 hours.",
+    "ctaButton": "→ Contact us",
     "githubPagesLink": "Hosting conditions and limits →"
   },
   "terms": {
@@ -944,16 +944,16 @@
     "description": "Terms and Conditions of SHC Digital — Legal and contractual framework.",
     "label": "// legal and contractual framework",
     "titleMain": "TERMS AND<br /><span class=\"ghost\">CONDITIONS</span>",
-    "descriptionMain": "Please read carefully the conditions governing the provision of web development and digital infrastructure deployment services.",
+    "descriptionMain": "Please read these terms carefully. They govern the provision of web development and digital infrastructure deployment services.",
     "date": "// Last update <span>—</span> May 2026",
-    "sectionTitle": "ARTICLES<br /><span class=\"ghost\">LEGAL</span>",
+    "sectionTitle": "LEGAL<br /><span class=\"ghost\">ARTICLES</span>",
     "articles": [
       {
         "n": "01",
-        "chip": "Object",
-        "title": "OBJECT AND SCOPE OF SERVICE",
+        "chip": "Purpose",
+        "title": "PURPOSE AND SCOPE OF SERVICE",
         "body": [
-          "This document constitutes the service agreement between the Developer (hereinafter, <strong>SHC Digital</strong>) and the Requester (hereinafter, the <strong>Client</strong>). The service is limited to visual design, static markup, frontend programming and configuration of base perimeter infrastructure as specified in the accepted commercial proposal."
+          "This document constitutes the service agreement between the Developer (hereinafter <strong>SHC Digital</strong>) and the Client (hereinafter the <strong>Client</strong>). The service is limited to visual design, static markup, frontend programming, and the configuration of baseline perimeter infrastructure, as specified in the accepted commercial proposal."
         ]
       },
       {
@@ -961,8 +961,8 @@
         "chip": "Contents",
         "title": "RESPONSIBILITY FOR INFORMATION",
         "body": [
-          "In accordance with the principles of good faith contractuality regulated in the <strong>Article 961 of the CCyCN</strong>, the Client is the sole and exclusive responsible for the truthfulness, accuracy, legality and intellectual property rights of all information, texts, trademarks, logos and images transferred to SHC Digital.",
-          "SHC Digital does not audit the provided content, remaining exempt from civil, criminal or commercial liability toward claims for infringement of Law No. 11.723, trademark laws or dissemination of false information."
+          "In accordance with the principle of contractual good faith under <strong>Article 961 of the CCyCN</strong>, the Client is solely and exclusively responsible for the truthfulness, accuracy, legality, and intellectual property rights of all information, texts, trademarks, logos, and images transferred to SHC Digital.",
+          "SHC Digital does not audit the content provided and is exempt from civil, criminal, or commercial liability arising from claims of infringement of Law No. 11.723, trademark laws, or the dissemination of false information."
         ]
       },
       {
@@ -970,8 +970,8 @@
         "chip": "Deployment",
         "title": "POST-DEPLOYMENT DECISION",
         "body": [
-          "SHC Digital's obligation is of <strong>means and not of results</strong>. Once the site is approved and deployed, <strong>all technical and legal responsibility shall cease for SHC Digital</strong> over it (<strong>Art. 958 of the CCyCN</strong>).",
-          "SHC Digital is released from liability for damages arising from:"
+          "SHC Digital's obligation is one of <strong>means, not results</strong>. Once the site is approved and deployed, <strong>all technical and legal responsibility for it shall cease for SHC Digital</strong> (<strong>Art. 958 of the CCyCN</strong>).",
+          "SHC Digital shall not be liable for damages arising from:"
         ],
         "list": [
           "Downtime or failures in third-party infrastructure (GitHub Pages, Cloudflare, etc.).",
@@ -985,15 +985,15 @@
         "chip": "Security",
         "title": "SECURITY ENVIRONMENT",
         "body": [
-          "Cloudflare and GitHub Pages configurations are performed following hardening best practices (SSL/TLS, base WAF). The Client acknowledges that in the internet there is no absolute security. SHC Digital will not be liable for cyberattacks or data breaches that exceed configured thresholds, being understood as fortuitous event or technological force majeure (<strong>Art. 1730 of the CCyCN</strong>)."
+          "Cloudflare and GitHub Pages are configured following hardening best practices (SSL/TLS, base WAF). The Client acknowledges that there is no such thing as absolute security on the internet. SHC Digital shall not be liable for cyberattacks or data breaches exceeding the configured thresholds, which shall be considered fortuitous events or technological force majeure (<strong>Art. 1730 of the CCyCN</strong>)."
         ]
       },
       {
         "n": "05",
         "chip": "Jurisdiction",
-        "title": "JURDICTION AND APPLICABLE LAW",
+        "title": "JURISDICTION AND APPLICABLE LAW",
         "body": [
-          "This contract shall exclusively be governed by the laws of the <strong>Republic of Argentina</strong>. Any controversy shall be submitted to the jurisdiction of the competent Ordinary Courts, the parties waiving any other forum or jurisdiction that may correspond to them."
+          "This contract shall be governed exclusively by the laws of the <strong>Republic of Argentina</strong>. Any dispute shall be submitted to the jurisdiction of the competent Ordinary Courts, with the parties waiving any other forum or jurisdiction that may apply."
         ]
       },
       {
@@ -1022,8 +1022,8 @@
         "chip": "Accounts",
         "title": "COMMERCIAL USE OF PERSONAL ACCOUNTS",
         "body": [
-          "<strong>Use permissions:</strong> GitHub's Terms of Service explicitly allow a free personal account to execute projects with commercial purposes. There is no penalty or mandatory charge for operating a commercial site or private repository under this modality.",
-          "<strong>Ownership and independence:</strong> the project and source code are hosted under the client's account. If, in the future, the project requires scaling to a corporate scheme, the account or repository can be migrated without service interruption to a GitHub Organization."
+          "<strong>Use permissions:</strong> GitHub's Terms of Service explicitly allow a free personal account to be used for commercial projects. There is no penalty or mandatory fee for operating a commercial site or private repository under this model.",
+          "<strong>Ownership and independence:</strong> the project and source code are hosted under the client's account. If the project later needs to scale to a corporate setup, the account or repository can be migrated to a GitHub Organization without any service interruption."
         ]
       },
       {
@@ -1035,7 +1035,7 @@
         ],
         "list": [
           "<strong>Accepted sites:</strong> informational corporate sites, professional portfolios, landing pages, digital catalogs and brand blogs.",
-          "<strong>Commercial restrictions (prohibited use):</strong> GitHub Pages is not designed to function as a massive e-commerce platform (with complex transactional payment gateways managed on the same server), nor to resell hosting services or host applications as a software-as-a-service (SaaS)."
+          "<strong>Commercial restrictions (prohibited use):</strong> GitHub Pages is not designed to function as a massive e-commerce platform (with complex transactional payment gateways managed on the same server), nor to resell hosting services or host applications as software-as-a-service (SaaS)."
         ]
       },
       {
@@ -1043,28 +1043,28 @@
         "chip": "Limits",
         "title": "TECHNICAL LIMITS OF FREE SERVICE",
         "body": [
-          "Use of the service within GitHub's free plan includes the following maximum capabilities per repository and published site:"
+          "GitHub's free plan includes the following maximum limits per repository and published site:"
         ],
         "list": [
-          "<strong>Bandwidth (traffic):</strong> 100 GB per month — enough for thousands of monthly site visits in an optimized site.",
-          "<strong>Published site size:</strong> maximum 1 GB — applies to the files deployed for the website.",
-          "<strong>Repository size:</strong> maximum 1 GB (recommended) — limit of source code stored in GitHub.",
-          "<strong>Compilations (builds):</strong> maximum 10 deployments per hour — applies to publishing or updating site content.",
-          "<strong>CI/CD minutes (Actions):</strong> 2,000 minutes per month — allocated time to automate updates or tests."
+          "<strong>Bandwidth (traffic):</strong> 100 GB per month — enough for thousands of monthly visits on an optimized site.",
+          "<strong>Published site size:</strong> maximum 1 GB — this applies to the files deployed for your website.",
+          "<strong>Repository size:</strong> maximum 1 GB (recommended) — the limit for source code stored on GitHub.",
+          "<strong>Compilations (builds):</strong> maximum 10 deployments per hour — applies when publishing or updating site content.",
+          "<strong>CI/CD minutes (Actions):</strong> 2,000 minutes per month — allocated for automating updates or running tests."
         ],
-        "note": "<strong>Note on limits:</strong> if a site repeatedly exceeds the bandwidth limit (100 GB/month) or storage, GitHub does not immediately apply a surprise charge, but may temporarily suspend GitHub Pages service or send a notification to optimize content or migrate to a dedicated server."
+        "note": "<strong>Note on limits:</strong> if a site repeatedly exceeds the bandwidth limit (100 GB/month) or storage, GitHub won't suddenly charge you, but it may temporarily suspend the GitHub Pages service or send a notification asking you to optimize your content or migrate to a dedicated server."
       },
       {
         "n": "04",
         "chip": "Maintenance",
         "title": "RESPONSIBILITIES AND RECOMMENDATIONS",
         "body": [
-          "To ensure continuity and proper functioning of the published site, the following points are recommended:"
+          "To keep your published site running smoothly, we recommend the following:"
         ],
         "list": [
-          "<strong>Custom domain:</strong> to give an appropriate commercial profile, linking a custom domain (example: <a href=\"https://www.yourbusiness.com\" rel=\"noopener\" target=\"_blank\">www.yourbusiness.com</a>) is recommended. DNS record configuration and SSL certificate issuance incur no additional cost on GitHub.",
-          "<strong>Content backup:</strong> very high-resolution images or large files (such as videos or bulky PDFs) should be hosted on external storage services (such as Google Drive, AWS S3 or Cloudinary) to not saturate GitHub Pages limits.",
-          "<strong>Loss or modification of access:</strong> the client is solely responsible for maintaining the security and credentials of their GitHub account, including email access and two-factor authentication (2FA)."
+          "<strong>Custom domain:</strong> for a proper commercial profile, we recommend linking a custom domain (for example: <a href=\"https://www.yourbusiness.com\" rel=\"noopener\" target=\"_blank\">www.yourbusiness.com</a>). DNS records and SSL certificate issuance cost nothing extra on GitHub.",
+          "<strong>Content backup:</strong> very high-resolution images or large files (such as videos or bulky PDFs) should be hosted on external storage services (such as Google Drive, AWS S3, or Cloudinary) so they don't exceed GitHub Pages limits.",
+          "<strong>Loss or modification of access:</strong> the Client is solely responsible for keeping their GitHub account and credentials secure, including email access and two-factor authentication (2FA)."
         ]
       },
       {
@@ -1072,7 +1072,7 @@
         "chip": "Documentation",
         "title": "OFFICIAL GITHUB LINKS",
         "body": [
-          "For more information about official policies, the following official documentation resources can be consulted:"
+          "For more on GitHub's official policies, consult the following official documentation:"
         ],
         "list": [
           "<strong>GitHub General Terms of Service:</strong><br /><a href=\"https://docs.github.com/en/site-policy/github-terms/github-terms-of-service\" rel=\"noopener\" target=\"_blank\">docs.github.com/en/site-policy/github-terms/github-terms-of-service</a>",
