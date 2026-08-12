@@ -20,7 +20,7 @@ const star = (cx: number, cy: number, r: number): string => {
   return `M${pts.join(" L")} Z`;
 };
 
-const AR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Argentina">
+const AR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Argentina">
   <rect width="30" height="20" fill="#FFFFFF"/>
   <path fill="#74ACDF" d="M0 0h30v6.667H0zM0 13.333h30V20H0z"/>
   <g transform="translate(15 10)">
@@ -39,14 +39,14 @@ const AR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   </g>
 </svg>`;
 
-const BR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Brasil">
+const BR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Brasil">
   <rect width="30" height="20" fill="#009C3B"/>
   <path d="M15 1.8 28.5 10 15 18.2 1.5 10Z" fill="#FFDF00"/>
   <circle cx="15" cy="10" r="4.6" fill="#002776"/>
   <path d="M10.2 10.4c1.3-1.05 3-1.6 4.8-1.6 1.8 0 3.5.55 4.8 1.6l-.85 1.05c-1.1-.9-2.5-1.35-3.95-1.35-1.45 0-2.85.45-3.95 1.35z" fill="#FFFFFF"/>
 </svg>`;
 
-const US_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Estados Unidos">
+const US_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Estados Unidos">
   <rect width="30" height="20" fill="#FFFFFF"/>
   <g fill="#B22234">
     <rect width="30" height="1.54" y="0"/>
@@ -77,7 +77,7 @@ const US_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   </g>
 </svg>`;
 
-const ES_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="España">
+const ES_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="España">
   <rect width="30" height="20" fill="#AA151B"/>
   <rect y="5" width="30" height="10" fill="#F1BF00"/>
   <g transform="translate(4 7.5)">
@@ -86,33 +86,33 @@ const ES_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   </g>
 </svg>`;
 
-const BO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Bolivia">
+const BO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Bolivia">
   <rect width="30" height="20" fill="#D52B1E"/>
   <rect y="6.67" width="30" height="6.67" fill="#F9E300"/>
   <rect y="13.33" width="30" height="6.67" fill="#007934"/>
 </svg>`;
 
-const CL_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Chile">
+const CL_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Chile">
   <rect width="30" height="20" fill="#D52B1E"/>
   <rect width="30" height="10" fill="#FFFFFF"/>
   <rect width="10" height="10" fill="#0037A6"/>
   <path d=${star(5, 5, 2.6)} fill="#FFFFFF"/>
 </svg>`;
 
-const CO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Colombia">
+const CO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Colombia">
   <rect width="30" height="20" fill="#CE1126"/>
   <rect width="30" height="15" fill="#003893"/>
   <rect width="30" height="10" fill="#FCD116"/>
 </svg>`;
 
-const CR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Costa Rica">
+const CR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Costa Rica">
   <rect width="30" height="20" fill="#002B7F"/>
   <rect y="3" width="30" height="2" fill="#FFFFFF"/>
   <rect y="5" width="30" height="10" fill="#CE1126"/>
   <rect y="15" width="30" height="2" fill="#FFFFFF"/>
 </svg>`;
 
-const CU_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Cuba">
+const CU_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Cuba">
   <rect width="30" height="20" fill="#FFFFFF"/>
   <g fill="#002A8F">
     <rect width="30" height="4" y="0"/>
@@ -123,7 +123,7 @@ const CU_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   <path d=${star(5, 10, 2.8)} fill="#FFFFFF"/>
 </svg>`;
 
-const DO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="República Dominicana">
+const DO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="República Dominicana">
   <rect width="30" height="20" fill="#CE1126"/>
   <rect width="15" height="10" fill="#002D62"/>
   <rect x="15" y="10" width="15" height="10" fill="#002D62"/>
@@ -131,7 +131,7 @@ const DO_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   <rect x="14.1" width="1.8" height="20" fill="#FFFFFF"/>
 </svg>`;
 
-const EC_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Ecuador">
+const EC_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Ecuador">
   <rect width="30" height="20" fill="#CE1126"/>
   <rect width="30" height="15" fill="#003893"/>
   <rect width="30" height="10" fill="#FCD116"/>
@@ -139,13 +139,13 @@ const EC_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   <circle cx="15" cy="12.5" r="1.5" fill="#003893"/>
 </svg>`;
 
-const GT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Guatemala">
+const GT_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Guatemala">
   <rect width="30" height="20" fill="#FFFFFF"/>
   <rect width="10" height="20" fill="#4997D0"/>
   <rect x="20" width="10" height="20" fill="#4997D0"/>
 </svg>`;
 
-const HN_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Honduras">
+const HN_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Honduras">
   <rect width="30" height="20" fill="#0073CF"/>
   <rect y="5" width="30" height="10" fill="#FFFFFF"/>
   <g fill="#0073CF">
@@ -157,19 +157,19 @@ const HN_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   </g>
 </svg>`;
 
-const MX_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="México">
+const MX_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="México">
   <rect width="30" height="20" fill="#FFFFFF"/>
   <rect width="10" height="20" fill="#006847"/>
   <rect x="20" width="10" height="20" fill="#CE1126"/>
 </svg>`;
 
-const NI_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Nicaragua">
+const NI_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Nicaragua">
   <rect width="30" height="20" fill="#0067C6"/>
   <rect y="5" width="30" height="10" fill="#FFFFFF"/>
   <path d="M15 8.4 L18.2 12 H11.8 Z" fill="#0067C6"/>
 </svg>`;
 
-const PA_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Panamá">
+const PA_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Panamá">
   <rect width="30" height="20" fill="#FFFFFF"/>
   <rect x="15" width="15" height="10" fill="#D21034"/>
   <rect y="10" width="15" height="10" fill="#005293"/>
@@ -177,19 +177,19 @@ const PA_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   <path d=${star(7.5, 15, 2.4)} fill="#D21034"/>
 </svg>`;
 
-const PE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Perú">
+const PE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Perú">
   <rect width="30" height="20" fill="#FFFFFF"/>
   <rect width="10" height="20" fill="#D91023"/>
   <rect x="20" width="10" height="20" fill="#D91023"/>
 </svg>`;
 
-const PY_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Paraguay">
+const PY_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Paraguay">
   <rect width="30" height="5" fill="#D52B1E"/>
   <rect y="5" width="30" height="10" fill="#FFFFFF"/>
   <rect y="15" width="30" height="5" fill="#0038A8"/>
 </svg>`;
 
-const PR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Puerto Rico">
+const PR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Puerto Rico">
   <rect width="30" height="20" fill="#FFFFFF"/>
   <g fill="#EE0000">
     <rect width="30" height="4" y="0"/>
@@ -200,7 +200,7 @@ const PR_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   <path d=${star(5, 10, 2.8)} fill="#FFFFFF"/>
 </svg>`;
 
-const SV_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="El Salvador">
+const SV_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="El Salvador">
   <rect width="30" height="20" fill="#0F47AF"/>
   <rect y="5" width="30" height="10" fill="#FFFFFF"/>
   <g transform="translate(15 10)">
@@ -209,7 +209,7 @@ const SV_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   </g>
 </svg>`;
 
-const UY_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Uruguay">
+const UY_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Uruguay">
   <rect width="30" height="20" fill="#FFFFFF"/>
   <g fill="#0038A8">
     <rect width="30" height="2.22" y="2.22"/>
@@ -233,7 +233,7 @@ const UY_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   </g>
 </svg>`;
 
-const VE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Venezuela">
+const VE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Venezuela">
   <rect width="30" height="20" fill="#CE1126"/>
   <rect width="30" height="15" fill="#00247D"/>
   <rect width="30" height="10" fill="#FFCC00"/>
@@ -249,7 +249,7 @@ const VE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role
   </g>
 </svg>`;
 
-const GLOBE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" role="img" aria-label="Idioma">
+const GLOBE_SVG = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 20" width="22" height="14" role="img" aria-label="Idioma">
   <circle cx="15" cy="10" r="8" fill="#74ACDF"/>
   <path d="M7 10c0 4.4 3.6 8 8 8s8-3.6 8-8-3.6-8-8-8-8 3.6-8 8z" fill="#3C8BC6"/>
   <path d="M15 2v16M7 6h16M7 14h16" stroke="#EAF4FF" stroke-width="1" fill="none"/>
