@@ -5,6 +5,7 @@
 
 import { getCurrentLanguage, t, loadTranslations } from '../../i18n';
 import { languageCodes } from '../../i18n/languages';
+import { getFlagSvg } from './flags';
 
 interface Props {
   lang?: string;
@@ -14,10 +15,8 @@ const { lang = getCurrentLanguage() } = Astro.props;
 
 await loadTranslations(lang);
 
-const flags: Record<string, string> = { es: '🇦🇷', pt: '🇧🇷', en: '🇺🇸' };
 const names: Record<string, string> = { es: 'Español', pt: 'Português', en: 'English' };
 
-const getFlagCode = (code: string): string => flags[code] || '🌐';
 const getLanguageName = (code: string): string => names[code] || names.es;
 ---
 
@@ -30,7 +29,7 @@ const getLanguageName = (code: string): string => names[code] || names.es;
     aria-haspopup="listbox"
     aria-expanded="false"
   >
-    <span class="flag" aria-hidden="true" id="geo-flag">{getFlagCode(lang)}</span>
+    <span class="flag" aria-hidden="true" id="geo-flag" set:html={getFlagSvg(lang)}></span>
     <span class="label">{lang.toUpperCase()}</span>
     <span class="icon" aria-hidden="true">▼</span>
   </button>
@@ -44,7 +43,7 @@ const getLanguageName = (code: string): string => names[code] || names.es;
         aria-selected={code === lang}
         aria-current={code === lang ? 'page' : undefined}
       >
-        <span class="flag" aria-hidden="true">{getFlagCode(code)}</span>
+        <span class="flag" aria-hidden="true" set:html={getFlagSvg(code)}></span>
         <span class="name">{getLanguageName(code)}</span>
       </a>
     ))}
@@ -55,12 +54,12 @@ const getLanguageName = (code: string): string => names[code] || names.es;
   import {
     detectCountry,
     langForCountry,
-    ccToFlag,
     hasManualPick,
     markManualPick,
     getCachedCountry,
     cacheCountry,
   } from "../../lib/geo";
+  import { getFlagSvg, getCountryFlagSvg } from "./flags";
 
   const LANGS = ["es", "pt", "en"];
 
@@ -83,7 +82,7 @@ const getLanguageName = (code: string): string => names[code] || names.es;
     const lang = langForCountry(cc);
     if (!lang) return;
     const flagEl = document.getElementById("geo-flag");
-    if (flagEl) flagEl.textContent = ccToFlag(cc);
+    if (flagEl) flagEl.innerHTML = getCountryFlagSvg(cc) ?? getFlagSvg(lang);
     const here = currentLang();
     if (here === lang) return;
     const segs = location.pathname.split("/").filter(Boolean);
@@ -158,7 +157,17 @@ const getLanguageName = (code: string): string => names[code] || names.es;
   .language-toggle:focus-visible {
     box-shadow: 0 0 0 2px var(--color-primary-500);
   }
-  .flag { font-size: 1.25rem; }
+  .flag {
+    display: inline-flex;
+    align-items: center;
+    line-height: 0;
+  }
+  .flag svg {
+    width: 22px;
+    height: 14px;
+    border-radius: 2px;
+    box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.18);
+  }
   .label { font-weight: 500; }
   .icon { font-size: 0.75rem; }
   .language-menu {

@@ -47,10 +47,6 @@ const LANG_BY_COUNTRY: Record<string, Lang> = {
 
 export const langForCountry = (cc: string): Lang | null => LANG_BY_COUNTRY[cc] ?? null;
 
-// Bandera emoji desde el código ISO (regional indicators).
-export const ccToFlag = (cc: string): string =>
-  String.fromCodePoint(...[...cc].map((c) => 127397 + c.charCodeAt(0)));
-
 const GEO_KEY = "shc_geo";
 const PICK_KEY = "shc_langpick";
 const GEO_TTL_MS = 30 * 24 * 60 * 60 * 1000; // 30 días
